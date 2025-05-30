@@ -147,4 +147,4 @@ MIT License - See LICENSE file for details
 
 ---
 
-> "In the dance of biology and code, we find the rhythm of tomorrow's consciousness." 
+> "In the dance of biology and code, we find the rhythm of tomorrow's consciousness."
