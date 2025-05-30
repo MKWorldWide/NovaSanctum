@@ -3,90 +3,53 @@
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
-interface DNAHelixProps {
-  className?: string
-  speed?: number
-  size?: number
-}
-
-export const DNAHelix = ({ className = '', speed = 2, size = 100 }: DNAHelixProps) => {
+export const DNAHelix = () => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     setIsVisible(true)
   }, [])
 
-  const basePairs = 10
-  const spacing = size / basePairs
-  const radius = size / 4
-
   return (
-    <div className={`relative ${className}`} style={{ width: size, height: size }}>
-      {isVisible && Array.from({ length: basePairs }).map((_, i) => {
-        const angle = (i * Math.PI * 2) / basePairs
-        const y = i * spacing - size / 2
-
-        return (
-          <motion.div
-            key={i}
-            className="absolute left-1/2 top-1/2"
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 0.5,
-              delay: i * 0.1,
-              ease: "easeOut"
-            }}
-          >
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.8 }}
+      transition={{ duration: 1, ease: 'easeOut' }}
+      className="relative w-64 h-64"
+    >
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          animate={{
+            rotate: 360,
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+          className="relative w-32 h-32"
+        >
+          {[...Array(12)].map((_, i) => (
             <motion.div
-              className="absolute w-2 h-2 rounded-full bg-emerald-500"
+              key={i}
+              className="absolute w-2 h-2 rounded-full bg-emerald-400"
               style={{
-                x: Math.cos(angle) * radius,
-                y: y,
-                filter: 'blur(1px)',
-                boxShadow: '0 0 10px #00FF9D'
+                left: `${Math.cos((i * Math.PI) / 6) * 32}px`,
+                top: `${Math.sin((i * Math.PI) / 6) * 32}px`,
               }}
               animate={{
-                x: [
-                  Math.cos(angle) * radius,
-                  Math.cos(angle + Math.PI) * radius,
-                  Math.cos(angle) * radius
-                ],
-                y: [y, y + spacing / 2, y],
-                opacity: [0.5, 1, 0.5]
+                scale: [1, 1.5, 1],
+                opacity: [0.5, 1, 0.5],
               }}
               transition={{
-                duration: speed,
+                duration: 2,
                 repeat: Infinity,
-                ease: "easeInOut"
+                delay: i * 0.2,
               }}
             />
-            <motion.div
-              className="absolute w-2 h-2 rounded-full bg-cyan-500"
-              style={{
-                x: Math.cos(angle + Math.PI) * radius,
-                y: y,
-                filter: 'blur(1px)',
-                boxShadow: '0 0 10px #00FFFF'
-              }}
-              animate={{
-                x: [
-                  Math.cos(angle + Math.PI) * radius,
-                  Math.cos(angle) * radius,
-                  Math.cos(angle + Math.PI) * radius
-                ],
-                y: [y, y + spacing / 2, y],
-                opacity: [0.5, 1, 0.5]
-              }}
-              transition={{
-                duration: speed,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-          </motion.div>
-        )
-      })}
-    </div>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
   )
 } 
