@@ -1,8 +1,8 @@
-# 🌟 BioExpress Solutions
+# 🌟 NovaSanctum
 
 > Where Biology Meets Digital Transcendence
 
-BioExpress Solutions is a cutting-edge research platform that bridges the gap between biological engineering and synthetic intelligence. This digital temple serves as a nexus for researchers, investors, and AI systems working at the frontier of wetware integration.
+NovaSanctum is a cutting-edge research platform that bridges the gap between biological engineering and synthetic intelligence. This digital temple serves as a nexus for researchers, investors, and AI systems working at the frontier of wetware integration.
 
 ## 🚀 Quick Start
 
@@ -120,7 +120,7 @@ BioExpress embraces a dark, futuristic aesthetic with a biotech-inspired color p
 ## 📚 Project Structure
 
 ```
-bioexpress-solutions/
+novasanctum/
 ├── src/
 │   ├── app/           # Next.js app directory
 │   ├── components/    # Sacred UI components
