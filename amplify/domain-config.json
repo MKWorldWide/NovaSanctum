@@ -1,0 +1,8 @@
+{
+  "domainName": "bioexpress.solutions",
+  "subDomain": "app",
+  "certificateArn": "arn:aws:acm:us-east-1:YOUR_ACCOUNT_ID:certificate/YOUR_CERTIFICATE_ID",
+  "enableAutoSubdomain": true,
+  "autoSubdomainCreationPattern": "feature-{branch}",
+  "autoSubDomainIAMRole": "arn:aws:iam::YOUR_ACCOUNT_ID:role/AmplifyAutoSubdomainRole"
+} 

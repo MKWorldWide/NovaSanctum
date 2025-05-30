@@ -1,0 +1,16 @@
+{
+  "trigger": true,
+  "modules": [
+    "captcha-define-challenge"
+  ],
+  "parentResource": "bioexpresssolutions865766a6",
+  "functionName": "bioexpresssolutions865766a6DefineAuthChallenge",
+  "resourceName": "bioexpresssolutions865766a6DefineAuthChallenge",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/snapshot/amplify-cli/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/DefineAuthChallenge",
+  "triggerTemplate": "DefineAuthChallenge.json.ejs",
+  "triggerEventPath": "DefineAuthChallenge.event.json",
+  "roleName": "bioexpresssolutions865766a6DefineAuthChallenge",
+  "skipEdit": true
+}
