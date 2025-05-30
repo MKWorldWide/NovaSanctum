@@ -2,8 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  output: 'standalone',
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', '*.amplifyapp.com'],
+    unoptimized: true
+  },
+  experimental: {
+    optimizeCss: true
   }
 }
 
