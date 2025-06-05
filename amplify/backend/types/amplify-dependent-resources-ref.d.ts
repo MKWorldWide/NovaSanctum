@@ -1,13 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
   "api": {
-    "bioexpresssolutions": {
+    "novasanctum": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string",
       "GraphQLAPIKeyOutput": "string"
     }
   },
   "function": {
-    "bioexpresssolutions865766a6DefineAuthChallenge": {
+    "novasanctum865766a6DefineAuthChallenge": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

@@ -7,7 +7,7 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'BioExpress Solutions',
+  title: 'NovaSanctum',
   description: 'Where Biology Meets Digital Transcendence',
 }
 

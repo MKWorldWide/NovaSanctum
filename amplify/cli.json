@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "projectName": "bioexpress",
+  "projectName": "novasanctum",
   "frontend": "javascript",
   "javascript": {
     "framework": "react",
@@ -15,7 +15,7 @@
     "awscloudformation"
   ],
   "auth": {
-    "bioexpress": {
+    "novasanctum": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -23,7 +23,7 @@
     }
   },
   "api": {
-    "bioexpress": {
+    "novasanctum": {
       "service": "AppSync",
       "providerPlugin": "awscloudformation",
       "output": {
@@ -31,7 +31,7 @@
           "defaultAuthentication": {
             "authenticationType": "AMAZON_COGNITO_USER_POOLS",
             "userPoolConfig": {
-              "userPoolId": "authbioexpress"
+              "userPoolId": "authnovasanctum"
             }
           },
           "additionalAuthenticationProviders": []

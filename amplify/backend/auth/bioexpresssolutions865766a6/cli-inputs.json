@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "bioexpresssolutions865766a6_identitypool_865766a6",
+    "identityPoolName": "novasanctum865766a6_identitypool_865766a6",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "bioexp865766a6",
-    "userPoolName": "bioexpresssolutions865766a6_userpool_865766a6",
+    "resourceNameTruncated": "novas865766a6",
+    "userPoolName": "novasanctum865766a6_userpool_865766a6",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -32,10 +32,10 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "bioexp865766a6_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "novas865766a6_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "sharedId": "865766a6",
-    "resourceName": "bioexpresssolutions865766a6",
+    "resourceName": "novasanctum865766a6",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "triggers": {
@@ -54,7 +54,7 @@
     },
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "verificationBucketName": "bioexpresssolutions865766a6verificationbucket",
+    "verificationBucketName": "novasanctum865766a6verificationbucket",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

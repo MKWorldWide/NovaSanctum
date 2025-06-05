@@ -1,6 +1,6 @@
 export const ENVIRONMENT = {
   // Sacred Constants
-  APP_NAME: 'BioExpress Solutions',
+  APP_NAME: 'NovaSanctum',
   APP_DESCRIPTION: 'Where Biology Meets Digital Transcendence',
   
   // Mystical Colors

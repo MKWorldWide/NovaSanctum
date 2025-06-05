@@ -1,7 +1,7 @@
 {
   "version": 1,
   "serviceConfiguration": {
-    "apiName": "bioexpresssolutions",
+    "apiName": "novasanctum",
     "serviceName": "AppSync",
     "defaultAuthType": {
       "mode": "API_KEY",

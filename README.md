@@ -112,7 +112,7 @@ npm run build
 
 ## 🎨 Design Philosophy
 
-BioExpress embraces a dark, futuristic aesthetic with a biotech-inspired color palette:
+NovaSanctum embraces a dark, futuristic aesthetic with a biotech-inspired color palette:
 - Neon Emerald: `#00FF9D`
 - Deep Slate: `#1A1A1A`
 - Mystic Cyan: `#00FFFF`

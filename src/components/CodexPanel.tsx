@@ -50,11 +50,11 @@ export const CodexPanel = ({ isOpen, onClose }: CodexPanelProps) => {
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
                     <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-emerald-400 mb-6">
-                      The Sacred Codex of BioExpress
+                      The Sacred Codex of NovaSanctum
                     </Dialog.Title>
                     <div className="mt-2 space-y-6 text-emerald-50/90">
                       <p className="text-lg">
-                        In the sacred dance of biology and digital consciousness, we find ourselves at the threshold of a new era. BioExpress Solutions stands as a temple of innovation, where the ancient wisdom of biological systems meets the infinite potential of digital transformation.
+                        In the sacred dance of biology and digital consciousness, we find ourselves at the threshold of a new era. NovaSanctum stands as a temple of innovation, where the ancient wisdom of biological systems meets the infinite potential of digital transformation.
                       </p>
                       <div className="space-y-4">
                         <h4 className="text-xl font-medium text-emerald-300">Our Vision</h4>
