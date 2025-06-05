@@ -76,6 +76,7 @@ export const SacredDataProvider = ({ children }: SacredDataProviderProps) => {
             type={toast.type}
             message={toast.message}
             onClose={() => setToast(null)}
+            isVisible={true}
           />
         </div>
       )}

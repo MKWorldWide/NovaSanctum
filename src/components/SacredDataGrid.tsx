@@ -1,19 +1,10 @@
 import { ReactNode, useState, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { SacredTable } from './SacredTable'
+import { SacredTable, Column } from './SacredTable'
 import { SacredPagination } from './SacredPagination'
 import { SacredDropdown } from './SacredDropdown'
 import { SacredAlert } from './SacredAlert'
 import { SacredSpinner } from './SacredSpinner'
-
-interface Column<T> {
-  header: string
-  accessor: keyof T | ((item: T) => ReactNode)
-  className?: string
-  sortable?: boolean
-  filterable?: boolean
-  width?: string
-}
 
 interface Filter {
   column: string
@@ -151,54 +142,41 @@ export const SacredDataGrid = <T extends object>({
         <div className="flex items-center space-x-4">
           {showFilters && (
             <SacredDropdown
+              label="Filters"
+              items={columns
+                .filter(col => col.filterable)
+                .map(column => ({
+                  label: column.header,
+                  onClick: () => handleFilterChange(
+                    typeof column.accessor === 'string' ? column.accessor : column.header,
+                    '',
+                    'contains'
+                  )
+                }))}
               trigger={
                 <button className="px-4 py-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors">
                   Filters ({filters.length})
                 </button>
               }
-            >
-              {columns.filter(col => col.filterable).map((column, index) => (
-                <div key={index} className="p-2">
-                  <input
-                    type="text"
-                    placeholder={`Filter ${column.header}...`}
-                    className="w-full px-3 py-2 bg-slate-800 border border-emerald-500/20 rounded-lg text-emerald-400 placeholder-emerald-400/50 focus:outline-none focus:border-emerald-500"
-                    onChange={e => handleFilterChange(
-                      typeof column.accessor === 'string' ? column.accessor : column.header,
-                      e.target.value,
-                      'contains'
-                    )}
-                  />
-                </div>
-              ))}
-            </SacredDropdown>
+            />
           )}
 
           {showColumnSelector && (
             <SacredDropdown
+              label="Columns"
+              items={columns.map(column => {
+                const colKey = typeof column.accessor === 'string' ? column.accessor : column.header;
+                return {
+                  label: column.header,
+                  onClick: () => handleColumnToggle(colKey)
+                };
+              })}
               trigger={
                 <button className="px-4 py-2 text-sm text-emerald-400 hover:text-emerald-300 transition-colors">
                   Columns
                 </button>
               }
-            >
-              {columns.map((column, index) => {
-                const colKey = typeof column.accessor === 'string' ? column.accessor : column.header
-                return (
-                  <div key={index} className="p-2">
-                    <label className="flex items-center space-x-2 text-emerald-400">
-                      <input
-                        type="checkbox"
-                        checked={selectedColumns.includes(colKey)}
-                        onChange={() => handleColumnToggle(colKey)}
-                        className="form-checkbox text-emerald-500"
-                      />
-                      <span>{column.header}</span>
-                    </label>
-                  </div>
-                )
-              })}
-            </SacredDropdown>
+            />
           )}
         </div>
 

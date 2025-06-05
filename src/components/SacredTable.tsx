@@ -1,11 +1,13 @@
+import { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 
-interface Column<T> {
-  key: string
+export interface Column<T> {
   header: string
-  render?: (item: T) => React.ReactNode
+  accessor: keyof T | ((item: T) => ReactNode)
+  className?: string
+  sortable?: boolean
+  filterable?: boolean
   width?: string
-  align?: 'left' | 'center' | 'right'
 }
 
 interface SacredTableProps<T> {
@@ -14,17 +16,19 @@ interface SacredTableProps<T> {
   onRowClick?: (item: T) => void
   className?: string
   emptyMessage?: string
-  loading?: boolean
+  isLoading?: boolean
+  loadingMessage?: string
 }
 
-export function SacredTable<T>({
+export const SacredTable = <T extends object>({
   columns,
   data,
   onRowClick,
   className = '',
   emptyMessage = 'No data available',
-  loading = false
-}: SacredTableProps<T>) {
+  isLoading = false,
+  loadingMessage = 'Loading...'
+}: SacredTableProps<T>) => {
   return (
     <div className={`relative overflow-hidden rounded-lg border border-emerald-500/20 ${className}`}>
       <div className="overflow-x-auto">
@@ -33,12 +37,11 @@ export function SacredTable<T>({
             <tr className="bg-slate-900/50">
               {columns.map((column) => (
                 <th
-                  key={column.key}
+                  key={column.header}
                   className={`
                     px-6 py-3 text-left text-xs font-medium
                     text-emerald-400 uppercase tracking-wider
                     ${column.width ? `w-${column.width}` : ''}
-                    ${column.align ? `text-${column.align}` : ''}
                   `}
                 >
                   {column.header}
@@ -47,13 +50,13 @@ export function SacredTable<T>({
             </tr>
           </thead>
           <tbody className="divide-y divide-emerald-500/10">
-            {loading ? (
+            {isLoading ? (
               <tr>
                 <td
                   colSpan={columns.length}
                   className="px-6 py-4 text-center text-sm text-slate-400"
                 >
-                  Loading...
+                  {loadingMessage}
                 </td>
               </tr>
             ) : data.length === 0 ? (
@@ -81,16 +84,15 @@ export function SacredTable<T>({
                 >
                   {columns.map((column) => (
                     <td
-                      key={column.key}
+                      key={column.header}
                       className={`
                         px-6 py-4 whitespace-nowrap text-sm
                         text-slate-300
-                        ${column.align ? `text-${column.align}` : ''}
                       `}
                     >
-                      {column.render
-                        ? column.render(item)
-                        : (item as any)[column.key]}
+                      {typeof column.accessor === 'function'
+                        ? column.accessor(item)
+                        : (item as any)[column.accessor as keyof T]}
                     </td>
                   ))}
                 </motion.tr>
