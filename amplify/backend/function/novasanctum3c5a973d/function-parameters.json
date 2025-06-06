@@ -1,0 +1,9 @@
+{
+  "functionName": "novasanctum3c5a973d",
+  "runtime": "nodejs18.x",
+  "handler": "index.handler",
+  "timeout": 30,
+  "memorySize": 128,
+  "environmentVariables": {},
+  "lambdaLayers": []
+}

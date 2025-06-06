@@ -1,0 +1,9 @@
+{
+  "appId": "d6i9np1z3yfe4",
+  "branchName": "main",
+  "framework": "react",
+  "buildCommand": "npm run-script build",
+  "startCommand": "npm run-script start",
+  "sourceDir": "src",
+  "distributionDir": "build"
+} 

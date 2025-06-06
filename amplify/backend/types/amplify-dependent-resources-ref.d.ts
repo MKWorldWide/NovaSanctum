@@ -1,13 +1,17 @@
 export type AmplifyDependentResourcesAttributes = {
-  "api": {
-    "novasanctum": {
-      "GraphQLAPIEndpointOutput": "string",
-      "GraphQLAPIIdOutput": "string",
-      "GraphQLAPIKeyOutput": "string"
+  "auth": {
+    "novasanctum268cf202": {
+      "AppClientID": "string",
+      "AppClientIDWeb": "string",
+      "IdentityPoolId": "string",
+      "IdentityPoolName": "string",
+      "UserPoolArn": "string",
+      "UserPoolId": "string",
+      "UserPoolName": "string"
     }
   },
   "function": {
-    "novasanctum865766a6DefineAuthChallenge": {
+    "novasanctum3c5a973d": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

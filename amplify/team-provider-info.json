@@ -1,15 +1,26 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-novasanctum-dev-8b5c7-authRole",
-      "UnauthRoleArn": "arn:aws:iam::869935067006:role/amplify-novasanctum-dev-8b5c7-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::869935067006:role/amplify-novasanctum-dev-8b5c7-authRole",
+      "AuthRoleName": "amplify-novasanctum-dev-c6a5b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::869935067006:role/amplify-novasanctum-dev-c6a5b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::869935067006:role/amplify-novasanctum-dev-c6a5b-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-novasanctum-dev-8b5c7-deployment",
-      "UnauthRoleName": "amplify-novasanctum-dev-8b5c7-unauthRole",
-      "StackName": "amplify-novasanctum-dev-8b5c7",
-      "StackId": "arn:aws:cloudformation:us-east-1:869935067006:stack/amplify-novasanctum-dev-8b5c7/2c325090-3d23-11f0-a37f-122e2f1fb2c5",
-      "AmplifyAppId": "d3dk7039dugfbe"
+      "DeploymentBucketName": "amplify-novasanctum-dev-c6a5b-deployment",
+      "UnauthRoleName": "amplify-novasanctum-dev-c6a5b-unauthRole",
+      "StackName": "amplify-novasanctum-dev-c6a5b",
+      "StackId": "arn:aws:cloudformation:us-east-1:869935067006:stack/amplify-novasanctum-dev-c6a5b/f0051d80-41f7-11f0-98a6-0affcd87e38f",
+      "AmplifyAppId": "d6i9np1z3yfe4"
+    },
+    "categories": {
+      "auth": {
+        "novasanctum268cf202": {}
+      },
+      "function": {
+        "novasanctum3c5a973d": {
+          "deploymentBucketName": "amplify-novasanctum-dev-c6a5b-deployment",
+          "s3Key": "amplify-builds/novasanctum3c5a973d-42436f356e7475384550-build.zip"
+        }
+      }
     }
   }
 }

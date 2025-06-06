@@ -2,148 +2,143 @@
 
 > Where Biology Meets Digital Transcendence
 
+## 📖 Overview
+
 NovaSanctum is a cutting-edge research platform that bridges the gap between biological engineering and synthetic intelligence. This digital temple serves as a nexus for researchers, investors, and AI systems working at the frontier of wetware integration.
 
-## 🚀 Quick Start
+## 🏗️ Architecture
 
-```bash
-# Install dependencies
-npm install
+### Backend Infrastructure (AWS Amplify)
 
-# Start development server
-npm run dev
+#### Authentication (Amazon Cognito)
+- User Pool: `novasanctum268cf202`
+- Identity Pool: `novasanctum268cf202_identitypool_268cf202__dev`
+- Authentication Flow: Email/Phone with MFA support
+- Security: Password policies and verification mechanisms
 
-# Build for production
-npm run build
-```
+#### Lambda Functions
+- Main Function: `novasanctum3c5a973d`
+  - Runtime: Node.js 18.x
+  - Handler: index.handler
+  - Memory: 128MB
+  - Timeout: 30 seconds
+  - IAM Role: `novasanctumLambdaRole80376d40-dev`
 
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 14 + TypeScript + Tailwind CSS
+### Frontend Stack
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: Zustand
 - **Animation**: Framer Motion
 - **UI Components**: Headless UI
 - **Icons**: Heroicons
-- **State Management**: Zustand
-- **Data Fetching**: Sacred API Service
+- **Data Visualization**: Nivo Charts
 
-## 🌐 Features
+## 🚀 Getting Started
 
-### Sacred Components
+### Prerequisites
+- Node.js 18.x or later
+- AWS CLI configured with appropriate credentials
+- Amplify CLI installed globally
 
-1. **SacredDataGrid**
-   - Advanced data grid with sorting, filtering, and pagination
-   - Column visibility toggle
-   - Row selection
-   - Export functionality
-   - Loading states and error handling
+### Installation
 
-2. **SacredTable**
-   - Sortable columns
-   - Row animations
-   - Loading states
-   - Empty state handling
-   - Mystical styling
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/NovaSanctum.git
+cd NovaSanctum
 
-3. **SacredPagination**
-   - Dynamic page calculation
-   - Animated transitions
-   - Responsive design
-   - Deep emerald styling
+# Install dependencies
+npm install
 
-4. **SacredModal**
-   - Backdrop blur effects
-   - Scale animations
-   - Multiple size options
-   - Mystical borders
+# Initialize Amplify (if not already done)
+amplify init
 
-5. **SacredToast**
-   - Type-based styling
-   - Slide animations
-   - Auto-dismiss
-   - Icon integration
-
-6. **SacredDropdown**
-   - Position options
-   - Click-outside handling
-   - Animated transitions
-   - Item components
-
-7. **SacredTabs**
-   - Animated indicators
-   - Content transitions
-   - Custom styling
-
-8. **SacredAccordion**
-   - Smooth animations
-   - Icon rotations
-   - Multiple items
-
-9. **SacredProgress**
-   - Gradient backgrounds
-   - Size variants
-   - Value display
-
-10. **SacredSpinner**
-    - Continuous rotation
-    - Color variants
-    - Size options
-
-11. **SacredAlert**
-    - Type-based styling
-    - Icon integration
-    - Dismiss functionality
-
-12. **SacredAvatar**
-    - Status indicators
-    - Size variants
-    - Hover effects
-    - Fallback icon
-
-13. **SacredBreadcrumb**
-    - Icon support
-    - Hover animations
-    - Link integration
-
-### Data Management
-
-- **SacredDataProvider**: Global state management for data operations
-- **SacredAPIService**: Robust API client with retry logic and error handling
-- **SacredStore**: Persistent state management with Zustand
-
-## 🎨 Design Philosophy
-
-NovaSanctum embraces a dark, futuristic aesthetic with a biotech-inspired color palette:
-- Neon Emerald: `#00FF9D`
-- Deep Slate: `#1A1A1A`
-- Mystic Cyan: `#00FFFF`
-
-## 📚 Project Structure
-
+# Start development server
+npm run dev
 ```
-novasanctum/
+
+### Environment Variables
+Create a `.env.local` file with the following variables:
+```env
+NEXT_PUBLIC_AWS_REGION=us-east-1
+NEXT_PUBLIC_AWS_USER_POOL_ID=us-east-1_PthzkHrfR
+NEXT_PUBLIC_AWS_USER_POOL_CLIENT_ID=7m9blehm7magr9pudiastl4pak
+NEXT_PUBLIC_GRAPHQL_ENDPOINT=your-graphql-endpoint
+```
+
+## 🛠️ Development
+
+### Available Scripts
+```bash
+npm run dev        # Start development server
+npm run build      # Build for production
+npm run start      # Start production server
+npm run lint       # Run ESLint
+```
+
+### Project Structure
+```
+NovaSanctum/
+├── amplify/               # AWS Amplify configuration
 ├── src/
-│   ├── app/           # Next.js app directory
-│   ├── components/    # Sacred UI components
-│   ├── providers/     # Context providers
-│   ├── services/      # API services
-│   ├── store/         # State management
-│   ├── hooks/         # Custom hooks
-│   └── types/         # TypeScript definitions
-├── public/            # Static assets
-└── tailwind.config.ts # Theme configuration
+│   ├── app/             # Next.js app directory
+│   ├── components/      # React components
+│   ├── config/          # Configuration files
+│   ├── hooks/           # Custom React hooks
+│   ├── services/        # API and service integrations
+│   └── utils/           # Utility functions
+├── public/              # Static assets
+└── tests/              # Test files
 ```
 
-## 🔮 Future Enhancements
+## 🗺️ Roadmap
 
-- Neural network visualization tools
-- Real-time bio-data streaming
-- AR/VR integration for synthetic biology visualization
-- Quantum computing interface for molecular simulations
-- AI-powered research assistant integration
+### Phase 1: Foundation (Current)
+- [x] Project initialization
+- [x] Authentication setup
+- [x] Basic Lambda function
+- [x] Frontend structure
 
-## 📜 License
+### Phase 2: Core Features (Next)
+- [ ] GraphQL API implementation
+- [ ] User profile management
+- [ ] Research data visualization
+- [ ] Collaboration features
 
-MIT License - See LICENSE file for details
+### Phase 3: Advanced Features
+- [ ] Real-time data processing
+- [ ] AI model integration
+- [ ] Advanced analytics
+- [ ] Mobile responsiveness
+
+### Phase 4: Enterprise Features
+- [ ] Multi-tenant support
+- [ ] Advanced security features
+- [ ] Audit logging
+- [ ] Performance optimization
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- AWS Amplify team for the amazing backend infrastructure
+- Next.js team for the powerful frontend framework
+- All contributors and supporters of the project
+
+## 📞 Support
+
+For support, email support@novasanctum.com or join our Discord community.
 
 ---
 

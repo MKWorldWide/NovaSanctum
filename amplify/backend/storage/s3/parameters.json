@@ -1,0 +1,13 @@
+{
+  "bucketName": "novasanctum-storage",
+  "authPolicyName": "s3_amplify_123456789",
+  "unauthPolicyName": "s3_amplify_123456789",
+  "authRoleName": {
+    "Ref": "AuthRoleName"
+  },
+  "unauthRoleName": {
+    "Ref": "UnauthRoleName"
+  },
+  "authPermissions": "rw",
+  "unauthPermissions": "r"
+} 
