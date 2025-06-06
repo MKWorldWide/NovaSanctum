@@ -1,63 +1,79 @@
-'use client'
-
-import { motion } from 'framer-motion'
-import { DNAHelix } from '@/components/DNAHelix'
-import { SacredCard } from '@/components/SacredCard'
-import { SacredButton } from '@/components/SacredButton'
-import { Navigation } from '@/components/Navigation'
+import Link from 'next/link';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800">
-      <Navigation />
-      
-      <div className="container mx-auto px-4 py-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h1 className="text-5xl font-bold text-emerald-400 mb-4">
-            NovaSanctum
-          </h1>
-          <p className="text-xl text-slate-300">
-            Where Biology Meets Digital Transcendence
-          </p>
-        </motion.div>
-
-        <div className="flex justify-center mb-16">
-          <DNAHelix />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          <SacredCard
-            title="Research"
-            description="Explore the frontiers of synthetic biology"
-            icon="🧬"
-          />
-          <SacredCard
-            title="Data"
-            description="Advanced analytics and visualization"
-            icon="📊"
-          />
-          <SacredCard
-            title="Collaborate"
-            description="Connect with researchers worldwide"
-            icon="🌐"
-          />
-        </div>
-
-        <div className="text-center">
-          <SacredButton
-            variant="primary"
-            size="large"
-            onClick={() => console.log('Journey begins...')}
-          >
-            Begin Your Journey
-          </SacredButton>
+    <div className="bg-white">
+      {/* Hero section */}
+      <div className="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20">
+        <div className="mx-auto max-w-7xl pb-24 pt-10 sm:pb-32 lg:grid lg:grid-cols-2 lg:gap-x-8 lg:px-8 lg:py-40">
+          <div className="px-6 lg:px-0 lg:pt-4">
+            <div className="mx-auto max-w-2xl">
+              <div className="max-w-lg">
+                <h1 className="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                  NovaSanctum Research Platform
+                </h1>
+                <p className="mt-6 text-lg leading-8 text-gray-600">
+                  Bridging the gap between biological engineering and synthetic intelligence.
+                  Explore, analyze, and innovate with our cutting-edge research platform.
+                </p>
+                <div className="mt-10 flex items-center gap-x-6">
+                  <Link href="/dashboard" className="btn-primary">
+                    Get started
+                    <ArrowRightIcon className="ml-2 h-5 w-5" aria-hidden="true" />
+                  </Link>
+                  <Link href="/about" className="text-sm font-semibold leading-6 text-gray-900">
+                    Learn more <span aria-hidden="true">→</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </main>
-  )
-} 
+
+      {/* Feature section */}
+      <div className="mx-auto mt-32 max-w-7xl px-6 sm:mt-56 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:text-center">
+          <h2 className="text-base font-semibold leading-7 text-indigo-600">Research Faster</h2>
+          <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Everything you need to advance your research
+          </p>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            Our platform combines powerful tools and intuitive interfaces to accelerate your
+            research and discovery process.
+          </p>
+        </div>
+        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+            {features.map(feature => (
+              <div key={feature.name} className="flex flex-col">
+                <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-gray-900">
+                  {feature.name}
+                </dt>
+                <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                  <p className="flex-auto">{feature.description}</p>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const features = [
+  {
+    name: 'Advanced Analytics',
+    description: 'Powerful tools for analyzing complex biological data and patterns.',
+  },
+  {
+    name: 'Real-time Collaboration',
+    description: 'Work together with researchers worldwide in real-time.',
+  },
+  {
+    name: 'Secure Infrastructure',
+    description: 'Enterprise-grade security for your sensitive research data.',
+  },
+];
