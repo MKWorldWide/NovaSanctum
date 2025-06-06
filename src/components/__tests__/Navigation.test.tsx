@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { Navigation } from '../Navigation';
 
 // Mock next/navigation
@@ -20,10 +20,16 @@ describe('Navigation', () => {
     expect(screen.getByText('About')).toBeInTheDocument();
   });
 
-  it('renders user menu items', () => {
+  it('renders user menu items', async () => {
     render(<Navigation />);
     const userButton = screen.getByRole('button', { name: /open user menu/i });
-    userButton.click();
+
+    await act(async () => {
+      userButton.click();
+    });
+
+    // Wait for the menu to be visible
+    await screen.findByText('Your Profile');
 
     expect(screen.getByText('Your Profile')).toBeInTheDocument();
     expect(screen.getByText('Settings')).toBeInTheDocument();
