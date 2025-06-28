@@ -3,7 +3,8 @@ import Dashboard from '../page';
 
 // Mock the Navigation component
 jest.mock('@/components/Navigation', () => ({
-  Navigation: () => <div data-testid="mock-navigation">Navigation</div>,
+  __esModule: true,
+  default: () => <div data-testid="mock-navigation">Navigation</div>,
 }));
 
 describe('Dashboard', () => {

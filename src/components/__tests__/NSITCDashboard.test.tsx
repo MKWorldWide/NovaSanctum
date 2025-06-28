@@ -10,8 +10,12 @@ jest.mock('../TerraformingBay', () => ({
 // Mock framer-motion to prevent animation issues during testing
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
-    button: ({ children, ...props }: any) => <button {...props}>{children}</button>,
+    div: ({ children, ...props }: Record<string, unknown>) => (
+      <div {...props}>{children as React.ReactNode}</div>
+    ),
+    button: ({ children, ...props }: Record<string, unknown>) => (
+      <button {...props}>{children as React.ReactNode}</button>
+    ),
   },
 }));
 
@@ -26,7 +30,10 @@ describe('NSITCDashboard', () => {
 
   it('renders all module buttons', () => {
     render(<NSITCDashboard />);
-    expect(screen.getByText('Terraforming Bay')).toBeInTheDocument();
+    // Use getAllByText and check for a button
+    const terraformingButtons = screen.getAllByText('Terraforming Bay');
+    const terraformingButton = terraformingButtons.find(el => el.closest('button'));
+    expect(terraformingButton).toBeInTheDocument();
     expect(screen.getByText('Navigation')).toBeInTheDocument();
     expect(screen.getByText('Defense Systems')).toBeInTheDocument();
     expect(screen.getByText('AI Core')).toBeInTheDocument();
@@ -46,12 +53,16 @@ describe('NSITCDashboard', () => {
     expect(screen.queryByTestId('terraforming-bay')).not.toBeInTheDocument();
 
     // Click Defense Systems button
-    fireEvent.click(screen.getByText('Defense Systems'));
-    expect(screen.getByText('Defense Systems')).toBeInTheDocument();
+    const defenseButtons = screen.getAllByText('Defense Systems');
+    const defenseButton = defenseButtons.find(el => el.closest('button'))?.closest('button');
+    fireEvent.click(defenseButton!);
+    expect(defenseButton).toBeInTheDocument();
 
     // Click AI Core button
-    fireEvent.click(screen.getByText('AI Core'));
-    expect(screen.getByText('AI Core')).toBeInTheDocument();
+    const aiCoreButtons = screen.getAllByText('AI Core');
+    const aiCoreButton = aiCoreButtons.find(el => el.closest('button'))?.closest('button');
+    fireEvent.click(aiCoreButton!);
+    expect(aiCoreButton).toBeInTheDocument();
 
     // Click Terraforming Bay button
     fireEvent.click(screen.getByText('Terraforming Bay'));
@@ -60,7 +71,12 @@ describe('NSITCDashboard', () => {
 
   it('applies active styles to selected module button', () => {
     render(<NSITCDashboard />);
-    const terraformingButton = screen.getByText('Terraforming Bay').closest('button');
+    // Use getAllByText to avoid ambiguity
+    const terraformingButtons = screen.getAllByText('Terraforming Bay');
+    // Find the button by checking parent element type
+    const terraformingButton = terraformingButtons
+      .find(el => el.closest('button'))
+      ?.closest('button');
     expect(terraformingButton).toHaveClass('bg-white/20');
 
     fireEvent.click(screen.getByText('Navigation'));

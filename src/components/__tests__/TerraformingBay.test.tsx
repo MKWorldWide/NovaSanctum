@@ -4,7 +4,10 @@ import { TerraformingBay } from '../TerraformingBay';
 // Mock framer-motion to avoid animation issues in tests
 jest.mock('framer-motion', () => ({
   motion: {
-    div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    div: ({ children, ...props }: Record<string, unknown>) => <div {...props}>{children}</div>,
+    button: ({ children, ...props }: Record<string, unknown>) => (
+      <button {...props}>{children}</button>
+    ),
   },
 }));
 
@@ -54,8 +57,13 @@ describe('TerraformingBay', () => {
 
   it('allows selecting a canister', () => {
     render(<TerraformingBay />);
-    const canister = screen.getByText('Ancient Redwood').closest('div');
-    fireEvent.click(canister!);
-    expect(canister).toHaveClass('ring-2');
+    // Find all elements with the canister name
+    const canisterElements = screen.getAllByText('Ancient Redwood');
+    // Find the motion.div with the expected class
+    const canisterDiv = canisterElements
+      .find(el => el.closest('div.p-4.rounded-lg.cursor-pointer'))
+      ?.closest('div.p-4.rounded-lg.cursor-pointer');
+    fireEvent.click(canisterDiv!);
+    expect(canisterDiv).toHaveClass('ring-2');
   });
 });

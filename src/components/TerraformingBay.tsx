@@ -160,28 +160,29 @@ export function TerraformingBay() {
                 <motion.div
                   key={canister.id}
                   whileHover={{ scale: 1.02 }}
-                  className={`p-4 rounded-lg bg-white/5 border border-white/10 cursor-pointer
-                    ${selectedCanister === canister.id ? 'ring-2 ring-emerald-500' : ''}`}
+                  className={`p-4 rounded-lg cursor-pointer flex items-center justify-between space-x-4 transition-all duration-200 ${
+                    selectedCanister === canister.id
+                      ? 'ring-2 ring-emerald-400 bg-white/20 border-2 border-emerald-400'
+                      : 'bg-white/10 border border-white/20'
+                  }`}
                   onClick={() => setSelectedCanister(canister.id)}
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <h3 className="text-lg font-semibold">{canister.name}</h3>
-                      <p className="text-sm text-emerald-200">Type: {canister.type}</p>
-                    </div>
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs font-medium
-                        ${
-                          canister.status === 'ready'
-                            ? 'bg-green-100 text-green-800'
-                            : canister.status === 'deploying'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-blue-100 text-blue-800'
-                        }`}
-                    >
-                      {canister.status.charAt(0).toUpperCase() + canister.status.slice(1)}
-                    </span>
+                  <div>
+                    <h3 className="text-lg font-semibold">{canister.name}</h3>
+                    <p className="text-sm text-emerald-200">Type: {canister.type}</p>
                   </div>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium
+                      ${
+                        canister.status === 'ready'
+                          ? 'bg-green-100 text-green-800'
+                          : canister.status === 'deploying'
+                            ? 'bg-yellow-100 text-yellow-800'
+                            : 'bg-blue-100 text-blue-800'
+                      }`}
+                  >
+                    {canister.status.charAt(0).toUpperCase() + canister.status.slice(1)}
+                  </span>
                   {canister.status === 'deploying' && (
                     <div className="w-full bg-gray-700 rounded-full h-2.5">
                       <div
