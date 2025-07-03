@@ -11,10 +11,9 @@
 
 ### 🧩 Component Architecture
 
-- **Sacred UI Components**: Creating a comprehensive component library with consistent patterns improves development speed and maintainability
-- **Testing-First Approach**: Writing tests alongside components ensures reliability and prevents regressions
-- **Storybook Integration**: Component stories serve as both documentation and development tools
-- **Reusable Patterns**: Consistent patterns across components reduce cognitive load and improve developer experience
+- **Sacred UI System:** Comprehensive design system with 30+ components provides excellent consistency
+- **TypeScript Integration:** Strong typing throughout the application improves maintainability
+- **Component Testing:** Jest tests for critical components ensure reliability
 
 ### 🏗️ Project Structure
 
@@ -95,3 +94,31 @@
 - **Accessibility**: Make the platform accessible to users with disabilities
 - **Internationalization**: Support for multiple languages and regions
 - **Advanced Analytics**: Implement sophisticated data analysis and visualization tools
+
+### AWS Amplify Integration
+
+- **GraphQL Schema:** Well-structured schema in `amplify/backend/api/NovaSanctumAPI/schema.graphql`
+- **Authentication:** Proper auth configuration with custom challenge functions
+- **Backend Functions:** Lambda functions for complex business logic
+
+### Performance Considerations
+
+- **Next.js App Router:** Modern routing system for better performance
+- **Tailwind CSS:** Utility-first approach for rapid development
+- **Storybook:** Component documentation and testing
+
+### Security Best Practices
+
+- **Environment Configuration:** Proper separation of config in `src/config/`
+- **API Security:** GraphQL mutations with proper validation
+- **Authentication Flow:** Custom challenge system for enhanced security
+
+### Development Workflow
+
+- **Testing Strategy:** Jest configuration with proper setup
+- **Component Documentation:** Storybook integration for component library
+- **Type Safety:** Comprehensive TypeScript usage
+
+---
+
+_Last Updated: 2024-12-19_
