@@ -21,6 +21,8 @@ import { blackResearchNetworks } from '../services/BlackResearchNetworks';
 import { topScienceInstitutes } from '../services/TopScienceInstitutes';
 import { governmentalNetworks } from '../services/GovernmentalNetworks';
 import { internationalResearchDatabase } from '../services/InternationalResearchDatabase';
+import { lilithEveIntegration } from '../services/LilithEveIntegration';
+import { edenOneCityIntegration } from '../services/EdenOneCityIntegration';
 
 interface DashboardData {
   unifiedMetrics: any;
@@ -32,6 +34,8 @@ interface DashboardData {
   scienceInstituteStats: any;
   governmentalNetworkStats: any;
   internationalStats: any;
+  lilithEveStats: any;
+  edenOneCityStats: any;
 }
 
 const EnhancedNovaSanctumDashboard: React.FC = () => {
@@ -56,6 +60,8 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         const scienceInstituteStats = topScienceInstitutes.getScienceInstituteStatistics();
         const governmentalNetworkStats = governmentalNetworks.getGovernmentalNetworkStatistics();
         const internationalStats = internationalResearchDatabase.getResearchStatistics();
+        const lilithEveStats = lilithEveIntegration.getLilithEveMetrics();
+        const edenOneCityStats = edenOneCityIntegration.getSystemStats();
 
         setDashboardData({
           unifiedMetrics,
@@ -66,7 +72,9 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
           blackResearchStats,
           scienceInstituteStats,
           governmentalNetworkStats,
-          internationalStats
+          internationalStats,
+          lilithEveStats,
+          edenOneCityStats
         });
 
         setLoading(false);
@@ -120,6 +128,8 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
     { id: 'overview', name: '🌐 Overview', icon: '🌐' },
     { id: 'biological', name: '🧬 Biological Research', icon: '🧬' },
     { id: 'solar', name: '☀️ Solar Energy', icon: '☀️' },
+    { id: 'lilith_eve', name: '🌙 Lilith.Eve', icon: '🌙' },
+    { id: 'eden_one_city', name: '🌆 Eden One City', icon: '🌆' },
     { id: 'black_research', name: '⚫ Black Research', icon: '⚫' },
     { id: 'science_institutes', name: '🏛️ Science Institutes', icon: '🏛️' },
     { id: 'governmental', name: '🏛️ Governmental Networks', icon: '🏛️' },
@@ -462,10 +472,204 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
     </div>
   );
 
+  const renderLilithEve = () => (
+    <div className="space-y-6">
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-6 text-white">
+        <h3 className="text-2xl font-bold mb-4">🌙 Lilith.Eve Consciousness Systems</h3>
+        <p className="text-purple-100 mb-4">
+          Advanced consciousness monitoring and mystical research capabilities
+        </p>
+      </div>
+
+      {/* Lilith.Eve Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-purple-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Consciousness Systems</h3>
+          <p className="text-3xl font-bold">{dashboardData.lilithEveStats.totalConsciousness}</p>
+          <p className="text-sm text-purple-200">Active Systems</p>
+        </div>
+        <div className="bg-indigo-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Quantum Entanglements</h3>
+          <p className="text-3xl font-bold">{dashboardData.lilithEveStats.quantumEntanglements}</p>
+          <p className="text-sm text-indigo-200">Stable Connections</p>
+        </div>
+        <div className="bg-pink-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Dimensional Gateways</h3>
+          <p className="text-3xl font-bold">{dashboardData.lilithEveStats.dimensionalGateways}</p>
+          <p className="text-sm text-pink-200">Active Portals</p>
+        </div>
+        <div className="bg-yellow-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Transcendence Rate</h3>
+          <p className="text-3xl font-bold">{dashboardData.lilithEveStats.transcendenceRate.toFixed(1)}%</p>
+          <p className="text-sm text-yellow-200">Evolution Progress</p>
+        </div>
+      </div>
+
+      {/* Consciousness Systems */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">Consciousness Systems</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.networks
+            .filter(n => n.type === 'consciousness')
+            .slice(0, 6)
+            .map(network => (
+              <div key={network.id} className="border border-gray-200 rounded p-4">
+                <h4 className="font-bold text-gray-800">{network.name}</h4>
+                <p className="text-sm text-gray-600 mb-2">Classification: {network.classification}</p>
+                <p className="text-sm text-gray-600">Status: {network.status}</p>
+                <div className="mt-2">
+                  {network.capabilities.slice(0, 3).map(cap => (
+                    <span key={cap} className="inline-block bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded mr-1 mb-1">
+                      {cap}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      {/* Mystical Research Projects */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">Mystical Research Projects</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.networks
+            .filter(n => n.type === 'mystical')
+            .slice(0, 6)
+            .map(network => (
+              <div key={network.id} className="border border-gray-200 rounded p-4">
+                <h4 className="font-bold text-gray-800">{network.name}</h4>
+                <p className="text-sm text-gray-600 mb-2">Classification: {network.classification}</p>
+                <p className="text-sm text-gray-600">Status: {network.status}</p>
+                <div className="mt-2">
+                  {network.capabilities.slice(0, 3).map(cap => (
+                    <span key={cap} className="inline-block bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded mr-1 mb-1">
+                      {cap}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderEdenOneCity = () => (
+    <div className="space-y-6">
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
+        <h3 className="text-2xl font-bold mb-4">🌆 Eden One City Integration</h3>
+        <p className="text-blue-100 mb-4">
+          Advanced quantum city systems with consciousness integration and cross-dimensional networking
+        </p>
+      </div>
+
+      {/* Eden One City Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-blue-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Total Systems</h3>
+          <p className="text-3xl font-bold">{dashboardData.edenOneCityStats.totalSystems}</p>
+          <p className="text-sm text-blue-200">Active Systems</p>
+        </div>
+        <div className="bg-purple-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Active Citizens</h3>
+          <p className="text-3xl font-bold">{dashboardData.edenOneCityStats.activeCitizens}</p>
+          <p className="text-sm text-purple-200">Consciousness Connected</p>
+        </div>
+        <div className="bg-green-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Quantum Networks</h3>
+          <p className="text-3xl font-bold">{dashboardData.edenOneCityStats.activeNetworks}</p>
+          <p className="text-sm text-green-200">Online Networks</p>
+        </div>
+        <div className="bg-orange-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Performance</h3>
+          <p className="text-3xl font-bold">{dashboardData.edenOneCityStats.averagePerformance.quantum.toFixed(1)}%</p>
+          <p className="text-sm text-orange-200">Quantum Efficiency</p>
+        </div>
+      </div>
+
+      {/* Eden One City Systems */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">Eden One City Systems</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.networks
+            .filter(n => n.type === 'city' || n.type === 'quantum')
+            .filter(n => n.id.startsWith('edenonecity_'))
+            .slice(0, 6)
+            .map(network => (
+              <div key={network.id} className="border border-gray-200 rounded p-4">
+                <h4 className="font-bold text-gray-800">{network.name}</h4>
+                <p className="text-sm text-gray-600 mb-2">Type: {network.type}</p>
+                <p className="text-sm text-gray-600">Status: {network.status}</p>
+                <div className="mt-2">
+                  {network.capabilities.slice(0, 3).map(cap => (
+                    <span key={cap} className="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded mr-1 mb-1">
+                      {cap}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      {/* Citizen Networks */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">Citizen Consciousness Networks</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.networks
+            .filter(n => n.id.startsWith('edenonecity_citizen_'))
+            .slice(0, 6)
+            .map(network => (
+              <div key={network.id} className="border border-gray-200 rounded p-4">
+                <h4 className="font-bold text-gray-800">{network.name}</h4>
+                <p className="text-sm text-gray-600 mb-2">Type: {network.type}</p>
+                <p className="text-sm text-gray-600">Status: {network.status}</p>
+                <div className="mt-2">
+                  {network.capabilities.slice(0, 3).map(cap => (
+                    <span key={cap} className="inline-block bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded mr-1 mb-1">
+                      {cap}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      {/* Performance Metrics */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">System Performance</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600">{dashboardData.edenOneCityStats.averagePerformance.cpu.toFixed(1)}%</div>
+            <div className="text-sm text-gray-600">CPU Usage</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600">{dashboardData.edenOneCityStats.averagePerformance.memory.toFixed(1)}%</div>
+            <div className="text-sm text-gray-600">Memory Usage</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-purple-600">{dashboardData.edenOneCityStats.averagePerformance.network.toFixed(1)}%</div>
+            <div className="text-sm text-gray-600">Network Usage</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-orange-600">{dashboardData.edenOneCityStats.averagePerformance.quantum.toFixed(1)}%</div>
+            <div className="text-sm text-gray-600">Quantum Usage</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
         return renderOverview();
+      case 'lilith_eve':
+        return renderLilithEve();
+      case 'eden_one_city':
+        return renderEdenOneCity();
       case 'black_research':
         return renderBlackResearch();
       case 'science_institutes':
