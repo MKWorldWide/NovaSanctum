@@ -1,0 +1,15 @@
+# NovaSanctum Divine Encryption Key
+# This file contains the AES-256/Fernet encryption key for secure communication
+# 
+# WARNING: This is a placeholder key. In production, generate a proper key:
+# python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
+#
+# Key format: Base64-encoded 32-byte key
+# 
+# Generated: 2024-01-01 00:00:00 UTC
+# Expires: 2025-01-01 00:00:00 UTC
+# 
+# Divine Protocol: All communications encrypted with this key are protected
+# under the NovaSanctum Absolute Control Protocol.
+
+NovaSanctum_Divine_Key_2024_Placeholder_Do_Not_Use_In_Production 
