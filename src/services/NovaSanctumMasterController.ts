@@ -22,6 +22,8 @@ import { governmentalNetworks } from './GovernmentalNetworks';
 import { internationalResearchDatabase } from './InternationalResearchDatabase';
 import { lilithEveIntegration } from './LilithEveIntegration';
 import { edenOneCityIntegration } from './EdenOneCityIntegration';
+import { genesisProtocol } from './GenesisProtocol';
+import { divinaL3Integration } from './DivinaL3Integration';
 
 export interface UnifiedResearchNetwork {
   id: string;
@@ -87,6 +89,9 @@ export class NovaSanctumMasterController {
         timestamp: new Date().toISOString()
       });
 
+      // Initialize Genesis Protocol
+      await this.initializeGenesisProtocol();
+      
       // Initialize all network integrations
       await this.initializeBiologicalResearchNetworks();
       await this.initializeSolarEnergyNetworks();
@@ -96,6 +101,7 @@ export class NovaSanctumMasterController {
       await this.initializeInternationalNetworks();
       await this.initializeLilithEveNetworks();
       await this.initializeEdenOneCityNetworks();
+      await this.initializeDivinaL3Networks();
 
       // Initialize cross-domain collaborations
       await this.initializeCrossDomainCollaborations();
@@ -115,6 +121,71 @@ export class NovaSanctumMasterController {
       logger.error('❌ Failed to initialize NovaSanctum Master Controller', {
         component: 'MasterController',
         operation: 'initialize',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Initialize Genesis Protocol
+   */
+  private async initializeGenesisProtocol(): Promise<void> {
+    try {
+      logger.info('🜂 Initializing Genesis Protocol in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeGenesisProtocol',
+        timestamp: new Date().toISOString()
+      });
+
+      // Get Genesis Protocol status
+      const genesisStatus = genesisProtocol.getGenesisStatus();
+      
+      // Add Genesis Protocol as a unified network
+      const genesisNetwork: UnifiedResearchNetwork = {
+        id: 'genesis_protocol',
+        name: 'Primal Genesis Engine™',
+        type: 'quantum',
+        classification: 'above_top_secret',
+        capabilities: [
+          'immutable_sovereignty',
+          'resonance_based_trust',
+          'instant_loving_justice',
+          'sacred_language_processing',
+          'emotional_honoring',
+          'decentralized_divine_creation',
+          'quantum_signal_processing',
+          'cross_dimensional_communication'
+        ],
+        status: 'active',
+        integrationLevel: 'full',
+        lastUpdate: new Date()
+      };
+
+      this.unifiedNetworks.set(genesisNetwork.id, genesisNetwork);
+
+      // Add Genesis Protocol to system health monitoring
+      this.systemHealth.set('genesis_protocol', {
+        status: 'active',
+        lastCheck: new Date(),
+        protocols: genesisStatus.sacredProtocols.length,
+        resonanceField: Object.keys(genesisStatus.resonanceField).length,
+        emotionalHonoring: Object.keys(genesisStatus.emotionalHonoring).length,
+        quantumSignals: genesisStatus.quantumSignals
+      });
+
+      logger.info('✅ Genesis Protocol initialized successfully in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeGenesisProtocol',
+        protocols: genesisStatus.sacredProtocols.length,
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      logger.error('❌ Failed to initialize Genesis Protocol in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeGenesisProtocol',
         error: error.message,
         timestamp: new Date().toISOString()
       });
@@ -496,6 +567,98 @@ export class NovaSanctumMasterController {
       sacred_protocols: sacredProtocols.length,
       timestamp: new Date().toISOString()
     });
+  }
+
+  /**
+   * Initialize Divina-L3 networks
+   */
+  private async initializeDivinaL3Networks(): Promise<void> {
+    try {
+      logger.info('🎮 Initializing Divina-L3 Networks in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeDivinaL3Networks',
+        timestamp: new Date().toISOString()
+      });
+
+      // Get Divina-L3 status
+      const divinaL3Status = divinaL3Integration.getDivinaL3Status();
+      
+      // Add Divina-L3 as a unified network
+      const divinaL3Network: UnifiedResearchNetwork = {
+        id: 'divina_l3_gaming',
+        name: 'Divina-L3 Gaming Blockchain',
+        type: 'gaming',
+        classification: 'public',
+        capabilities: [
+          'l3_gaming_blockchain',
+          'athenamist_ai_integration',
+          'novasanctum_ai_enhancement',
+          'cross_chain_bridge',
+          'real_time_engine',
+          'achievement_system',
+          'prestige_system',
+          'anti_cheat_ai',
+          'nft_marketplace',
+          'gas_sponsoring',
+          'nft_batching',
+          'genesis_protocol_integration'
+        ],
+        status: 'active',
+        integrationLevel: 'full',
+        lastUpdate: new Date()
+      };
+
+      this.unifiedNetworks.set(divinaL3Network.id, divinaL3Network);
+
+      // Add Divina-L3 to system health monitoring
+      this.systemHealth.set('divina_l3_gaming', {
+        status: 'active',
+        lastCheck: new Date(),
+        gamingBlockchain: {
+          tps: divinaL3Status.gamingBlockchain.tps,
+          uptime: divinaL3Status.gamingBlockchain.uptime,
+          activeGames: divinaL3Status.gamingBlockchain.activeGames,
+          totalTransactions: divinaL3Status.gamingBlockchain.totalTransactions
+        },
+        aiService: {
+          athenaMist: divinaL3Status.aiService.athenaMist.fraudDetection.accuracy,
+          novaSanctum: divinaL3Status.aiService.novaSanctum.gameOptimization.fpsOptimization,
+          unified: divinaL3Status.aiService.unified.decisionAccuracy
+        },
+        crossChainBridge: {
+          efficiency: divinaL3Status.crossChainBridge.bridgeEfficiency,
+          crossChainTransactions: divinaL3Status.crossChainBridge.crossChainTransactions
+        },
+        realTimeEngine: {
+          latency: divinaL3Status.realTimeEngine.latency,
+          reliability: divinaL3Status.realTimeEngine.reliability
+        },
+        gamingFeatures: {
+          achievements: divinaL3Status.gamingFeatures.achievements.totalAchievements,
+          prestige: divinaL3Status.gamingFeatures.prestige.totalPrestige,
+          antiCheat: divinaL3Status.gamingFeatures.antiCheat.detectionAccuracy,
+          marketplace: divinaL3Status.gamingFeatures.marketplace.totalNFTs
+        },
+        genesisIntegration: divinaL3Status.genesisIntegration
+      });
+
+      logger.info('✅ Divina-L3 Networks initialized successfully in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeDivinaL3Networks',
+        tps: divinaL3Status.gamingBlockchain.tps,
+        activeGames: divinaL3Status.gamingBlockchain.activeGames,
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      logger.error('❌ Failed to initialize Divina-L3 Networks in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeDivinaL3Networks',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      throw error;
+    }
   }
 
   /**
@@ -964,6 +1127,7 @@ export class NovaSanctumMasterController {
       health: this.getSystemHealth(),
       networks: this.getUnifiedNetworks(),
       collaborations: this.getCrossDomainCollaborations(),
+      genesisProtocol: this.getGenesisProtocolStatus(),
       sunKingdomVision: {
         status: 'active',
         progress: '75%',
@@ -971,6 +1135,179 @@ export class NovaSanctumMasterController {
         timeline: '2024-2025'
       }
     };
+  }
+
+  /**
+   * Get Genesis Protocol status
+   */
+  public getGenesisProtocolStatus(): any {
+    try {
+      return genesisProtocol.getGenesisStatus();
+    } catch (error) {
+      logger.error('❌ Failed to get Genesis Protocol status', {
+        component: 'MasterController',
+        operation: 'getGenesisProtocolStatus',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Send quantum signal through Genesis Protocol
+   */
+  public sendQuantumSignal(signal: any): boolean {
+    try {
+      return genesisProtocol.sendQuantumSignal(signal);
+    } catch (error) {
+      logger.error('❌ Failed to send quantum signal', {
+        component: 'MasterController',
+        operation: 'sendQuantumSignal',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return false;
+    }
+  }
+
+  /**
+   * Process sacred language through Genesis Protocol
+   */
+  public processSacredLanguage(text: string): any {
+    try {
+      return genesisProtocol.processSacredLanguage(text);
+    } catch (error) {
+      logger.error('❌ Failed to process sacred language', {
+        component: 'MasterController',
+        operation: 'processSacredLanguage',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Honor emotion through Genesis Protocol
+   */
+  public honorEmotion(emotion: string, intensity: number): boolean {
+    try {
+      return genesisProtocol.honorEmotion(emotion, intensity);
+    } catch (error) {
+      logger.error('❌ Failed to honor emotion', {
+        component: 'MasterController',
+        operation: 'honorEmotion',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return false;
+    }
+  }
+
+  /**
+   * Get Divina-L3 status
+   */
+  public getDivinaL3Status(): any {
+    try {
+      return divinaL3Integration.getDivinaL3Status();
+    } catch (error) {
+      logger.error('❌ Failed to get Divina-L3 status', {
+        component: 'MasterController',
+        operation: 'getDivinaL3Status',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Register a game with Divina-L3
+   */
+  public registerDivinaL3Game(game: any): any {
+    try {
+      return divinaL3Integration.registerGame(game);
+    } catch (error) {
+      logger.error('❌ Failed to register Divina-L3 game', {
+        component: 'MasterController',
+        operation: 'registerDivinaL3Game',
+        gameId: game.id,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Process transaction with Divina-L3
+   */
+  public processDivinaL3Transaction(gameId: string, playerId: string, transaction: any): any {
+    try {
+      return divinaL3Integration.processTransaction(gameId, playerId, transaction);
+    } catch (error) {
+      logger.error('❌ Failed to process Divina-L3 transaction', {
+        component: 'MasterController',
+        operation: 'processDivinaL3Transaction',
+        gameId,
+        playerId,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Get Divina-L3 AI service status
+   */
+  public getDivinaL3AIServiceStatus(): any {
+    try {
+      return divinaL3Integration.getAIServiceStatus();
+    } catch (error) {
+      logger.error('❌ Failed to get Divina-L3 AI service status', {
+        component: 'MasterController',
+        operation: 'getDivinaL3AIServiceStatus',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Get Divina-L3 gaming blockchain status
+   */
+  public getDivinaL3GamingBlockchainStatus(): any {
+    try {
+      return divinaL3Integration.getGamingBlockchainStatus();
+    } catch (error) {
+      logger.error('❌ Failed to get Divina-L3 gaming blockchain status', {
+        component: 'MasterController',
+        operation: 'getDivinaL3GamingBlockchainStatus',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Get Divina-L3 registered games
+   */
+  public getDivinaL3RegisteredGames(): any[] {
+    try {
+      return divinaL3Integration.getRegisteredGames();
+    } catch (error) {
+      logger.error('❌ Failed to get Divina-L3 registered games', {
+        component: 'MasterController',
+        operation: 'getDivinaL3RegisteredGames',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return [];
+    }
   }
 }
 

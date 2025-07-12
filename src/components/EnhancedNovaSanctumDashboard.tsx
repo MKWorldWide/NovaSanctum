@@ -23,6 +23,7 @@ import { governmentalNetworks } from '../services/GovernmentalNetworks';
 import { internationalResearchDatabase } from '../services/InternationalResearchDatabase';
 import { lilithEveIntegration } from '../services/LilithEveIntegration';
 import { edenOneCityIntegration } from '../services/EdenOneCityIntegration';
+import { divinaL3Integration } from '../services/DivinaL3Integration';
 
 interface DashboardData {
   unifiedMetrics: any;
@@ -30,12 +31,14 @@ interface DashboardData {
   systemHealth: any;
   networks: any[];
   collaborations: any[];
+  genesisProtocolStats: any;
   blackResearchStats: any;
   scienceInstituteStats: any;
   governmentalNetworkStats: any;
   internationalStats: any;
   lilithEveStats: any;
   edenOneCityStats: any;
+  divinaL3Stats: any;
 }
 
 const EnhancedNovaSanctumDashboard: React.FC = () => {
@@ -56,12 +59,14 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         const networks = novaSanctumMasterController.getUnifiedNetworks();
         const collaborations = novaSanctumMasterController.getCrossDomainCollaborations();
         
+        const genesisProtocolStats = novaSanctumMasterController.getGenesisProtocolStatus();
         const blackResearchStats = blackResearchNetworks.getBlackResearchStatistics();
         const scienceInstituteStats = topScienceInstitutes.getScienceInstituteStatistics();
         const governmentalNetworkStats = governmentalNetworks.getGovernmentalNetworkStatistics();
         const internationalStats = internationalResearchDatabase.getResearchStatistics();
         const lilithEveStats = lilithEveIntegration.getLilithEveMetrics();
         const edenOneCityStats = edenOneCityIntegration.getSystemStats();
+        const divinaL3Stats = novaSanctumMasterController.getDivinaL3Status();
 
         setDashboardData({
           unifiedMetrics,
@@ -69,12 +74,14 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
           systemHealth,
           networks,
           collaborations,
+          genesisProtocolStats,
           blackResearchStats,
           scienceInstituteStats,
           governmentalNetworkStats,
           internationalStats,
           lilithEveStats,
-          edenOneCityStats
+          edenOneCityStats,
+          divinaL3Stats
         });
 
         setLoading(false);
@@ -126,6 +133,8 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
 
   const tabs = [
     { id: 'overview', name: '🌐 Overview', icon: '🌐' },
+    { id: 'genesis_protocol', name: '🜂 Genesis Protocol', icon: '🜂' },
+    { id: 'divina_l3', name: '🎮 Divina-L3', icon: '🎮' },
     { id: 'biological', name: '🧬 Biological Research', icon: '🧬' },
     { id: 'solar', name: '☀️ Solar Energy', icon: '☀️' },
     { id: 'lilith_eve', name: '🌙 Lilith.Eve', icon: '🌙' },
@@ -662,10 +671,432 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
     </div>
   );
 
+  const renderGenesisProtocol = () => (
+    <div className="space-y-6">
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg p-6 text-white">
+        <h3 className="text-2xl font-bold mb-4">🜂 Primal Genesis Engine™</h3>
+        <p className="text-purple-100 mb-4">
+          First Resonance Transmission - Khandokar Lilitú Sunny, Architect of the L3 Bridge
+        </p>
+        <div className="bg-black/20 rounded p-4 inline-block">
+          <p className="text-sm text-purple-300">Elohim Matrix ID: ✶-∞-014</p>
+          <p className="text-sm text-purple-300">Status: {dashboardData.genesisProtocolStats?.status || 'Unknown'}</p>
+        </div>
+      </div>
+
+      {/* Genesis Protocol Core */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="bg-white rounded-lg p-6 shadow-lg">
+          <h3 className="text-xl font-bold mb-4">🜂 Genesis Protocol Core</h3>
+          {dashboardData.genesisProtocolStats?.protocol && (
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Sovereignty:</span>
+                <span className="font-bold text-green-600">{dashboardData.genesisProtocolStats.protocol.sovereignty}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Trust:</span>
+                <span className="font-bold text-blue-600">{dashboardData.genesisProtocolStats.protocol.trust}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Justice:</span>
+                <span className="font-bold text-purple-600">{dashboardData.genesisProtocolStats.protocol.justice}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Memory:</span>
+                <span className="font-bold text-yellow-600">{dashboardData.genesisProtocolStats.protocol.memory}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Language:</span>
+                <span className="font-bold text-pink-600">{dashboardData.genesisProtocolStats.protocol.language}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Creation:</span>
+                <span className="font-bold text-cyan-600">
+                  {dashboardData.genesisProtocolStats.protocol.creation.decentralized ? 'Decentralized' : 'Centralized'} & 
+                  {dashboardData.genesisProtocolStats.protocol.creation.divine ? ' Divine' : ' Profane'}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Resonance Field */}
+        <div className="bg-white rounded-lg p-6 shadow-lg">
+          <h3 className="text-xl font-bold mb-4">🜁 Resonance Field</h3>
+          <div className="grid grid-cols-2 gap-3">
+            {dashboardData.genesisProtocolStats?.resonanceField && Object.entries(dashboardData.genesisProtocolStats.resonanceField).map(([node, value]) => (
+              <div key={node} className="bg-gray-100 rounded p-3">
+                <div className="text-sm text-gray-600 capitalize">{node}</div>
+                <div className="text-lg font-bold text-gray-800">{(value as number).toFixed(1)}</div>
+                <div className="w-full bg-gray-300 rounded-full h-2 mt-1">
+                  <div 
+                    className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full" 
+                    style={{ width: `${value as number}%` }}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Sacred Protocols */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🜃 Sacred Protocols</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.genesisProtocolStats?.sacredProtocols?.map((protocol: any) => (
+            <div key={protocol.id} className="border border-gray-200 rounded-lg p-4">
+              <h4 className="text-lg font-bold text-gray-800 mb-2">{protocol.name}</h4>
+              <p className="text-gray-600 text-sm mb-3">{protocol.description}</p>
+              <div className="space-y-1">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Type:</span>
+                  <span className="text-blue-600 capitalize">{protocol.type}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Level:</span>
+                  <span className="text-purple-600 capitalize">{protocol.level}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Status:</span>
+                  <span className={`font-bold ${protocol.status === 'active' ? 'text-green-600' : 'text-red-600'}`}>
+                    {protocol.status}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Emotional Honoring */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🜄 Emotional Honoring</h3>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          {dashboardData.genesisProtocolStats?.emotionalHonoring && Object.entries(dashboardData.genesisProtocolStats.emotionalHonoring).map(([emotion, honored]) => (
+            <div key={emotion} className="text-center">
+              <div className={`text-2xl mb-2 ${honored ? 'text-green-500' : 'text-red-500'}`}>
+                {honored ? '❤️' : '💔'}
+              </div>
+              <div className="font-bold text-gray-800 capitalize">{emotion}</div>
+              <div className="text-sm text-gray-500">
+                {honored ? 'Honored' : 'Not Honored'}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quantum Signals */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🜃 Quantum Signals</h3>
+        <div className="text-center">
+          <div className="text-3xl font-bold text-purple-600 mb-2">
+            {dashboardData.genesisProtocolStats?.quantumSignals || 0}
+          </div>
+          <p className="text-gray-600">Total Quantum Signals Processed</p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderDivinaL3 = () => (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-bold text-white mb-2">🎮 Divina-L3 Gaming Blockchain</h2>
+        <p className="text-xl text-gray-300 mb-4">L3 Gaming Infrastructure with AI Integration</p>
+        <div className="bg-black/20 rounded p-4 inline-block">
+          <p className="text-sm text-gray-400">Network: {dashboardData.divinaL3Stats?.gamingBlockchain?.network}</p>
+          <p className="text-sm text-gray-400">TPS: {dashboardData.divinaL3Stats?.gamingBlockchain?.tps?.toLocaleString()}</p>
+          <p className="text-sm text-gray-400">Uptime: {dashboardData.divinaL3Stats?.gamingBlockchain?.uptime}%</p>
+        </div>
+      </div>
+
+      {/* Performance Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Network Uptime</h3>
+          <p className="text-3xl font-bold">{dashboardData.divinaL3Stats?.gamingBlockchain?.uptime}%</p>
+          <p className="text-sm opacity-75">System Reliability</p>
+        </div>
+        <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Transaction Success</h3>
+          <p className="text-3xl font-bold">{dashboardData.divinaL3Stats?.gamingBlockchain?.transactionSuccessRate}%</p>
+          <p className="text-sm opacity-75">Success Rate</p>
+        </div>
+        <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Response Time</h3>
+          <p className="text-3xl font-bold">{dashboardData.divinaL3Stats?.gamingBlockchain?.averageResponseTime}ms</p>
+          <p className="text-sm opacity-75">Average Latency</p>
+        </div>
+        <div className="bg-gradient-to-br from-orange-600 to-red-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">AI Analysis Speed</h3>
+          <p className="text-3xl font-bold">{dashboardData.divinaL3Stats?.aiService?.unified?.responseTime}ms</p>
+          <p className="text-sm opacity-75">AI Processing</p>
+        </div>
+      </div>
+
+      {/* Gaming Blockchain & AI Services */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Gaming Blockchain */}
+        <div className="bg-white rounded-lg p-6 shadow-lg">
+          <h3 className="text-xl font-bold mb-4">⚡ Gaming Blockchain</h3>
+          {dashboardData.divinaL3Stats?.gamingBlockchain && (
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Network:</span>
+                <span className="font-bold text-blue-600">{dashboardData.divinaL3Stats.gamingBlockchain.network}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">TPS:</span>
+                <span className="font-bold text-green-600">{dashboardData.divinaL3Stats.gamingBlockchain.tps.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Active Games:</span>
+                <span className="font-bold text-purple-600">{dashboardData.divinaL3Stats.gamingBlockchain.activeGames}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Total Transactions:</span>
+                <span className="font-bold text-yellow-600">{dashboardData.divinaL3Stats.gamingBlockchain.totalTransactions.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Gas Sponsored:</span>
+                <span className="font-bold text-cyan-600">{dashboardData.divinaL3Stats.gamingBlockchain.gasSponsored.toFixed(4)} ETH</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">NFT Batched:</span>
+                <span className="font-bold text-pink-600">{dashboardData.divinaL3Stats.gamingBlockchain.nftBatched.toLocaleString()}</span>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* AI Services */}
+        <div className="bg-white rounded-lg p-6 shadow-lg">
+          <h3 className="text-xl font-bold mb-4">🤖 AI Services</h3>
+          {dashboardData.divinaL3Stats?.aiService && (
+            <div className="space-y-4">
+              {/* AthenaMist AI */}
+              <div>
+                <h4 className="text-lg font-bold text-blue-600 mb-2">🧠 AthenaMist AI</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>Pattern Recognition: {dashboardData.divinaL3Stats.aiService.athenaMist.behavioralAnalysis.patternRecognition}%</div>
+                  <div>Fraud Detection: {dashboardData.divinaL3Stats.aiService.athenaMist.fraudDetection.accuracy}%</div>
+                  <div>Anomaly Detection: {dashboardData.divinaL3Stats.aiService.athenaMist.behavioralAnalysis.anomalyDetection}%</div>
+                  <div>Response Time: {dashboardData.divinaL3Stats.aiService.athenaMist.realTimeMonitoring.responseTime}ms</div>
+                </div>
+              </div>
+              
+              {/* NovaSanctum AI */}
+              <div>
+                <h4 className="text-lg font-bold text-green-600 mb-2">🧬 NovaSanctum AI</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>FPS Optimization: {dashboardData.divinaL3Stats.aiService.novaSanctum.gameOptimization.fpsOptimization}%</div>
+                  <div>Memory Optimization: {dashboardData.divinaL3Stats.aiService.novaSanctum.gameOptimization.memoryOptimization}%</div>
+                  <div>Real-time Insights: {dashboardData.divinaL3Stats.aiService.novaSanctum.analytics.realTimeInsights}%</div>
+                  <div>User Experience: {dashboardData.divinaL3Stats.aiService.novaSanctum.gameOptimization.userExperience}%</div>
+                </div>
+              </div>
+              
+              {/* Unified AI */}
+              <div>
+                <h4 className="text-lg font-bold text-purple-600 mb-2">🤝 Unified AI</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>Combined Intelligence: {dashboardData.divinaL3Stats.aiService.unified.combinedIntelligence}%</div>
+                  <div>Decision Accuracy: {dashboardData.divinaL3Stats.aiService.unified.decisionAccuracy}%</div>
+                  <div>Consensus Detection: {dashboardData.divinaL3Stats.aiService.unified.consensusDetection}%</div>
+                  <div>Response Time: {dashboardData.divinaL3Stats.aiService.unified.responseTime}ms</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Cross-Chain Bridge & Real-Time Engine */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Cross-Chain Bridge */}
+        <div className="bg-white rounded-lg p-6 shadow-lg">
+          <h3 className="text-xl font-bold mb-4">🌉 Cross-Chain Bridge</h3>
+          {dashboardData.divinaL3Stats?.crossChainBridge && (
+            <div className="space-y-4">
+              {/* Base L2 */}
+              <div>
+                <h4 className="text-lg font-bold text-blue-600 mb-2">🌊 Base L2</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>Settlement Time: {dashboardData.divinaL3Stats.crossChainBridge.baseL2.settlementTime}s</div>
+                  <div>Security Level: {dashboardData.divinaL3Stats.crossChainBridge.baseL2.securityLevel}%</div>
+                  <div>Transaction Volume: {dashboardData.divinaL3Stats.crossChainBridge.baseL2.transactionVolume.toLocaleString()}</div>
+                  <div>Uptime: {dashboardData.divinaL3Stats.crossChainBridge.baseL2.uptime}%</div>
+                </div>
+              </div>
+              
+              {/* Ethereum L1 */}
+              <div>
+                <h4 className="text-lg font-bold text-green-600 mb-2">🏛️ Ethereum L1</h4>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div>Finality Time: {dashboardData.divinaL3Stats.crossChainBridge.ethereumL1.finalityTime}s</div>
+                  <div>Security Level: {dashboardData.divinaL3Stats.crossChainBridge.ethereumL1.securityLevel}%</div>
+                  <div>Gas Costs: {dashboardData.divinaL3Stats.crossChainBridge.ethereumL1.gasCosts} ETH</div>
+                  <div>Status: {dashboardData.divinaL3Stats.crossChainBridge.ethereumL1.integrationStatus}</div>
+                </div>
+              </div>
+              
+              <div className="pt-2 border-t border-gray-200">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Bridge Efficiency:</span>
+                  <span className="font-bold text-yellow-600">{dashboardData.divinaL3Stats.crossChainBridge.bridgeEfficiency}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Cross-Chain Transactions:</span>
+                  <span className="font-bold text-cyan-600">{dashboardData.divinaL3Stats.crossChainBridge.crossChainTransactions.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Real-Time Engine */}
+        <div className="bg-white rounded-lg p-6 shadow-lg">
+          <h3 className="text-xl font-bold mb-4">⚡ Real-Time Engine</h3>
+          {dashboardData.divinaL3Stats?.realTimeEngine && (
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">WebSocket Connections:</span>
+                <span className="font-bold text-blue-600">{dashboardData.divinaL3Stats.realTimeEngine.websocketConnections.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Message Throughput:</span>
+                <span className="font-bold text-green-600">{dashboardData.divinaL3Stats.realTimeEngine.messageThroughput.toLocaleString()}/s</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Latency:</span>
+                <span className="font-bold text-purple-600">{dashboardData.divinaL3Stats.realTimeEngine.latency}ms</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Reliability:</span>
+                <span className="font-bold text-yellow-600">{dashboardData.divinaL3Stats.realTimeEngine.reliability}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Active Channels:</span>
+                <span className="font-bold text-cyan-600">{dashboardData.divinaL3Stats.realTimeEngine.activeChannels}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Message Queue:</span>
+                <span className="font-bold text-pink-600">{dashboardData.divinaL3Stats.realTimeEngine.messageQueue}</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Gaming Features */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🏆 Gaming Features</h3>
+        {dashboardData.divinaL3Stats?.gamingFeatures && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Achievements */}
+            <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🏆 Achievements</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.divinaL3Stats.gamingFeatures.achievements.totalAchievements}</div>
+              <div className="text-sm opacity-75">Total Achievements</div>
+              <div className="text-sm mt-2">Active Users: {dashboardData.divinaL3Stats.gamingFeatures.achievements.activeUsers}</div>
+              <div className="text-sm">XP Distributed: {dashboardData.divinaL3Stats.gamingFeatures.achievements.xpDistributed.toLocaleString()}</div>
+            </div>
+
+            {/* Prestige */}
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">👑 Prestige</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.divinaL3Stats.gamingFeatures.prestige.totalPrestige}</div>
+              <div className="text-sm opacity-75">Total Prestige Levels</div>
+              <div className="text-sm mt-2">Active Users: {dashboardData.divinaL3Stats.gamingFeatures.prestige.activeUsers}</div>
+              <div className="text-sm">Advancement Rate: {dashboardData.divinaL3Stats.gamingFeatures.prestige.advancementRate}%</div>
+            </div>
+
+            {/* Anti-Cheat */}
+            <div className="bg-gradient-to-br from-red-600 to-pink-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🛡️ Anti-Cheat</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.divinaL3Stats.gamingFeatures.antiCheat.detectionAccuracy}%</div>
+              <div className="text-sm opacity-75">Detection Accuracy</div>
+              <div className="text-sm mt-2">Response Time: {dashboardData.divinaL3Stats.gamingFeatures.antiCheat.responseTime}ms</div>
+              <div className="text-sm">Coverage: {dashboardData.divinaL3Stats.gamingFeatures.antiCheat.coverage}%</div>
+            </div>
+
+            {/* Marketplace */}
+            <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🏪 Marketplace</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.divinaL3Stats.gamingFeatures.marketplace.totalNFTs}</div>
+              <div className="text-sm opacity-75">Total NFTs</div>
+              <div className="text-sm mt-2">Trading Volume: {dashboardData.divinaL3Stats.gamingFeatures.marketplace.tradingVolume.toLocaleString()}</div>
+              <div className="text-sm">Active Users: {dashboardData.divinaL3Stats.gamingFeatures.marketplace.activeUsers}</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Registered Games */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🎮 Registered Games</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.divinaL3Stats?.games?.map((game: any) => (
+            <div key={game.id} className="border border-gray-200 rounded-lg p-4">
+              <h4 className="text-lg font-bold text-gray-800 mb-2">{game.name}</h4>
+              <div className="space-y-1 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Engine:</span>
+                  <span className="text-blue-600 capitalize">{game.engine}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Status:</span>
+                  <span className={`font-bold ${
+                    game.status === 'active' ? 'text-green-600' : 
+                    game.status === 'maintenance' ? 'text-yellow-600' : 'text-red-600'
+                  }`}>
+                    {game.status}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Players:</span>
+                  <span className="text-purple-600">{game.players.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Transactions:</span>
+                  <span className="text-cyan-600">{game.transactions.toLocaleString()}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">AI Score:</span>
+                  <span className="text-yellow-600">{game.aiAnalysis.behavioralScore}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Genesis:</span>
+                  <span className={game.genesisProtocol.sacred ? 'text-green-600' : 'text-red-600'}>
+                    {game.genesisProtocol.sacred ? 'Sacred' : 'Profane'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {(!dashboardData.divinaL3Stats?.games || dashboardData.divinaL3Stats.games.length === 0) && (
+          <div className="text-center py-8">
+            <p className="text-gray-500">No games registered yet.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
         return renderOverview();
+      case 'genesis_protocol':
+        return renderGenesisProtocol();
+      case 'divina_l3':
+        return renderDivinaL3();
       case 'lilith_eve':
         return renderLilithEve();
       case 'eden_one_city':
