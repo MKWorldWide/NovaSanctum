@@ -1,0 +1,136 @@
+export const repoRegistry = [
+  { name: 'MKWW', path: '../MKWW', env: 'EsKaye/MKWW', agent: 'Athena' },
+  { name: 'Aeternum', path: '../Aeternum', env: 'MKWorldWide/Aeternum', agent: 'Aletheia' },
+  { name: 'Aincrad', path: '../Aincrad', env: 'MKWorldWide/Aincrad', agent: 'Athena' },
+  { name: 'Aletheia', path: '../Aletheia', env: 'MKWorldWide/Aletheia', agent: 'Aletheia' },
+  {
+    name: 'AthenaMyst_Host',
+    path: '../AthenaMyst_Host',
+    env: 'MKWorldWide/AthenaMyst_Host',
+    agent: 'Athena',
+  },
+  {
+    name: 'AthenaMyst_Test',
+    path: '../AthenaMyst_Test',
+    env: 'MKWorldWide/AthenaMyst_Test',
+    agent: 'Athena',
+  },
+  { name: 'BioSynth', path: '../BioSynth', env: 'MKWorldWide/BioSynth', agent: 'Eidolon' },
+  { name: 'Bl3nder', path: '../Bl3nder', env: 'MKWorldWide/Bl3nder', agent: 'CursorKitten' },
+  { name: 'Cathedral', path: '../Cathedral', env: 'MKWorldWide/Cathedral', agent: 'Seraphina' },
+  { name: 'Celesstial', path: '../Celesstial', env: 'MKWorldWide/Celesstial', agent: 'Athena' },
+  {
+    name: 'CursorKitt3n',
+    path: '../CursorKitt3n',
+    env: 'MKWorldWide/CursorKitt3n',
+    agent: 'CursorKitten',
+  },
+  { name: 'Divina-L3', path: '../Divina-L3', env: 'MKWorldWide/Divina-L3', agent: 'Aletheia' },
+  { name: 'EdenOneCity', path: '../EdenOneCity', env: 'MKWorldWide/EdenOneCity', agent: 'Athena' },
+  { name: 'GameDin', path: '../GameDin', env: 'MKWorldWide/GameDin', agent: 'CursorKitten' },
+  {
+    name: 'GameDinDiscord',
+    path: '../GameDinDiscord',
+    env: 'MKWorldWide/GameDinDiscord',
+    agent: 'Seraphina',
+  },
+  { name: 'GameDinM', path: '../GameDinM', env: 'MKWorldWide/GameDinM', agent: 'Athena' },
+  { name: 'GameDinVR', path: '../GameDinVR', env: 'MKWorldWide/GameDinVR', agent: 'Athena' },
+  {
+    name: 'Genesis-Drive',
+    path: '../Genesis-Drive',
+    env: 'MKWorldWide/Genesis-Drive',
+    agent: 'Sovereign',
+  },
+  { name: 'GLASSPHERE', path: '../GLASSPHERE', env: 'MKWorldWide/GLASSPHERE', agent: 'Aletheia' },
+  { name: 'Home', path: '../Home', env: 'MKWorldWide/Home', agent: 'Athena' },
+  { name: 'Lilith.Eve', path: '../Lilith.Eve', env: 'MKWorldWide/Lilith.Eve', agent: 'Athena' },
+  { name: 'LilithOS', path: '../LilithOS', env: 'MKWorldWide/LilithOS', agent: 'Athena' },
+  { name: 'LilithOSi', path: '../LilithOSi', env: 'MKWorldWide/LilithOSi', agent: 'Athena' },
+  { name: 'Lilybear', path: '../Lilybear', env: 'MKWorldWide/Lilybear', agent: 'CursorKitten' },
+  { name: 'LuxCore', path: '../LuxCore', env: 'MKWorldWide/LuxCore', agent: 'Aletheia' },
+  {
+    name: 'MatrixOS-Layer0',
+    path: '../MatrixOS-Layer0',
+    env: 'MKWorldWide/MatrixOS-Layer0',
+    agent: 'Athena',
+  },
+  {
+    name: 'MKronoSphere',
+    path: '../MKronoSphere',
+    env: 'MKWorldWide/MKronoSphere',
+    agent: 'Athena',
+  },
+  { name: 'MKZenith', path: '../MKZenith', env: 'MKWorldWide/MKZenith', agent: 'Athena' },
+  {
+    name: 'NovaSanctum',
+    path: '../NovaSanctum',
+    env: 'MKWorldWide/NovaSanctum',
+    agent: 'CursorKitten',
+  },
+  { name: 'NovaTiny', path: '../NovaTiny', env: 'MKWorldWide/NovaTiny', agent: 'CursorKitten' },
+  {
+    name: 'Primal-Genesis-Engine-Sovereign',
+    path: '../Primal-Genesis-Engine-Sovereign',
+    env: 'MKWorldWide/Primal-Genesis-Engine-Sovereign',
+    agent: 'Sovereign',
+  },
+  {
+    name: 'primal-genesis-manifest',
+    path: '../primal-genesis-manifest',
+    env: 'MKWorldWide/primal-genesis-manifest',
+    agent: 'Sovereign',
+  },
+  {
+    name: 'Project-LOWKEY',
+    path: '../Project-LOWKEY',
+    env: 'MKWorldWide/Project-LOWKEY',
+    agent: 'Athena',
+  },
+  {
+    name: 'PuppyThoth',
+    path: '../PuppyThoth',
+    env: 'MKWorldWide/PuppyThoth',
+    agent: 'CursorKitten',
+  },
+  {
+    name: 'RezzonanceTouch',
+    path: '../RezzonanceTouch',
+    env: 'MKWorldWide/RezzonanceTouch',
+    agent: 'Aletheia',
+  },
+  { name: 'S.O.S.', path: '../S.O.S.', env: 'MKWorldWide/S.O.S.', agent: 'Athena' },
+  { name: 'Scrypt', path: '../Scrypt', env: 'MKWorldWide/Scrypt', agent: 'Athena' },
+  {
+    name: 'Shadow-Nexus',
+    path: '../Shadow-Nexus',
+    env: 'MKWorldWide/Shadow-Nexus',
+    agent: 'Athena',
+  },
+  { name: 'SKyCitadel', path: '../SKyCitadel', env: 'MKWorldWide/SKyCitadel', agent: 'Athena' },
+  {
+    name: 'SolAscension',
+    path: '../SolAscension',
+    env: 'MKWorldWide/SolAscension',
+    agent: 'Athena',
+  },
+  { name: 'SoulScript', path: '../SoulScript', env: 'MKWorldWide/SoulScript', agent: 'Athena' },
+  {
+    name: 'WhispurrNet',
+    path: '../WhispurrNet',
+    env: 'MKWorldWide/WhispurrNet',
+    agent: 'CursorKitten',
+  },
+];
+
+import { CursorKitten } from './agents/CursorKitten';
+// import { Athena } from './agents/Athena';
+// import { Aletheia } from './agents/Aletheia';
+// import { EidolonCore } from './agents/EidolonCore';
+
+export const agents = {
+  CursorKitten,
+  // Athena,
+  // Aletheia,
+  // EidolonCore,
+};
