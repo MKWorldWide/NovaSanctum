@@ -13,7 +13,8 @@
     "test:coverage": "jest --coverage",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "burst:all-dev": "node scripts/burst-async-dev.ts"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.0",
