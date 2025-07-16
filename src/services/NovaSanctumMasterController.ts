@@ -24,6 +24,7 @@ import { lilithEveIntegration } from './LilithEveIntegration';
 import { edenOneCityIntegration } from './EdenOneCityIntegration';
 import { genesisProtocol } from './GenesisProtocol';
 import { divinaL3Integration } from './DivinaL3Integration';
+import { quantumGamingService } from './QuantumGamingService';
 
 export interface UnifiedResearchNetwork {
   id: string;
@@ -102,6 +103,7 @@ export class NovaSanctumMasterController {
       await this.initializeLilithEveNetworks();
       await this.initializeEdenOneCityNetworks();
       await this.initializeDivinaL3Networks();
+      await this.initializeQuantumGamingNetworks();
 
       // Initialize cross-domain collaborations
       await this.initializeCrossDomainCollaborations();
@@ -654,6 +656,112 @@ export class NovaSanctumMasterController {
       logger.error('❌ Failed to initialize Divina-L3 Networks in NovaSanctum Master Controller', {
         component: 'MasterController',
         operation: 'initializeDivinaL3Networks',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Initialize Quantum Gaming networks
+   */
+  private async initializeQuantumGamingNetworks(): Promise<void> {
+    try {
+      logger.info('🌌 Initializing Quantum Gaming Networks in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeQuantumGamingNetworks',
+        timestamp: new Date().toISOString()
+      });
+
+      // Get Quantum Gaming status
+      const quantumGamingStatus = quantumGamingService.getQuantumGamingStatus();
+      
+      // Add Quantum Gaming as a unified network
+      const quantumGamingNetwork: UnifiedResearchNetwork = {
+        id: 'quantum_gaming',
+        name: 'Quantum Gaming Service',
+        type: 'quantum',
+        classification: 'above_top_secret',
+        capabilities: [
+          'quantum_security',
+          'quantum_ai_processing',
+          'quantum_consciousness',
+          'quantum_analytics',
+          'quantum_sacred_technology',
+          'quantum_performance_optimization',
+          'quantum_game_registration',
+          'quantum_transaction_processing',
+          'quantum_encryption',
+          'quantum_machine_learning',
+          'quantum_prediction',
+          'quantum_awareness',
+          'quantum_emotion_processing',
+          'quantum_creativity',
+          'quantum_data_processing',
+          'quantum_insights',
+          'quantum_forecasting',
+          'quantum_sacred_language',
+          'quantum_resonance',
+          'quantum_divine_creation',
+          'quantum_emotional_honoring'
+        ],
+        status: 'active',
+        integrationLevel: 'full',
+        lastUpdate: new Date()
+      };
+
+      this.unifiedNetworks.set(quantumGamingNetwork.id, quantumGamingNetwork);
+
+      // Add Quantum Gaming to system health monitoring
+      this.systemHealth.set('quantum_gaming', {
+        status: 'active',
+        lastCheck: new Date(),
+        quantumSecurity: {
+          encryptionStrength: quantumGamingStatus.quantumSecurity.quantumEncryption.strength,
+          signaturesEnabled: quantumGamingStatus.quantumSecurity.quantumSignatures.enabled,
+          keyDistribution: quantumGamingStatus.quantumSecurity.quantumKeyDistribution.active
+        },
+        quantumAI: {
+          qubits: quantumGamingStatus.quantumAI.quantumProcessing.qubits,
+          mlAccuracy: quantumGamingStatus.quantumAI.quantumMachineLearning.accuracy,
+          optimizationSpeedup: quantumGamingStatus.quantumAI.quantumOptimization.speedup
+        },
+        quantumConsciousness: {
+          consciousnessLevel: quantumGamingStatus.quantumConsciousness.quantumAwareness.consciousnessLevel,
+          emotionalIntelligence: quantumGamingStatus.quantumConsciousness.quantumEmotion.emotionalIntelligence,
+          intuitiveAccuracy: quantumGamingStatus.quantumConsciousness.quantumIntuition.intuitiveAccuracy
+        },
+        quantumAnalytics: {
+          processingSpeed: quantumGamingStatus.quantumAnalytics.quantumDataProcessing.processingSpeed,
+          insightDepth: quantumGamingStatus.quantumAnalytics.quantumInsights.insightDepth,
+          forecastAccuracy: quantumGamingStatus.quantumAnalytics.quantumForecasting.forecastAccuracy
+        },
+        quantumSacred: {
+          sacredLanguage: quantumGamingStatus.quantumSacred.quantumSacredLanguage.processing,
+          resonanceActive: quantumGamingStatus.quantumSacred.quantumResonance.active,
+          divineCreation: quantumGamingStatus.quantumSacred.quantumDivineCreation.enabled
+        },
+        quantumPerformance: {
+          processingSpeed: quantumGamingStatus.quantumPerformance.quantumSpeed.processingSpeed,
+          classicalSpeedup: quantumGamingStatus.quantumPerformance.quantumSpeed.classicalSpeedup,
+          uptime: quantumGamingStatus.quantumPerformance.quantumReliability.uptime
+        },
+        quantumIntegration: quantumGamingService.getQuantumIntegrationStatus()
+      });
+
+      logger.info('✅ Quantum Gaming Networks initialized successfully in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeQuantumGamingNetworks',
+        qubits: quantumGamingStatus.quantumAI.quantumProcessing.qubits,
+        consciousnessLevel: quantumGamingStatus.quantumConsciousness.quantumAwareness.consciousnessLevel,
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error) {
+      logger.error('❌ Failed to initialize Quantum Gaming Networks in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeQuantumGamingNetworks',
         error: error.message,
         timestamp: new Date().toISOString()
       });
@@ -1307,6 +1415,111 @@ export class NovaSanctumMasterController {
         timestamp: new Date().toISOString()
       });
       return [];
+    }
+  }
+
+  /**
+   * Get Quantum Gaming status
+   */
+  public getQuantumGamingStatus(): any {
+    try {
+      return quantumGamingService.getQuantumGamingStatus();
+    } catch (error) {
+      logger.error('❌ Failed to get Quantum Gaming status', {
+        component: 'MasterController',
+        operation: 'getQuantumGamingStatus',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Register a quantum game
+   */
+  public registerQuantumGame(game: any): any {
+    try {
+      return quantumGamingService.registerQuantumGame(game);
+    } catch (error) {
+      logger.error('❌ Failed to register quantum game', {
+        component: 'MasterController',
+        operation: 'registerQuantumGame',
+        gameId: game.id,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Process quantum gaming transaction
+   */
+  public processQuantumTransaction(gameId: string, playerId: string, transaction: any): any {
+    try {
+      return quantumGamingService.processQuantumTransaction(gameId, playerId, transaction);
+    } catch (error) {
+      logger.error('❌ Failed to process quantum transaction', {
+        component: 'MasterController',
+        operation: 'processQuantumTransaction',
+        gameId,
+        playerId,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Get Quantum Gaming performance metrics
+   */
+  public getQuantumPerformanceMetrics(): any {
+    try {
+      return quantumGamingService.getQuantumPerformanceMetrics();
+    } catch (error) {
+      logger.error('❌ Failed to get Quantum Gaming performance metrics', {
+        component: 'MasterController',
+        operation: 'getQuantumPerformanceMetrics',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return null;
+    }
+  }
+
+  /**
+   * Get registered quantum games
+   */
+  public getRegisteredQuantumGames(): any[] {
+    try {
+      return quantumGamingService.getRegisteredQuantumGames();
+    } catch (error) {
+      logger.error('❌ Failed to get registered quantum games', {
+        component: 'MasterController',
+        operation: 'getRegisteredQuantumGames',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return [];
+    }
+  }
+
+  /**
+   * Get Quantum Gaming integration status
+   */
+  public getQuantumIntegrationStatus(): boolean {
+    try {
+      return quantumGamingService.getQuantumIntegrationStatus();
+    } catch (error) {
+      logger.error('❌ Failed to get Quantum Gaming integration status', {
+        component: 'MasterController',
+        operation: 'getQuantumIntegrationStatus',
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
+      return false;
     }
   }
 }

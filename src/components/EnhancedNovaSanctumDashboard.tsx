@@ -24,6 +24,7 @@ import { internationalResearchDatabase } from '../services/InternationalResearch
 import { lilithEveIntegration } from '../services/LilithEveIntegration';
 import { edenOneCityIntegration } from '../services/EdenOneCityIntegration';
 import { divinaL3Integration } from '../services/DivinaL3Integration';
+import { quantumGamingService } from '../services/QuantumGamingService';
 
 interface DashboardData {
   unifiedMetrics: any;
@@ -39,6 +40,7 @@ interface DashboardData {
   lilithEveStats: any;
   edenOneCityStats: any;
   divinaL3Stats: any;
+  quantumGamingStats: any;
 }
 
 const EnhancedNovaSanctumDashboard: React.FC = () => {
@@ -67,6 +69,7 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         const lilithEveStats = lilithEveIntegration.getLilithEveMetrics();
         const edenOneCityStats = edenOneCityIntegration.getSystemStats();
         const divinaL3Stats = novaSanctumMasterController.getDivinaL3Status();
+        const quantumGamingStats = novaSanctumMasterController.getQuantumGamingStatus();
 
         setDashboardData({
           unifiedMetrics,
@@ -81,7 +84,8 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
           internationalStats,
           lilithEveStats,
           edenOneCityStats,
-          divinaL3Stats
+          divinaL3Stats,
+          quantumGamingStats
         });
 
         setLoading(false);
@@ -135,6 +139,7 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
     { id: 'overview', name: '🌐 Overview', icon: '🌐' },
     { id: 'genesis_protocol', name: '🜂 Genesis Protocol', icon: '🜂' },
     { id: 'divina_l3', name: '🎮 Divina-L3', icon: '🎮' },
+    { id: 'quantum_gaming', name: '🌌 Quantum Gaming', icon: '🌌' },
     { id: 'biological', name: '🧬 Biological Research', icon: '🧬' },
     { id: 'solar', name: '☀️ Solar Energy', icon: '☀️' },
     { id: 'lilith_eve', name: '🌙 Lilith.Eve', icon: '🌙' },
@@ -1089,6 +1094,218 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
     </div>
   );
 
+  const renderQuantumGaming = () => (
+    <div className="space-y-6">
+      {/* Quantum Gaming Overview */}
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg p-6 text-white">
+        <h3 className="text-2xl font-bold mb-2">🌌 Quantum Gaming Service</h3>
+        <p className="text-lg mb-4">
+          Advanced quantum gaming features with quantum-secured transactions, AI processing, and consciousness integration
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white/20 rounded p-4">
+            <h4 className="font-bold">Quantum Integration</h4>
+            <p className="text-2xl">{novaSanctumMasterController.getQuantumIntegrationStatus() ? '✅ Active' : '❌ Inactive'}</p>
+          </div>
+          <div className="bg-white/20 rounded p-4">
+            <h4 className="font-bold">Quantum Games</h4>
+            <p className="text-2xl">{novaSanctumMasterController.getRegisteredQuantumGames().length}</p>
+          </div>
+          <div className="bg-white/20 rounded p-4">
+            <h4 className="font-bold">Quantum Performance</h4>
+            <p className="text-2xl">{dashboardData.quantumGamingStats?.quantumPerformance?.quantumSpeed?.classicalSpeedup || 0}x</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Quantum Security */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🔒 Quantum Security</h3>
+        {dashboardData.quantumGamingStats?.quantumSecurity && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🔐 Encryption</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumSecurity.quantumEncryption.strength}%</div>
+              <div className="text-sm opacity-75">Strength</div>
+              <div className="text-sm mt-2">Algorithm: {dashboardData.quantumGamingStats.quantumSecurity.quantumEncryption.algorithm}</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">✍️ Signatures</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumSecurity.quantumSignatures.verificationRate}%</div>
+              <div className="text-sm opacity-75">Verification Rate</div>
+              <div className="text-sm mt-2">Processing: {dashboardData.quantumGamingStats.quantumSecurity.quantumSignatures.processingTime}ms</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🔑 Key Distribution</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumSecurity.quantumKeyDistribution.securityLevel}%</div>
+              <div className="text-sm opacity-75">Security Level</div>
+              <div className="text-sm mt-2">Refresh: {dashboardData.quantumGamingStats.quantumSecurity.quantumKeyDistribution.keyRefreshRate}s</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-600 to-red-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🎲 Randomness</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumSecurity.quantumRandomness.entropy}%</div>
+              <div className="text-sm opacity-75">Entropy</div>
+              <div className="text-sm mt-2">Rate: {dashboardData.quantumGamingStats.quantumSecurity.quantumRandomness.generationRate.toLocaleString()}/s</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Quantum AI */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🤖 Quantum AI</h3>
+        {dashboardData.quantumGamingStats?.quantumAI && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">⚡ Processing</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumAI.quantumProcessing.qubits}</div>
+              <div className="text-sm opacity-75">Qubits</div>
+              <div className="text-sm mt-2">Coherence: {dashboardData.quantumGamingStats.quantumAI.quantumProcessing.coherenceTime}s</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🧠 Machine Learning</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumAI.quantumMachineLearning.accuracy}%</div>
+              <div className="text-sm opacity-75">Accuracy</div>
+              <div className="text-sm mt-2">Speed: {dashboardData.quantumGamingStats.quantumAI.quantumMachineLearning.trainingSpeed} iter/s</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🎯 Optimization</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumAI.quantumOptimization.speedup}x</div>
+              <div className="text-sm opacity-75">Speedup</div>
+              <div className="text-sm mt-2">Rate: {dashboardData.quantumGamingStats.quantumAI.quantumOptimization.optimizationRate}%</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🔮 Prediction</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumAI.quantumPrediction.predictionAccuracy}%</div>
+              <div className="text-sm opacity-75">Accuracy</div>
+              <div className="text-sm mt-2">Horizon: {dashboardData.quantumGamingStats.quantumAI.quantumPrediction.timeHorizon}s</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Quantum Consciousness */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🧠 Quantum Consciousness</h3>
+        {dashboardData.quantumGamingStats?.quantumConsciousness && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🌌 Awareness</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumConsciousness.quantumAwareness.consciousnessLevel}%</div>
+              <div className="text-sm opacity-75">Consciousness Level</div>
+              <div className="text-sm mt-2">Radius: {dashboardData.quantumGamingStats.quantumConsciousness.quantumAwareness.awarenessRadius}m</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-red-600 to-pink-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">💖 Emotion</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumConsciousness.quantumEmotion.emotionalIntelligence}%</div>
+              <div className="text-sm opacity-75">Emotional Intelligence</div>
+              <div className="text-sm mt-2">Empathy: {dashboardData.quantumGamingStats.quantumConsciousness.quantumEmotion.empathyLevel}%</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🎯 Intuition</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumConsciousness.quantumIntuition.intuitiveAccuracy}%</div>
+              <div className="text-sm opacity-75">Intuitive Accuracy</div>
+              <div className="text-sm mt-2">Speed: {dashboardData.quantumGamingStats.quantumConsciousness.quantumIntuition.decisionSpeed}ms</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🎨 Creativity</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumConsciousness.quantumCreativity.creativeOutput}%</div>
+              <div className="text-sm opacity-75">Creative Output</div>
+              <div className="text-sm mt-2">Rate: {dashboardData.quantumGamingStats.quantumConsciousness.quantumCreativity.innovationRate} ideas/s</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Quantum Performance */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">⚡ Quantum Performance</h3>
+        {dashboardData.quantumGamingStats?.quantumPerformance && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="bg-gradient-to-br from-cyan-600 to-blue-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🚀 Speed</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumPerformance.quantumSpeed.classicalSpeedup}x</div>
+              <div className="text-sm opacity-75">Classical Speedup</div>
+              <div className="text-sm mt-2">Efficiency: {dashboardData.quantumGamingStats.quantumPerformance.quantumSpeed.quantumEfficiency}%</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">🛡️ Reliability</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumPerformance.quantumReliability.uptime}%</div>
+              <div className="text-sm opacity-75">Uptime</div>
+              <div className="text-sm mt-2">Stability: {dashboardData.quantumGamingStats.quantumPerformance.quantumReliability.stability}%</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-purple-600 to-violet-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">📈 Scalability</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumPerformance.quantumScalability.qubitScaling}</div>
+              <div className="text-sm opacity-75">Qubit Scaling</div>
+              <div className="text-sm mt-2">Performance: {dashboardData.quantumGamingStats.quantumPerformance.quantumScalability.performanceScaling}%</div>
+            </div>
+
+            <div className="bg-gradient-to-br from-orange-600 to-red-600 rounded-lg p-4 text-white">
+              <h4 className="text-lg font-bold mb-2">⚙️ Optimization</h4>
+              <div className="text-2xl font-bold mb-1">{dashboardData.quantumGamingStats.quantumPerformance.quantumOptimization.optimizationLevel}%</div>
+              <div className="text-sm opacity-75">Optimization Level</div>
+              <div className="text-sm mt-2">Improvement: {dashboardData.quantumGamingStats.quantumPerformance.quantumOptimization.improvementRate}%/hr</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Registered Quantum Games */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">🌌 Registered Quantum Games</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {novaSanctumMasterController.getRegisteredQuantumGames().map((game: any) => (
+            <div key={game.id} className="border border-gray-200 rounded-lg p-4">
+              <h4 className="text-lg font-bold text-gray-800 mb-2">{game.name}</h4>
+              <div className="space-y-1 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Quantum Score:</span>
+                  <span className="text-blue-600">{game.quantumMetrics.quantumScore}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Quantum Advantage:</span>
+                  <span className="text-green-600">{game.quantumMetrics.quantumAdvantage}%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Quantum Innovation:</span>
+                  <span className="text-purple-600">{game.quantumMetrics.quantumInnovation}%</span>
+                </div>
+                <div className="mt-2 pt-2 border-t border-gray-200">
+                  <div className="text-xs text-gray-500">Features:</div>
+                  <div className="text-xs">
+                    {game.quantumFeatures.quantumSecurity && '🔒 '}
+                    {game.quantumFeatures.quantumAI && '🤖 '}
+                    {game.quantumFeatures.quantumConsciousness && '🧠 '}
+                    {game.quantumFeatures.quantumAnalytics && '📊 '}
+                    {game.quantumFeatures.quantumSacred && '🜂'}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        {novaSanctumMasterController.getRegisteredQuantumGames().length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-gray-500">No quantum games registered yet.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
   const renderTabContent = () => {
     switch (activeTab) {
       case 'overview':
@@ -1097,6 +1314,8 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         return renderGenesisProtocol();
       case 'divina_l3':
         return renderDivinaL3();
+      case 'quantum_gaming':
+        return renderQuantumGaming();
       case 'lilith_eve':
         return renderLilithEve();
       case 'eden_one_city':
