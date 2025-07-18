@@ -265,8 +265,8 @@ export class NovaSanctumMasterController {
   private async initializeBlackResearchNetworks(): Promise<void> {
     const blackResearchFacilities = blackResearchNetworks.getBlackResearchFacilities();
     const blackProjects = blackResearchNetworks.getActiveBlackProjects();
-    const governmentalNetworksData = governmentalNetworks.getGovernmentalNetworks();
-    const intelligenceNetworks = governmentalNetworks.getIntelligenceNetworks();
+    const governmentalNetworksData = governmentalNetworks.getIntelligenceAgencies();
+    const intelligenceNetworks = governmentalNetworks.getIntelligenceAgencies();
 
     // Add black research facilities
     blackResearchFacilities.forEach(facility => {
@@ -442,11 +442,11 @@ export class NovaSanctumMasterController {
    * Initialize international networks
    */
   private async initializeInternationalNetworks(): Promise<void> {
-    const internationalData = internationalResearchDatabase.getInternationalResearchData();
+            const internationalData = internationalResearchDatabase.getFacilities();
     const collaborations = internationalResearchDatabase.getActiveCollaborations();
 
     // Add international research facilities
-    internationalData.facilities.forEach(facility => {
+    internationalData.forEach(facility => {
       const network: UnifiedResearchNetwork = {
         id: `intl_${facility.id}`,
         name: facility.name,
@@ -467,7 +467,7 @@ export class NovaSanctumMasterController {
         name: collaboration.name,
         type: 'international',
         classification: 'public',
-        capabilities: collaboration.researchAreas,
+        capabilities: collaboration.objectives,
         status: collaboration.status,
         integrationLevel: 'partial',
         lastUpdate: new Date()

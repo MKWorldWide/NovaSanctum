@@ -1,0 +1,266 @@
+name: PR Automation & Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  pull_request_review:
+    types: [submitted, dismissed]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NOVASANCTUM_TOKEN: ${{ secrets.NOVASANCTUM_TOKEN }}
+
+jobs:
+  auto-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-label PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = context.payload.pull_request;
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            const labels = new Set();
+            
+            // Determine labels based on file changes
+            for (const file of files.data) {
+              if (file.filename.includes('src/components/')) {
+                labels.add('component');
+              }
+              if (file.filename.includes('src/services/')) {
+                labels.add('service');
+              }
+              if (file.filename.includes('src/types/')) {
+                labels.add('types');
+              }
+              if (file.filename.includes('test') || file.filename.includes('__tests__')) {
+                labels.add('testing');
+              }
+              if (file.filename.includes('docs') || file.filename.includes('.md')) {
+                labels.add('documentation');
+              }
+              if (file.filename.includes('package.json') || file.filename.includes('package-lock.json')) {
+                labels.add('dependencies');
+              }
+              if (file.filename.includes('amplify/')) {
+                labels.add('aws-amplify');
+              }
+            }
+            
+            // Add size label
+            const additions = pr.additions;
+            const deletions = pr.deletions;
+            const totalChanges = additions + deletions;
+            
+            if (totalChanges < 10) {
+              labels.add('size: XS');
+            } else if (totalChanges < 50) {
+              labels.add('size: S');
+            } else if (totalChanges < 250) {
+              labels.add('size: M');
+            } else if (totalChanges < 1000) {
+              labels.add('size: L');
+            } else {
+              labels.add('size: XL');
+            }
+            
+            // Add priority based on title/keywords
+            const title = pr.title.toLowerCase();
+            if (title.includes('urgent') || title.includes('hotfix') || title.includes('critical')) {
+              labels.add('priority: high');
+            } else if (title.includes('bug') || title.includes('fix')) {
+              labels.add('priority: medium');
+            } else {
+              labels.add('priority: low');
+            }
+            
+            // Apply labels
+            if (labels.size > 0) {
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: Array.from(labels)
+              });
+            }
+
+  auto-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.NOVASANCTUM_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run automated code review
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = context.payload.pull_request;
+            const files = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            let reviewComment = `## 🤖 Automated Code Review
+            
+            ### Summary
+            - **Files changed**: ${files.data.length}
+            - **Additions**: ${pr.additions}
+            - **Deletions**: ${pr.deletions}
+            
+            ### Analysis
+            `;
+            
+            const issues = [];
+            const suggestions = [];
+            
+            for (const file of files.data) {
+              if (file.filename.endsWith('.tsx') || file.filename.endsWith('.ts')) {
+                // Check for common patterns
+                if (file.patch && file.patch.includes('console.log')) {
+                  suggestions.push(`Consider removing console.log statements from ${file.filename}`);
+                }
+                
+                if (file.patch && file.patch.includes('TODO')) {
+                  issues.push(`Found TODO comment in ${file.filename} - please address before merging`);
+                }
+                
+                if (file.patch && file.patch.includes('FIXME')) {
+                  issues.push(`Found FIXME comment in ${file.filename} - please address before merging`);
+                }
+              }
+              
+              if (file.filename.includes('package.json')) {
+                suggestions.push('Dependency changes detected - please review for security implications');
+              }
+            }
+            
+            if (issues.length > 0) {
+              reviewComment += `\n### ⚠️ Issues Found\n${issues.map(issue => `- ${issue}`).join('\n')}\n`;
+            }
+            
+            if (suggestions.length > 0) {
+              reviewComment += `\n### 💡 Suggestions\n${suggestions.map(suggestion => `- ${suggestion}`).join('\n')}\n`;
+            }
+            
+            if (issues.length === 0 && suggestions.length === 0) {
+              reviewComment += '\n✅ No issues found in automated review!';
+            }
+            
+            reviewComment += '\n\n---\n*Review generated by NovaSanctum Automation Suite*';
+            
+            // Create review comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body: reviewComment
+            });
+
+  check-merge-readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check merge readiness
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = context.payload.pull_request;
+            
+            // Check if PR is ready for merge
+            const checks = await github.rest.checks.listForRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: pr.head.sha
+            });
+            
+            const requiredChecks = ['test', 'lint', 'build'];
+            const passedChecks = checks.data.check_runs.filter(check => 
+              requiredChecks.some(required => check.name.toLowerCase().includes(required)) &&
+              check.conclusion === 'success'
+            );
+            
+            const allChecksPassed = passedChecks.length >= requiredChecks.length;
+            
+            if (allChecksPassed && pr.requested_reviewers.length === 0) {
+              // Add ready-to-merge label
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: ['ready-to-merge']
+              });
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: `## ✅ Ready to Merge!
+                
+                All required checks have passed and this PR is ready for merge.
+                
+                **Checks passed:**
+                ${passedChecks.map(check => `- ${check.name}`).join('\n')}
+                
+                ---
+                *Status updated by NovaSanctum Automation Suite*`
+              });
+            }
+
+  notify-stakeholders:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action == 'opened'
+    steps:
+      - name: Notify stakeholders
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = context.payload.pull_request;
+            
+            // Get repository collaborators
+            const collaborators = await github.rest.repos.listCollaborators({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            // Find maintainers and admins
+            const maintainers = collaborators.data.filter(collab => 
+              collab.permissions.admin || collab.permissions.maintain
+            );
+            
+            if (maintainers.length > 0) {
+              const maintainerMentions = maintainers.map(m => `@${m.login}`).join(' ');
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: `## 📢 New Pull Request Notification
+                
+                ${maintainerMentions} - A new pull request has been opened that may require your attention.
+                
+                **Title**: ${pr.title}
+                **Author**: @${pr.user.login}
+                **Branch**: ${pr.head.ref} → ${pr.base.ref}
+                
+                Please review when convenient.
+                
+                ---
+                *Notification sent by NovaSanctum Automation Suite*`
+              });
+            } 

@@ -116,4 +116,7 @@ class SacredAPIService {
   }
 }
 
-export const sacredAPI = new SacredAPIService() 
+export const sacredAPI = new SacredAPIService()
+
+// Export the class for testing and direct instantiation
+export { SacredAPIService } 

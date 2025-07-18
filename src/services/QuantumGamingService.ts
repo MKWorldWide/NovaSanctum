@@ -258,6 +258,8 @@ export class QuantumGamingService {
   private quantumIntegration: boolean = false;
 
   constructor() {
+    // Initialize the quantumGaming object first
+    this.quantumGaming = {} as QuantumGaming;
     this.initializeQuantumGaming();
   }
 

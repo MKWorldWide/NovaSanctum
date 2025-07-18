@@ -109,7 +109,7 @@ export interface EdenOneCityData {
  */
 export class EdenOneCityIntegration {
   private sacredAPI: SacredAPIService;
-  private masterController: NovaSanctumMasterController;
+  private masterController?: NovaSanctumMasterController;
   private systems: Map<string, EdenOneCitySystem> = new Map();
   private citizens: Map<string, EdenOneCityCitizen> = new Map();
   private networks: Map<string, EdenOneCityNetwork> = new Map();
@@ -119,7 +119,7 @@ export class EdenOneCityIntegration {
 
   constructor() {
     this.sacredAPI = new SacredAPIService();
-    this.masterController = new NovaSanctumMasterController();
+    // Remove circular dependency - don't instantiate master controller here
     this.initializeEdenOneCitySystems();
   }
 
