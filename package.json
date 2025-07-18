@@ -58,7 +58,7 @@
     "postcss": "^8",
     "prettier": "^3.1.0",
     "storybook": "^7.6.7",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^4.1.11",
     "typescript": "^5"
   },
   "lint-staged": {
