@@ -22,7 +22,7 @@
     "@heroicons/react": "^2.0.18",
     "@octokit/rest": "^22.0.0",
     "aws-amplify": "^5.3.10",
-    "framer-motion": "^10.16.4",
+    "framer-motion": "^12.23.6",
     "next": "14.0.3",
     "prop-types": "^15.8.1",
     "react": "^18",
