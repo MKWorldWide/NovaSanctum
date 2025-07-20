@@ -1,9 +1,0 @@
-{
-  "function": {
-    "bioexpresssolutions865766a6DefineAuthChallenge": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  }
-}
