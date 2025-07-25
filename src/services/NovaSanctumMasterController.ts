@@ -265,8 +265,13 @@ export class NovaSanctumMasterController {
   private async initializeBlackResearchNetworks(): Promise<void> {
     const blackResearchFacilities = blackResearchNetworks.getBlackResearchFacilities();
     const blackProjects = blackResearchNetworks.getActiveBlackProjects();
+<<<<<<< HEAD
     const governmentalNetworksData = governmentalNetworks.getGovernmentalNetworks();
     const intelligenceNetworks = governmentalNetworks.getIntelligenceNetworks();
+=======
+    const governmentalNetworksData = governmentalNetworks.getIntelligenceAgencies();
+    const intelligenceNetworks = governmentalNetworks.getIntelligenceAgencies();
+>>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
 
     // Add black research facilities
     blackResearchFacilities.forEach(facility => {
@@ -442,11 +447,19 @@ export class NovaSanctumMasterController {
    * Initialize international networks
    */
   private async initializeInternationalNetworks(): Promise<void> {
+<<<<<<< HEAD
     const internationalData = internationalResearchDatabase.getInternationalResearchData();
     const collaborations = internationalResearchDatabase.getActiveCollaborations();
 
     // Add international research facilities
     internationalData.facilities.forEach(facility => {
+=======
+            const internationalData = internationalResearchDatabase.getFacilities();
+    const collaborations = internationalResearchDatabase.getActiveCollaborations();
+
+    // Add international research facilities
+    internationalData.forEach(facility => {
+>>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
       const network: UnifiedResearchNetwork = {
         id: `intl_${facility.id}`,
         name: facility.name,
@@ -467,7 +480,11 @@ export class NovaSanctumMasterController {
         name: collaboration.name,
         type: 'international',
         classification: 'public',
+<<<<<<< HEAD
         capabilities: collaboration.researchAreas,
+=======
+        capabilities: collaboration.objectives,
+>>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
         status: collaboration.status,
         integrationLevel: 'partial',
         lastUpdate: new Date()

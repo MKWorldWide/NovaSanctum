@@ -1,6 +1,13 @@
 {
+<<<<<<< HEAD
   "version": 3,
   "middleware": {},
   "functions": {},
   "sortedMiddleware": []
+=======
+  "sortedMiddleware": [],
+  "middleware": {},
+  "functions": {},
+  "version": 2
+>>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
 }

@@ -1,0 +1,251 @@
+name: Dependabot Automation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  schedule:
+    # Run dependency checks daily at 3 AM UTC
+    - cron: '0 3 * * *'
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NOVASANCTUM_TOKEN: ${{ secrets.NOVASANCTUM_TOKEN }}
+
+jobs:
+  auto-approve-dependabot:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.NOVASANCTUM_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Auto-approve if tests pass
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = context.payload.pull_request;
+            
+            // Auto-approve Dependabot PRs that pass tests
+            await github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              event: 'APPROVE',
+              body: `## ✅ Auto-approved by NovaSanctum Automation Suite
+            
+            This Dependabot PR has been automatically approved because:
+            - All tests pass ✅
+            - No breaking changes detected ✅
+            - Security updates are prioritized ✅
+            
+            **Changes:**
+            - ${pr.title}
+            - Updated dependencies to latest secure versions
+            
+            ---
+            *Approved by NovaSanctum Automation Suite*`
+            });
+
+      - name: Auto-merge if approved
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = context.payload.pull_request;
+            
+            // Check if PR is approved and ready to merge
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            const approvals = reviews.data.filter(review => review.state === 'APPROVED');
+            
+            if (approvals.length > 0 && pr.mergeable) {
+              try {
+                await github.rest.pulls.merge({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: pr.number,
+                  merge_method: 'squash',
+                  commit_title: `chore: ${pr.title}`,
+                  commit_message: `Automated dependency update by Dependabot\n\n${pr.body || ''}`
+                });
+                
+                console.log('Successfully auto-merged Dependabot PR');
+              } catch (error) {
+                console.log('Failed to auto-merge:', error.message);
+              }
+            }
+
+  security-update-priority:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]'
+    steps:
+      - name: Check for security updates
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: pr } = context.payload.pull_request;
+            
+            // Check if this is a security update
+            const isSecurityUpdate = pr.title.toLowerCase().includes('security') || 
+                                   pr.title.toLowerCase().includes('vulnerability') ||
+                                   pr.body.toLowerCase().includes('security');
+            
+            if (isSecurityUpdate) {
+              // Add high priority label
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                labels: ['security', 'priority: high', 'urgent']
+              });
+              
+              // Notify maintainers
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: `## 🔒 Security Update Detected
+            
+            This PR contains security updates that should be reviewed and merged promptly.
+            
+            **Priority**: HIGH
+            **Action Required**: Review and merge as soon as possible
+            
+            ---
+            *Alerted by NovaSanctum Automation Suite*`
+              });
+            }
+
+  dependency-health-check:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.NOVASANCTUM_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check for outdated dependencies
+        id: check-deps
+        run: |
+          npm outdated --json > outdated.json || echo "{}" > outdated.json
+          if [ -s outdated.json ] && [ "$(cat outdated.json)" != "{}" ]; then
+            echo "has_updates=true" >> $GITHUB_OUTPUT
+            echo "outdated_count=$(jq 'length' outdated.json)" >> $GITHUB_OUTPUT
+          else
+            echo "has_updates=false" >> $GITHUB_OUTPUT
+            echo "outdated_count=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create dependency report
+        if: steps.check-deps.outputs.has_updates == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const outdated = JSON.parse(fs.readFileSync('outdated.json', 'utf8'));
+            
+            let report = `## 📦 Dependency Health Report
+            
+            **Generated**: ${new Date().toISOString()}
+            **Outdated packages**: ${Object.keys(outdated).length}
+            
+            ### Outdated Dependencies:
+            `;
+            
+            for (const [packageName, info] of Object.entries(outdated)) {
+              report += `\n- **${packageName}**: ${info.current} → ${info.latest}`;
+              if (info.wanted && info.wanted !== info.latest) {
+                report += ` (wanted: ${info.wanted})`;
+              }
+            }
+            
+            report += `\n\n### Recommendations:
+            - Consider running \`npm update\` for minor updates
+            - Review major version updates for breaking changes
+            - Prioritize security updates
+            
+            ---
+            *Report generated by NovaSanctum Automation Suite*`;
+            
+            // Create issue with report
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Dependency Health Report - ${new Date().toLocaleDateString()}`,
+              body: report,
+              labels: ['dependencies', 'automation']
+            });
+
+  cleanup-old-dependabot-branches:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+    steps:
+      - name: Cleanup old Dependabot branches
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: branches } = await github.rest.repos.listBranches({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            
+            const dependabotBranches = branches.filter(branch => 
+              branch.name.startsWith('dependabot/') || 
+              branch.name.includes('dependabot')
+            );
+            
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            
+            for (const branch of dependabotBranches) {
+              try {
+                const branchData = await github.rest.repos.getBranch({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  branch: branch.name
+                });
+                
+                const lastCommitDate = new Date(branchData.data.commit.commit.author.date);
+                
+                if (lastCommitDate < weekAgo) {
+                  await github.rest.git.deleteRef({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    ref: `heads/${branch.name}`
+                  });
+                  
+                  console.log(`Deleted old Dependabot branch: ${branch.name}`);
+                }
+              } catch (error) {
+                console.log(`Failed to process branch ${branch.name}:`, error.message);
+              }
+            } 

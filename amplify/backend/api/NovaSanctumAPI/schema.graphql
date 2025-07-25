@@ -1,0 +1,27 @@
+type User @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  email: String!
+  name: String
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Profile @model @auth(rules: [{allow: owner}]) {
+  id: ID!
+  userId: ID!
+  bio: String
+  avatar: String
+  preferences: AWSJSON
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Post @model @auth(rules: [{allow: owner}, {allow: private, operations: [read]}]) {
+  id: ID!
+  title: String!
+  content: String!
+  author: User! @hasOne
+  tags: [String]
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+} 

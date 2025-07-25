@@ -116,4 +116,11 @@ class SacredAPIService {
   }
 }
 
+<<<<<<< HEAD
 export const sacredAPI = new SacredAPIService() 
+=======
+export const sacredAPI = new SacredAPIService()
+
+// Export the class for testing and direct instantiation
+export { SacredAPIService } 
+>>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)

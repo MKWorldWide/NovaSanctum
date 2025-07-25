@@ -1,0 +1,56 @@
+{
+  "auth": {
+    "novasanctum268cf202": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL",
+          "PHONE_NUMBER"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "function": {
+    "novasanctum3c5a973d": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_novasanctum3c5a973d_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "novasanctum3c5a973d"
+        }
+      ]
+    },
+    "AMPLIFY_function_novasanctum3c5a973d_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "novasanctum3c5a973d"
+        }
+      ]
+    }
+  }
+}

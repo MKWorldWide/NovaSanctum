@@ -1,0 +1,21 @@
+npm error code ERESOLVE
+npm error ERESOLVE unable to resolve dependency tree
+npm error
+npm error While resolving: novasanctum@0.1.0
+npm error Found: storybook@7.6.20
+npm error node_modules/storybook
+npm error   dev storybook@"^7.6.7" from the root project
+npm error
+npm error Could not resolve dependency:
+npm error peer storybook@"^9.0.6" from @storybook/addon-onboarding@9.0.6
+npm error node_modules/@storybook/addon-onboarding
+npm error   dev @storybook/addon-onboarding@"^9.0.6" from the root project
+npm error
+npm error Fix the upstream dependency conflict, or retry
+npm error this command with --force or --legacy-peer-deps
+npm error to accept an incorrect (and potentially broken) dependency resolution.
+npm error
+npm error
+npm error For a full report see:
+npm error /Users/sovereign/.npm/_logs/2025-06-07T07_12_13_746Z-eresolve-report.txt
+npm error A complete log of this run can be found in: /Users/sovereign/.npm/_logs/2025-06-07T07_12_13_746Z-debug-0.log

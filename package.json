@@ -20,12 +20,22 @@
     "@aws-amplify/ui-react": "^5.0.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+<<<<<<< HEAD
     "aws-amplify": "^5.3.10",
     "framer-motion": "^10.16.4",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
     "prop-types": "^15.8.1",
+=======
+    "@octokit/rest": "^22.0.0",
+    "aws-amplify": "^5.3.10",
+    "framer-motion": "^10.16.4",
+    "next": "14.0.3",
+    "prop-types": "^15.8.1",
+    "react": "^18",
+    "react-dom": "^18",
+>>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
     "websocket": "^1.0.34"
   },
   "devDependencies": {

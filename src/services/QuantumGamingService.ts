@@ -258,6 +258,11 @@ export class QuantumGamingService {
   private quantumIntegration: boolean = false;
 
   constructor() {
+<<<<<<< HEAD
+=======
+    // Initialize the quantumGaming object first
+    this.quantumGaming = {} as QuantumGaming;
+>>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
     this.initializeQuantumGaming();
   }
 

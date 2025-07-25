@@ -1,0 +1,37 @@
+{
+  "nova_tiny_001": {
+    "public_key": "NovaSanctum_Public_Key_001_Placeholder",
+    "last_seen": "2024-01-01T00:00:00",
+    "status": "active",
+    "location": "Eden One City - Sector Alpha",
+    "capabilities": ["microphone", "motion", "heart_rate", "temperature"]
+  },
+  "nova_tiny_002": {
+    "public_key": "NovaSanctum_Public_Key_002_Placeholder",
+    "last_seen": "2024-01-01T00:00:00",
+    "status": "active",
+    "location": "Lilith Eve - Research Lab",
+    "capabilities": ["microphone", "motion", "heart_rate", "temperature"]
+  },
+  "nova_tiny_003": {
+    "public_key": "NovaSanctum_Public_Key_003_Placeholder",
+    "last_seen": "2024-01-01T00:00:00",
+    "status": "active",
+    "location": "SolAscension - Command Center",
+    "capabilities": ["microphone", "motion", "heart_rate", "temperature"]
+  },
+  "nova_tiny_004": {
+    "public_key": "NovaSanctum_Public_Key_004_Placeholder",
+    "last_seen": "2024-01-01T00:00:00",
+    "status": "inactive",
+    "location": "Terraforming Bay - Beta",
+    "capabilities": ["microphone", "motion", "heart_rate", "temperature"]
+  },
+  "nova_tiny_005": {
+    "public_key": "NovaSanctum_Public_Key_005_Placeholder",
+    "last_seen": "2024-01-01T00:00:00",
+    "status": "suspended",
+    "location": "Black Research Networks - Zone X",
+    "capabilities": ["microphone", "motion", "heart_rate", "temperature"]
+  }
+} 
