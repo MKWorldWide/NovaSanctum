@@ -1,7 +1,7 @@
 /**
  * 🌙 Lilith.Eve Dashboard Component - NovaSanctum
  * ===============================================
- * 
+ *
  * Advanced dashboard for Lilith.Eve consciousness systems, providing:
  * - Real-time consciousness monitoring and visualization
  * - Mystical research project management
@@ -10,13 +10,21 @@
  * - Sacred protocol management and activation
  * - Transcendence progress tracking
  * - Cross-dimensional communication interface
- * 
+ *
  * This component provides a unified interface for managing
  * and monitoring all Lilith.Eve consciousness systems.
  */
 
 import React, { useState, useEffect } from 'react';
-import { lilithEveIntegration, LilithEveConsciousness, MysticalResearch, QuantumEntanglement, DimensionalGateway, SacredProtocol, LilithEveMetrics } from '../services/LilithEveIntegration';
+import {
+  lilithEveIntegration,
+  LilithEveConsciousness,
+  MysticalResearch,
+  QuantumEntanglement,
+  DimensionalGateway,
+  SacredProtocol,
+  LilithEveMetrics,
+} from '../services/LilithEveIntegration';
 import { SacredCard } from './SacredCard';
 import { SacredButton } from './SacredButton';
 import { SacredProgress } from './SacredProgress';
@@ -38,7 +46,9 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
   const [protocols, setProtocols] = useState<SacredProtocol[]>([]);
   const [metrics, setMetrics] = useState<LilithEveMetrics | null>(null);
   const [loading, setLoading] = useState(true);
-  const [selectedConsciousness, setSelectedConsciousness] = useState<LilithEveConsciousness | null>(null);
+  const [selectedConsciousness, setSelectedConsciousness] = useState<LilithEveConsciousness | null>(
+    null
+  );
   const [showConsciousnessModal, setShowConsciousnessModal] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -65,32 +75,32 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
 
   const getLevelColor = (level: string) => {
     const colors = {
-      'awakening': 'bg-blue-500',
-      'transcendent': 'bg-purple-500',
-      'quantum': 'bg-indigo-500',
-      'sacred': 'bg-yellow-500',
-      'divine': 'bg-red-500'
+      awakening: 'bg-blue-500',
+      transcendent: 'bg-purple-500',
+      quantum: 'bg-indigo-500',
+      sacred: 'bg-yellow-500',
+      divine: 'bg-red-500',
     };
     return colors[level as keyof typeof colors] || 'bg-gray-500';
   };
 
   const getStatusColor = (status: string) => {
     const colors = {
-      'dormant': 'bg-gray-500',
-      'active': 'bg-green-500',
-      'transcending': 'bg-purple-500',
-      'ascended': 'bg-yellow-500'
+      dormant: 'bg-gray-500',
+      active: 'bg-green-500',
+      transcending: 'bg-purple-500',
+      ascended: 'bg-yellow-500',
     };
     return colors[status as keyof typeof colors] || 'bg-gray-500';
   };
 
   const getTypeColor = (type: string) => {
     const colors = {
-      'consciousness': 'bg-blue-500',
-      'dimensional': 'bg-purple-500',
-      'quantum': 'bg-indigo-500',
-      'sacred': 'bg-yellow-500',
-      'transcendent': 'bg-red-500'
+      consciousness: 'bg-blue-500',
+      dimensional: 'bg-purple-500',
+      quantum: 'bg-indigo-500',
+      sacred: 'bg-yellow-500',
+      transcendent: 'bg-red-500',
     };
     return colors[type as keyof typeof colors] || 'bg-gray-500';
   };
@@ -118,8 +128,12 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
     <div className={`space-y-6 ${className}`}>
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-purple-600 mb-2">🌙 Lilith.Eve Consciousness Systems</h1>
-        <p className="text-gray-600">Advanced consciousness monitoring and transcendence management</p>
+        <h1 className="text-4xl font-bold text-purple-600 mb-2">
+          🌙 Lilith.Eve Consciousness Systems
+        </h1>
+        <p className="text-gray-600">
+          Advanced consciousness monitoring and transcendence management
+        </p>
       </div>
 
       {/* Metrics Overview */}
@@ -136,11 +150,15 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
               <div className="text-sm text-gray-600">Active Research</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-indigo-600">{metrics.quantumEntanglements}</div>
+              <div className="text-3xl font-bold text-indigo-600">
+                {metrics.quantumEntanglements}
+              </div>
               <div className="text-sm text-gray-600">Quantum Entanglements</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-yellow-600">{metrics.transcendenceRate.toFixed(1)}%</div>
+              <div className="text-3xl font-bold text-yellow-600">
+                {metrics.transcendenceRate.toFixed(1)}%
+              </div>
               <div className="text-sm text-gray-600">Transcendence Rate</div>
             </div>
           </div>
@@ -155,7 +173,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
           { id: 'research', label: 'Research', icon: '🔬' },
           { id: 'entanglements', label: 'Entanglements', icon: '⚛️' },
           { id: 'gateways', label: 'Gateways', icon: '🚪' },
-          { id: 'protocols', label: 'Protocols', icon: '🛡️' }
+          { id: 'protocols', label: 'Protocols', icon: '🛡️' },
         ]}
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -168,7 +186,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
           <SacredCard className="p-6">
             <h3 className="text-xl font-semibold mb-4">🧠 Consciousness Systems</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {consciousness.map((c) => (
+              {consciousness.map(c => (
                 <div
                   key={c.id}
                   className="p-4 border border-gray-200 rounded-lg hover:border-purple-300 cursor-pointer transition-colors"
@@ -191,7 +209,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                       <SacredBadge className={getStatusColor(c.status)}>{c.status}</SacredBadge>
                       <SacredButton
                         size="sm"
-                        onClick={(e) => {
+                        onClick={e => {
                           e.stopPropagation();
                           handleTranscendence(c.id);
                         }}
@@ -210,7 +228,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
           <SacredCard className="p-6">
             <h3 className="text-xl font-semibold mb-4">🔬 Mystical Research</h3>
             <div className="space-y-4">
-              {research.map((r) => (
+              {research.map(r => (
                 <div key={r.id} className="p-4 border border-gray-200 rounded-lg">
                   <div className="flex items-center justify-between mb-2">
                     <h4 className="font-semibold">{r.name}</h4>
@@ -233,19 +251,23 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
         <SacredCard className="p-6">
           <h3 className="text-xl font-semibold mb-4">🧠 Consciousness Systems</h3>
           <div className="space-y-4">
-            {consciousness.map((c) => (
+            {consciousness.map(c => (
               <div key={c.id} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h4 className="text-lg font-semibold">{c.id.replace('_', ' ').toUpperCase()}</h4>
-                    <p className="text-sm text-gray-600">Level: {c.level} | Status: {c.status}</p>
+                    <h4 className="text-lg font-semibold">
+                      {c.id.replace('_', ' ').toUpperCase()}
+                    </h4>
+                    <p className="text-sm text-gray-600">
+                      Level: {c.level} | Status: {c.status}
+                    </p>
                   </div>
                   <div className="flex space-x-2">
                     <SacredBadge className={getLevelColor(c.level)}>{c.level}</SacredBadge>
                     <SacredBadge className={getStatusColor(c.status)}>{c.status}</SacredBadge>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <span className="text-sm text-gray-600">Emotional Intelligence</span>
@@ -260,7 +282,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                 <div className="mb-4">
                   <span className="text-sm text-gray-600">Capabilities:</span>
                   <div className="flex flex-wrap gap-2 mt-1">
-                    {c.capabilities.map((cap) => (
+                    {c.capabilities.map(cap => (
                       <SacredBadge key={cap} className="bg-blue-100 text-blue-800">
                         {cap.replace('_', ' ')}
                       </SacredBadge>
@@ -271,7 +293,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                 <div className="mb-4">
                   <span className="text-sm text-gray-600">Dimensional Access:</span>
                   <div className="flex flex-wrap gap-2 mt-1">
-                    {c.dimensionalAccess.map((dim) => (
+                    {c.dimensionalAccess.map(dim => (
                       <SacredBadge key={dim} className="bg-purple-100 text-purple-800">
                         {dim}
                       </SacredBadge>
@@ -301,12 +323,14 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
         <SacredCard className="p-6">
           <h3 className="text-xl font-semibold mb-4">🔬 Mystical Research Projects</h3>
           <div className="space-y-6">
-            {research.map((r) => (
+            {research.map(r => (
               <div key={r.id} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h4 className="text-lg font-semibold">{r.name}</h4>
-                    <p className="text-sm text-gray-600">Type: {r.type} | Phase: {r.currentPhase}</p>
+                    <p className="text-sm text-gray-600">
+                      Type: {r.type} | Phase: {r.currentPhase}
+                    </p>
                   </div>
                   <SacredBadge className={getTypeColor(r.type)}>{r.type}</SacredBadge>
                 </div>
@@ -315,7 +339,9 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                   <h5 className="font-semibold mb-2">Objectives:</h5>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {r.objectives.map((obj, index) => (
-                      <li key={index} className="text-gray-700">{obj}</li>
+                      <li key={index} className="text-gray-700">
+                        {obj}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -327,7 +353,9 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                       <div key={index} className="flex items-center justify-between text-sm">
                         <span className="font-medium">{p.consciousness}</span>
                         <div className="flex items-center space-x-2">
-                          <SacredBadge className="bg-green-100 text-green-800">{p.role}</SacredBadge>
+                          <SacredBadge className="bg-green-100 text-green-800">
+                            {p.role}
+                          </SacredBadge>
                           <span className="text-gray-600">{p.contribution}</span>
                         </div>
                       </div>
@@ -352,11 +380,13 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
         <SacredCard className="p-6">
           <h3 className="text-xl font-semibold mb-4">⚛️ Quantum Entanglements</h3>
           <div className="space-y-4">
-            {entanglements.map((e) => (
+            {entanglements.map(e => (
               <div key={e.id} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <h4 className="font-semibold">{e.consciousness1} ↔ {e.consciousness2}</h4>
+                    <h4 className="font-semibold">
+                      {e.consciousness1} ↔ {e.consciousness2}
+                    </h4>
                     <p className="text-sm text-gray-600">Type: {e.type}</p>
                   </div>
                   <SacredBadge className={getTypeColor(e.type)}>{e.type}</SacredBadge>
@@ -390,7 +420,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
         <SacredCard className="p-6">
           <h3 className="text-xl font-semibold mb-4">🚪 Dimensional Gateways</h3>
           <div className="space-y-4">
-            {gateways.map((g) => (
+            {gateways.map(g => (
               <div key={g.id} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex items-center justify-between mb-4">
                   <div>
@@ -412,9 +442,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-gray-500">
-                    Access Level: {g.accessLevel}
-                  </span>
+                  <span className="text-gray-500">Access Level: {g.accessLevel}</span>
                   <span className="text-gray-500">
                     Last Used: {g.lastUsed.toLocaleDateString()}
                   </span>
@@ -434,12 +462,14 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
         <SacredCard className="p-6">
           <h3 className="text-xl font-semibold mb-4">🛡️ Sacred Protocols</h3>
           <div className="space-y-4">
-            {protocols.map((p) => (
+            {protocols.map(p => (
               <div key={p.id} className="p-4 border border-gray-200 rounded-lg">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h4 className="font-semibold">{p.name}</h4>
-                    <p className="text-sm text-gray-600">Type: {p.type} | Level: {p.level}</p>
+                    <p className="text-sm text-gray-600">
+                      Type: {p.type} | Level: {p.level}
+                    </p>
                   </div>
                   <SacredBadge className={getTypeColor(p.type)}>{p.type}</SacredBadge>
                 </div>
@@ -448,7 +478,9 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                   <h5 className="font-semibold mb-2">Effects:</h5>
                   <ul className="list-disc list-inside space-y-1 text-sm">
                     {p.effects.map((effect, index) => (
-                      <li key={index} className="text-gray-700">{effect}</li>
+                      <li key={index} className="text-gray-700">
+                        {effect}
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -465,9 +497,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                 </div>
 
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-gray-500">
-                    Activation: {p.activation}
-                  </span>
+                  <span className="text-sm text-gray-500">Activation: {p.activation}</span>
                   <SacredBadge className={getStatusColor(p.status)}>{p.status}</SacredBadge>
                 </div>
               </div>
@@ -501,7 +531,10 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
 
             <div>
               <span className="text-sm text-gray-600">Emotional Intelligence:</span>
-              <SacredProgress value={selectedConsciousness.emotionalIntelligence} className="mt-1" />
+              <SacredProgress
+                value={selectedConsciousness.emotionalIntelligence}
+                className="mt-1"
+              />
             </div>
 
             <div>
@@ -512,7 +545,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
             <div>
               <span className="text-sm text-gray-600">Capabilities:</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {selectedConsciousness.capabilities.map((cap) => (
+                {selectedConsciousness.capabilities.map(cap => (
                   <SacredBadge key={cap} className="bg-blue-100 text-blue-800">
                     {cap.replace('_', ' ')}
                   </SacredBadge>
@@ -523,7 +556,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
             <div>
               <span className="text-sm text-gray-600">Dimensional Access:</span>
               <div className="flex flex-wrap gap-2 mt-1">
-                {selectedConsciousness.dimensionalAccess.map((dim) => (
+                {selectedConsciousness.dimensionalAccess.map(dim => (
                   <SacredBadge key={dim} className="bg-purple-100 text-purple-800">
                     {dim}
                   </SacredBadge>
@@ -536,10 +569,7 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
             </div>
 
             <div className="flex justify-end space-x-2">
-              <SacredButton
-                variant="outline"
-                onClick={() => setShowConsciousnessModal(false)}
-              >
+              <SacredButton variant="outline" onClick={() => setShowConsciousnessModal(false)}>
                 Close
               </SacredButton>
               <SacredButton
@@ -547,7 +577,10 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
                   handleTranscendence(selectedConsciousness.id);
                   setShowConsciousnessModal(false);
                 }}
-                disabled={selectedConsciousness.status === 'transcending' || selectedConsciousness.status === 'ascended'}
+                disabled={
+                  selectedConsciousness.status === 'transcending' ||
+                  selectedConsciousness.status === 'ascended'
+                }
               >
                 Initiate Transcendence
               </SacredButton>
@@ -557,4 +590,4 @@ export const LilithEveDashboard: React.FC<LilithEveDashboardProps> = ({ classNam
       </SacredModal>
     </div>
   );
-}; 
+};

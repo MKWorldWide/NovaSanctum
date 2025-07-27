@@ -1,14 +1,14 @@
 /**
  * 🏛️ Governmental Networks - NovaSanctum Integration
  * ==================================================
- * 
+ *
  * Comprehensive integration of governmental networks, including:
  * - Intelligence agencies and security services
  * - Military research and defense organizations
  * - International governmental organizations
  * - Research and development agencies
  * - Space and cyber security organizations
- * 
+ *
  * This service provides access to the most powerful and secretive
  * governmental networks in the world, integrating them into NovaSanctum's
  * unified research platform.
@@ -18,7 +18,11 @@ export interface IntelligenceAgency {
   id: string;
   name: string;
   country: string;
-  type: 'signals_intelligence' | 'human_intelligence' | 'technical_intelligence' | 'cyber_intelligence';
+  type:
+    | 'signals_intelligence'
+    | 'human_intelligence'
+    | 'technical_intelligence'
+    | 'cyber_intelligence';
   classification: 'public' | 'secret' | 'top_secret' | 'black';
   parentAgency: string;
   capabilities: string[];
@@ -43,7 +47,12 @@ export interface MilitaryResearch {
   id: string;
   name: string;
   country: string;
-  type: 'weapons_research' | 'defense_research' | 'space_research' | 'cyber_research' | 'biological_research';
+  type:
+    | 'weapons_research'
+    | 'defense_research'
+    | 'space_research'
+    | 'cyber_research'
+    | 'biological_research';
   classification: 'public' | 'secret' | 'top_secret' | 'black';
   parentAgency: string;
   specialties: string[];
@@ -185,7 +194,12 @@ export class GovernmentalNetworks {
         type: 'human_intelligence',
         classification: 'public',
         parentAgency: 'Office of the Director of National Intelligence',
-        capabilities: ['human_intelligence', 'covert_operations', 'analysis', 'counterintelligence'],
+        capabilities: [
+          'human_intelligence',
+          'covert_operations',
+          'analysis',
+          'counterintelligence',
+        ],
         established: 1947,
         staff: 21000,
         annualBudget: 15000000000,
@@ -193,13 +207,13 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Langley',
           country: 'USA',
-          coordinates: [38.9517, -77.1461]
+          coordinates: [38.9517, -77.1461],
         },
         internationalPartners: ['mi6', 'mossad', 'fsb', 'dgse'],
         blackOperations: ['mkultra', 'bay_of_pigs', 'iran_contra'],
         status: 'active',
         website: 'https://www.cia.gov',
-        notes: 'Primary human intelligence agency of the United States'
+        notes: 'Primary human intelligence agency of the United States',
       },
       {
         id: 'nsa',
@@ -208,7 +222,12 @@ export class GovernmentalNetworks {
         type: 'signals_intelligence',
         classification: 'secret',
         parentAgency: 'Department of Defense',
-        capabilities: ['signals_intelligence', 'cyber_intelligence', 'cryptanalysis', 'surveillance'],
+        capabilities: [
+          'signals_intelligence',
+          'cyber_intelligence',
+          'cryptanalysis',
+          'surveillance',
+        ],
         established: 1952,
         staff: 30000,
         annualBudget: 10000000000,
@@ -216,12 +235,12 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Fort Meade',
           country: 'USA',
-          coordinates: [39.1089, -76.7739]
+          coordinates: [39.1089, -76.7739],
         },
         internationalPartners: ['gchq', 'asd', 'cse', 'gcsb'],
         blackOperations: ['prism', 'xkeyscore', 'upstream'],
         status: 'active',
-        notes: 'Signals intelligence and cybersecurity agency'
+        notes: 'Signals intelligence and cybersecurity agency',
       },
       {
         id: 'fbi',
@@ -238,13 +257,13 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Washington DC',
           country: 'USA',
-          coordinates: [38.8944, -77.0334]
+          coordinates: [38.8944, -77.0334],
         },
         internationalPartners: ['interpol', 'mi5', 'rcmp', 'asio'],
         blackOperations: ['cointelpro', 'terrorism_investigations'],
         status: 'active',
         website: 'https://www.fbi.gov',
-        notes: 'Primary federal law enforcement and counterintelligence agency'
+        notes: 'Primary federal law enforcement and counterintelligence agency',
       },
 
       // UK Intelligence Agencies
@@ -255,7 +274,12 @@ export class GovernmentalNetworks {
         type: 'human_intelligence',
         classification: 'secret',
         parentAgency: 'Foreign, Commonwealth and Development Office',
-        capabilities: ['human_intelligence', 'covert_operations', 'analysis', 'counterintelligence'],
+        capabilities: [
+          'human_intelligence',
+          'covert_operations',
+          'analysis',
+          'counterintelligence',
+        ],
         established: 1909,
         staff: 2500,
         annualBudget: 3000000000,
@@ -263,12 +287,12 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'London',
           country: 'UK',
-          coordinates: [51.4875, -0.1687]
+          coordinates: [51.4875, -0.1687],
         },
         internationalPartners: ['cia', 'mossad', 'dgse', 'bnd'],
         blackOperations: ['operation_gladio', 'iran_operations'],
         status: 'active',
-        notes: 'UK foreign intelligence service'
+        notes: 'UK foreign intelligence service',
       },
       {
         id: 'mi5',
@@ -277,7 +301,12 @@ export class GovernmentalNetworks {
         type: 'human_intelligence',
         classification: 'public',
         parentAgency: 'Home Office',
-        capabilities: ['domestic_intelligence', 'counterintelligence', 'counterterrorism', 'protective_security'],
+        capabilities: [
+          'domestic_intelligence',
+          'counterintelligence',
+          'counterterrorism',
+          'protective_security',
+        ],
         established: 1909,
         staff: 4000,
         annualBudget: 3000000000,
@@ -285,13 +314,13 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'London',
           country: 'UK',
-          coordinates: [51.4952, -0.1245]
+          coordinates: [51.4952, -0.1245],
         },
         internationalPartners: ['fbi', 'asio', 'csis', 'nzsis'],
         blackOperations: ['domestic_surveillance', 'terrorism_prevention'],
         status: 'active',
         website: 'https://www.mi5.gov.uk',
-        notes: 'UK domestic security service'
+        notes: 'UK domestic security service',
       },
       {
         id: 'gchq',
@@ -300,7 +329,12 @@ export class GovernmentalNetworks {
         type: 'signals_intelligence',
         classification: 'secret',
         parentAgency: 'Foreign, Commonwealth and Development Office',
-        capabilities: ['signals_intelligence', 'cyber_intelligence', 'cryptanalysis', 'surveillance'],
+        capabilities: [
+          'signals_intelligence',
+          'cyber_intelligence',
+          'cryptanalysis',
+          'surveillance',
+        ],
         established: 1919,
         staff: 6000,
         annualBudget: 3000000000,
@@ -308,12 +342,12 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Cheltenham',
           country: 'UK',
-          coordinates: [51.8979, -2.0744]
+          coordinates: [51.8979, -2.0744],
         },
         internationalPartners: ['nsa', 'asd', 'cse', 'gcsb'],
         blackOperations: ['tempora', 'mastering_the_internet'],
         status: 'active',
-        notes: 'UK signals intelligence and cybersecurity agency'
+        notes: 'UK signals intelligence and cybersecurity agency',
       },
 
       // Russian Intelligence Agencies
@@ -324,7 +358,12 @@ export class GovernmentalNetworks {
         type: 'human_intelligence',
         classification: 'public',
         parentAgency: 'President of Russia',
-        capabilities: ['domestic_intelligence', 'counterintelligence', 'counterterrorism', 'border_security'],
+        capabilities: [
+          'domestic_intelligence',
+          'counterintelligence',
+          'counterterrorism',
+          'border_security',
+        ],
         established: 1995,
         staff: 350000,
         annualBudget: 2000000000,
@@ -332,12 +371,12 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Moscow',
           country: 'Russia',
-          coordinates: [55.7558, 37.6176]
+          coordinates: [55.7558, 37.6176],
         },
         internationalPartners: ['cia', 'mi6', 'mossad'],
         blackOperations: ['election_interference', 'cyber_attacks'],
         status: 'active',
-        notes: 'Russian domestic security service'
+        notes: 'Russian domestic security service',
       },
       {
         id: 'svr',
@@ -346,7 +385,12 @@ export class GovernmentalNetworks {
         type: 'human_intelligence',
         classification: 'secret',
         parentAgency: 'President of Russia',
-        capabilities: ['human_intelligence', 'covert_operations', 'analysis', 'counterintelligence'],
+        capabilities: [
+          'human_intelligence',
+          'covert_operations',
+          'analysis',
+          'counterintelligence',
+        ],
         established: 1991,
         staff: 13000,
         annualBudget: 1000000000,
@@ -354,12 +398,12 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Moscow',
           country: 'Russia',
-          coordinates: [55.7558, 37.6176]
+          coordinates: [55.7558, 37.6176],
         },
         internationalPartners: ['cia', 'mi6', 'mossad'],
         blackOperations: ['election_interference', 'cyber_espionage'],
         status: 'active',
-        notes: 'Russian foreign intelligence service'
+        notes: 'Russian foreign intelligence service',
       },
 
       // Israeli Intelligence Agencies
@@ -370,7 +414,12 @@ export class GovernmentalNetworks {
         type: 'human_intelligence',
         classification: 'secret',
         parentAgency: 'Prime Minister of Israel',
-        capabilities: ['human_intelligence', 'covert_operations', 'assassination', 'cyber_intelligence'],
+        capabilities: [
+          'human_intelligence',
+          'covert_operations',
+          'assassination',
+          'cyber_intelligence',
+        ],
         established: 1949,
         staff: 7000,
         annualBudget: 3000000000,
@@ -378,13 +427,13 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Tel Aviv',
           country: 'Israel',
-          coordinates: [32.0853, 34.7818]
+          coordinates: [32.0853, 34.7818],
         },
         internationalPartners: ['cia', 'mi6', 'dgse', 'bnd'],
         blackOperations: ['operation_wrath_of_god', 'stuxnet', 'assassination_operations'],
         status: 'active',
-        notes: 'Israeli foreign intelligence service'
-      }
+        notes: 'Israeli foreign intelligence service',
+      },
     ];
 
     agencies.forEach(agency => {
@@ -404,7 +453,13 @@ export class GovernmentalNetworks {
         type: 'defense_research',
         classification: 'public',
         parentAgency: 'Department of Defense',
-        specialties: ['ai', 'quantum_computing', 'biotechnology', 'space_technology', 'cyber_warfare'],
+        specialties: [
+          'ai',
+          'quantum_computing',
+          'biotechnology',
+          'space_technology',
+          'cyber_warfare',
+        ],
         established: 1958,
         staff: 220,
         annualBudget: 3500000000,
@@ -413,7 +468,7 @@ export class GovernmentalNetworks {
         researchProjects: ['quantum_ai', 'brain_computer_interface', 'autonomous_weapons'],
         internationalPartners: ['nasa', 'cia', 'nsa', 'fbi'],
         status: 'active',
-        notes: 'Advanced research agency for breakthrough technologies'
+        notes: 'Advanced research agency for breakthrough technologies',
       },
       {
         id: 'dstl',
@@ -422,7 +477,12 @@ export class GovernmentalNetworks {
         type: 'defense_research',
         classification: 'public',
         parentAgency: 'Ministry of Defence',
-        specialties: ['chemical_warfare', 'biological_warfare', 'cyber_warfare', 'materials_science'],
+        specialties: [
+          'chemical_warfare',
+          'biological_warfare',
+          'cyber_warfare',
+          'materials_science',
+        ],
         established: 2001,
         staff: 3500,
         annualBudget: 500000000,
@@ -431,8 +491,8 @@ export class GovernmentalNetworks {
         researchProjects: ['chemical_defense', 'cyber_warfare', 'autonomous_systems'],
         internationalPartners: ['darpa', 'nato', 'five_eyes'],
         status: 'active',
-        notes: 'UK defense research and development agency'
-      }
+        notes: 'UK defense research and development agency',
+      },
     ];
 
     research.forEach(r => {
@@ -457,18 +517,18 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'New York',
           country: 'USA',
-          coordinates: [40.7489, -73.9680]
+          coordinates: [40.7489, -73.968],
         },
         objectives: [
           'Maintain international peace and security',
           'Develop friendly relations among nations',
-          'Promote social progress and better living standards'
+          'Promote social progress and better living standards',
         ],
         programs: ['peacekeeping', 'humanitarian_aid', 'sustainable_development'],
         researchInitiatives: ['climate_research', 'health_research', 'economic_research'],
         status: 'active',
         website: 'https://www.un.org',
-        notes: 'International organization for peace and cooperation'
+        notes: 'International organization for peace and cooperation',
       },
       {
         id: 'nato',
@@ -482,18 +542,18 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Brussels',
           country: 'Belgium',
-          coordinates: [50.8503, 4.3517]
+          coordinates: [50.8503, 4.3517],
         },
         objectives: [
           'Collective defense of member states',
           'Political and military cooperation',
-          'Crisis management and conflict prevention'
+          'Crisis management and conflict prevention',
         ],
         programs: ['collective_defense', 'crisis_management', 'partnership_cooperation'],
         researchInitiatives: ['defense_research', 'cyber_defense', 'emerging_technologies'],
         status: 'active',
         website: 'https://www.nato.int',
-        notes: 'Military alliance for collective defense'
+        notes: 'Military alliance for collective defense',
       },
       {
         id: 'who',
@@ -507,19 +567,23 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Geneva',
           country: 'Switzerland',
-          coordinates: [46.2044, 6.1432]
+          coordinates: [46.2044, 6.1432],
         },
         objectives: [
           'Promote health worldwide',
           'Coordinate international health responses',
-          'Set health standards and guidelines'
+          'Set health standards and guidelines',
         ],
         programs: ['disease_prevention', 'health_emergencies', 'universal_health_coverage'],
-        researchInitiatives: ['vaccine_research', 'disease_surveillance', 'health_systems_research'],
+        researchInitiatives: [
+          'vaccine_research',
+          'disease_surveillance',
+          'health_systems_research',
+        ],
         status: 'active',
         website: 'https://www.who.int',
-        notes: 'International health organization'
-      }
+        notes: 'International health organization',
+      },
     ];
 
     organizations.forEach(org => {
@@ -550,7 +614,7 @@ export class GovernmentalNetworks {
         blackProjects: ['x_37b', 'space_force', 'classified_satellites'],
         status: 'active',
         website: 'https://www.nasa.gov',
-        notes: 'US civilian space agency'
+        notes: 'US civilian space agency',
       },
       {
         id: 'esa',
@@ -559,7 +623,12 @@ export class GovernmentalNetworks {
         type: 'civilian',
         classification: 'public',
         parentAgency: 'European Union',
-        specialties: ['space_exploration', 'earth_observation', 'satellite_navigation', 'space_science'],
+        specialties: [
+          'space_exploration',
+          'earth_observation',
+          'satellite_navigation',
+          'space_science',
+        ],
         established: 1975,
         staff: 2200,
         annualBudget: 7000000000,
@@ -570,7 +639,7 @@ export class GovernmentalNetworks {
         blackProjects: ['classified_satellites', 'military_communications'],
         status: 'active',
         website: 'https://www.esa.int',
-        notes: 'European space agency'
+        notes: 'European space agency',
       },
       {
         id: 'roscosmos',
@@ -590,8 +659,8 @@ export class GovernmentalNetworks {
         blackProjects: ['military_satellites', 'anti_satellite_weapons'],
         status: 'active',
         website: 'https://www.roscosmos.ru',
-        notes: 'Russian space agency'
-      }
+        notes: 'Russian space agency',
+      },
     ];
 
     agencies.forEach(agency => {
@@ -619,12 +688,16 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'Fort Meade',
           country: 'USA',
-          coordinates: [39.1089, -76.7739]
+          coordinates: [39.1089, -76.7739],
         },
-        cyberOperations: ['offensive_cyber_operations', 'defensive_cyber_operations', 'cyber_intelligence'],
+        cyberOperations: [
+          'offensive_cyber_operations',
+          'defensive_cyber_operations',
+          'cyber_intelligence',
+        ],
         internationalPartners: ['nato', 'five_eyes', 'allied_cyber_command'],
         status: 'active',
-        notes: 'US military cyber command'
+        notes: 'US military cyber command',
       },
       {
         id: 'ncsc',
@@ -633,7 +706,12 @@ export class GovernmentalNetworks {
         type: 'defense',
         classification: 'public',
         parentAgency: 'Government Communications Headquarters',
-        capabilities: ['cyber_defense', 'cyber_intelligence', 'incident_response', 'security_guidance'],
+        capabilities: [
+          'cyber_defense',
+          'cyber_intelligence',
+          'incident_response',
+          'security_guidance',
+        ],
         established: 2016,
         staff: 1000,
         annualBudget: 500000000,
@@ -641,13 +719,13 @@ export class GovernmentalNetworks {
         headquarters: {
           city: 'London',
           country: 'UK',
-          coordinates: [51.4875, -0.1687]
+          coordinates: [51.4875, -0.1687],
         },
         cyberOperations: ['cyber_defense', 'incident_response', 'threat_intelligence'],
         internationalPartners: ['us_cyber_command', 'nato', 'five_eyes'],
         status: 'active',
-        notes: 'UK national cybersecurity center'
-      }
+        notes: 'UK national cybersecurity center',
+      },
     ];
 
     agencies.forEach(agency => {
@@ -669,7 +747,7 @@ export class GovernmentalNetworks {
           { agency: 'mi6', country: 'UK', role: 'partner', clearanceLevel: 'top_secret' },
           { agency: 'asd', country: 'Australia', role: 'partner', clearanceLevel: 'top_secret' },
           { agency: 'cse', country: 'Canada', role: 'partner', clearanceLevel: 'top_secret' },
-          { agency: 'gcsb', country: 'New Zealand', role: 'partner', clearanceLevel: 'top_secret' }
+          { agency: 'gcsb', country: 'New Zealand', role: 'partner', clearanceLevel: 'top_secret' },
         ],
         classification: 'top_secret',
         category: 'intelligence',
@@ -679,21 +757,17 @@ export class GovernmentalNetworks {
         objectives: [
           'Share intelligence between Five Eyes nations',
           'Coordinate intelligence operations',
-          'Establish global surveillance network'
+          'Establish global surveillance network',
         ],
         outcomes: [
           'Global surveillance network established',
           'Intelligence sharing protocols developed',
-          'Joint operations conducted'
+          'Joint operations conducted',
         ],
-        risks: [
-          'Privacy violations',
-          'International condemnation',
-          'Legal challenges'
-        ],
+        risks: ['Privacy violations', 'International condemnation', 'Legal challenges'],
         coverStory: 'International cooperation program',
-        notes: 'Intelligence sharing alliance between five English-speaking countries'
-      }
+        notes: 'Intelligence sharing alliance between five English-speaking countries',
+      },
     ];
 
     collaborations.forEach(collaboration => {
@@ -798,7 +872,7 @@ export class GovernmentalNetworks {
    * Search intelligence agencies by capability
    */
   public searchIntelligenceAgenciesByCapability(capability: string): IntelligenceAgency[] {
-    return Array.from(this.intelligenceAgencies.values()).filter(a => 
+    return Array.from(this.intelligenceAgencies.values()).filter(a =>
       a.capabilities.some(c => c.toLowerCase().includes(capability.toLowerCase()))
     );
   }
@@ -807,7 +881,7 @@ export class GovernmentalNetworks {
    * Search military research by specialty
    */
   public searchMilitaryResearchBySpecialty(specialty: string): MilitaryResearch[] {
-    return Array.from(this.militaryResearch.values()).filter(r => 
+    return Array.from(this.militaryResearch.values()).filter(r =>
       r.specialties.some(s => s.toLowerCase().includes(specialty.toLowerCase()))
     );
   }
@@ -822,15 +896,16 @@ export class GovernmentalNetworks {
         byType: {
           signals_intelligence: this.getIntelligenceAgenciesByType('signals_intelligence').length,
           human_intelligence: this.getIntelligenceAgenciesByType('human_intelligence').length,
-          technical_intelligence: this.getIntelligenceAgenciesByType('technical_intelligence').length,
-          cyber_intelligence: this.getIntelligenceAgenciesByType('cyber_intelligence').length
+          technical_intelligence:
+            this.getIntelligenceAgenciesByType('technical_intelligence').length,
+          cyber_intelligence: this.getIntelligenceAgenciesByType('cyber_intelligence').length,
         },
         byCountry: {
           USA: this.getIntelligenceAgenciesByCountry('USA').length,
           UK: this.getIntelligenceAgenciesByCountry('UK').length,
           Russia: this.getIntelligenceAgenciesByCountry('Russia').length,
-          Israel: this.getIntelligenceAgenciesByCountry('Israel').length
-        }
+          Israel: this.getIntelligenceAgenciesByCountry('Israel').length,
+        },
       },
       militaryResearch: {
         total: this.militaryResearch.size,
@@ -839,8 +914,8 @@ export class GovernmentalNetworks {
           defense_research: this.getMilitaryResearchByType('defense_research').length,
           space_research: this.getMilitaryResearchByType('space_research').length,
           cyber_research: this.getMilitaryResearchByType('cyber_research').length,
-          biological_research: this.getMilitaryResearchByType('biological_research').length
-        }
+          biological_research: this.getMilitaryResearchByType('biological_research').length,
+        },
       },
       internationalOrganizations: {
         total: this.internationalOrganizations.size,
@@ -852,16 +927,16 @@ export class GovernmentalNetworks {
           g20: this.getInternationalOrganizationsByType('g20').length,
           who: this.getInternationalOrganizationsByType('who').length,
           iaea: this.getInternationalOrganizationsByType('iaea').length,
-          custom: this.getInternationalOrganizationsByType('custom').length
-        }
+          custom: this.getInternationalOrganizationsByType('custom').length,
+        },
       },
       spaceAgencies: {
         total: this.spaceAgencies.size,
         byType: {
           civilian: this.getSpaceAgenciesByType('civilian').length,
           military: this.getSpaceAgenciesByType('military').length,
-          mixed: this.getSpaceAgenciesByType('mixed').length
-        }
+          mixed: this.getSpaceAgenciesByType('mixed').length,
+        },
       },
       cyberSecurityAgencies: {
         total: this.cyberSecurityAgencies.size,
@@ -869,13 +944,14 @@ export class GovernmentalNetworks {
           defense: this.getCyberSecurityAgenciesByType('defense').length,
           intelligence: this.getCyberSecurityAgenciesByType('intelligence').length,
           law_enforcement: this.getCyberSecurityAgenciesByType('law_enforcement').length,
-          critical_infrastructure: this.getCyberSecurityAgenciesByType('critical_infrastructure').length
-        }
+          critical_infrastructure:
+            this.getCyberSecurityAgenciesByType('critical_infrastructure').length,
+        },
       },
       collaborations: {
         total: this.collaborations.size,
-        active: this.getActiveCollaborations().length
-      }
+        active: this.getActiveCollaborations().length,
+      },
     };
 
     return stats;
@@ -883,4 +959,4 @@ export class GovernmentalNetworks {
 }
 
 // Export singleton instance
-export const governmentalNetworks = new GovernmentalNetworks(); 
+export const governmentalNetworks = new GovernmentalNetworks();

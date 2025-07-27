@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { useState } from 'react'
-import { ResponsiveLine } from '@nivo/line'
+import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { ResponsiveLine } from '@nivo/line';
 
 type DataPoint = {
-  x: number
-  y: number
-}
+  x: number;
+  y: number;
+};
 
 type Series = {
-  id: string
-  data: DataPoint[]
-}
+  id: string;
+  data: DataPoint[];
+};
 
 type MockData = {
-  [key: string]: Series[]
-}
+  [key: string]: Series[];
+};
 
 const mockData: MockData = {
   neuralActivity: [
@@ -28,21 +28,21 @@ const mockData: MockData = {
         { x: 2, y: 0.3 },
         { x: 3, y: 0.8 },
         { x: 4, y: 0.6 },
-        { x: 5, y: 0.9 }
-      ]
-    }
-  ]
-}
+        { x: 5, y: 0.9 },
+      ],
+    },
+  ],
+};
 
 const visualizationTypes = [
   { id: 'neural', name: 'Neural Activity' },
   { id: 'protein', name: 'Protein Levels' },
   { id: 'genome', name: 'Genome Map' },
   { id: 'cell', name: 'Cell Behavior' },
-]
+];
 
 export const VisualizationPanel = () => {
-  const [selectedMetric, setSelectedMetric] = useState<keyof MockData>('neuralActivity')
+  const [selectedMetric, setSelectedMetric] = useState<keyof MockData>('neuralActivity');
 
   return (
     <motion.div
@@ -54,7 +54,7 @@ export const VisualizationPanel = () => {
 
       <div className="space-y-6">
         <div className="flex gap-2">
-          {visualizationTypes.map((type) => (
+          {visualizationTypes.map(type => (
             <button
               key={type.id}
               onClick={() => setSelectedMetric(type.id as keyof MockData)}
@@ -80,7 +80,7 @@ export const VisualizationPanel = () => {
                 min: 'auto',
                 max: 'auto',
                 stacked: true,
-                reverse: false
+                reverse: false,
               }}
               axisTop={null}
               axisRight={null}
@@ -90,7 +90,7 @@ export const VisualizationPanel = () => {
                 tickRotation: 0,
                 legend: 'Time',
                 legendOffset: 36,
-                legendPosition: 'middle'
+                legendPosition: 'middle',
               }}
               axisLeft={{
                 tickSize: 5,
@@ -98,7 +98,7 @@ export const VisualizationPanel = () => {
                 tickRotation: 0,
                 legend: 'Activity',
                 legendOffset: -40,
-                legendPosition: 'middle'
+                legendPosition: 'middle',
               }}
               pointSize={10}
               pointColor={{ theme: 'background' }}
@@ -126,35 +126,35 @@ export const VisualizationPanel = () => {
                       on: 'hover',
                       style: {
                         itemBackground: 'rgba(0, 0, 0, .03)',
-                        itemOpacity: 1
-                      }
-                    }
-                  ]
-                }
+                        itemOpacity: 1,
+                      },
+                    },
+                  ],
+                },
               ]}
               theme={{
                 axis: {
                   ticks: {
                     text: {
-                      fill: '#00FF9D'
-                    }
+                      fill: '#00FF9D',
+                    },
                   },
                   legend: {
                     text: {
-                      fill: '#00FF9D'
-                    }
-                  }
+                      fill: '#00FF9D',
+                    },
+                  },
                 },
                 grid: {
                   line: {
-                    stroke: '#00FF9D20'
-                  }
+                    stroke: '#00FF9D20',
+                  },
                 },
                 crosshair: {
                   line: {
-                    stroke: '#00FF9D'
-                  }
-                }
+                    stroke: '#00FF9D',
+                  },
+                },
               }}
             />
           </div>
@@ -176,5 +176,5 @@ export const VisualizationPanel = () => {
         </div>
       </div>
     </motion.div>
-  )
-} 
+  );
+};

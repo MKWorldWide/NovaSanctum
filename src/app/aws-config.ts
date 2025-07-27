@@ -10,19 +10,19 @@ const awsConfig = {
       loginWith: {
         email: true,
         phone: false,
-        username: false
-      }
-    }
+        username: false,
+      },
+    },
   },
   API: {
     GraphQL: {
       endpoint: process.env.NEXT_PUBLIC_AWS_APPSYNC_API_URL || '',
       region: process.env.NEXT_PUBLIC_AWS_REGION || 'us-east-1',
-      defaultAuthMode: 'userPool'
-    }
-  }
+      defaultAuthMode: 'userPool',
+    },
+  },
 };
 
 Amplify.configure(awsConfig);
 
-export default awsConfig; 
+export default awsConfig;

@@ -26,7 +26,7 @@
   .btn-primary {
     @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
   }
-  
+
   .btn-secondary {
     @apply inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
   }
@@ -73,12 +73,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #00FF9D;
+  background: #00ff9d;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00FFFF;
+  background: #00ffff;
 }
 
 /* Custom selection */
@@ -89,7 +89,9 @@ body {
 
 /* Smooth transitions */
 * {
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  transition:
+    background-color 0.2s ease-in-out,
+    border-color 0.2s ease-in-out;
 }
 
 /* Focus styles */
@@ -100,7 +102,8 @@ body {
 
 /* Custom animations */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -141,7 +144,8 @@ body {
   }
 
   @keyframes sparkle {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 0.5;
     }
     50% {
@@ -150,7 +154,8 @@ body {
   }
 
   @keyframes neon-flicker {
-    0%, 100% {
+    0%,
+    100% {
       opacity: 1;
     }
     50% {
@@ -174,7 +179,8 @@ body {
 
 /* Mystical Animations */
 @keyframes glow {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
   }
   50% {
@@ -196,7 +202,7 @@ body {
 
 /* Mystical Gradients */
 .mystical-gradient {
-  background: linear-gradient(45deg, #00FF9D 0%, #00FFFF 100%);
+  background: linear-gradient(45deg, #00ff9d 0%, #00ffff 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -213,13 +219,13 @@ body {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(45deg, #00FF9D, #00FFFF);
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  background: linear-gradient(45deg, #00ff9d, #00ffff);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
-  mask: 
-    linear-gradient(#fff 0 0) content-box, 
+  mask:
+    linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-} 
+}

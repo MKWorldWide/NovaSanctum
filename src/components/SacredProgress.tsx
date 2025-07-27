@@ -1,52 +1,52 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 interface SacredProgressProps {
-  value: number
-  max?: number
-  size?: 'sm' | 'md' | 'lg'
-  variant?: 'primary' | 'success' | 'warning' | 'error' | 'info'
-  showValue?: boolean
-  className?: string
-  label?: string
+  value: number;
+  max?: number;
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'success' | 'warning' | 'error' | 'info';
+  showValue?: boolean;
+  className?: string;
+  label?: string;
 }
 
 const sizes = {
   sm: {
     height: 'h-1',
-    text: 'text-xs'
+    text: 'text-xs',
   },
   md: {
     height: 'h-2',
-    text: 'text-sm'
+    text: 'text-sm',
   },
   lg: {
     height: 'h-3',
-    text: 'text-base'
-  }
-}
+    text: 'text-base',
+  },
+};
 
 const variants = {
   primary: {
     bg: 'bg-emerald-500/20',
-    fill: 'bg-emerald-500'
+    fill: 'bg-emerald-500',
   },
   success: {
     bg: 'bg-green-500/20',
-    fill: 'bg-green-500'
+    fill: 'bg-green-500',
   },
   warning: {
     bg: 'bg-yellow-500/20',
-    fill: 'bg-yellow-500'
+    fill: 'bg-yellow-500',
   },
   error: {
     bg: 'bg-red-500/20',
-    fill: 'bg-red-500'
+    fill: 'bg-red-500',
   },
   info: {
     bg: 'bg-cyan-500/20',
-    fill: 'bg-cyan-500'
-  }
-}
+    fill: 'bg-cyan-500',
+  },
+};
 
 export const SacredProgress = ({
   value,
@@ -55,19 +55,15 @@ export const SacredProgress = ({
   variant = 'primary',
   showValue = false,
   className = '',
-  label
+  label,
 }: SacredProgressProps) => {
-  const percentage = Math.min(Math.max((value / max) * 100, 0), 100)
+  const percentage = Math.min(Math.max((value / max) * 100, 0), 100);
 
   return (
     <div className={className}>
       {(label || showValue) && (
         <div className="flex items-center justify-between mb-1">
-          {label && (
-            <span className={`text-slate-300 ${sizes[size].text}`}>
-              {label}
-            </span>
-          )}
+          {label && <span className={`text-slate-300 ${sizes[size].text}`}>{label}</span>}
           {showValue && (
             <span className={`text-emerald-400 ${sizes[size].text}`}>
               {Math.round(percentage)}%
@@ -96,5 +92,5 @@ export const SacredProgress = ({
         />
       </div>
     </div>
-  )
-} 
+  );
+};

@@ -9,4 +9,4 @@ export const createContact = /* GraphQL */ `
       timestamp
     }
   }
-`; 
+`;

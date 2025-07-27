@@ -1,26 +1,22 @@
-import { InputHTMLAttributes, forwardRef } from 'react'
-import { motion } from 'framer-motion'
+import { InputHTMLAttributes, forwardRef } from 'react';
+import { motion } from 'framer-motion';
 
 interface SacredInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  error?: string
-  variant?: 'primary' | 'secondary'
+  label?: string;
+  error?: string;
+  variant?: 'primary' | 'secondary';
 }
 
 export const SacredInput = forwardRef<HTMLInputElement, SacredInputProps>(
   ({ label, error, variant = 'primary', className = '', ...props }, ref) => {
     const variants = {
       primary: 'bg-slate-900 border-emerald-500/20 focus:border-emerald-500',
-      secondary: 'bg-slate-800 border-cyan-500/20 focus:border-cyan-500'
-    }
+      secondary: 'bg-slate-800 border-cyan-500/20 focus:border-cyan-500',
+    };
 
     return (
       <div className="space-y-2">
-        {label && (
-          <label className="block text-sm font-medium text-gray-300">
-            {label}
-          </label>
-        )}
+        {label && <label className="block text-sm font-medium text-gray-300">{label}</label>}
         <motion.div
           whileFocus={{ scale: 1.01 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -51,8 +47,8 @@ export const SacredInput = forwardRef<HTMLInputElement, SacredInputProps>(
           </motion.p>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-SacredInput.displayName = 'SacredInput' 
+SacredInput.displayName = 'SacredInput';

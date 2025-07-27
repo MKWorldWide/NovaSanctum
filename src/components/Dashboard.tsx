@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { ChartBarIcon, BeakerIcon, UserGroupIcon, ClockIcon } from '@heroicons/react/24/outline'
+import { motion } from 'framer-motion';
+import { ChartBarIcon, BeakerIcon, UserGroupIcon, ClockIcon } from '@heroicons/react/24/outline';
 
 const metrics = [
   {
@@ -32,7 +32,7 @@ const metrics = [
     change: '-0.4',
     changeType: 'negative',
   },
-]
+];
 
 export const Dashboard = () => {
   return (
@@ -42,9 +42,9 @@ export const Dashboard = () => {
       className="bg-slate-900/50 rounded-xl border border-emerald-500/30 p-6"
     >
       <h2 className="text-2xl font-semibold text-emerald-400 mb-6">Research Dashboard</h2>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {metrics.map((metric) => (
+        {metrics.map(metric => (
           <motion.div
             key={metric.name}
             whileHover={{ scale: 1.02 }}
@@ -87,7 +87,7 @@ export const Dashboard = () => {
               description: 'New algorithm shows 95% accuracy in tertiary structure prediction',
               date: '5 days ago',
             },
-          ].map((breakthrough) => (
+          ].map(breakthrough => (
             <motion.div
               key={breakthrough.title}
               whileHover={{ scale: 1.01 }}
@@ -101,5 +101,5 @@ export const Dashboard = () => {
         </div>
       </div>
     </motion.div>
-  )
-} 
+  );
+};

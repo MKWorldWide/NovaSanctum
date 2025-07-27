@@ -1,21 +1,18 @@
-import { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 interface BreadcrumbItem {
-  label: string
-  href?: string
-  icon?: ReactNode
+  label: string;
+  href?: string;
+  icon?: ReactNode;
 }
 
 interface SacredBreadcrumbProps {
-  items: BreadcrumbItem[]
-  className?: string
+  items: BreadcrumbItem[];
+  className?: string;
 }
 
-export const SacredBreadcrumb = ({
-  items,
-  className = ''
-}: SacredBreadcrumbProps) => {
+export const SacredBreadcrumb = ({ items, className = '' }: SacredBreadcrumbProps) => {
   return (
     <nav className={`flex ${className}`} aria-label="Breadcrumb">
       <ol className="flex items-center space-x-2">
@@ -44,9 +41,7 @@ export const SacredBreadcrumb = ({
                 ${index === items.length - 1 ? 'text-emerald-400' : 'text-gray-400'}
               `}
             >
-              {item.icon && (
-                <span className="mr-2 text-current">{item.icon}</span>
-              )}
+              {item.icon && <span className="mr-2 text-current">{item.icon}</span>}
               {item.href ? (
                 <a
                   href={item.href}
@@ -62,5 +57,5 @@ export const SacredBreadcrumb = ({
         ))}
       </ol>
     </nav>
-  )
-} 
+  );
+};

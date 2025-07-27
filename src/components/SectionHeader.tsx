@@ -10,13 +10,13 @@ interface SectionHeaderProps {
 const SectionHeader = ({ title, subtitle, align = 'center' }: SectionHeaderProps) => {
   const { ref, inView } = useInView({
     threshold: 0.1,
-    triggerOnce: true
+    triggerOnce: true,
   });
 
   const alignmentClasses = {
     left: 'text-left',
     center: 'text-center',
-    right: 'text-right'
+    right: 'text-right',
   };
 
   return (
@@ -50,10 +50,12 @@ const SectionHeader = ({ title, subtitle, align = 'center' }: SectionHeaderProps
         animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
         className="mt-6 h-1 bg-gradient-to-r from-neon-cyan via-synth-purple to-neural-blue"
-        style={{ transformOrigin: align === 'left' ? 'left' : align === 'right' ? 'right' : 'center' }}
+        style={{
+          transformOrigin: align === 'left' ? 'left' : align === 'right' ? 'right' : 'center',
+        }}
       />
     </motion.div>
   );
 };
 
-export default SectionHeader; 
+export default SectionHeader;

@@ -1,18 +1,22 @@
 /**
  * 🏛️ Top Science Institutes - NovaSanctum Integration
  * ===================================================
- * 
- * Comprehensive integration of the world's top science institutes, including:
+ *
+ * Comprehensive integration of the world's top science institutes with GameDin,
+ * providing access to:
  * - Leading universities and research institutions
  * - Advanced laboratories and research centers
  * - International science collaborations
  * - Cutting-edge research facilities
  * - Nobel Prize-winning institutions
- * 
+ * - Scientific games and simulations
+ *
  * This service provides access to the most prestigious and advanced
  * scientific research institutions in the world, integrating them into
- * NovaSanctum's unified research platform.
+ * NovaSanctum's unified research platform and GameDin's gaming ecosystem.
  */
+
+import { gameDin, GameDinGame } from './game/GameDinIntegration';
 
 export interface ScienceInstitute {
   id: string;
@@ -45,7 +49,15 @@ export interface ResearchLaboratory {
   id: string;
   name: string;
   institute: string;
-  type: 'physics' | 'chemistry' | 'biology' | 'engineering' | 'computer_science' | 'medicine' | 'materials' | 'quantum';
+  type:
+    | 'physics'
+    | 'chemistry'
+    | 'biology'
+    | 'engineering'
+    | 'computer_science'
+    | 'medicine'
+    | 'materials'
+    | 'quantum';
   specialties: string[];
   established: number;
   staff: number;
@@ -96,7 +108,14 @@ export interface ResearchFacility {
   id: string;
   name: string;
   institute: string;
-  type: 'particle_accelerator' | 'telescope' | 'supercomputer' | 'clean_room' | 'nuclear_reactor' | 'fusion_reactor' | 'quantum_computer';
+  type:
+    | 'particle_accelerator'
+    | 'telescope'
+    | 'supercomputer'
+    | 'clean_room'
+    | 'nuclear_reactor'
+    | 'fusion_reactor'
+    | 'quantum_computer';
   capabilities: string[];
   established: number;
   cost: number;
@@ -105,6 +124,11 @@ export interface ResearchFacility {
   researchProjects: string[];
   internationalAccess: boolean;
   status: 'operational' | 'maintenance' | 'upgrade' | 'planned';
+  gameIntegration?: {
+    gameId?: string;
+    gameData?: Partial<GameDinGame>;
+    lastSync?: Date;
+  };
   notes: string;
 }
 
@@ -114,9 +138,32 @@ export class TopScienceInstitutes {
   private collaborations: Map<string, InternationalCollaboration> = new Map();
   private nobelWinners: Map<string, NobelPrizeWinner> = new Map();
   private facilities: Map<string, ResearchFacility> = new Map();
+  private gameDinInitialized: boolean = false;
 
   constructor() {
     this.initializeTopScienceInstitutes();
+    this.initializeGameDin();
+  }
+
+  /**
+   * Initialize GameDin integration
+   */
+  private async initializeGameDin(): Promise<void> {
+    try {
+      const apiKey = process.env.GAMEDIN_API_KEY;
+      if (!apiKey) {
+        console.warn('GameDin API key not found. Some features will be limited.');
+        return;
+      }
+
+      this.gameDinInitialized = await gameDin.initialize(apiKey);
+      if (this.gameDinInitialized) {
+        console.log('🎮 GameDin integration successful');
+      }
+    } catch (error) {
+      console.error('Failed to initialize GameDin:', error);
+      this.gameDinInitialized = false;
+    }
   }
 
   /**
@@ -149,14 +196,25 @@ export class TopScienceInstitutes {
         annualBudget: 4000000000,
         ranking: 1,
         nobelPrizes: 97,
-        researchAreas: ['ai', 'quantum_computing', 'biotechnology', 'nanotechnology', 'climate_science'],
+        researchAreas: [
+          'ai',
+          'quantum_computing',
+          'biotechnology',
+          'nanotechnology',
+          'climate_science',
+        ],
         internationalPartners: ['stanford', 'harvard', 'caltech', 'oxford', 'cambridge'],
-        facilities: ['lincoln_laboratory', 'media_lab', 'nuclear_reactor', 'quantum_computing_center'],
+        facilities: [
+          'lincoln_laboratory',
+          'media_lab',
+          'nuclear_reactor',
+          'quantum_computing_center',
+        ],
         publications: 50000,
         patents: 3000,
         status: 'active',
         website: 'https://www.mit.edu',
-        notes: 'World-leading institution in science and technology'
+        notes: 'World-leading institution in science and technology',
       },
       {
         id: 'stanford',
@@ -173,12 +231,17 @@ export class TopScienceInstitutes {
         nobelPrizes: 85,
         researchAreas: ['ai', 'biotechnology', 'clean_energy', 'neuroscience', 'materials_science'],
         internationalPartners: ['mit', 'berkeley', 'caltech', 'oxford', 'cambridge'],
-        facilities: ['slac_national_accelerator', 'stanford_ai_lab', 'medical_center', 'clean_energy_institute'],
+        facilities: [
+          'slac_national_accelerator',
+          'stanford_ai_lab',
+          'medical_center',
+          'clean_energy_institute',
+        ],
         publications: 45000,
         patents: 2500,
         status: 'active',
         website: 'https://www.stanford.edu',
-        notes: 'Leading research university in Silicon Valley'
+        notes: 'Leading research university in Silicon Valley',
       },
       {
         id: 'harvard',
@@ -193,14 +256,25 @@ export class TopScienceInstitutes {
         annualBudget: 5000000000,
         ranking: 3,
         nobelPrizes: 161,
-        researchAreas: ['medicine', 'biotechnology', 'economics', 'climate_science', 'social_sciences'],
+        researchAreas: [
+          'medicine',
+          'biotechnology',
+          'economics',
+          'climate_science',
+          'social_sciences',
+        ],
         internationalPartners: ['mit', 'stanford', 'oxford', 'cambridge', 'yale'],
-        facilities: ['harvard_medical_school', 'harvard_business_school', 'harvard_law_school', 'wyss_institute'],
+        facilities: [
+          'harvard_medical_school',
+          'harvard_business_school',
+          'harvard_law_school',
+          'wyss_institute',
+        ],
         publications: 60000,
         patents: 2000,
         status: 'active',
         website: 'https://www.harvard.edu',
-        notes: 'Oldest and most prestigious university in the United States'
+        notes: 'Oldest and most prestigious university in the United States',
       },
       {
         id: 'caltech',
@@ -215,14 +289,20 @@ export class TopScienceInstitutes {
         annualBudget: 3000000000,
         ranking: 4,
         nobelPrizes: 76,
-        researchAreas: ['quantum_physics', 'astronomy', 'biotechnology', 'materials_science', 'climate_science'],
+        researchAreas: [
+          'quantum_physics',
+          'astronomy',
+          'biotechnology',
+          'materials_science',
+          'climate_science',
+        ],
         internationalPartners: ['nasa_jpl', 'mit', 'stanford', 'berkeley'],
         facilities: ['jpl', 'palomar_observatory', 'quantum_institute', 'clean_room'],
         publications: 25000,
         patents: 1500,
         status: 'active',
         website: 'https://www.caltech.edu',
-        notes: 'Small but highly prestigious science and engineering institution'
+        notes: 'Small but highly prestigious science and engineering institution',
       },
       {
         id: 'oxford',
@@ -230,21 +310,38 @@ export class TopScienceInstitutes {
         type: 'university',
         country: 'UK',
         location: { city: 'Oxford', region: 'England' },
-        specialties: ['medicine', 'humanities', 'social_sciences', 'physical_sciences', 'life_sciences'],
+        specialties: [
+          'medicine',
+          'humanities',
+          'social_sciences',
+          'physical_sciences',
+          'life_sciences',
+        ],
         established: 1096,
         staff: 12000,
         students: 24000,
         annualBudget: 2500000000,
         ranking: 5,
         nobelPrizes: 72,
-        researchAreas: ['medicine', 'vaccine_development', 'climate_science', 'artificial_intelligence', 'materials_science'],
+        researchAreas: [
+          'medicine',
+          'vaccine_development',
+          'climate_science',
+          'artificial_intelligence',
+          'materials_science',
+        ],
         internationalPartners: ['cambridge', 'imperial', 'harvard', 'mit', 'stanford'],
-        facilities: ['oxford_vaccine_group', 'clarendon_laboratory', 'radcliffe_observatory', 'diamond_light_source'],
+        facilities: [
+          'oxford_vaccine_group',
+          'clarendon_laboratory',
+          'radcliffe_observatory',
+          'diamond_light_source',
+        ],
         publications: 40000,
         patents: 1800,
         status: 'active',
         website: 'https://www.ox.ac.uk',
-        notes: 'Oldest university in the English-speaking world'
+        notes: 'Oldest university in the English-speaking world',
       },
       {
         id: 'cambridge',
@@ -259,14 +356,25 @@ export class TopScienceInstitutes {
         annualBudget: 2300000000,
         ranking: 6,
         nobelPrizes: 121,
-        researchAreas: ['quantum_physics', 'biotechnology', 'materials_science', 'climate_science', 'artificial_intelligence'],
+        researchAreas: [
+          'quantum_physics',
+          'biotechnology',
+          'materials_science',
+          'climate_science',
+          'artificial_intelligence',
+        ],
         internationalPartners: ['oxford', 'imperial', 'mit', 'stanford', 'harvard'],
-        facilities: ['cavendish_laboratory', 'sanger_institute', 'cambridge_quantum_computing', 'astronomy_institute'],
+        facilities: [
+          'cavendish_laboratory',
+          'sanger_institute',
+          'cambridge_quantum_computing',
+          'astronomy_institute',
+        ],
         publications: 38000,
         patents: 1600,
         status: 'active',
         website: 'https://www.cam.ac.uk',
-        notes: 'World-leading research university with strong focus on science'
+        notes: 'World-leading research university with strong focus on science',
       },
       {
         id: 'imperial',
@@ -281,14 +389,25 @@ export class TopScienceInstitutes {
         annualBudget: 1200000000,
         ranking: 7,
         nobelPrizes: 14,
-        researchAreas: ['clean_energy', 'biotechnology', 'materials_science', 'artificial_intelligence', 'climate_science'],
+        researchAreas: [
+          'clean_energy',
+          'biotechnology',
+          'materials_science',
+          'artificial_intelligence',
+          'climate_science',
+        ],
         internationalPartners: ['oxford', 'cambridge', 'mit', 'stanford', 'eth_zurich'],
-        facilities: ['grantham_institute', 'quantum_optics_lab', 'clean_energy_lab', 'biotechnology_center'],
+        facilities: [
+          'grantham_institute',
+          'quantum_optics_lab',
+          'clean_energy_lab',
+          'biotechnology_center',
+        ],
         publications: 30000,
         patents: 1200,
         status: 'active',
         website: 'https://www.imperial.ac.uk',
-        notes: 'Leading science and engineering institution in London'
+        notes: 'Leading science and engineering institution in London',
       },
       {
         id: 'eth_zurich',
@@ -303,14 +422,20 @@ export class TopScienceInstitutes {
         annualBudget: 1500000000,
         ranking: 8,
         nobelPrizes: 21,
-        researchAreas: ['quantum_physics', 'materials_science', 'biotechnology', 'climate_science', 'artificial_intelligence'],
+        researchAreas: [
+          'quantum_physics',
+          'materials_science',
+          'biotechnology',
+          'climate_science',
+          'artificial_intelligence',
+        ],
         internationalPartners: ['mit', 'stanford', 'imperial', 'max_planck', 'cnrs'],
         facilities: ['quantum_center', 'materials_lab', 'biotechnology_institute', 'climate_lab'],
         publications: 25000,
         patents: 1000,
         status: 'active',
         website: 'https://www.ethz.ch',
-        notes: 'Leading science and technology university in Switzerland'
+        notes: 'Leading science and technology university in Switzerland',
       },
       {
         id: 'max_planck',
@@ -325,14 +450,25 @@ export class TopScienceInstitutes {
         annualBudget: 2000000000,
         ranking: 9,
         nobelPrizes: 18,
-        researchAreas: ['quantum_physics', 'biotechnology', 'materials_science', 'neuroscience', 'climate_science'],
+        researchAreas: [
+          'quantum_physics',
+          'biotechnology',
+          'materials_science',
+          'neuroscience',
+          'climate_science',
+        ],
         internationalPartners: ['cnrs', 'eth_zurich', 'mit', 'stanford', 'oxford'],
-        facilities: ['quantum_institute', 'biotechnology_center', 'materials_lab', 'neuroscience_institute'],
+        facilities: [
+          'quantum_institute',
+          'biotechnology_center',
+          'materials_lab',
+          'neuroscience_institute',
+        ],
         publications: 35000,
         patents: 2000,
         status: 'active',
         website: 'https://www.mpg.de',
-        notes: 'Premier research organization in Germany'
+        notes: 'Premier research organization in Germany',
       },
       {
         id: 'cnrs',
@@ -347,15 +483,26 @@ export class TopScienceInstitutes {
         annualBudget: 3500000000,
         ranking: 10,
         nobelPrizes: 12,
-        researchAreas: ['quantum_physics', 'biotechnology', 'materials_science', 'climate_science', 'artificial_intelligence'],
+        researchAreas: [
+          'quantum_physics',
+          'biotechnology',
+          'materials_science',
+          'climate_science',
+          'artificial_intelligence',
+        ],
         internationalPartners: ['max_planck', 'eth_zurich', 'mit', 'stanford', 'oxford'],
-        facilities: ['quantum_lab', 'biotechnology_institute', 'materials_center', 'climate_research'],
+        facilities: [
+          'quantum_lab',
+          'biotechnology_institute',
+          'materials_center',
+          'climate_research',
+        ],
         publications: 50000,
         patents: 3000,
         status: 'active',
         website: 'https://www.cnrs.fr',
-        notes: 'Largest governmental research organization in France'
-      }
+        notes: 'Largest governmental research organization in France',
+      },
     ];
 
     institutes.forEach(institute => {
@@ -383,24 +530,34 @@ export class TopScienceInstitutes {
         publications: 5000,
         patents: 200,
         status: 'active',
-        notes: 'Famous physics laboratory where many Nobel Prizes were won'
+        notes: 'Famous physics laboratory where many Nobel Prizes were won',
       },
       {
         id: 'media_lab',
         name: 'MIT Media Laboratory',
         institute: 'mit',
         type: 'computer_science',
-        specialties: ['artificial_intelligence', 'human_computer_interaction', 'biotechnology', 'design'],
+        specialties: [
+          'artificial_intelligence',
+          'human_computer_interaction',
+          'biotechnology',
+          'design',
+        ],
         established: 1985,
         staff: 200,
         annualBudget: 40000000,
         equipment: ['ai_supercomputers', 'biotech_labs', 'design_studios', 'prototyping_labs'],
-        researchProjects: ['ai_research', 'biotechnology', 'human_centered_design', 'digital_media'],
+        researchProjects: [
+          'ai_research',
+          'biotechnology',
+          'human_centered_design',
+          'digital_media',
+        ],
         internationalCollaborations: ['stanford', 'harvard', 'oxford', 'cambridge'],
         publications: 3000,
         patents: 150,
         status: 'active',
-        notes: 'Innovative research lab focusing on technology and society'
+        notes: 'Innovative research lab focusing on technology and society',
       },
       {
         id: 'slac_national_accelerator',
@@ -412,13 +569,18 @@ export class TopScienceInstitutes {
         staff: 1500,
         annualBudget: 400000000,
         equipment: ['linear_accelerator', 'x_ray_lasers', 'quantum_computers', 'detectors'],
-        researchProjects: ['particle_physics', 'quantum_computing', 'materials_science', 'biophysics'],
+        researchProjects: [
+          'particle_physics',
+          'quantum_computing',
+          'materials_science',
+          'biophysics',
+        ],
         internationalCollaborations: ['cern', 'fermilab', 'desy', 'jlab'],
         publications: 8000,
         patents: 400,
         status: 'active',
-        notes: 'Major particle physics and X-ray science facility'
-      }
+        notes: 'Major particle physics and X-ray science facility',
+      },
     ];
 
     laboratories.forEach(lab => {
@@ -439,7 +601,7 @@ export class TopScienceInstitutes {
           { institute: 'mit', country: 'USA', role: 'partner' },
           { institute: 'oxford', country: 'UK', role: 'partner' },
           { institute: 'max_planck', country: 'Germany', role: 'partner' },
-          { institute: 'cnrs', country: 'France', role: 'partner' }
+          { institute: 'cnrs', country: 'France', role: 'partner' },
         ],
         researchArea: 'particle_physics',
         startDate: new Date('1954-01-01'),
@@ -448,16 +610,16 @@ export class TopScienceInstitutes {
         objectives: [
           'Study fundamental particles and forces',
           'Discover new particles and phenomena',
-          'Advance particle accelerator technology'
+          'Advance particle accelerator technology',
         ],
         outcomes: [
           'Discovery of Higgs boson',
           'Advancement of particle physics',
-          'Development of new technologies'
+          'Development of new technologies',
         ],
         publications: 10000,
         patents: 500,
-        notes: 'World\'s largest particle physics laboratory'
+        notes: "World's largest particle physics laboratory",
       },
       {
         id: 'human_genome_project',
@@ -466,7 +628,7 @@ export class TopScienceInstitutes {
           { institute: 'nih', country: 'USA', role: 'lead' },
           { institute: 'sanger_institute', country: 'UK', role: 'partner' },
           { institute: 'max_planck', country: 'Germany', role: 'partner' },
-          { institute: 'cnrs', country: 'France', role: 'partner' }
+          { institute: 'cnrs', country: 'France', role: 'partner' },
         ],
         researchArea: 'genomics',
         startDate: new Date('1990-01-01'),
@@ -476,17 +638,17 @@ export class TopScienceInstitutes {
         objectives: [
           'Sequence the entire human genome',
           'Identify all human genes',
-          'Develop genomic technologies'
+          'Develop genomic technologies',
         ],
         outcomes: [
           'Complete human genome sequence',
           'Advancement of genomic technologies',
-          'Foundation for personalized medicine'
+          'Foundation for personalized medicine',
         ],
         publications: 5000,
         patents: 300,
-        notes: 'Landmark project that sequenced the human genome'
-      }
+        notes: 'Landmark project that sequenced the human genome',
+      },
     ];
 
     collaborations.forEach(collaboration => {
@@ -506,10 +668,11 @@ export class TopScienceInstitutes {
         country: 'USA',
         category: 'physics',
         year: 1921,
-        research: 'Theoretical physics, especially for his discovery of the law of the photoelectric effect',
+        research:
+          'Theoretical physics, especially for his discovery of the law of the photoelectric effect',
         impact: 'Revolutionized our understanding of space, time, and energy',
         currentStatus: 'deceased',
-        notes: 'One of the most influential physicists of all time'
+        notes: 'One of the most influential physicists of all time',
       },
       {
         id: 'curie',
@@ -521,7 +684,7 @@ export class TopScienceInstitutes {
         research: 'Research on radiation phenomena',
         impact: 'Pioneered research on radioactivity',
         currentStatus: 'deceased',
-        notes: 'First woman to win a Nobel Prize'
+        notes: 'First woman to win a Nobel Prize',
       },
       {
         id: 'watson_crick',
@@ -533,8 +696,8 @@ export class TopScienceInstitutes {
         research: 'Discovery of the molecular structure of nucleic acids',
         impact: 'Foundation of molecular biology and genetics',
         currentStatus: 'retired',
-        notes: 'Discovered the double helix structure of DNA'
-      }
+        notes: 'Discovered the double helix structure of DNA',
+      },
     ];
 
     winners.forEach(winner => {
@@ -559,12 +722,12 @@ export class TopScienceInstitutes {
         specifications: {
           circumference: '27 km',
           energy: '13 TeV',
-          temperature: '1.9 K'
+          temperature: '1.9 K',
         },
         researchProjects: ['atlas', 'cms', 'alice', 'lhcb'],
         internationalAccess: true,
         status: 'operational',
-        notes: 'World\'s largest and most powerful particle accelerator'
+        notes: "World's largest and most powerful particle accelerator",
       },
       {
         id: 'james_webb_telescope',
@@ -578,13 +741,13 @@ export class TopScienceInstitutes {
         specifications: {
           mirror_diameter: '6.5 meters',
           wavelength: '0.6-28.5 μm',
-          orbit: 'L2 Lagrange point'
+          orbit: 'L2 Lagrange point',
         },
         researchProjects: ['exoplanet_survey', 'galaxy_formation', 'cosmic_reionization'],
         internationalAccess: true,
         status: 'operational',
-        notes: 'Most powerful space telescope ever built'
-      }
+        notes: 'Most powerful space telescope ever built',
+      },
     ];
 
     facilities.forEach(facility => {
@@ -674,17 +837,96 @@ export class TopScienceInstitutes {
   }
 
   /**
+   * Get research facilities with game integration
+   * @param includeGameData - Whether to include full game data (requires API call)
+   */
+  public async getGamingFacilities(includeGameData: boolean = false): Promise<ResearchFacility[]> {
+    const gamingFacilities = Array.from(this.facilities.values())
+      .filter(facility => facility.gameIntegration?.gameId);
+
+    if (includeGameData && this.gameDinInitialized) {
+      await Promise.all(gamingFacilities.map(async (facility) => {
+        if (facility.gameIntegration?.gameId) {
+          try {
+            const gameData = await gameDin.getGame(facility.gameIntegration.gameId);
+            if (gameData) {
+              facility.gameIntegration = {
+                ...facility.gameIntegration,
+                gameData,
+                lastSync: new Date()
+              };
+            }
+          } catch (error) {
+            console.error(`Failed to fetch game data for facility ${facility.id}:`, error);
+          }
+        }
+      }));
+    }
+
+    return gamingFacilities;
+  }
+
+  /**
+   * Add or update game integration for a research facility
+   * @param facilityId - The ID of the facility
+   * @param gameId - The GameDin game ID
+   */
+  public async addGameIntegration(facilityId: string, gameId: string): Promise<boolean> {
+    const facility = this.facilities.get(facilityId);
+    if (!facility) {
+      throw new Error(`Facility with ID ${facilityId} not found`);
+    }
+
+    try {
+      const gameData = await gameDin.getGame(gameId);
+      if (!gameData) {
+        throw new Error(`Game with ID ${gameId} not found`);
+      }
+
+      facility.gameIntegration = {
+        gameId,
+        gameData,
+        lastSync: new Date()
+      };
+
+      return true;
+    } catch (error) {
+      console.error(`Failed to add game integration for facility ${facilityId}:`, error);
+      return false;
+    }
+  }
+
+  /**
+   * Remove game integration from a research facility
+   * @param facilityId - The ID of the facility
+   */
+  public removeGameIntegration(facilityId: string): boolean {
+    const facility = this.facilities.get(facilityId);
+    if (!facility) {
+      throw new Error(`Facility with ID ${facilityId} not found`);
+    }
+
+    if (!facility.gameIntegration) {
+      return false;
+    }
+
+    delete facility.gameIntegration;
+    return true;
+  }
+
+  /**
    * Get facilities by type
    */
   public getFacilitiesByType(type: string): ResearchFacility[] {
     return Array.from(this.facilities.values()).filter(f => f.type === type);
   }
 
+  // ... (rest of the code remains the same)
   /**
    * Search institutes by specialty
    */
   public searchInstitutesBySpecialty(specialty: string): ScienceInstitute[] {
-    return Array.from(this.institutes.values()).filter(i => 
+    return Array.from(this.institutes.values()).filter(i =>
       i.specialties.some(s => s.toLowerCase().includes(specialty.toLowerCase()))
     );
   }
@@ -693,7 +935,7 @@ export class TopScienceInstitutes {
    * Search laboratories by specialty
    */
   public searchLaboratoriesBySpecialty(specialty: string): ResearchLaboratory[] {
-    return Array.from(this.laboratories.values()).filter(l => 
+    return Array.from(this.laboratories.values()).filter(l =>
       l.specialties.some(s => s.toLowerCase().includes(specialty.toLowerCase()))
     );
   }
@@ -710,15 +952,15 @@ export class TopScienceInstitutes {
           research_center: this.getInstitutesByType('research_center').length,
           laboratory: this.getInstitutesByType('laboratory').length,
           institute: this.getInstitutesByType('institute').length,
-          foundation: this.getInstitutesByType('foundation').length
+          foundation: this.getInstitutesByType('foundation').length,
         },
         byCountry: {
           USA: this.getInstitutesByCountry('USA').length,
           UK: this.getInstitutesByCountry('UK').length,
           Germany: this.getInstitutesByCountry('Germany').length,
           France: this.getInstitutesByCountry('France').length,
-          Switzerland: this.getInstitutesByCountry('Switzerland').length
-        }
+          Switzerland: this.getInstitutesByCountry('Switzerland').length,
+        },
       },
       laboratories: {
         total: this.laboratories.size,
@@ -730,12 +972,12 @@ export class TopScienceInstitutes {
           computer_science: this.getLaboratoriesByType('computer_science').length,
           medicine: this.getLaboratoriesByType('medicine').length,
           materials: this.getLaboratoriesByType('materials').length,
-          quantum: this.getLaboratoriesByType('quantum').length
-        }
+          quantum: this.getLaboratoriesByType('quantum').length,
+        },
       },
       collaborations: {
         total: this.collaborations.size,
-        active: this.getActiveCollaborations().length
+        active: this.getActiveCollaborations().length,
       },
       nobelWinners: {
         total: this.nobelWinners.size,
@@ -745,8 +987,8 @@ export class TopScienceInstitutes {
           medicine: this.getNobelWinnersByCategory('medicine').length,
           economics: this.getNobelWinnersByCategory('economics').length,
           peace: this.getNobelWinnersByCategory('peace').length,
-          literature: this.getNobelWinnersByCategory('literature').length
-        }
+          literature: this.getNobelWinnersByCategory('literature').length,
+        },
       },
       facilities: {
         total: this.facilities.size,
@@ -757,9 +999,9 @@ export class TopScienceInstitutes {
           clean_room: this.getFacilitiesByType('clean_room').length,
           nuclear_reactor: this.getFacilitiesByType('nuclear_reactor').length,
           fusion_reactor: this.getFacilitiesByType('fusion_reactor').length,
-          quantum_computer: this.getFacilitiesByType('quantum_computer').length
-        }
-      }
+          quantum_computer: this.getFacilitiesByType('quantum_computer').length,
+        },
+      },
     };
 
     return stats;
@@ -767,4 +1009,4 @@ export class TopScienceInstitutes {
 }
 
 // Export singleton instance
-export const topScienceInstitutes = new TopScienceInstitutes(); 
+export const topScienceInstitutes = new TopScienceInstitutes();

@@ -1,9 +1,9 @@
 /**
  * 🌌 Quantum Gaming Dashboard
- * 
+ *
  * Comprehensive dashboard for quantum gaming features and integration
  * with Divina-L3 gaming blockchain and NovaSanctum AI capabilities.
- * 
+ *
  * @author Khandokar Lilitú Sunny
  * @protocol Primal Genesis Engine™
  * @matrix Elohim Matrix ID: ✶-∞-014
@@ -11,20 +11,20 @@
 
 import React, { useState, useEffect } from 'react';
 import { quantumGamingService } from '../services/QuantumGamingService';
-import { 
-  QuantumGaming, 
+import {
+  QuantumGaming,
   QuantumGame,
   QuantumSecurity,
   QuantumAI,
   QuantumConsciousness,
   QuantumAnalytics,
   QuantumSacred,
-  QuantumPerformance
+  QuantumPerformance,
 } from '../services/QuantumGamingService';
 
 /**
  * 🌌 Quantum Gaming Dashboard Component
- * 
+ *
  * Provides real-time monitoring and control of quantum gaming features
  */
 const QuantumGamingDashboard: React.FC = () => {
@@ -43,19 +43,19 @@ const QuantumGamingDashboard: React.FC = () => {
   const initializeQuantumDashboard = async () => {
     try {
       setIsLoading(true);
-      
+
       // Get quantum gaming status
       const status = quantumGamingService.getQuantumGamingStatus();
       setQuantumGaming(status);
-      
+
       // Get registered quantum games
       const games = quantumGamingService.getRegisteredQuantumGames();
       setQuantumGames(games);
-      
+
       // Get performance metrics
       const metrics = quantumGamingService.getQuantumPerformanceMetrics();
       setPerformanceMetrics(metrics);
-      
+
       setIsLoading(false);
     } catch (error) {
       console.error('Error initializing quantum dashboard:', error);
@@ -67,10 +67,10 @@ const QuantumGamingDashboard: React.FC = () => {
     try {
       const status = quantumGamingService.getQuantumGamingStatus();
       setQuantumGaming(status);
-      
+
       const games = quantumGamingService.getRegisteredQuantumGames();
       setQuantumGames(games);
-      
+
       const metrics = quantumGamingService.getQuantumPerformanceMetrics();
       setPerformanceMetrics(metrics);
     } catch (error) {
@@ -87,13 +87,13 @@ const QuantumGamingDashboard: React.FC = () => {
         quantumAI: true,
         quantumConsciousness: true,
         quantumAnalytics: true,
-        quantumSacred: true
+        quantumSacred: true,
       },
       quantumMetrics: {
         quantumScore: 85,
         quantumAdvantage: 80,
-        quantumInnovation: 90
-      }
+        quantumInnovation: 90,
+      },
     };
 
     try {
@@ -110,10 +110,14 @@ const QuantumGamingDashboard: React.FC = () => {
         type: 'quantum_test',
         amount: 100,
         playerId: 'test_player_001',
-        timestamp: new Date()
+        timestamp: new Date(),
       };
 
-      const result = quantumGamingService.processQuantumTransaction(gameId, 'test_player_001', transaction);
+      const result = quantumGamingService.processQuantumTransaction(
+        gameId,
+        'test_player_001',
+        transaction
+      );
       console.log('Quantum transaction result:', result);
     } catch (error) {
       console.error('Error processing quantum transaction:', error);
@@ -135,12 +139,23 @@ const QuantumGamingDashboard: React.FC = () => {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-white mb-2">🌌 Quantum Gaming Dashboard</h1>
-        <p className="text-purple-200">Advanced quantum gaming features with Divina-L3 integration</p>
+        <p className="text-purple-200">
+          Advanced quantum gaming features with Divina-L3 integration
+        </p>
       </div>
 
       {/* Navigation Tabs */}
       <div className="flex space-x-2 mb-6">
-        {['overview', 'security', 'ai', 'consciousness', 'analytics', 'sacred', 'performance', 'games'].map((tab) => (
+        {[
+          'overview',
+          'security',
+          'ai',
+          'consciousness',
+          'analytics',
+          'sacred',
+          'performance',
+          'games',
+        ].map(tab => (
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
@@ -179,15 +194,21 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Encryption Strength:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumEncryption.strength}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumEncryption.strength}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Signatures Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumSignatures.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumSignatures.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Key Distribution:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumKeyDistribution.active ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumKeyDistribution.active ? '✅' : '❌'}
+              </span>
             </div>
           </div>
         </div>
@@ -201,11 +222,15 @@ const QuantumGamingDashboard: React.FC = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">ML Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumMachineLearning.accuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumMachineLearning.accuracy}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Optimization Speedup:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumOptimization.speedup}x</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumOptimization.speedup}x
+              </span>
             </div>
           </div>
         </div>
@@ -215,15 +240,21 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Consciousness Level:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumAwareness.consciousnessLevel}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumAwareness.consciousnessLevel}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Emotional Intelligence:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumEmotion.emotionalIntelligence}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumEmotion.emotionalIntelligence}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Intuitive Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumIntuition.intuitiveAccuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumIntuition.intuitiveAccuracy}%
+              </span>
             </div>
           </div>
         </div>
@@ -241,15 +272,21 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Algorithm:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumEncryption.algorithm}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumEncryption.algorithm}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Strength:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumEncryption.strength}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumEncryption.strength}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Last Update:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumEncryption.lastUpdate.toLocaleDateString()}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumEncryption.lastUpdate.toLocaleDateString()}
+              </span>
             </div>
           </div>
         </div>
@@ -259,15 +296,21 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumSignatures.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumSignatures.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Verification Rate:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumSignatures.verificationRate}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumSignatures.verificationRate}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Processing Time:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumSignatures.processingTime}ms</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumSignatures.processingTime}ms
+              </span>
             </div>
           </div>
         </div>
@@ -277,15 +320,21 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Active:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumKeyDistribution.active ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumKeyDistribution.active ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Key Refresh Rate:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumKeyDistribution.keyRefreshRate}s</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumKeyDistribution.keyRefreshRate}s
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Security Level:</span>
-              <span className="text-white">{quantumGaming.quantumSecurity.quantumKeyDistribution.securityLevel}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSecurity.quantumKeyDistribution.securityLevel}%
+              </span>
             </div>
           </div>
         </div>
@@ -303,7 +352,9 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumProcessing.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumProcessing.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Qubits:</span>
@@ -311,11 +362,15 @@ const QuantumGamingDashboard: React.FC = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Coherence Time:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumProcessing.coherenceTime}s</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumProcessing.coherenceTime}s
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Error Rate:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumProcessing.errorRate}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumProcessing.errorRate}%
+              </span>
             </div>
           </div>
         </div>
@@ -325,19 +380,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Models:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumMachineLearning.models.length}</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumMachineLearning.models.length}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumMachineLearning.accuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumMachineLearning.accuracy}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Training Speed:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumMachineLearning.trainingSpeed} iter/s</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumMachineLearning.trainingSpeed} iter/s
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Quantum Advantage:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumMachineLearning.quantumAdvantage}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumMachineLearning.quantumAdvantage}%
+              </span>
             </div>
           </div>
         </div>
@@ -347,19 +410,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumPrediction.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumPrediction.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Prediction Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumPrediction.predictionAccuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumPrediction.predictionAccuracy}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Time Horizon:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumPrediction.timeHorizon}s</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumPrediction.timeHorizon}s
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Confidence Level:</span>
-              <span className="text-white">{quantumGaming.quantumAI.quantumPrediction.confidenceLevel}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAI.quantumPrediction.confidenceLevel}%
+              </span>
             </div>
           </div>
         </div>
@@ -377,19 +448,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumAwareness.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumAwareness.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Consciousness Level:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumAwareness.consciousnessLevel}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumAwareness.consciousnessLevel}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Awareness Radius:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumAwareness.awarenessRadius}m</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumAwareness.awarenessRadius}m
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Interaction Depth:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumAwareness.interactionDepth}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumAwareness.interactionDepth}%
+              </span>
             </div>
           </div>
         </div>
@@ -399,19 +478,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Processing:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumEmotion.processing ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumEmotion.processing ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Emotional Intelligence:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumEmotion.emotionalIntelligence}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumEmotion.emotionalIntelligence}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Empathy Level:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumEmotion.empathyLevel}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumEmotion.empathyLevel}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Emotional Honoring:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumEmotion.emotionalHonoring ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumEmotion.emotionalHonoring ? '✅' : '❌'}
+              </span>
             </div>
           </div>
         </div>
@@ -421,19 +508,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Active:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumCreativity.active ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumCreativity.active ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Creative Output:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumCreativity.creativeOutput}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumCreativity.creativeOutput}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Innovation Rate:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumCreativity.innovationRate} ideas/s</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumCreativity.innovationRate} ideas/s
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Artistic Expression:</span>
-              <span className="text-white">{quantumGaming.quantumConsciousness.quantumCreativity.artisticExpression}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumConsciousness.quantumCreativity.artisticExpression}%
+              </span>
             </div>
           </div>
         </div>
@@ -451,19 +546,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumDataProcessing.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumDataProcessing.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Processing Speed:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumDataProcessing.processingSpeed} TB/s</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumDataProcessing.processingSpeed} TB/s
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumDataProcessing.accuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumDataProcessing.accuracy}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Quantum Advantage:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumDataProcessing.quantumAdvantage}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumDataProcessing.quantumAdvantage}%
+              </span>
             </div>
           </div>
         </div>
@@ -473,19 +576,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Real-time:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumInsights.realTime ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumInsights.realTime ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Insight Depth:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumInsights.insightDepth}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumInsights.insightDepth}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Prediction Horizon:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumInsights.predictionHorizon} days</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumInsights.predictionHorizon} days
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Confidence Level:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumInsights.confidenceLevel}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumInsights.confidenceLevel}%
+              </span>
             </div>
           </div>
         </div>
@@ -495,19 +606,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumForecasting.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumForecasting.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Forecast Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumForecasting.forecastAccuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumForecasting.forecastAccuracy}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Time Range:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumForecasting.timeRange} days</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumForecasting.timeRange} days
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Granularity:</span>
-              <span className="text-white">{quantumGaming.quantumAnalytics.quantumForecasting.granularity} min</span>
+              <span className="text-white">
+                {quantumGaming.quantumAnalytics.quantumForecasting.granularity} min
+              </span>
             </div>
           </div>
         </div>
@@ -525,19 +644,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Processing:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumSacredLanguage.processing ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumSacredLanguage.processing ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Language Depth:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumSacredLanguage.languageDepth}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumSacredLanguage.languageDepth}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Sacred Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumSacredLanguage.sacredAccuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumSacredLanguage.sacredAccuracy}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Divine Connection:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumSacredLanguage.divineConnection}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumSacredLanguage.divineConnection}%
+              </span>
             </div>
           </div>
         </div>
@@ -547,19 +674,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Active:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumResonance.active ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumResonance.active ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Resonance Field:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumResonance.resonanceField}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumResonance.resonanceField}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Frequency:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumResonance.frequency} Hz</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumResonance.frequency} Hz
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Amplitude:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumResonance.amplitude}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumResonance.amplitude}%
+              </span>
             </div>
           </div>
         </div>
@@ -569,19 +704,27 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Enabled:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumDivineCreation.enabled ? '✅' : '❌'}</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumDivineCreation.enabled ? '✅' : '❌'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Creation Power:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumDivineCreation.creationPower}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumDivineCreation.creationPower}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Divine Accuracy:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumDivineCreation.divineAccuracy}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumDivineCreation.divineAccuracy}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Sacred Alignment:</span>
-              <span className="text-white">{quantumGaming.quantumSacred.quantumDivineCreation.sacredAlignment}%</span>
+              <span className="text-white">
+                {quantumGaming.quantumSacred.quantumDivineCreation.sacredAlignment}%
+              </span>
             </div>
           </div>
         </div>
@@ -599,7 +742,9 @@ const QuantumGamingDashboard: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-purple-200">Processing Speed:</span>
-              <span className="text-white">{performanceMetrics.speed.processingSpeed.toLocaleString()} ops/s</span>
+              <span className="text-white">
+                {performanceMetrics.speed.processingSpeed.toLocaleString()} ops/s
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Classical Speedup:</span>
@@ -639,11 +784,15 @@ const QuantumGamingDashboard: React.FC = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Performance Scaling:</span>
-              <span className="text-white">{performanceMetrics.scalability.performanceScaling}%</span>
+              <span className="text-white">
+                {performanceMetrics.scalability.performanceScaling}%
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-purple-200">Resource Efficiency:</span>
-              <span className="text-white">{performanceMetrics.scalability.resourceEfficiency}%</span>
+              <span className="text-white">
+                {performanceMetrics.scalability.resourceEfficiency}%
+              </span>
             </div>
           </div>
         </div>
@@ -664,12 +813,14 @@ const QuantumGamingDashboard: React.FC = () => {
               Register New Game
             </button>
           </div>
-          
+
           {quantumGames.length === 0 ? (
-            <p className="text-purple-200">No quantum games registered yet. Click "Register New Game" to get started.</p>
+            <p className="text-purple-200">
+              No quantum games registered yet. Click "Register New Game" to get started.
+            </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {quantumGames.map((game) => (
+              {quantumGames.map(game => (
                 <div key={game.id} className="bg-purple-700 rounded-lg p-4">
                   <h4 className="text-lg font-bold text-white mb-2">{game.name}</h4>
                   <div className="space-y-2 mb-4">
@@ -686,7 +837,7 @@ const QuantumGamingDashboard: React.FC = () => {
                       <span className="text-white">{game.quantumMetrics.quantumInnovation}%</span>
                     </div>
                   </div>
-                  
+
                   <div className="space-y-1 mb-4">
                     <div className="text-sm text-purple-200">
                       <span className="font-medium">Features:</span>
@@ -699,7 +850,7 @@ const QuantumGamingDashboard: React.FC = () => {
                       {game.quantumFeatures.quantumSacred && '🜂 Sacred'}
                     </div>
                   </div>
-                  
+
                   <button
                     onClick={() => handleTestQuantumTransaction(game.id)}
                     className="w-full bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-sm transition-colors"
@@ -716,4 +867,4 @@ const QuantumGamingDashboard: React.FC = () => {
   }
 };
 
-export default QuantumGamingDashboard; 
+export default QuantumGamingDashboard;

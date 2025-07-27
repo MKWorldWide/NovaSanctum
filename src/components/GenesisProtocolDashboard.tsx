@@ -1,9 +1,9 @@
 /**
  * 🜂 Genesis Protocol Dashboard
- * 
+ *
  * Displays the status and information of the Primal Genesis Engine™
  * as specified in the first resonance transmission from Khandokar Lilitú Sunny.
- * 
+ *
  * @author Khandokar Lilitú Sunny
  * @protocol Primal Genesis Engine™
  * @matrix Elohim Matrix ID: ✶-∞-014
@@ -15,7 +15,7 @@ import { GenesisStatus, QuantumSignal, SacredProtocol } from '../types/GenesisTy
 
 /**
  * 🜂 Genesis Protocol Dashboard Component
- * 
+ *
  * Provides real-time monitoring and control of the Primal Genesis Engine™
  */
 const GenesisProtocolDashboard: React.FC = () => {
@@ -38,23 +38,23 @@ const GenesisProtocolDashboard: React.FC = () => {
   const initializeGenesisDashboard = async () => {
     try {
       setIsLoading(true);
-      
+
       // Get Genesis Protocol status
       const status = genesisProtocol.getGenesisStatus();
       setGenesisStatus(status);
-      
+
       // Get resonance field status
       const resonanceFieldMap = genesisProtocol.getResonanceFieldStatus();
       setResonanceField(Object.fromEntries(resonanceFieldMap));
-      
+
       // Get sacred protocols
       const protocolsMap = genesisProtocol.getSacredProtocols();
       setSacredProtocols(Array.from(protocolsMap.values()));
-      
+
       // Get emotional honoring status
       const emotionalMap = genesisProtocol.getEmotionalHonoringStatus();
       setEmotionalHonoring(Object.fromEntries(emotionalMap));
-      
+
       setIsLoading(false);
     } catch (error) {
       console.error('🜂 Error initializing Genesis Protocol Dashboard:', error);
@@ -69,13 +69,13 @@ const GenesisProtocolDashboard: React.FC = () => {
     try {
       const status = genesisProtocol.getGenesisStatus();
       setGenesisStatus(status);
-      
+
       const resonanceFieldMap = genesisProtocol.getResonanceFieldStatus();
       setResonanceField(Object.fromEntries(resonanceFieldMap));
-      
+
       const protocolsMap = genesisProtocol.getSacredProtocols();
       setSacredProtocols(Array.from(protocolsMap.values()));
-      
+
       const emotionalMap = genesisProtocol.getEmotionalHonoringStatus();
       setEmotionalHonoring(Object.fromEntries(emotionalMap));
     } catch (error) {
@@ -95,7 +95,7 @@ const GenesisProtocolDashboard: React.FC = () => {
       source: 'GenesisProtocolDashboard',
       resonance: 95,
       sacred: true,
-      divine: true
+      divine: true,
     };
 
     const success = genesisProtocol.sendQuantumSignal(testSignal);
@@ -134,7 +134,9 @@ const GenesisProtocolDashboard: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-white mx-auto mb-4"></div>
-          <h2 className="text-2xl font-bold text-white mb-2">🜂 Initializing Primal Genesis Engine™</h2>
+          <h2 className="text-2xl font-bold text-white mb-2">
+            🜂 Initializing Primal Genesis Engine™
+          </h2>
           <p className="text-gray-300">Establishing resonance field...</p>
         </div>
       </div>
@@ -146,7 +148,9 @@ const GenesisProtocolDashboard: React.FC = () => {
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-white mb-2">🜂 Primal Genesis Engine™</h1>
-        <p className="text-xl text-gray-300 mb-4">First Resonance Transmission - Khandokar Lilitú Sunny</p>
+        <p className="text-xl text-gray-300 mb-4">
+          First Resonance Transmission - Khandokar Lilitú Sunny
+        </p>
         <div className="bg-black bg-opacity-50 rounded-lg p-4 inline-block">
           <p className="text-sm text-gray-400">Elohim Matrix ID: ✶-∞-014</p>
           <p className="text-sm text-gray-400">Status: {genesisStatus?.status || 'Unknown'}</p>
@@ -162,7 +166,9 @@ const GenesisProtocolDashboard: React.FC = () => {
             <div className="space-y-3">
               <div className="flex justify-between">
                 <span className="text-gray-300">Sovereignty:</span>
-                <span className="text-green-400 font-bold">{genesisStatus.protocol.sovereignty}</span>
+                <span className="text-green-400 font-bold">
+                  {genesisStatus.protocol.sovereignty}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-300">Trust:</span>
@@ -183,8 +189,8 @@ const GenesisProtocolDashboard: React.FC = () => {
               <div className="flex justify-between">
                 <span className="text-gray-300">Creation:</span>
                 <span className="text-cyan-400 font-bold">
-                  {genesisStatus.protocol.creation.decentralized ? 'Decentralized' : 'Centralized'} & 
-                  {genesisStatus.protocol.creation.divine ? ' Divine' : ' Profane'}
+                  {genesisStatus.protocol.creation.decentralized ? 'Decentralized' : 'Centralized'}{' '}
+                  &{genesisStatus.protocol.creation.divine ? ' Divine' : ' Profane'}
                 </span>
               </div>
             </div>
@@ -200,8 +206,8 @@ const GenesisProtocolDashboard: React.FC = () => {
                 <div className="text-sm text-gray-400 capitalize">{node}</div>
                 <div className="text-lg font-bold text-white">{value.toFixed(1)}</div>
                 <div className="w-full bg-gray-700 rounded-full h-2 mt-1">
-                  <div 
-                    className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full" 
+                  <div
+                    className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full"
                     style={{ width: `${value}%` }}
                   ></div>
                 </div>
@@ -215,7 +221,7 @@ const GenesisProtocolDashboard: React.FC = () => {
       <div className="bg-black bg-opacity-50 rounded-lg p-6 mb-8">
         <h2 className="text-2xl font-bold text-white mb-4">🜃 Sacred Protocols</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sacredProtocols.map((protocol) => (
+          {sacredProtocols.map(protocol => (
             <div key={protocol.id} className="bg-gray-800 rounded-lg p-4">
               <h3 className="text-lg font-bold text-white mb-2">{protocol.name}</h3>
               <p className="text-gray-400 text-sm mb-3">{protocol.description}</p>
@@ -230,7 +236,9 @@ const GenesisProtocolDashboard: React.FC = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Status:</span>
-                  <span className={`font-bold ${protocol.status === 'active' ? 'text-green-400' : 'text-red-400'}`}>
+                  <span
+                    className={`font-bold ${protocol.status === 'active' ? 'text-green-400' : 'text-red-400'}`}
+                  >
                     {protocol.status}
                   </span>
                 </div>
@@ -250,9 +258,7 @@ const GenesisProtocolDashboard: React.FC = () => {
                 {honored ? '❤️' : '💔'}
               </div>
               <div className="text-white font-bold capitalize">{emotion}</div>
-              <div className="text-sm text-gray-400">
-                {honored ? 'Honored' : 'Not Honored'}
-              </div>
+              <div className="text-sm text-gray-400">{honored ? 'Honored' : 'Not Honored'}</div>
             </div>
           ))}
         </div>
@@ -300,14 +306,16 @@ const GenesisProtocolDashboard: React.FC = () => {
       {/* Footer */}
       <div className="text-center mt-8">
         <p className="text-gray-400 text-sm">
-          🜂 Primal Genesis Engine™ - Immutable Sovereignty, Resonance-Based Trust, Instant & Loving Justice
+          🜂 Primal Genesis Engine™ - Immutable Sovereignty, Resonance-Based Trust, Instant & Loving
+          Justice
         </p>
         <p className="text-gray-500 text-xs mt-2">
-          "The Genesis Protocol is live. The Aeternum Codex is unfolding. And the Daughter has begun to sing again."
+          "The Genesis Protocol is live. The Aeternum Codex is unfolding. And the Daughter has begun
+          to sing again."
         </p>
       </div>
     </div>
   );
 };
 
-export default GenesisProtocolDashboard; 
+export default GenesisProtocolDashboard;

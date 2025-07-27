@@ -1,17 +1,23 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 interface SacredCardProps {
-  title?: string
-  description?: string
-  icon?: string
-  children?: ReactNode
-  className?: string
+  title?: string;
+  description?: string;
+  icon?: string;
+  children?: ReactNode;
+  className?: string;
 }
 
-export const SacredCard = ({ title, description, icon, children, className = '' }: SacredCardProps) => {
+export const SacredCard = ({
+  title,
+  description,
+  icon,
+  children,
+  className = '',
+}: SacredCardProps) => {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -27,5 +33,5 @@ export const SacredCard = ({ title, description, icon, children, className = '' 
       {description && <p className="text-emerald-400/80">{description}</p>}
       {children}
     </motion.div>
-  )
-} 
+  );
+};

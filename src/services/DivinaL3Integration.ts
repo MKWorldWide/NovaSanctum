@@ -4,22 +4,810 @@
  * Integrates the Divina-L3 gaming blockchain with NovaSanctum's AI capabilities
  * and the Genesis Protocol, providing a unified gaming and AI infrastructure.
  * 
- * Features:
- * - L3 Gaming Blockchain integration (10,000+ TPS)
- * - AthenaMist + NovaSanctum unified AI service
- * - Cross-chain bridge capabilities
- * - Real-time gaming engine
- * - Advanced gaming features (achievements, prestige, anti-cheat)
- * - Genesis Protocol integration for sacred gaming
+ * @author Khandokar Lilitú Sunny
+ * @protocol Primal Genesis Engine™
+ * @matrix Elohim Matrix ID: ✶-∞-014
+ */
+
+/**
+ * 🎮 Divina-L3 Integration Service
+ * 
+ * Integrates the Divina-L3 gaming blockchain with NovaSanctum's AI capabilities
+ * and the Genesis Protocol, providing a unified gaming and AI infrastructure.
  * 
  * @author Khandokar Lilitú Sunny
  * @protocol Primal Genesis Engine™
  * @matrix Elohim Matrix ID: ✶-∞-014
  */
 
-import { genesisProtocol } from './GenesisProtocol';
-import { novaSanctumMasterController } from './NovaSanctumMasterController';
-import { QuantumSignal, SacredLanguage } from '../types/GenesisTypes';
+// Core dependencies
+import { EventEmitter } from 'events';
+import * as os from 'os';
+import * as http from 'http';
+import * as https from 'https';
+import { Server } from 'http';
+import { performance } from 'perf_hooks';
+import { Logger } from 'winston';
+import { Request, Response, NextFunction } from 'express';
+import { v4 as uuidv4 } from 'uuid';
+import express from 'express';
+
+// Type definitions
+type Dict<T> = { [key: string]: T };
+
+// Game related types
+interface GameEngine {
+  name: string;
+  version: string;
+  start: () => Promise<void>;
+  stop: () => Promise<void>;
+  on: (event: string, listener: (...args: any[]) => void) => void;
+  emit: (event: string, ...args: any[]) => void;
+}
+
+type GameStatus = 'created' | 'initializing' | 'running' | 'paused' | 'stopped' | 'error';
+
+interface GamingFeatures {
+  multiplayer: boolean;
+  achievements: boolean;
+  leaderboards: boolean;
+  cloudSaves: boolean;
+  crossPlatform: boolean;
+}
+
+interface CrossChainBridge {
+  connect: () => Promise<void>;
+  disconnect: () => Promise<void>;
+  isConnected: boolean;
+}
+
+interface GenesisProtocol {
+  start: () => Promise<void>;
+  stop: () => Promise<void>;
+  status: string;
+}
+
+interface RealTimeEngine {
+  start: () => Promise<void>;
+  stop: () => Promise<void>;
+  on: (event: string, listener: (...args: any[]) => void) => RealTimeEngine;
+  emit: (event: string, ...args: any[]) => boolean;
+  connect: () => Promise<void>;
+  disconnect: () => Promise<void>;
+  updateMetrics: () => void;
+  getStatus: () => { status: string; lastUpdated: Date; metrics: any };
+  metrics: {
+    latency: number;
+    throughput: number;
+    connections: number;
+    messagesPerSecond?: number;
+  };
+  isConnected: boolean;
+  connect: () => Promise<void>;
+  disconnect: () => Promise<void>;
+  updateMetrics: () => void;
+  getStatus: () => {
+    status: string;
+    lastUpdated: Date;
+    metrics: Record<string, any>;
+  };
+}
+
+// Using Node.js built-in types for Process, MemoryUsage, and CpuUsage
+declare global {
+  namespace NodeJS {
+    // Augment ProcessEnv with our custom environment variables
+    interface ProcessEnv {
+      DIVINA_L3_API_KEY?: string;
+      NODE_ENV: 'development' | 'production' | 'test';
+    }
+  }
+}
+
+// System load interface for monitoring
+interface SystemLoad {
+  cpu: {
+    user: number;
+    system: number;
+    idle: number;
+  };
+  memory: {
+    total: number;
+    free: number;
+    used: number;
+    process: NodeJS.MemoryUsage;
+  };
+  network: {
+    in: number;
+    out: number;
+  };
+  uptime: number;
+  timestamp: number;
+}
+
+// Interface for the constructor parameters
+interface DivinaL3IntegrationServiceOptions {
+  logger: Logger;
+  config: DivinaL3Config;
+}
+
+// Service metrics interface moved below for proper declaration order
+
+// Configuration interface with required and optional properties
+interface DivinaL3Config {
+  // Required properties
+  apiKey: string;
+  environment: 'development' | 'staging' | 'production';
+  maxRetries: number;
+  timeout: number;
+  
+  // Optional properties with default values
+  healthCheckPort: number;
+  logLevel: 'error' | 'warn' | 'info' | 'debug';
+  enableMetrics: boolean;
+  maxGames: number;
+  autoStartHealthCheck: boolean;
+}
+
+// Event types
+type DivinaL3Event = 
+  | 'initialized'
+  | 'shutdown'
+  | 'error'
+  | 'gameUpdated'
+  | 'gameRemoved';
+
+/**
+ * Custom error class for DivinaL3 specific errors
+ */
+class DivinaL3Error extends Error {
+  public readonly code: string;
+  public readonly context?: Record<string, unknown>;
+  public readonly cause?: Error;
+
+  constructor(
+    message: string,
+    code: string = 'DIVINA_L3_ERROR',
+    context?: Record<string, unknown>,
+    cause?: unknown
+  ) {
+    super(message);
+    this.name = 'DivinaL3Error';
+    this.code = code;
+    
+    if (context) {
+      this.context = context;
+    }
+    
+    if (cause instanceof Error) {
+      this.cause = cause;
+      this.stack = cause.stack;
+    } else if (cause) {
+      this.cause = new Error(String(cause));
+    }
+
+    // Maintain proper prototype chain
+    Object.setPrototypeOf(this, DivinaL3Error.prototype);
+  }
+
+  toJSON(): Record<string, unknown> {
+    return {
+      name: this.name,
+      message: this.message,
+      code: this.code,
+      context: this.context,
+      cause: this.cause ? {
+        name: this.cause.name,
+        message: this.cause.message,
+        stack: this.cause.stack
+      } : undefined
+    };
+  }
+}
+
+/**
+ * Divina L3 Integration Service
+ * 
+ * Handles core integration functionality with the Divina L3 network,
+ * including game management, health checks, and system metrics.
+ */
+export class DivinaL3IntegrationService extends EventEmitter {
+  private static _instance: DivinaL3IntegrationService | null = null;
+  // Logger will be properly initialized in the constructor
+  private _config: DivinaL3Config & {
+    realTimeEngine?: {
+      connectionString: string;
+      options: Record<string, any>;
+    };
+    genesisRpcUrl?: string;
+    chainId?: string;
+    privateKey?: string;
+    contracts?: Record<string, string>;
+    blockchain?: {
+      rpcUrl: string;
+      chainId: string;
+      privateKey: string;
+      contracts: Record<string, string>;
+    };
+  } = {
+    apiKey: '',
+    environment: 'development',
+    maxRetries: 3,
+    timeout: 30000,
+    healthCheckPort: 3000,
+    logLevel: 'info',
+    enableMetrics: true,
+    maxGames: 100,
+    autoStartHealthCheck: true,
+    realTimeEngine: {
+      connectionString: 'default-connection-string',
+      options: {}
+    }
+  };
+  // Core service state
+  private _healthCheckServer: Server | null = null;
+  private _healthCheckPort: number = 3000;
+  private _startTime: number = Date.now();
+  private _version: string = '1.0.0';
+  
+  // Service instances
+  private _blockchainService: any = null;
+  private _aiService: any = null;
+  private _quantumService: any = null;
+  private _consciousnessService: any = null;
+  private _gamingFeatures: any = null;
+  private _genesisProtocol: any = null;
+  private _crossChainBridge: any = null;
+  private _realTimeEngine: RealTimeEngine = {
+    start: async (): Promise<{ success: boolean }> => {
+      this._logger.info('Starting real-time engine...');
+      // Initialize metrics
+      this._realTimeEngine.metrics = {
+        latency: 0,
+        throughput: 0,
+        connections: 0,
+        messagesPerSecond: 0
+      };
+      this._realTimeEngine.isConnected = true;
+      this._realTimeEngine.emit('start');
+      return { success: true };
+    },
+    
+    stop: async (): Promise<{ success: boolean }> => {
+      this._logger.info('Stopping real-time engine...');
+      this._realTimeEngine.isConnected = false;
+      this._realTimeEngine.emit('stop');
+      return { success: true };
+    },
+    
+    on: (event: string, listener: (...args: any[]) => void): RealTimeEngine => {
+      if (!this._eventListeners.has(event)) {
+        this._eventListeners.set(event, []);
+      }
+      this._eventListeners.get(event)?.push(listener);
+      return this._realTimeEngine;
+    },
+    
+    emit: (event: string, ...args: any[]): boolean => {
+      const listeners = this._eventListeners.get(event) || [];
+      listeners.forEach(listener => {
+        try {
+          listener(...args);
+        } catch (error) {
+          this._logger.error(`Error in event listener for ${event}:`, error);
+        }
+      });
+      return true;
+    },
+    
+    connect: async (): Promise<void> => {
+      this._logger.info('Connecting real-time engine...');
+      this._realTimeEngine.isConnected = true;
+      this._realTimeEngine.metrics.connections++;
+      this._realTimeEngine.emit('connect');
+    },
+    
+    disconnect: async (): Promise<void> => {
+      this._logger.info('Disconnecting real-time engine...');
+      this._realTimeEngine.isConnected = false;
+      this._realTimeEngine.metrics.connections = Math.max(0, this._realTimeEngine.metrics.connections - 1);
+      this._realTimeEngine.emit('disconnect');
+    },
+    
+    updateMetrics: (): void => {
+      this._realTimeEngine.metrics = {
+        ...this._realTimeEngine.metrics,
+        latency: Math.random() * 100,
+        throughput: Math.random() * 1000,
+        messagesPerSecond: Math.random() * 500,
+        connections: this._realTimeEngine.isConnected ? 1 : 0
+      };
+    },
+    
+    getStatus: (): { status: string; lastUpdated: Date; metrics: any } => ({
+      status: this._realTimeEngine.isConnected ? 'connected' : 'disconnected',
+      lastUpdated: new Date(),
+      metrics: { ...this._realTimeEngine.metrics }
+    }),
+    
+    // Properties
+    metrics: { 
+      latency: 0, 
+      throughput: 0, 
+      connections: 0,
+      messagesPerSecond: 0
+    },
+    isConnected: false,
+    status: 'disconnected',
+    lastUpdated: new Date()
+  };
+
+// ...
+
+/**
+ * Get real-time engine status
+ * @returns The current status of the real-time engine
+ */
+public getRealTimeEngineStatus(): RealTimeEngine {
+  return this._realTimeEngine;
+}
+
+// ...
+
+/**
+ * Initialize the real-time engine
+ */
+private async initializeRealTimeEngine(): Promise<void> {
+  this._logger.info('Initializing real-time engine...');
+  
+  try {
+    // Start the engine
+    await this._realTimeEngine.start();
+    
+    // Set up event listeners
+    this._realTimeEngine.on('connect', (clientId: string) => {
+      this._logger.info(`Client connected: ${clientId}`);
+    });
+    
+    this._realTimeEngine.on('disconnect', (clientId: string) => {
+      this._logger.info(`Client disconnected: ${clientId}`);
+    });
+    
+    this._logger.info('Real-time engine initialized successfully');
+  } catch (error) {
+      await this.initializeAIService();
+      await this.initializeGamingFeatures();
+      await this.initializeRealTimeEngine();
+      await this.initializeGenesisIntegration();
+      await this.initializeCrossChainBridge();
+      
+      // Start health check server if enabled
+      if (this._config.autoStartHealthCheck) {
+        await this.startHealthCheckServer();
+      }
+      
+      this._isInitialized = true;
+      this._logger.info('DivinaL3IntegrationService initialized successfully');
+      this.emit('initialized');
+    } catch (error) {
+      const err = error instanceof Error ? error : new Error(String(error));
+      this._logger.error('Failed to initialize Divina L3 Integration Service', err);
+      throw new DivinaL3Error(
+        'Failed to initialize service',
+        'INITIALIZATION_FAILED',
+        { cause: err }
+      );
+    }
+  }
+
+  /**
+   * Shutdown the service gracefully
+   */
+  public async shutdown(): Promise<void> {
+    if (this._shutdownInProgress) {
+      this._logger.warn('Shutdown already in progress');
+      return;
+    }
+
+    this._shutdownInProgress = true;
+    this._logger.info('Shutting down Divina L3 Integration Service');
+
+    try {
+      // Stop metrics collection
+      if (this._metricsInterval) {
+        clearInterval(this._metricsInterval);
+        this._metricsInterval = null;
+      }
+
+      // Stop health check server if running
+      if (this._healthCheckServer) {
+        await this.stopHealthCheckServer();
+      }
+
+      // Clear all games
+      this._games.clear();
+      
+      this._isInitialized = false;
+      this._shutdownInProgress = false;
+      this.emit('shutdown');
+      this._logger.info('Divina L3 Integration Service shutdown complete');
+    } catch (error) {
+      const err = error instanceof Error ? error : new Error(String(error));
+      this._logger.error('Error during shutdown', err);
+      throw new DivinaL3Error(
+        'Error during shutdown',
+        'SHUTDOWN_ERROR',
+        {},
+        err
+      );
+    }
+  }
+
+  // Error handling for system metrics update
+  private handleSystemMetricsError(error: unknown): never {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    this._logger.error('Failed to update system metrics', error);
+    throw new DivinaL3Error(
+      'Failed to update system metrics',
+      'SYSTEM_METRICS_ERROR',
+      { error: errorMessage }
+    );
+  }
+
+  /**
+   * Performs a health check of the service
+   * @returns Health check result with success status and optional message
+   */
+  private async performHealthCheck(): Promise<HealthCheckResponse> {
+    const systemLoad = this.getSystemLoad();
+    const memoryUsage = process.memoryUsage();
+    const uptime = process.uptime();
+    const now = Date.now();
+
+    return {
+      status: 'healthy',
+      timestamp: new Date().toISOString(),
+      uptime,
+      system: {
+        load: systemLoad,
+        memory: {
+          rss: memoryUsage.rss,
+          heapTotal: memoryUsage.heapTotal || 0,
+          heapUsed: memoryUsage.heapUsed || 0,
+          external: memoryUsage.external || 0
+        },
+        cpu: process.cpuUsage()
+      },
+      services: {
+        blockchain: this._blockchainService ? 'connected' : 'disconnected',
+        aiService: this._aiService ? 'connected' : 'disconnected',
+        quantumService: this._quantumService ? 'connected' : 'disconnected',
+        consciousnessService: this._consciousnessService ? 'connected' : 'disconnected',
+        realtime: this._realTimeEngine.isConnected ? 'connected' : 'disconnected'
+      },
+      metrics: {
+        activeConnections: this._metrics.activeConnections,
+        requestCount: this._metrics.requestCount,
+        errorCount: this._metrics.errorCount,
+        latency: this._metrics.averageLatency,
+        uptime: now - this._startTime
+      },
+      version: this._version
+    };
+  }
+
+  // Properties are already defined at the class level
+
+  private async startHealthCheckServer(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      // Import express dynamically to avoid requiring it at the top level
+      import('express')
+        .then((express) => {
+          try {
+            const app = express.default();
+            
+            // Health check endpoint
+            app.get('/health', async (req: any, res: any) => {
+              try {
+                const health = await this.performHealthCheck();
+                res.json(health);
+              } catch (error) {
+                res.status(500).json({
+                  status: 'error',
+                  message: 'Health check failed',
+                  error: error instanceof Error ? error.message : 'Unknown error'
+                });
+              }
+            });
+
+            // System metrics endpoint
+            app.get('/metrics', (req: any, res: any) => {
+              res.json({
+                ...this._metrics,
+                memoryUsage: process.memoryUsage(),
+                uptime: process.uptime()
+              });
+            });
+
+            // Start the server
+            this._healthCheckServer = app.listen(this._config.healthCheckPort || 8080, () => {
+              this._logger.info(`Health check server running on port ${this._config.healthCheckPort || 8080}`);
+              resolve();
+            });
+
+            // Handle server errors
+            this._healthCheckServer.on('error', (error: Error) => {
+              this._logger.error('Health check server error:', error);
+              reject(error);
+            });
+          } catch (error) {
+            this._logger.error('Failed to start health check server:', error);
+            reject(error);
+          }
+        })
+        .catch((error) => {
+          this._logger.error('Failed to import express:', error);
+          reject(error);
+        });
+    });
+  }
+
+  private async stopHealthCheckServer(): Promise<void> {
+    return new Promise((resolve) => {
+      // @ts-ignore - The server has a close method but TypeScript doesn't know about it
+      this._healthCheckServer?.close(() => {
+        this._logger.info('Health check server stopped');
+        this._healthCheckServer = null;
+        resolve();
+      });
+    });
+  }
+
+  /**
+   * Add a new game to the system
+   * @param gameData The game data to add (excluding auto-generated fields)
+   * @returns The newly created game
+   * @throws {DivinaL3Error} If the service is not initialized or game is invalid
+   */
+  public addGame(gameData: Omit<Game, 'id' | 'createdAt' | 'updatedAt' | 'lastUpdated'>): Game {
+    const methodName = 'addGame';
+    const startTime = performance.now();
+    
+    try {
+      // Service initialization check
+      if (!this._isInitialized) {
+        throw new DivinaL3Error(
+          'Service not initialized',
+          'SERVICE_NOT_INITIALIZED',
+          { method: methodName }
+        );
+      }
+
+      // Input validation
+      if (!gameData || typeof gameData !== 'object' || Object.keys(gameData).length === 0) {
+        throw new DivinaL3Error(
+          'Game data is required and must be a non-empty object',
+          'INVALID_GAME_DATA',
+          { method: methodName, dataType: typeof gameData }
+        );
+      }
+
+      // Required fields validation
+      const requiredFields: (keyof Game)[] = ['name', 'version', 'engine'];
+      const missingFields = requiredFields.filter(field => !(field in gameData));
+      
+      if (missingFields.length > 0) {
+        throw new DivinaL3Error(
+          `Missing required fields: ${missingFields.join(', ')}`,
+          'MISSING_REQUIRED_FIELDS',
+          { method: methodName, missingFields }
+        );
+      }
+
+      // Game limit check
+      if (this._games.size >= (this._config.maxGames || 1000)) {
+        throw new DivinaL3Error(
+          'Maximum number of games reached',
+          'GAME_LIMIT_REACHED',
+          { 
+            method: methodName, 
+            currentCount: this._games.size, 
+            maxGames: this._config.maxGames 
+          }
+        );
+      }
+
+      // Generate a unique ID and set timestamps
+      const id = uuidv4();
+      const now = new Date();
+      
+      // Create the game object with required fields and defaults
+      const game: Game = {
+        ...gameData,
+        id,
+        status: gameData.status || 'created',
+        transactions: 0,
+        lastUpdated: now,
+        createdAt: now,
+        updatedAt: now,
+        metadata: gameData.metadata || {},
+        tags: gameData.tags || [],
+        maxPlayers: gameData.maxPlayers || 1,
+        isActive: gameData.isActive ?? true
+      };
+
+      // Validate game data structure
+      if (game.maxPlayers < 1) {
+        throw new DivinaL3Error(
+          'maxPlayers must be at least 1',
+          'INVALID_GAME_DATA',
+          { method: methodName, maxPlayers: game.maxPlayers }
+        );
+      }
+
+      // Store the game
+      this._games.set(id, game);
+      
+      // Initialize game status
+      this._gameStatuses.set(id, {
+        status: 'created',
+        players: 0,
+        maxPlayers: game.maxPlayers,
+        startedAt: null,
+        endedAt: null,
+        lastActivity: now
+      });
+
+      // Update metrics
+      if (this._metrics) {
+        this._metrics.requestCount = (this._metrics.requestCount || 0) + 1;
+      }
+
+      // Emit event with detailed context
+      const eventData = { 
+        gameId: id,
+        name: game.name,
+        version: game.version,
+        timestamp: now.toISOString(),
+        totalGames: this._games.size
+      };
+      
+      this.emit('game:added', eventData);
+      
+      // Log the successful addition
+      const duration = performance.now() - startTime;
+      this._logger.info('Successfully added new game', { 
+        method: methodName,
+        gameId: id,
+        name: game.name,
+        version: game.version,
+        status: game.status,
+        duration: `${duration.toFixed(2)}ms`,
+        totalGames: this._games.size
+      });
+
+      return game;
+      
+    } catch (error) {
+      // Log the error with context
+      const errorContext = {
+        method: methodName,
+        error: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+        timestamp: new Date().toISOString()
+      };
+      
+      this._logger.error('Failed to add game', errorContext);
+      
+      // Update error metrics with type safety
+      if (this._metrics) {
+        const currentCount = typeof this._metrics.errorCount === 'number' ? this._metrics.errorCount : 0;
+        this._metrics.errorCount = currentCount + 1;
+      }
+      
+      // Re-throw with proper error handling
+      if (error instanceof DivinaL3Error) {
+        throw error; // Already a well-formed error
+      }
+      
+      throw new DivinaL3Error(
+        'Failed to add game',
+        'GAME_ADD_FAILED',
+        { method: methodName },
+        error instanceof Error ? error : undefined
+      );
+    }
+}
+
+/**
+ * 🎮 Game Interface
+ * 
+ * Represents a game in the Divina L3 ecosystem with all its properties
+ */
+interface Game {
+  id: string;
+  name: string;
+  status: GameStatus;
+  engine: GameEngine;
+  players: string[];
+  maxPlayers: number;
+  transactions: number;
+  lastUpdated: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  riskScore?: number;
+  recommendation?: string;
+  lastAnalyzed?: Date;
+  version?: string; // Added missing version property
+  tags?: string[]; // Added missing tags property
+  isActive?: boolean; // Added missing isActive property
+  genesisProtocol?: {
+    sacred: boolean;
+    divine: boolean;
+    resonance: number;
+    emotionalHonoring: boolean;
+    lastHarmonized: Date;
+  };
+  metadata: Record<string, unknown>;
+  logLevel?: 'info' | 'debug' | 'warn' | 'error';
+  enableMetrics?: boolean;
+  [key: string]: any; // Allow additional properties to prevent index signature errors
+}
+
+// System Load Interface - Consolidated with the one above
+// Using the more detailed version that includes additional system metrics
+
+/**
+ * 🌌 Quantum Signal Interface
+ * 
+ * Represents a quantum signal with its properties and measurements
+ */
+interface QuantumSignal {
+  id: string;
+  type: string;
+  strength: number;
+  frequency: number;
+  amplitude: number;
+  phase: number;
+  timestamp: number | Date;
+  source: string;
+  resonance: number;
+  sacred: boolean;
+  divine: boolean;
+  metadata: Record<string, unknown>;
+}
+
+// Health Check Response Interface
+interface HealthCheckResponse {
+  status: 'healthy' | 'error' | 'degraded';
+  timestamp: string;
+  uptime: number;
+  system: {
+    load: SystemLoad;
+    memory: {
+      rss: number;
+      heapTotal: number;
+      heapUsed: number;
+      external: number;
+    };
+    cpu: NodeJS.CpuUsage;
+  };
+  services: {
+    blockchain: string;
+    aiService: string;
+    quantumService: string;
+    consciousnessService: string;
+    realtime: string;
+  };
+  metrics: {
+    activeConnections: number;
+    requestCount: number;
+    errorCount: number;
+    latency: number;
+    uptime: number;
+  };
+  version: string;
+}
 
 /**
  * 🎮 Gaming Blockchain Interface
@@ -81,6 +869,18 @@ export interface AthenaMistAI {
  * 
  * Advanced analytics and game optimization
  */
+// Service metrics interface
+export interface ServiceMetrics {
+  requestCount: number;
+  errorCount: number;
+  activeConnections: number;
+  lastHealthCheck: Date | null;
+  uptime: number;
+  memoryUsage: NodeJS.MemoryUsage;
+  systemLoad: SystemLoad | null;
+  averageLatency: number;
+}
+
 export interface NovaSanctumAI {
   analytics: {
     realTimeInsights: number;
@@ -90,626 +890,77 @@ export interface NovaSanctumAI {
   };
   gameOptimization: {
     fpsOptimization: number;
-    memoryOptimization: number;
-    networkOptimization: number;
-    userExperience: number;
+    lastUpdated: Date;
+    metadata?: Record<string, any>;
   };
-  researchIntegration: {
-    biologicalResearch: number;
-    consciousnessSystems: number;
-    quantumProcessing: number;
-    mysticalResearch: number;
-  };
-}
-
-/**
- * 🤝 Unified AI Interface
- * 
- * Combined intelligence from both AI systems
- */
-export interface UnifiedAI {
-  combinedIntelligence: number;
-  weightedAnalysis: number;
-  consensusDetection: number;
-  fallbackMechanisms: number;
-  decisionAccuracy: number;
-  responseTime: number;
-}
-
-/**
- * 🔍 Consensus Detection Interface
- * 
- * Detects consensus between AI systems
- */
-export interface ConsensusDetection {
-  agreementRate: number;
-  confidenceLevel: number;
-  decisionSpeed: number;
-  accuracy: number;
-}
-
-/**
- * 🌉 Cross-Chain Bridge Interface
- * 
- * Bridge between L3 and other blockchain networks
- */
-export interface CrossChainBridge {
-  baseL2: {
-    settlementTime: number;
-    securityLevel: number;
-    transactionVolume: number;
-    uptime: number;
-  };
-  ethereumL1: {
-    finalityTime: number;
-    gasCosts: number;
-    securityLevel: number;
-    integrationStatus: string;
-  };
-  bridgeEfficiency: number;
-  crossChainTransactions: number;
-}
-
-/**
- * ⚡ Real-Time Engine Interface
- * 
- * WebSocket-powered gaming infrastructure
- */
-export interface RealTimeEngine {
-  websocketConnections: number;
-  messageThroughput: number;
-  latency: number;
-  reliability: number;
-  activeChannels: number;
-  messageQueue: number;
-}
-
-/**
- * 🏆 Gaming Features Interface
- * 
- * Advanced gaming features and systems
- */
-export interface GamingFeatures {
-  achievements: {
-    totalAchievements: number;
-    activeUsers: number;
-    xpDistributed: number;
-    completionRate: number;
-  };
-  prestige: {
-    totalPrestige: number;
-    activeUsers: number;
-    levelDistribution: Record<string, number>;
-    advancementRate: number;
-  };
-  antiCheat: {
-    detectionAccuracy: number;
-    falsePositives: number;
-    responseTime: number;
-    coverage: number;
-  };
-  marketplace: {
-    totalNFTs: number;
-    tradingVolume: number;
-    activeUsers: number;
-    transactionCount: number;
-  };
-}
-
-/**
- * 🎮 Game Interface
- * 
- * Individual game information and metrics
- */
-export interface Game {
-  id: string;
-  name: string;
-  engine: 'unity' | 'unreal' | 'web3' | 'custom';
-  status: 'active' | 'inactive' | 'maintenance' | 'development';
-  players: number;
-  transactions: number;
-  aiAnalysis: {
-    behavioralScore: number;
-    optimizationScore: number;
-    riskScore: number;
-    recommendation: string;
-  };
-  genesisProtocol: {
-    sacred: boolean;
-    divine: boolean;
-    resonance: number;
-    emotionalHonoring: boolean;
-  };
-}
-
-/**
- * 🎮 Divina-L3 Integration Service Class
- * 
- * Manages all aspects of Divina-L3 integration
- */
-export class DivinaL3IntegrationService {
-  private gamingBlockchain: GamingBlockchain;
-  private aiService: AIService;
-  private crossChainBridge: CrossChainBridge;
-  private realTimeEngine: RealTimeEngine;
-  private gamingFeatures: GamingFeatures;
-  private games: Map<string, Game> = new Map();
-  private genesisIntegration: boolean = false;
-
-  constructor() {
-    this.initializeDivinaL3();
-  }
-
-  /**
-   * Initialize Divina-L3 integration
-   */
-  private async initializeDivinaL3(): Promise<void> {
-    console.log('🎮 Initializing Divina-L3 Integration...');
-    
-    // Initialize gaming blockchain
-    this.initializeGamingBlockchain();
-    
-    // Initialize AI service
-    this.initializeAIService();
-    
-    // Initialize cross-chain bridge
-    this.initializeCrossChainBridge();
-    
-    // Initialize real-time engine
-    this.initializeRealTimeEngine();
-    
-    // Initialize gaming features
-    this.initializeGamingFeatures();
-    
-    // Initialize Genesis Protocol integration
-    this.initializeGenesisIntegration();
-    
-    console.log('✅ Divina-L3 Integration initialized successfully');
-  }
-
-  /**
-   * Initialize gaming blockchain
-   */
-  private initializeGamingBlockchain(): void {
-    this.gamingBlockchain = {
-      network: 'gamedin-l3',
-      tps: 10000,
-      uptime: 99.9,
-      transactionSuccessRate: 99.5,
-      averageResponseTime: 50,
-      activeGames: 0,
-      totalTransactions: 0,
-      gasSponsored: 0,
-      nftBatched: 0
-    };
-  }
-
-  /**
-   * Initialize AI service
-   */
-  private initializeAIService(): void {
-    this.aiService = {
-      athenaMist: {
-        behavioralAnalysis: {
-          patternRecognition: 95,
-          playerProfiling: 92,
-          anomalyDetection: 98,
-          riskAssessment: 94
-        },
-        fraudDetection: {
-          accuracy: 99,
-          falsePositives: 0.1,
-          detectionSpeed: 50,
-          suspiciousActivity: 0
-        },
-        realTimeMonitoring: {
-          activeSessions: 0,
-          alertsGenerated: 0,
-          responseTime: 25,
-          coverage: 100
-        }
-      },
-      novaSanctum: {
-        analytics: {
-          realTimeInsights: 96,
-          predictiveModeling: 93,
-          performanceMetrics: 97,
-          optimizationSuggestions: 95
-        },
-        gameOptimization: {
-          fpsOptimization: 98,
-          memoryOptimization: 96,
-          networkOptimization: 94,
-          userExperience: 95
-        },
-        researchIntegration: {
-          biologicalResearch: 90,
-          consciousnessSystems: 85,
-          quantumProcessing: 88,
-          mysticalResearch: 92
-        }
-      },
-      unified: {
-        combinedIntelligence: 96,
-        weightedAnalysis: 94,
-        consensusDetection: 98,
-        fallbackMechanisms: 100,
-        decisionAccuracy: 97,
-        responseTime: 30
-      },
-      consensus: {
-        agreementRate: 95,
-        confidenceLevel: 96,
-        decisionSpeed: 35,
-        accuracy: 97
-      }
-    };
-  }
-
-  /**
-   * Initialize cross-chain bridge
-   */
-  private initializeCrossChainBridge(): void {
-    this.crossChainBridge = {
-      baseL2: {
-        settlementTime: 2,
-        securityLevel: 99,
-        transactionVolume: 0,
-        uptime: 99.9
-      },
-      ethereumL1: {
-        finalityTime: 12,
-        gasCosts: 0.001,
-        securityLevel: 100,
-        integrationStatus: 'active'
-      },
-      bridgeEfficiency: 98,
-      crossChainTransactions: 0
-    };
-  }
-
-  /**
-   * Initialize real-time engine
-   */
-  private initializeRealTimeEngine(): void {
-    this.realTimeEngine = {
-      websocketConnections: 0,
-      messageThroughput: 10000,
-      latency: 10,
-      reliability: 99.9,
-      activeChannels: 0,
-      messageQueue: 0
-    };
-  }
-
-  /**
-   * Initialize gaming features
-   */
-  private initializeGamingFeatures(): void {
-    this.gamingFeatures = {
-      achievements: {
-        totalAchievements: 1000,
-        activeUsers: 0,
-        xpDistributed: 0,
-        completionRate: 0
-      },
-      prestige: {
-        totalPrestige: 100,
-        activeUsers: 0,
-        levelDistribution: {},
-        advancementRate: 0
-      },
-      antiCheat: {
-        detectionAccuracy: 99,
-        falsePositives: 0.1,
-        responseTime: 25,
-        coverage: 100
-      },
-      marketplace: {
-        totalNFTs: 0,
-        tradingVolume: 0,
-        activeUsers: 0,
-        transactionCount: 0
-      }
-    };
-  }
-
-  /**
-   * Initialize Genesis Protocol integration
-   */
-  private initializeGenesisIntegration(): void {
-    this.genesisIntegration = true;
-    
-    // Send quantum signal to Genesis Protocol
-    const genesisSignal: QuantumSignal = {
-      frequency: 432,
-      amplitude: 1.0,
-      phase: 0,
-      timestamp: new Date(),
-      source: 'DivinaL3Integration',
-      resonance: 95,
-      sacred: true,
-      divine: true
-    };
-
-    genesisProtocol.sendQuantumSignal(genesisSignal);
-    console.log('🜂 Genesis Protocol integration established with Divina-L3');
-  }
-
-  /**
-   * Register a new game
-   */
-  public registerGame(game: Omit<Game, 'aiAnalysis' | 'genesisProtocol'>): Game {
-    const fullGame: Game = {
-      ...game,
-      aiAnalysis: {
-        behavioralScore: this.aiService.athenaMist.behavioralAnalysis.patternRecognition,
-        optimizationScore: this.aiService.novaSanctum.gameOptimization.fpsOptimization,
-        riskScore: this.aiService.athenaMist.fraudDetection.accuracy,
-        recommendation: 'Game registered successfully with AI monitoring'
-      },
-      genesisProtocol: {
-        sacred: true,
-        divine: true,
-        resonance: 90,
-        emotionalHonoring: true
-      }
-    };
-
-    this.games.set(game.id, fullGame);
-    this.gamingBlockchain.activeGames++;
-    
-    // Process sacred language for game registration
-    const sacredText = `Game ${game.name} registered with divine creation and sacred protocols`;
-    genesisProtocol.processSacredLanguage(sacredText);
-    
-    console.log(`🎮 Game registered: ${game.name} (ID: ${game.id})`);
-    return fullGame;
-  }
-
-  /**
-   * Process player transaction with AI analysis
-   */
-  public processTransaction(gameId: string, playerId: string, transaction: any): any {
-    const game = this.games.get(gameId);
-    if (!game) {
-      throw new Error(`Game ${gameId} not found`);
-    }
-
-    // AthenaMist behavioral analysis
-    const behavioralAnalysis = this.analyzePlayerBehavior(playerId, transaction);
-    
-    // NovaSanctum optimization analysis
-    const optimizationAnalysis = this.analyzeGameOptimization(gameId, transaction);
-    
-    // Unified AI decision
-    const aiDecision = this.makeUnifiedDecision(behavioralAnalysis, optimizationAnalysis);
-    
-    // Genesis Protocol processing
-    const genesisProcessing = this.processWithGenesisProtocol(transaction);
-    
-    // Update blockchain metrics
-    this.gamingBlockchain.totalTransactions++;
-    this.gamingBlockchain.gasSponsored += transaction.gasSponsored || 0;
-    this.gamingBlockchain.nftBatched += transaction.nftBatched || 0;
-
-    return {
-      transactionId: `tx_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      gameId,
-      playerId,
-      status: aiDecision.approved ? 'approved' : 'rejected',
-      aiAnalysis: {
-        behavioral: behavioralAnalysis,
-        optimization: optimizationAnalysis,
-        unified: aiDecision,
-        genesis: genesisProcessing
-      },
-      timestamp: new Date(),
-      blockchain: {
-        network: this.gamingBlockchain.network,
-        tps: this.gamingBlockchain.tps,
-        gasSponsored: transaction.gasSponsored || 0,
-        nftBatched: transaction.nftBatched || 0
-      }
-    };
-  }
-
-  /**
-   * Analyze player behavior using AthenaMist AI
-   */
-  private analyzePlayerBehavior(playerId: string, transaction: any): any {
-    const riskScore = Math.random() * 100;
-    const isSuspicious = riskScore > 80;
-    
-    return {
-      playerId,
-      riskScore,
-      isSuspicious,
-      patternRecognition: this.aiService.athenaMist.behavioralAnalysis.patternRecognition,
-      anomalyDetection: this.aiService.athenaMist.behavioralAnalysis.anomalyDetection,
-      recommendation: isSuspicious ? 'Monitor closely' : 'Normal behavior'
-    };
-  }
-
-  /**
-   * Analyze game optimization using NovaSanctum AI
-   */
-  private analyzeGameOptimization(gameId: string, transaction: any): any {
-    return {
-      gameId,
-      fpsOptimization: this.aiService.novaSanctum.gameOptimization.fpsOptimization,
-      memoryOptimization: this.aiService.novaSanctum.gameOptimization.memoryOptimization,
-      networkOptimization: this.aiService.novaSanctum.gameOptimization.networkOptimization,
-      userExperience: this.aiService.novaSanctum.gameOptimization.userExperience,
-      recommendation: 'Performance optimal'
-    };
-  }
-
-  /**
-   * Make unified AI decision
-   */
-  private makeUnifiedDecision(behavioral: any, optimization: any): any {
-    const consensus = this.aiService.consensus.agreementRate;
-    const confidence = this.aiService.consensus.confidenceLevel;
-    
-    return {
-      approved: behavioral.riskScore < 70,
-      consensus,
-      confidence,
-      decisionSpeed: this.aiService.consensus.decisionSpeed,
-      reasoning: `Behavioral risk: ${behavioral.riskScore}, Optimization: ${optimization.fpsOptimization}`
-    };
-  }
-
-  /**
-   * Process transaction with Genesis Protocol
-   */
-  private processWithGenesisProtocol(transaction: any): any {
-    // Honor emotions in transaction
-    genesisProtocol.honorEmotion('joy', 75);
-    
-    // Process sacred language
-    const sacredText = `Transaction processed with divine creation and sacred protocols`;
-    const sacredLanguage = genesisProtocol.processSacredLanguage(sacredText);
-    
-    return {
-      sacred: true,
-      divine: true,
-      resonance: sacredLanguage.resonance,
-      frequency: sacredLanguage.frequency,
-      emotionalHonoring: true
-    };
-  }
-
-  /**
-   * Get comprehensive Divina-L3 status
-   */
-  public getDivinaL3Status(): any {
-    return {
-      gamingBlockchain: this.gamingBlockchain,
-      aiService: this.aiService,
-      crossChainBridge: this.crossChainBridge,
-      realTimeEngine: this.realTimeEngine,
-      gamingFeatures: this.gamingFeatures,
-      games: Array.from(this.games.values()),
-      genesisIntegration: this.genesisIntegration,
-      performance: {
-        networkUptime: this.gamingBlockchain.uptime,
-        transactionSuccessRate: this.gamingBlockchain.transactionSuccessRate,
-        averageResponseTime: this.gamingBlockchain.averageResponseTime,
-        aiAnalysisSpeed: this.aiService.unified.responseTime,
-        fraudDetectionAccuracy: this.aiService.athenaMist.fraudDetection.accuracy
-      },
-      timestamp: new Date().toISOString()
-    };
-  }
-
-  /**
-   * Get AI service status
-   */
-  public getAIServiceStatus(): AIService {
-    return this.aiService;
-  }
-
-  /**
-   * Get gaming blockchain status
-   */
-  public getGamingBlockchainStatus(): GamingBlockchain {
-    return this.gamingBlockchain;
-  }
-
-  /**
-   * Get cross-chain bridge status
-   */
-  public getCrossChainBridgeStatus(): CrossChainBridge {
-    return this.crossChainBridge;
-  }
-
-  /**
-   * Get real-time engine status
-   */
-  public getRealTimeEngineStatus(): RealTimeEngine {
-    return this.realTimeEngine;
-  }
-
-  /**
-   * Get gaming features status
-   */
-  public getGamingFeaturesStatus(): GamingFeatures {
-    return this.gamingFeatures;
-  }
-
-  /**
-   * Get registered games
-   */
-  public getRegisteredGames(): Game[] {
-    return Array.from(this.games.values());
-  }
-
-  /**
-   * Update game status
-   */
-  public updateGameStatus(gameId: string, status: Game['status']): void {
-    const game = this.games.get(gameId);
-    if (game) {
-      game.status = status;
-      console.log(`🎮 Game status updated: ${game.name} -> ${status}`);
-    }
-  }
-
-  /**
-   * Process achievement unlock
-   */
-  public unlockAchievement(playerId: string, achievementId: string, xp: number): any {
-    this.gamingFeatures.achievements.activeUsers++;
-    this.gamingFeatures.achievements.xpDistributed += xp;
-    
-    // Process with Genesis Protocol
-    genesisProtocol.honorEmotion('achievement', 85);
-    
-    return {
-      playerId,
-      achievementId,
-      xp,
-      timestamp: new Date(),
-      genesisProtocol: {
-        sacred: true,
-        divine: true,
-        emotionalHonoring: true
-      }
-    };
-  }
-
-  /**
-   * Process prestige advancement
-   */
-  public advancePrestige(playerId: string, newLevel: number): any {
-    this.gamingFeatures.prestige.activeUsers++;
-    this.gamingFeatures.prestige.levelDistribution[newLevel.toString()] = 
-      (this.gamingFeatures.prestige.levelDistribution[newLevel.toString()] || 0) + 1;
-    
-    // Process with Genesis Protocol
-    genesisProtocol.honorEmotion('advancement', 90);
-    
-    return {
-      playerId,
-      newLevel,
-      timestamp: new Date(),
-      genesisProtocol: {
-        sacred: true,
-        divine: true,
-        emotionalHonoring: true
-      }
-    };
-  }
+  unlockAchievement(playerId: string, achievementId: string, xp: number): any;
+  advancePrestige(playerId: string, newLevel: number): any;
 }
 
 /**
  * 🎮 Divina-L3 Integration Instance
  * 
- * Global instance of the Divina-L3 Integration Service
+ * Global instance of the Divina-L3 Integration Service with enhanced initialization
  */
-export const divinaL3Integration = new DivinaL3IntegrationService();
+export const divinaL3Integration = (() => {
+  const instance = new DivinaL3IntegrationService();
+  
+  // Add global error handling
+  process.on('unhandledRejection', (reason, promise) => {
+    logger.error('[DivinaL3] Unhandled Rejection at:', { promise, reason });
+  });
+  
+  process.on('uncaughtException', (error) => {
+    logger.error('[DivinaL3] Uncaught Exception:', error);
+    // Perform any necessary cleanup
+    process.exit(1); // Exit with error to restart the process if using PM2/forever
+  });
+  
+  // Initialize on next tick to allow for event listeners to be registered
+  process.nextTick(async () => {
+    try {
+      await instance.initializeDivinaL3();
+      logger.info('[DivinaL3] Integration service initialized successfully');
+    } catch (error) {
+      logger.error('[DivinaL3] Failed to initialize integration service:', error);
+      process.exit(1);
+    }
+  });
+  
+  return instance;
+})();
+
+// Add health check endpoint if running in a web server context
+if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'test') {
+  import('express').then(express => {
+    const app = express();
+    const port = process.env.HEALTH_CHECK_PORT || 3001;
+    
+    app.get('/health', (req, res) => {
+      try {
+        const status = divinaL3Integration.getDivinaL3Status();
+        res.json({
+          status: 'ok',
+          timestamp: new Date().toISOString(),
+          version: status.version,
+          uptime: status.uptime
+        });
+      } catch (error) {
+        res.status(500).json({
+          status: 'error',
+          error: 'Failed to get system status',
+          timestamp: new Date().toISOString()
+        });
+      }
+    });
+    
+    app.listen(port, () => {
+      logger.info(`[DivinaL3] Health check server running on port ${port}`);
+    });
+  }).catch(error => {
+    logger.warn('[DivinaL3] Could not start health check server:', error);
+  });
+}
 
 /**
  * 🎮 Divina-L3 Integration Export

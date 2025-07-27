@@ -7,7 +7,7 @@ const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
-    triggerOnce: true
+    triggerOnce: true,
   });
 
   useEffect(() => {
@@ -44,9 +44,7 @@ const NavBar = () => {
             transition={{ delay: 0.2 }}
             className="flex-shrink-0"
           >
-            <span className="text-neon-cyan font-mono text-2xl font-bold">
-              BioSynth
-            </span>
+            <span className="text-neon-cyan font-mono text-2xl font-bold">BioSynth</span>
           </motion.div>
 
           {/* Desktop Menu */}
@@ -73,12 +71,7 @@ const NavBar = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-bio-light hover:text-neon-cyan focus:outline-none"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isMobileMenuOpen ? (
                   <path
                     strokeLinecap="round"
@@ -110,7 +103,7 @@ const NavBar = () => {
             className="md:hidden bg-bio-dark/95 backdrop-blur-lg"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navItems.map((item) => (
+              {navItems.map(item => (
                 <a
                   key={item.name}
                   href={item.href}
@@ -128,4 +121,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar; 
+export default NavBar;

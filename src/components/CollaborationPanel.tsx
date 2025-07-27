@@ -1,25 +1,27 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { ChatBubbleLeftIcon, PaperClipIcon, UserCircleIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { motion } from 'framer-motion';
+import { ChatBubbleLeftIcon, PaperClipIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 
 const mockMessages = [
   {
     id: 1,
     user: 'Dr. Sarah Chen',
     avatar: 'SC',
-    message: 'Just completed the initial analysis of the neural interface data. The signal-to-noise ratio is better than expected.',
+    message:
+      'Just completed the initial analysis of the neural interface data. The signal-to-noise ratio is better than expected.',
     timestamp: '10:30 AM',
   },
   {
     id: 2,
     user: 'Dr. Marcus Rodriguez',
     avatar: 'MR',
-    message: 'Excellent! I\'ll review the protein folding predictions this afternoon. The new algorithm seems promising.',
+    message:
+      "Excellent! I'll review the protein folding predictions this afternoon. The new algorithm seems promising.",
     timestamp: '10:32 AM',
   },
-]
+];
 
 const mockFiles = [
   {
@@ -32,10 +34,10 @@ const mockFiles = [
     size: '1.8 MB',
     type: 'Excel',
   },
-]
+];
 
 export const CollaborationPanel = () => {
-  const [newMessage, setNewMessage] = useState('')
+  const [newMessage, setNewMessage] = useState('');
 
   return (
     <motion.div
@@ -49,12 +51,8 @@ export const CollaborationPanel = () => {
         <div className="bg-slate-800/30 rounded-lg p-4 border border-emerald-500/10">
           <h3 className="text-lg font-medium text-emerald-300 mb-4">Team Messages</h3>
           <div className="space-y-4">
-            {mockMessages.map((msg) => (
-              <motion.div
-                key={msg.id}
-                whileHover={{ scale: 1.01 }}
-                className="flex gap-3"
-              >
+            {mockMessages.map(msg => (
+              <motion.div key={msg.id} whileHover={{ scale: 1.01 }} className="flex gap-3">
                 <div className="flex-shrink-0">
                   <div className="w-10 h-10 rounded-full bg-emerald-900/50 flex items-center justify-center text-emerald-400">
                     {msg.avatar}
@@ -74,7 +72,7 @@ export const CollaborationPanel = () => {
             <input
               type="text"
               value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
+              onChange={e => setNewMessage(e.target.value)}
               placeholder="Type your message..."
               className="flex-1 bg-slate-800/50 border border-emerald-500/20 rounded-lg py-2 px-4 text-emerald-50 placeholder-emerald-200/30 focus:outline-none focus:border-emerald-500/40"
             />
@@ -87,7 +85,7 @@ export const CollaborationPanel = () => {
         <div className="bg-slate-800/30 rounded-lg p-4 border border-emerald-500/10">
           <h3 className="text-lg font-medium text-emerald-300 mb-4">Shared Files</h3>
           <div className="space-y-3">
-            {mockFiles.map((file) => (
+            {mockFiles.map(file => (
               <motion.div
                 key={file.name}
                 whileHover={{ scale: 1.01 }}
@@ -109,5 +107,5 @@ export const CollaborationPanel = () => {
         </div>
       </div>
     </motion.div>
-  )
-} 
+  );
+};

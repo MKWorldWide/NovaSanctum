@@ -24,7 +24,8 @@
 
 /* Custom Animations */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -51,4 +52,4 @@
 
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-neon-cyan/70;
-} 
+}

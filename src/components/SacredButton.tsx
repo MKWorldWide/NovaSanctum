@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 interface SacredButtonProps {
-  children: ReactNode
-  variant?: 'primary' | 'secondary' | 'outline'
-  size?: 'small' | 'medium' | 'large'
-  onClick?: () => void
-  className?: string
-  disabled?: boolean
+  children: ReactNode;
+  variant?: 'primary' | 'secondary' | 'outline';
+  size?: 'small' | 'medium' | 'large';
+  onClick?: () => void;
+  className?: string;
+  disabled?: boolean;
 }
 
 export const SacredButton = ({
@@ -18,19 +18,19 @@ export const SacredButton = ({
   size = 'medium',
   onClick,
   className = '',
-  disabled = false
+  disabled = false,
 }: SacredButtonProps) => {
   const variants = {
     primary: 'bg-emerald-500 hover:bg-emerald-600 text-white',
     secondary: 'bg-slate-700 hover:bg-slate-600 text-white',
-    outline: 'bg-transparent border border-emerald-500 text-emerald-500 hover:bg-emerald-500/10'
-  }
+    outline: 'bg-transparent border border-emerald-500 text-emerald-500 hover:bg-emerald-500/10',
+  };
 
   const sizes = {
     small: 'px-3 py-1.5 text-sm',
     medium: 'px-4 py-2',
-    large: 'px-6 py-3 text-lg'
-  }
+    large: 'px-6 py-3 text-lg',
+  };
 
   return (
     <motion.button
@@ -49,5 +49,5 @@ export const SacredButton = ({
     >
       {children}
     </motion.button>
-  )
-} 
+  );
+};

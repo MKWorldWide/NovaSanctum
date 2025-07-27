@@ -1,14 +1,14 @@
-import { ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { ReactNode } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface SacredToastProps {
-  isVisible: boolean
-  onClose: () => void
-  title?: string
-  message: ReactNode
-  type?: 'success' | 'error' | 'warning' | 'info'
-  duration?: number
-  className?: string
+  isVisible: boolean;
+  onClose: () => void;
+  title?: string;
+  message: ReactNode;
+  type?: 'success' | 'error' | 'warning' | 'info';
+  duration?: number;
+  className?: string;
 }
 
 export const SacredToast = ({
@@ -18,7 +18,7 @@ export const SacredToast = ({
   message,
   type = 'info',
   duration = 3000,
-  className = ''
+  className = '',
 }: SacredToastProps) => {
   const types = {
     success: {
@@ -29,25 +29,15 @@ export const SacredToast = ({
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 13l4 4L19 7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
         </svg>
       ),
       bg: 'bg-green-500/20',
-      border: 'border-green-500/30'
+      border: 'border-green-500/30',
     },
     error: {
       icon: (
-        <svg
-          className="w-5 h-5 text-red-400"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -57,7 +47,7 @@ export const SacredToast = ({
         </svg>
       ),
       bg: 'bg-red-500/20',
-      border: 'border-red-500/30'
+      border: 'border-red-500/30',
     },
     warning: {
       icon: (
@@ -76,7 +66,7 @@ export const SacredToast = ({
         </svg>
       ),
       bg: 'bg-yellow-500/20',
-      border: 'border-yellow-500/30'
+      border: 'border-yellow-500/30',
     },
     info: {
       icon: (
@@ -95,9 +85,9 @@ export const SacredToast = ({
         </svg>
       ),
       bg: 'bg-blue-500/20',
-      border: 'border-blue-500/30'
-    }
-  }
+      border: 'border-blue-500/30',
+    },
+  };
 
   return (
     <AnimatePresence>
@@ -121,9 +111,7 @@ export const SacredToast = ({
           >
             <div className="flex-shrink-0">{types[type].icon}</div>
             <div className="ml-3 w-0 flex-1">
-              {title && (
-                <p className="text-sm font-medium text-white">{title}</p>
-              )}
+              {title && <p className="text-sm font-medium text-white">{title}</p>}
               <p className="mt-1 text-sm text-gray-300">{message}</p>
             </div>
             <div className="ml-4 flex-shrink-0 flex">
@@ -131,12 +119,7 @@ export const SacredToast = ({
                 onClick={onClose}
                 className="inline-flex text-gray-400 hover:text-white focus:outline-none"
               >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -150,5 +133,5 @@ export const SacredToast = ({
         </motion.div>
       )}
     </AnimatePresence>
-  )
-} 
+  );
+};

@@ -1,41 +1,41 @@
-import { Fragment } from 'react'
-import { Tab } from '@headlessui/react'
-import { motion } from 'framer-motion'
+import { Fragment } from 'react';
+import { Tab } from '@headlessui/react';
+import { motion } from 'framer-motion';
 
 interface TabItem {
-  label: string
-  content: React.ReactNode
-  disabled?: boolean
-  icon?: React.ReactNode
+  label: string;
+  content: React.ReactNode;
+  disabled?: boolean;
+  icon?: React.ReactNode;
 }
 
 interface SacredTabsProps {
-  tabs: TabItem[]
-  defaultIndex?: number
-  onChange?: (index: number) => void
-  className?: string
-  variant?: 'primary' | 'secondary'
+  tabs: TabItem[];
+  defaultIndex?: number;
+  onChange?: (index: number) => void;
+  className?: string;
+  variant?: 'primary' | 'secondary';
 }
 
 const variants = {
   primary: {
     selected: 'text-emerald-400 border-emerald-500',
     hover: 'hover:text-emerald-400 hover:border-emerald-500/50',
-    content: 'border-emerald-500/20'
+    content: 'border-emerald-500/20',
   },
   secondary: {
     selected: 'text-cyan-400 border-cyan-500',
     hover: 'hover:text-cyan-400 hover:border-cyan-500/50',
-    content: 'border-cyan-500/20'
-  }
-}
+    content: 'border-cyan-500/20',
+  },
+};
 
 export const SacredTabs = ({
   tabs,
   defaultIndex = 0,
   onChange,
   className = '',
-  variant = 'primary'
+  variant = 'primary',
 }: SacredTabsProps) => {
   return (
     <Tab.Group defaultIndex={defaultIndex} onChange={onChange}>
@@ -51,10 +51,7 @@ export const SacredTabs = ({
                 border-b-2
                 transition-colors
                 focus:outline-none
-                ${selected
-                  ? variants[variant].selected
-                  : 'text-slate-400 border-transparent'
-                }
+                ${selected ? variants[variant].selected : 'text-slate-400 border-transparent'}
                 ${!tab.disabled && variants[variant].hover}
                 ${tab.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
               `}
@@ -108,5 +105,5 @@ export const SacredTabs = ({
         </Tab.Panels>
       </div>
     </Tab.Group>
-  )
-} 
+  );
+};

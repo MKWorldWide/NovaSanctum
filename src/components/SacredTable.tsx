@@ -1,23 +1,23 @@
-import { ReactNode } from 'react'
-import { motion } from 'framer-motion'
+import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
 
 export interface Column<T> {
-  header: string
-  accessor: keyof T | ((item: T) => ReactNode)
-  className?: string
-  sortable?: boolean
-  filterable?: boolean
-  width?: string
+  header: string;
+  accessor: keyof T | ((item: T) => ReactNode);
+  className?: string;
+  sortable?: boolean;
+  filterable?: boolean;
+  width?: string;
 }
 
 interface SacredTableProps<T> {
-  columns: Column<T>[]
-  data: T[]
-  onRowClick?: (item: T) => void
-  className?: string
-  emptyMessage?: string
-  isLoading?: boolean
-  loadingMessage?: string
+  columns: Column<T>[];
+  data: T[];
+  onRowClick?: (item: T) => void;
+  className?: string;
+  emptyMessage?: string;
+  isLoading?: boolean;
+  loadingMessage?: string;
 }
 
 export const SacredTable = <T extends object>({
@@ -27,15 +27,17 @@ export const SacredTable = <T extends object>({
   className = '',
   emptyMessage = 'No data available',
   isLoading = false,
-  loadingMessage = 'Loading...'
+  loadingMessage = 'Loading...',
 }: SacredTableProps<T>) => {
   return (
-    <div className={`relative overflow-hidden rounded-lg border border-emerald-500/20 ${className}`}>
+    <div
+      className={`relative overflow-hidden rounded-lg border border-emerald-500/20 ${className}`}
+    >
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="bg-slate-900/50">
-              {columns.map((column) => (
+              {columns.map(column => (
                 <th
                   key={column.header}
                   className={`
@@ -82,7 +84,7 @@ export const SacredTable = <T extends object>({
                     transition-colors
                   `}
                 >
-                  {columns.map((column) => (
+                  {columns.map(column => (
                     <td
                       key={column.header}
                       className={`
@@ -102,5 +104,5 @@ export const SacredTable = <T extends object>({
         </table>
       </div>
     </div>
-  )
-} 
+  );
+};

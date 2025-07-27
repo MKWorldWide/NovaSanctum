@@ -1,23 +1,23 @@
-import { Fragment } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
-import { motion } from 'framer-motion'
-import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
+import { Fragment } from 'react';
+import { Listbox, Transition } from '@headlessui/react';
+import { motion } from 'framer-motion';
+import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 
 interface Option {
-  value: string
-  label: string
-  disabled?: boolean
+  value: string;
+  label: string;
+  disabled?: boolean;
 }
 
 interface SacredSelectProps {
-  options: Option[]
-  value: string
-  onChange: (value: string) => void
-  label?: string
-  placeholder?: string
-  className?: string
-  disabled?: boolean
-  error?: string
+  options: Option[];
+  value: string;
+  onChange: (value: string) => void;
+  label?: string;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
+  error?: string;
 }
 
 export const SacredSelect = ({
@@ -28,9 +28,9 @@ export const SacredSelect = ({
   placeholder = 'Select an option',
   className = '',
   disabled = false,
-  error
+  error,
 }: SacredSelectProps) => {
-  const selectedOption = options.find(option => option.value === value)
+  const selectedOption = options.find(option => option.value === value);
 
   return (
     <div className={className}>
@@ -52,29 +52,26 @@ export const SacredSelect = ({
               text-left rounded-lg
               bg-slate-900/50
               border
-              ${error
-                ? 'border-red-500/50 focus:ring-red-500/50'
-                : 'border-emerald-500/50 focus:ring-emerald-500/50'
+              ${
+                error
+                  ? 'border-red-500/50 focus:ring-red-500/50'
+                  : 'border-emerald-500/50 focus:ring-emerald-500/50'
               }
-              ${disabled
-                ? 'cursor-not-allowed opacity-50'
-                : 'cursor-pointer hover:bg-slate-900/70'
-              }
+              ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:bg-slate-900/70'}
               focus:outline-none focus:ring-2
               transition-colors
             `}
           >
-            <span className={`
+            <span
+              className={`
               block truncate
               ${selectedOption ? 'text-slate-200' : 'text-slate-500'}
-            `}>
+            `}
+            >
               {selectedOption ? selectedOption.label : placeholder}
             </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2">
-              <ChevronUpDownIcon
-                className="w-5 h-5 text-slate-400"
-                aria-hidden="true"
-              />
+              <ChevronUpDownIcon className="w-5 h-5 text-slate-400" aria-hidden="true" />
             </span>
           </Listbox.Button>
 
@@ -95,7 +92,7 @@ export const SacredSelect = ({
                 focus:outline-none
               "
             >
-              {options.map((option) => (
+              {options.map(option => (
                 <Listbox.Option
                   key={option.value}
                   value={option.value}
@@ -118,10 +115,12 @@ export const SacredSelect = ({
                           <CheckIcon className="w-5 h-5 text-emerald-400" />
                         </span>
                       )}
-                      <span className={`
+                      <span
+                        className={`
                         block truncate
                         ${selected ? 'font-medium' : 'font-normal'}
-                      `}>
+                      `}
+                      >
                         {option.label}
                       </span>
                     </motion.div>
@@ -142,5 +141,5 @@ export const SacredSelect = ({
         </motion.p>
       )}
     </div>
-  )
-} 
+  );
+};

@@ -7,7 +7,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: <FaGithub />, href: 'https://github.com/biosynth', label: 'GitHub' },
     { icon: <FaTwitter />, href: 'https://twitter.com/biosynth', label: 'Twitter' },
-    { icon: <FaLinkedin />, href: 'https://linkedin.com/company/biosynth', label: 'LinkedIn' }
+    { icon: <FaLinkedin />, href: 'https://linkedin.com/company/biosynth', label: 'LinkedIn' },
   ];
 
   const footerLinks = [
@@ -15,7 +15,7 @@ const Footer = () => {
     { name: 'Synthetic Systems', href: '#synthetic' },
     { name: 'Applications', href: '#applications' },
     { name: 'Partnership', href: '#partnership' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Contact', href: '#contact' },
   ];
 
   return (
@@ -41,7 +41,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-bio-light font-semibold">Navigation</h3>
             <ul className="space-y-2">
-              {footerLinks.map((link) => (
+              {footerLinks.map(link => (
                 <li key={link.name}>
                   <a
                     href={link.href}
@@ -58,7 +58,7 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-bio-light font-semibold">Connect</h3>
             <div className="flex space-x-4">
-              {socialLinks.map((link) => (
+              {socialLinks.map(link => (
                 <motion.a
                   key={link.label}
                   href={link.href}
@@ -87,4 +87,4 @@ const Footer = () => {
   );
 };
 
-export default Footer; 
+export default Footer;

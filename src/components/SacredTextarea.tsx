@@ -1,10 +1,10 @@
-import { forwardRef, TextareaHTMLAttributes } from 'react'
-import { motion } from 'framer-motion'
+import { forwardRef, TextareaHTMLAttributes } from 'react';
+import { motion } from 'framer-motion';
 
 interface SacredTextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label?: string
-  error?: string
-  className?: string
+  label?: string;
+  error?: string;
+  className?: string;
 }
 
 export const SacredTextarea = forwardRef<HTMLTextAreaElement, SacredTextareaProps>(
@@ -34,9 +34,10 @@ export const SacredTextarea = forwardRef<HTMLTextAreaElement, SacredTextareaProp
               focus:outline-none focus:ring-2
               transition-colors
               resize-none
-              ${error
-                ? 'border-red-500/50 focus:ring-red-500/50'
-                : 'border-emerald-500/50 focus:ring-emerald-500/50'
+              ${
+                error
+                  ? 'border-red-500/50 focus:ring-red-500/50'
+                  : 'border-emerald-500/50 focus:ring-emerald-500/50'
               }
               ${className}
             `}
@@ -53,8 +54,8 @@ export const SacredTextarea = forwardRef<HTMLTextAreaElement, SacredTextareaProp
           </motion.p>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-SacredTextarea.displayName = 'SacredTextarea' 
+SacredTextarea.displayName = 'SacredTextarea';

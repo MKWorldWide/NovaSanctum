@@ -1,17 +1,17 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { motion } from 'framer-motion';
+import { ReactNode } from 'react';
 
 interface MysticalButtonProps {
-  children: ReactNode
-  onClick?: () => void
-  className?: string
-  variant?: 'primary' | 'secondary' | 'ghost'
-  size?: 'sm' | 'md' | 'lg'
-  disabled?: boolean
-  loading?: boolean
-  icon?: ReactNode
+  children: ReactNode;
+  onClick?: () => void;
+  className?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  disabled?: boolean;
+  loading?: boolean;
+  icon?: ReactNode;
 }
 
 export const MysticalButton = ({
@@ -22,7 +22,7 @@ export const MysticalButton = ({
   size = 'md',
   disabled = false,
   loading = false,
-  icon
+  icon,
 }: MysticalButtonProps) => {
   const baseStyles = `
     relative inline-flex items-center justify-center
@@ -30,7 +30,7 @@ export const MysticalButton = ({
     transition-all duration-300
     focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900
     disabled:opacity-50 disabled:cursor-not-allowed
-  `
+  `;
 
   const variants = {
     primary: `
@@ -51,14 +51,14 @@ export const MysticalButton = ({
       text-emerald-400
       hover:bg-emerald-500/10
       focus:ring-emerald-500
-    `
-  }
+    `,
+  };
 
   const sizes = {
     sm: 'px-3 py-1.5 text-sm',
     md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg'
-  }
+    lg: 'px-6 py-3 text-lg',
+  };
 
   return (
     <motion.button
@@ -77,7 +77,7 @@ export const MysticalButton = ({
         <motion.div
           className="w-5 h-5 border-2 border-current border-t-transparent rounded-full"
           animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
         />
       ) : (
         <>
@@ -94,5 +94,5 @@ export const MysticalButton = ({
         />
       )}
     </motion.button>
-  )
-} 
+  );
+};

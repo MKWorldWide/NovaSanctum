@@ -1,49 +1,46 @@
-import { Fragment, ReactNode } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { motion } from 'framer-motion'
+import { Fragment, ReactNode } from 'react';
+import { Popover, Transition } from '@headlessui/react';
+import { motion } from 'framer-motion';
 
 interface SacredTooltipProps {
-  content: ReactNode
-  children: ReactNode
-  position?: 'top' | 'right' | 'bottom' | 'left'
-  className?: string
-  delay?: number
+  content: ReactNode;
+  children: ReactNode;
+  position?: 'top' | 'right' | 'bottom' | 'left';
+  className?: string;
+  delay?: number;
 }
 
 const positions = {
   top: {
     container: 'bottom-full mb-2',
-    arrow: 'bottom-0 translate-y-1/2 rotate-45'
+    arrow: 'bottom-0 translate-y-1/2 rotate-45',
   },
   right: {
     container: 'left-full ml-2',
-    arrow: 'left-0 -translate-x-1/2 -rotate-45'
+    arrow: 'left-0 -translate-x-1/2 -rotate-45',
   },
   bottom: {
     container: 'top-full mt-2',
-    arrow: 'top-0 -translate-y-1/2 rotate-45'
+    arrow: 'top-0 -translate-y-1/2 rotate-45',
   },
   left: {
     container: 'right-full mr-2',
-    arrow: 'right-0 translate-x-1/2 rotate-45'
-  }
-}
+    arrow: 'right-0 translate-x-1/2 rotate-45',
+  },
+};
 
 export const SacredTooltip = ({
   content,
   children,
   position = 'top',
   className = '',
-  delay = 0
+  delay = 0,
 }: SacredTooltipProps) => {
   return (
     <Popover className="relative inline-block">
       {({ open }) => (
         <>
-          <Popover.Button
-            as="div"
-            className="inline-block"
-          >
+          <Popover.Button as="div" className="inline-block">
             {children}
           </Popover.Button>
 
@@ -79,14 +76,16 @@ export const SacredTooltip = ({
                     ${positions[position].arrow}
                   `}
                 />
-                <div className="
+                <div
+                  className="
                   px-3 py-2
                   text-sm text-slate-200
                   bg-slate-900
                   border border-emerald-500/20
                   rounded-lg
                   shadow-lg shadow-emerald-500/10
-                ">
+                "
+                >
                   {content}
                 </div>
               </motion.div>
@@ -95,5 +94,5 @@ export const SacredTooltip = ({
         </>
       )}
     </Popover>
-  )
-} 
+  );
+};

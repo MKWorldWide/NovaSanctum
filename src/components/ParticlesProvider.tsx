@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { useCallback } from 'react'
-import Particles from 'react-tsparticles'
-import { loadSlim } from 'tsparticles-slim'
-import type { Engine } from 'tsparticles-engine'
+import { useCallback } from 'react';
+import Particles from 'react-tsparticles';
+import { loadSlim } from 'tsparticles-slim';
+import type { Engine } from 'tsparticles-engine';
 
 export const ParticlesProvider = ({ children }: { children: React.ReactNode }) => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine)
-  }, [])
+    await loadSlim(engine);
+  }, []);
 
   return (
     <div className="relative min-h-screen">
@@ -34,8 +34,8 @@ export const ParticlesProvider = ({ children }: { children: React.ReactNode }) =
               width: 1,
               triangles: {
                 enable: true,
-                opacity: 0.1
-              }
+                opacity: 0.1,
+              },
             },
             move: {
               enable: true,
@@ -44,7 +44,7 @@ export const ParticlesProvider = ({ children }: { children: React.ReactNode }) =
                 bottom: 'bounce',
                 left: 'bounce',
                 right: 'bounce',
-                top: 'bounce'
+                top: 'bounce',
               },
               random: true,
               speed: 0.8,
@@ -52,8 +52,8 @@ export const ParticlesProvider = ({ children }: { children: React.ReactNode }) =
               attract: {
                 enable: true,
                 rotateX: 600,
-                rotateY: 1200
-              }
+                rotateY: 1200,
+              },
             },
             number: {
               density: {
@@ -68,8 +68,8 @@ export const ParticlesProvider = ({ children }: { children: React.ReactNode }) =
                 enable: true,
                 speed: 1,
                 minimumValue: 0.1,
-                sync: false
-              }
+                sync: false,
+              },
             },
             shape: {
               type: ['circle', 'triangle'],
@@ -80,53 +80,53 @@ export const ParticlesProvider = ({ children }: { children: React.ReactNode }) =
                 enable: true,
                 speed: 2,
                 minimumValue: 0.1,
-                sync: false
-              }
+                sync: false,
+              },
             },
             life: {
               count: 1,
               duration: {
-                value: 1
-              }
+                value: 1,
+              },
             },
             rotate: {
               value: {
                 min: 0,
-                max: 360
+                max: 360,
               },
               direction: 'random',
               animation: {
                 enable: true,
-                speed: 5
-              }
-            }
+                speed: 5,
+              },
+            },
           },
           detectRetina: true,
           interactivity: {
             events: {
               onHover: {
                 enable: true,
-                mode: 'repulse'
+                mode: 'repulse',
               },
               onClick: {
                 enable: true,
-                mode: 'push'
-              }
+                mode: 'push',
+              },
             },
             modes: {
               repulse: {
                 distance: 100,
-                duration: 0.4
+                duration: 0.4,
               },
               push: {
-                quantity: 4
-              }
-            }
-          }
+                quantity: 4,
+              },
+            },
+          },
         }}
         className="absolute inset-0 -z-10"
       />
       {children}
     </div>
-  )
-} 
+  );
+};

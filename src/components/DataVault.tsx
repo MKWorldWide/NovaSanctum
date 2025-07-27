@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline'
-import { useState } from 'react'
+import { motion } from 'framer-motion';
+import { MagnifyingGlassIcon, AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
+import { useState } from 'react';
 
 const mockData = [
   {
@@ -26,11 +26,11 @@ const mockData = [
     date: '2024-03-13',
     status: 'Completed',
   },
-]
+];
 
 export const DataVault = () => {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedType, setSelectedType] = useState('all')
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedType, setSelectedType] = useState('all');
 
   return (
     <motion.div
@@ -48,7 +48,7 @@ export const DataVault = () => {
               type="text"
               placeholder="Search by ID, name, or type..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               className="w-full bg-slate-800/50 border border-emerald-500/20 rounded-lg py-2 pl-10 pr-4 text-emerald-50 placeholder-emerald-200/30 focus:outline-none focus:border-emerald-500/40"
             />
           </div>
@@ -58,7 +58,7 @@ export const DataVault = () => {
         </div>
 
         <div className="flex gap-2">
-          {['all', 'Gene Editing', 'Cell Biology', 'Protein Engineering'].map((type) => (
+          {['all', 'Gene Editing', 'Cell Biology', 'Protein Engineering'].map(type => (
             <button
               key={type}
               onClick={() => setSelectedType(type)}
@@ -74,7 +74,7 @@ export const DataVault = () => {
         </div>
 
         <div className="mt-4 space-y-3">
-          {mockData.map((item) => (
+          {mockData.map(item => (
             <motion.div
               key={item.id}
               whileHover={{ scale: 1.01 }}
@@ -90,8 +90,8 @@ export const DataVault = () => {
                     item.status === 'Active'
                       ? 'bg-emerald-500/20 text-emerald-400'
                       : item.status === 'Analysis'
-                      ? 'bg-blue-500/20 text-blue-400'
-                      : 'bg-purple-500/20 text-purple-400'
+                        ? 'bg-blue-500/20 text-blue-400'
+                        : 'bg-purple-500/20 text-purple-400'
                   }`}
                 >
                   {item.status}
@@ -106,5 +106,5 @@ export const DataVault = () => {
         </div>
       </div>
     </motion.div>
-  )
-} 
+  );
+};

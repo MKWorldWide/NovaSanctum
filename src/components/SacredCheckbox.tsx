@@ -1,27 +1,23 @@
-import { InputHTMLAttributes, forwardRef } from 'react'
-import { motion } from 'framer-motion'
+import { InputHTMLAttributes, forwardRef } from 'react';
+import { motion } from 'framer-motion';
 
 interface SacredCheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  error?: string
-  variant?: 'primary' | 'secondary'
+  label?: string;
+  error?: string;
+  variant?: 'primary' | 'secondary';
 }
 
 export const SacredCheckbox = forwardRef<HTMLInputElement, SacredCheckboxProps>(
   ({ label, error, variant = 'primary', className = '', ...props }, ref) => {
     const variants = {
       primary: 'border-emerald-500/20 checked:bg-emerald-500',
-      secondary: 'border-cyan-500/20 checked:bg-cyan-500'
-    }
+      secondary: 'border-cyan-500/20 checked:bg-cyan-500',
+    };
 
     return (
       <div className="space-y-2">
         <label className="flex items-center space-x-3 cursor-pointer">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative"
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="relative">
             <input
               type="checkbox"
               ref={ref}
@@ -55,9 +51,7 @@ export const SacredCheckbox = forwardRef<HTMLInputElement, SacredCheckboxProps>(
               </svg>
             </div>
           </motion.div>
-          {label && (
-            <span className="text-sm font-medium text-gray-300">{label}</span>
-          )}
+          {label && <span className="text-sm font-medium text-gray-300">{label}</span>}
         </label>
         {error && (
           <motion.p
@@ -69,8 +63,8 @@ export const SacredCheckbox = forwardRef<HTMLInputElement, SacredCheckboxProps>(
           </motion.p>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-SacredCheckbox.displayName = 'SacredCheckbox' 
+SacredCheckbox.displayName = 'SacredCheckbox';

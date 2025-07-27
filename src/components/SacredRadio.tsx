@@ -1,27 +1,23 @@
-import { InputHTMLAttributes, forwardRef } from 'react'
-import { motion } from 'framer-motion'
+import { InputHTMLAttributes, forwardRef } from 'react';
+import { motion } from 'framer-motion';
 
 interface SacredRadioProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string
-  error?: string
-  variant?: 'primary' | 'secondary'
+  label?: string;
+  error?: string;
+  variant?: 'primary' | 'secondary';
 }
 
 export const SacredRadio = forwardRef<HTMLInputElement, SacredRadioProps>(
   ({ label, error, variant = 'primary', className = '', ...props }, ref) => {
     const variants = {
       primary: 'border-emerald-500/20 checked:bg-emerald-500',
-      secondary: 'border-cyan-500/20 checked:bg-cyan-500'
-    }
+      secondary: 'border-cyan-500/20 checked:bg-cyan-500',
+    };
 
     return (
       <div className="space-y-2">
         <label className="flex items-center space-x-3 cursor-pointer">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative"
-          >
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="relative">
             <input
               type="radio"
               ref={ref}
@@ -43,9 +39,7 @@ export const SacredRadio = forwardRef<HTMLInputElement, SacredRadioProps>(
               <div className="w-2 h-2 rounded-full bg-white opacity-0 transition-opacity duration-200" />
             </div>
           </motion.div>
-          {label && (
-            <span className="text-sm font-medium text-gray-300">{label}</span>
-          )}
+          {label && <span className="text-sm font-medium text-gray-300">{label}</span>}
         </label>
         {error && (
           <motion.p
@@ -57,8 +51,8 @@ export const SacredRadio = forwardRef<HTMLInputElement, SacredRadioProps>(
           </motion.p>
         )}
       </div>
-    )
+    );
   }
-)
+);
 
-SacredRadio.displayName = 'SacredRadio' 
+SacredRadio.displayName = 'SacredRadio';

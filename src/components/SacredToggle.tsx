@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion'
+import { motion } from 'framer-motion';
 
 interface SacredToggleProps {
-  checked: boolean
-  onChange: (checked: boolean) => void
-  label?: string
-  className?: string
-  disabled?: boolean
-  size?: 'sm' | 'md' | 'lg'
+  checked: boolean;
+  onChange: (checked: boolean) => void;
+  label?: string;
+  className?: string;
+  disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg';
 }
 
 const sizes = {
@@ -14,21 +14,21 @@ const sizes = {
     width: 'w-8',
     height: 'h-4',
     dot: 'w-3 h-3',
-    translate: 'translate-x-4'
+    translate: 'translate-x-4',
   },
   md: {
     width: 'w-12',
     height: 'h-6',
     dot: 'w-5 h-5',
-    translate: 'translate-x-6'
+    translate: 'translate-x-6',
   },
   lg: {
     width: 'w-16',
     height: 'h-8',
     dot: 'w-7 h-7',
-    translate: 'translate-x-8'
-  }
-}
+    translate: 'translate-x-8',
+  },
+};
 
 export const SacredToggle = ({
   checked,
@@ -36,7 +36,7 @@ export const SacredToggle = ({
   label,
   className = '',
   disabled = false,
-  size = 'md'
+  size = 'md',
 }: SacredToggleProps) => {
   return (
     <label
@@ -51,7 +51,7 @@ export const SacredToggle = ({
           type="checkbox"
           className="sr-only"
           checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
+          onChange={e => onChange(e.target.checked)}
           disabled={disabled}
         />
         <motion.div
@@ -75,7 +75,7 @@ export const SacredToggle = ({
               ${checked ? sizes[size].translate : ''}
             `}
             animate={{
-              x: checked ? sizes[size].translate.replace('translate-x-', '') : 0
+              x: checked ? sizes[size].translate.replace('translate-x-', '') : 0,
             }}
             transition={{ type: 'spring', stiffness: 500, damping: 30 }}
           />
@@ -92,5 +92,5 @@ export const SacredToggle = ({
         </span>
       )}
     </label>
-  )
-} 
+  );
+};

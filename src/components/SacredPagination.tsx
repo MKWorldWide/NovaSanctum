@@ -1,12 +1,12 @@
-import { motion } from 'framer-motion'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { motion } from 'framer-motion';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 
 interface SacredPaginationProps {
-  currentPage: number
-  totalPages: number
-  onPageChange: (page: number) => void
-  className?: string
-  showFirstLast?: boolean
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
+  className?: string;
+  showFirstLast?: boolean;
 }
 
 export const SacredPagination = ({
@@ -14,28 +14,28 @@ export const SacredPagination = ({
   totalPages,
   onPageChange,
   className = '',
-  showFirstLast = true
+  showFirstLast = true,
 }: SacredPaginationProps) => {
   const getPageNumbers = () => {
-    const pages = []
-    const maxVisible = 5
-    const halfVisible = Math.floor(maxVisible / 2)
+    const pages = [];
+    const maxVisible = 5;
+    const halfVisible = Math.floor(maxVisible / 2);
 
-    let start = Math.max(1, currentPage - halfVisible)
-    let end = Math.min(totalPages, start + maxVisible - 1)
+    let start = Math.max(1, currentPage - halfVisible);
+    let end = Math.min(totalPages, start + maxVisible - 1);
 
     if (end - start + 1 < maxVisible) {
-      start = Math.max(1, end - maxVisible + 1)
+      start = Math.max(1, end - maxVisible + 1);
     }
 
     for (let i = start; i <= end; i++) {
-      pages.push(i)
+      pages.push(i);
     }
 
-    return pages
-  }
+    return pages;
+  };
 
-  const pageNumbers = getPageNumbers()
+  const pageNumbers = getPageNumbers();
 
   return (
     <div className={`flex items-center justify-center space-x-2 ${className}`}>
@@ -47,9 +47,10 @@ export const SacredPagination = ({
           disabled={currentPage === 1}
           className={`
             p-2 rounded-lg
-            ${currentPage === 1
-              ? 'text-slate-500 cursor-not-allowed'
-              : 'text-emerald-400 hover:bg-emerald-500/10'
+            ${
+              currentPage === 1
+                ? 'text-slate-500 cursor-not-allowed'
+                : 'text-emerald-400 hover:bg-emerald-500/10'
             }
             transition-colors
           `}
@@ -66,9 +67,10 @@ export const SacredPagination = ({
         disabled={currentPage === 1}
         className={`
           p-2 rounded-lg
-          ${currentPage === 1
-            ? 'text-slate-500 cursor-not-allowed'
-            : 'text-emerald-400 hover:bg-emerald-500/10'
+          ${
+            currentPage === 1
+              ? 'text-slate-500 cursor-not-allowed'
+              : 'text-emerald-400 hover:bg-emerald-500/10'
           }
           transition-colors
         `}
@@ -76,7 +78,7 @@ export const SacredPagination = ({
         <ChevronLeftIcon className="w-5 h-5" />
       </motion.button>
 
-      {pageNumbers.map((page) => (
+      {pageNumbers.map(page => (
         <motion.button
           key={page}
           whileHover={{ scale: 1.05 }}
@@ -84,9 +86,10 @@ export const SacredPagination = ({
           onClick={() => onPageChange(page)}
           className={`
             w-8 h-8 rounded-lg
-            ${currentPage === page
-              ? 'bg-emerald-500/20 text-emerald-400'
-              : 'text-slate-300 hover:bg-emerald-500/10'
+            ${
+              currentPage === page
+                ? 'bg-emerald-500/20 text-emerald-400'
+                : 'text-slate-300 hover:bg-emerald-500/10'
             }
             transition-colors
           `}
@@ -102,9 +105,10 @@ export const SacredPagination = ({
         disabled={currentPage === totalPages}
         className={`
           p-2 rounded-lg
-          ${currentPage === totalPages
-            ? 'text-slate-500 cursor-not-allowed'
-            : 'text-emerald-400 hover:bg-emerald-500/10'
+          ${
+            currentPage === totalPages
+              ? 'text-slate-500 cursor-not-allowed'
+              : 'text-emerald-400 hover:bg-emerald-500/10'
           }
           transition-colors
         `}
@@ -120,9 +124,10 @@ export const SacredPagination = ({
           disabled={currentPage === totalPages}
           className={`
             p-2 rounded-lg
-            ${currentPage === totalPages
-              ? 'text-slate-500 cursor-not-allowed'
-              : 'text-emerald-400 hover:bg-emerald-500/10'
+            ${
+              currentPage === totalPages
+                ? 'text-slate-500 cursor-not-allowed'
+                : 'text-emerald-400 hover:bg-emerald-500/10'
             }
             transition-colors
           `}
@@ -132,5 +137,5 @@ export const SacredPagination = ({
         </motion.button>
       )}
     </div>
-  )
-} 
+  );
+};

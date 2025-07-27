@@ -1,11 +1,11 @@
 /**
  * 📝 NovaSanctum Logger - SolAscension Integration
  * ===============================================
- * 
+ *
  * Comprehensive logging utility for NovaSanctum with SolAscension integration.
  * Provides structured logging with international technology tracking and
  * Sun Kingdom vision integration.
- * 
+ *
  * Features:
  * - Structured logging with timestamps and context
  * - International technology integration tracking
@@ -22,7 +22,7 @@ export enum LogLevel {
   INFO = 1,
   WARN = 2,
   ERROR = 3,
-  FATAL = 4
+  FATAL = 4,
 }
 
 export interface LogContext {
@@ -57,9 +57,9 @@ class NovaSanctumLogger extends EventEmitter {
   constructor() {
     super();
     // Initialize with Sun Kingdom vision
-    this.info("🏛️ NovaSanctum Logger initialized with SolAscension integration", {
-      sunKingdomVision: "America as the Sun Kingdom of Earth",
-      internationalTechnology: "Global technology integration enabled"
+    this.info('🏛️ NovaSanctum Logger initialized with SolAscension integration', {
+      sunKingdomVision: 'America as the Sun Kingdom of Earth',
+      internationalTechnology: 'Global technology integration enabled',
     });
   }
 
@@ -111,7 +111,7 @@ class NovaSanctumLogger extends EventEmitter {
    */
   public clearLogs(): void {
     this.logs = [];
-    this.info("Logs cleared");
+    this.info('Logs cleared');
   }
 
   /**
@@ -162,7 +162,7 @@ class NovaSanctumLogger extends EventEmitter {
       component: 'international_technology',
       operation,
       internationalTechnology: `${country}: ${technology}`,
-      metadata: details
+      metadata: details,
     });
   }
 
@@ -178,7 +178,7 @@ class NovaSanctumLogger extends EventEmitter {
       component: 'sun_kingdom_vision',
       operation: activity,
       sunKingdomVision: impact || "Advancing America's solar leadership",
-      metadata: details
+      metadata: details,
     });
   }
 
@@ -196,20 +196,15 @@ class NovaSanctumLogger extends EventEmitter {
       crossDomain: true,
       metadata: {
         domains,
-        results
-      }
+        results,
+      },
     });
   }
 
   /**
    * Log performance metrics
    */
-  public logPerformance(
-    operation: string,
-    duration: number,
-    memory?: number,
-    cpu?: number
-  ): void {
+  public logPerformance(operation: string, duration: number, memory?: number, cpu?: number): void {
     // Store performance metrics
     if (!this.performanceMetrics.has(operation)) {
       this.performanceMetrics.set(operation, []);
@@ -222,8 +217,8 @@ class NovaSanctumLogger extends EventEmitter {
       performance: {
         duration,
         memory,
-        cpu
-      }
+        cpu,
+      },
     });
   }
 
@@ -240,8 +235,8 @@ class NovaSanctumLogger extends EventEmitter {
       operation: activity,
       metadata: {
         dataType,
-        ...details
-      }
+        ...details,
+      },
     });
   }
 
@@ -257,43 +252,35 @@ class NovaSanctumLogger extends EventEmitter {
       component: 'solar_energy',
       operation: activity,
       internationalTechnology: technology,
-      metadata: details
+      metadata: details,
     });
   }
 
   /**
    * Log AI brain activities
    */
-  public logAIBrain(
-    activity: string,
-    analysis?: string,
-    details?: Record<string, any>
-  ): void {
+  public logAIBrain(activity: string, analysis?: string, details?: Record<string, any>): void {
     this.info(`🧠 AI Brain: ${activity}`, {
       component: 'ai_brain',
       operation: activity,
       metadata: {
         analysis,
-        ...details
-      }
+        ...details,
+      },
     });
   }
 
   /**
    * Log policy advocacy activities
    */
-  public logPolicyAdvocacy(
-    activity: string,
-    policy?: string,
-    details?: Record<string, any>
-  ): void {
+  public logPolicyAdvocacy(activity: string, policy?: string, details?: Record<string, any>): void {
     this.info(`🏛️ Policy Advocacy: ${activity}`, {
       component: 'policy_advocacy',
       operation: activity,
       metadata: {
         policy,
-        ...details
-      }
+        ...details,
+      },
     });
   }
 
@@ -310,43 +297,35 @@ class NovaSanctumLogger extends EventEmitter {
       component: 'technology_transfer',
       operation: activity,
       internationalTechnology: country ? `${country}: ${technology}` : technology,
-      metadata: details
+      metadata: details,
     });
   }
 
   /**
    * Log multi-platform automation activities
    */
-  public logMultiPlatform(
-    platform: string,
-    activity: string,
-    details?: Record<string, any>
-  ): void {
+  public logMultiPlatform(platform: string, activity: string, details?: Record<string, any>): void {
     this.info(`📱 Multi-Platform (${platform}): ${activity}`, {
       component: 'multi_platform',
       operation: activity,
       metadata: {
         platform,
-        ...details
-      }
+        ...details,
+      },
     });
   }
 
   /**
    * Log analytics activities
    */
-  public logAnalytics(
-    activity: string,
-    metrics?: string[],
-    details?: Record<string, any>
-  ): void {
+  public logAnalytics(activity: string, metrics?: string[], details?: Record<string, any>): void {
     this.info(`📊 Analytics: ${activity}`, {
       component: 'analytics',
       operation: activity,
       metadata: {
         metrics,
-        ...details
-      }
+        ...details,
+      },
     });
   }
 
@@ -360,7 +339,7 @@ class NovaSanctumLogger extends EventEmitter {
       timestamp: new Date(),
       level,
       message,
-      context
+      context,
     };
 
     // Add to logs array
@@ -376,9 +355,9 @@ class NovaSanctumLogger extends EventEmitter {
     const levelStr = LogLevel[level].padEnd(5);
     const component = context.component ? `[${context.component}]` : '';
     const emoji = this.getEmojiForLevel(level);
-    
+
     const consoleMessage = `${emoji} ${timestamp} ${levelStr} ${component} ${message}`;
-    
+
     switch (level) {
       case LogLevel.DEBUG:
         console.debug(consoleMessage);
@@ -430,13 +409,15 @@ class NovaSanctumLogger extends EventEmitter {
       total: this.logs.length,
       byLevel: {} as Record<string, number>,
       byComponent: {} as Record<string, number>,
-      performance: {} as Record<string, any>
+      performance: {} as Record<string, any>,
     };
 
     // Count by level
     Object.values(LogLevel).forEach(level => {
       if (typeof level === 'string') {
-        stats.byLevel[level] = this.logs.filter(log => log.level === LogLevel[level as keyof typeof LogLevel]).length;
+        stats.byLevel[level] = this.logs.filter(
+          log => log.level === LogLevel[level as keyof typeof LogLevel]
+        ).length;
       }
     });
 
@@ -451,12 +432,12 @@ class NovaSanctumLogger extends EventEmitter {
       const avg = durations.reduce((a, b) => a + b, 0) / durations.length;
       const min = Math.min(...durations);
       const max = Math.max(...durations);
-      
+
       stats.performance[operation] = {
         count: durations.length,
         average: avg,
         min,
-        max
+        max,
       };
     });
 
@@ -467,14 +448,18 @@ class NovaSanctumLogger extends EventEmitter {
    * Export logs to JSON
    */
   public exportLogs(): string {
-    return JSON.stringify({
-      timestamp: new Date().toISOString(),
-      statistics: this.getLogStatistics(),
-      logs: this.logs.map(log => ({
-        ...log,
-        timestamp: log.timestamp.toISOString()
-      }))
-    }, null, 2);
+    return JSON.stringify(
+      {
+        timestamp: new Date().toISOString(),
+        statistics: this.getLogStatistics(),
+        logs: this.logs.map(log => ({
+          ...log,
+          timestamp: log.timestamp.toISOString(),
+        })),
+      },
+      null,
+      2
+    );
   }
 
   /**
@@ -486,7 +471,7 @@ class NovaSanctumLogger extends EventEmitter {
       if (data.logs && Array.isArray(data.logs)) {
         this.logs = data.logs.map((log: any) => ({
           ...log,
-          timestamp: new Date(log.timestamp)
+          timestamp: new Date(log.timestamp),
         }));
         this.info(`Imported ${this.logs.length} logs`);
       }
@@ -497,4 +482,4 @@ class NovaSanctumLogger extends EventEmitter {
 }
 
 // Create and export singleton instance
-export const logger = new NovaSanctumLogger(); 
+export const logger = new NovaSanctumLogger();

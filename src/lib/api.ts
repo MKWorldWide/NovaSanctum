@@ -22,4 +22,4 @@ export async function submitContact(data: ContactFormData) {
   } catch (error) {
     return { success: false, error };
   }
-} 
+}

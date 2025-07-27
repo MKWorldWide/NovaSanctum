@@ -1,40 +1,35 @@
-import { ReactNode, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { ReactNode, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface AccordionItem {
-  id: string
-  title: string
-  content: ReactNode
+  id: string;
+  title: string;
+  content: ReactNode;
 }
 
 interface SacredAccordionProps {
-  items: AccordionItem[]
-  defaultOpen?: string[]
-  className?: string
+  items: AccordionItem[];
+  defaultOpen?: string[];
+  className?: string;
 }
 
 export const SacredAccordion = ({
   items,
   defaultOpen = [],
-  className = ''
+  className = '',
 }: SacredAccordionProps) => {
-  const [openItems, setOpenItems] = useState<string[]>(defaultOpen)
+  const [openItems, setOpenItems] = useState<string[]>(defaultOpen);
 
   const toggleItem = (id: string) => {
-    setOpenItems((prev) =>
-      prev.includes(id)
-        ? prev.filter((itemId) => itemId !== id)
-        : [...prev, id]
-    )
-  }
+    setOpenItems(prev =>
+      prev.includes(id) ? prev.filter(itemId => itemId !== id) : [...prev, id]
+    );
+  };
 
   return (
     <div className={`space-y-2 ${className}`}>
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className="border border-emerald-500/20 rounded-lg overflow-hidden"
-        >
+      {items.map(item => (
+        <div key={item.id} className="border border-emerald-500/20 rounded-lg overflow-hidden">
           <button
             onClick={() => toggleItem(item.id)}
             className="w-full px-4 py-3 text-left flex items-center justify-between hover:bg-emerald-500/5 transition-colors"
@@ -46,7 +41,7 @@ export const SacredAccordion = ({
               stroke="currentColor"
               viewBox="0 0 24 24"
               animate={{
-                rotate: openItems.includes(item.id) ? 180 : 0
+                rotate: openItems.includes(item.id) ? 180 : 0,
               }}
               transition={{ duration: 0.2 }}
             >
@@ -76,5 +71,5 @@ export const SacredAccordion = ({
         </div>
       ))}
     </div>
-  )
-} 
+  );
+};

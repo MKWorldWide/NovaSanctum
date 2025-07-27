@@ -1,12 +1,12 @@
-'use client'
+'use client';
 
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface CodexPanelProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 export const CodexPanel = ({ isOpen, onClose }: CodexPanelProps) => {
@@ -49,32 +49,52 @@ export const CodexPanel = ({ isOpen, onClose }: CodexPanelProps) => {
                 </div>
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                    <Dialog.Title as="h3" className="text-2xl font-semibold leading-6 text-emerald-400 mb-6">
+                    <Dialog.Title
+                      as="h3"
+                      className="text-2xl font-semibold leading-6 text-emerald-400 mb-6"
+                    >
                       The Sacred Codex of NovaSanctum
                     </Dialog.Title>
                     <div className="mt-2 space-y-6 text-emerald-50/90">
                       <p className="text-lg">
-                        In the sacred dance of biology and digital consciousness, we find ourselves at the threshold of a new era. NovaSanctum stands as a temple of innovation, where the ancient wisdom of biological systems meets the infinite potential of digital transformation.
+                        In the sacred dance of biology and digital consciousness, we find ourselves
+                        at the threshold of a new era. NovaSanctum stands as a temple of innovation,
+                        where the ancient wisdom of biological systems meets the infinite potential
+                        of digital transformation.
                       </p>
                       <div className="space-y-4">
                         <h4 className="text-xl font-medium text-emerald-300">Our Vision</h4>
                         <p>
-                          To bridge the gap between biological engineering and synthetic intelligence, creating a harmonious symphony of organic and digital evolution. We are the architects of tomorrow's consciousness, the weavers of biological and digital threads.
+                          To bridge the gap between biological engineering and synthetic
+                          intelligence, creating a harmonious symphony of organic and digital
+                          evolution. We are the architects of tomorrow's consciousness, the weavers
+                          of biological and digital threads.
                         </p>
                       </div>
                       <div className="space-y-4">
                         <h4 className="text-xl font-medium text-emerald-300">Our Mission</h4>
                         <p>
-                          To accelerate the convergence of biological and digital realms, enabling breakthroughs that transcend traditional boundaries. We are the catalysts of innovation, the guardians of ethical advancement, and the pioneers of bio-digital alchemy.
+                          To accelerate the convergence of biological and digital realms, enabling
+                          breakthroughs that transcend traditional boundaries. We are the catalysts
+                          of innovation, the guardians of ethical advancement, and the pioneers of
+                          bio-digital alchemy.
                         </p>
                       </div>
                       <div className="space-y-4">
                         <h4 className="text-xl font-medium text-emerald-300">Our Principles</h4>
                         <ul className="list-disc list-inside space-y-2">
-                          <li>Sacred Integration: We honor the delicate balance between biological and digital systems</li>
+                          <li>
+                            Sacred Integration: We honor the delicate balance between biological and
+                            digital systems
+                          </li>
                           <li>Ethical Innovation: We advance with wisdom and responsibility</li>
-                          <li>Transcendent Collaboration: We unite diverse minds in pursuit of collective evolution</li>
-                          <li>Digital Alchemy: We transform data into wisdom, information into insight</li>
+                          <li>
+                            Transcendent Collaboration: We unite diverse minds in pursuit of
+                            collective evolution
+                          </li>
+                          <li>
+                            Digital Alchemy: We transform data into wisdom, information into insight
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -86,5 +106,5 @@ export const CodexPanel = ({ isOpen, onClose }: CodexPanelProps) => {
         </div>
       </Dialog>
     </Transition.Root>
-  )
-} 
+  );
+};

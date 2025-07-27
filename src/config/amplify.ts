@@ -8,9 +8,9 @@ export const config = {
     scope: ['email', 'openid', 'profile'],
     redirectSignIn: process.env.NEXT_PUBLIC_AWS_OAUTH_REDIRECT_SIGN_IN,
     redirectSignOut: process.env.NEXT_PUBLIC_AWS_OAUTH_REDIRECT_SIGN_OUT,
-    responseType: 'code'
+    responseType: 'code',
   },
   aws_appsync_graphqlEndpoint: process.env.NEXT_PUBLIC_AWS_APPSYNC_GRAPHQL_ENDPOINT,
   aws_appsync_region: process.env.NEXT_PUBLIC_AWS_REGION || 'us-east-1',
-  aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS'
-}; 
+  aws_appsync_authenticationType: 'AMAZON_COGNITO_USER_POOLS',
+};

@@ -1,14 +1,14 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 export const DNAHelix = () => {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true)
-  }, [])
+    setIsVisible(true);
+  }, []);
 
   return (
     <motion.div
@@ -51,5 +51,5 @@ export const DNAHelix = () => {
         </motion.div>
       </div>
     </motion.div>
-  )
-} 
+  );
+};

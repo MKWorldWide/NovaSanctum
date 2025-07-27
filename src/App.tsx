@@ -17,29 +17,29 @@ const App = () => {
     {
       title: 'Neural Integration',
       description: 'Advanced neural interfaces for seamless human-AI symbiosis.',
-      icon: <FaBrain className="w-8 h-8" />
+      icon: <FaBrain className="w-8 h-8" />,
     },
     {
       title: 'Synthetic Biology',
-      description: 'Cutting-edge bioengineering solutions for tomorrow\'s challenges.',
-      icon: <FaDna className="w-8 h-8" />
+      description: "Cutting-edge bioengineering solutions for tomorrow's challenges.",
+      icon: <FaDna className="w-8 h-8" />,
     },
     {
       title: 'AI Systems',
       description: 'Next-generation artificial intelligence for biological applications.',
-      icon: <FaMicrochip className="w-8 h-8" />
+      icon: <FaMicrochip className="w-8 h-8" />,
     },
     {
       title: 'Research & Development',
       description: 'Pioneering research in the intersection of biology and technology.',
-      icon: <FaFlask className="w-8 h-8" />
-    }
+      icon: <FaFlask className="w-8 h-8" />,
+    },
   ];
 
   return (
     <div className="min-h-screen bg-bio-dark text-bio-light">
       <NavBar />
-      
+
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-radial from-neon-cyan/10 via-transparent to-transparent" />
@@ -50,11 +50,7 @@ const App = () => {
           <p className="text-xl md:text-2xl text-bio-light/80 mb-8 max-w-3xl mx-auto">
             Where Biology Meets Digital Transcendence
           </p>
-          <CTAButton
-            text="Explore Our Vision"
-            href="#about"
-            size="lg"
-          />
+          <CTAButton text="Explore Our Vision" href="#about" size="lg" />
         </div>
       </section>
 
@@ -67,11 +63,7 @@ const App = () => {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <InfoCard
-                key={feature.title}
-                {...feature}
-                delay={index * 0.1}
-              />
+              <InfoCard key={feature.title} {...feature} delay={index * 0.1} />
             ))}
           </div>
         </div>
@@ -113,10 +105,7 @@ const App = () => {
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
-          <SectionHeader
-            title="Contact"
-            subtitle="Get in touch with our team of experts"
-          />
+          <SectionHeader title="Contact" subtitle="Get in touch with our team of experts" />
           <ContactForm />
         </div>
       </section>
@@ -126,4 +115,4 @@ const App = () => {
   );
 };
 
-export default App; 
+export default App;

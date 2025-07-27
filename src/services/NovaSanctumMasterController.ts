@@ -263,15 +263,10 @@ export class NovaSanctumMasterController {
    * Initialize black research networks
    */
   private async initializeBlackResearchNetworks(): Promise<void> {
-    const blackResearchFacilities = blackResearchNetworks.getBlackResearchFacilities();
-    const blackProjects = blackResearchNetworks.getActiveBlackProjects();
-<<<<<<< HEAD
-    const governmentalNetworksData = governmentalNetworks.getGovernmentalNetworks();
-    const intelligenceNetworks = governmentalNetworks.getIntelligenceNetworks();
-=======
+    const blackResearchFacilities = blackResearch.getFacilities();
+    const blackProjects = blackResearch.getActiveBlackProjects();
     const governmentalNetworksData = governmentalNetworks.getIntelligenceAgencies();
     const intelligenceNetworks = governmentalNetworks.getIntelligenceAgencies();
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
 
     // Add black research facilities
     blackResearchFacilities.forEach(facility => {
@@ -447,50 +442,58 @@ export class NovaSanctumMasterController {
    * Initialize international networks
    */
   private async initializeInternationalNetworks(): Promise<void> {
-<<<<<<< HEAD
-    const internationalData = internationalResearchDatabase.getInternationalResearchData();
-    const collaborations = internationalResearchDatabase.getActiveCollaborations();
+    try {
+      const internationalData = internationalResearchDatabase.getFacilities();
+      const collaborations = internationalResearchDatabase.getActiveCollaborations();
 
-    // Add international research facilities
-    internationalData.facilities.forEach(facility => {
-=======
-            const internationalData = internationalResearchDatabase.getFacilities();
-    const collaborations = internationalResearchDatabase.getActiveCollaborations();
+      // Add international research facilities
+      internationalData.forEach((facility: any) => {
+        // Map facility status to valid status
+        let status: 'active' | 'inactive' | 'classified' = 'active';
+        if (facility.status === 'inactive' || facility.status === 'classified') {
+          status = facility.status;
+        }
+        
+        const network: UnifiedResearchNetwork = {
+          id: `intl_${facility.id}`,
+          name: facility.name || 'Unnamed Facility',
+          type: 'international',
+          classification: 'public',
+          capabilities: Array.isArray(facility.specialties) ? facility.specialties : [],
+          status: status,
+          integrationLevel: 'partial',
+          lastUpdate: new Date()
+        };
+        this.unifiedNetworks.set(network.id, network);
+      });
 
-    // Add international research facilities
-    internationalData.forEach(facility => {
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
-      const network: UnifiedResearchNetwork = {
-        id: `intl_${facility.id}`,
-        name: facility.name,
-        type: 'international',
-        classification: 'public',
-        capabilities: facility.specialties,
-        status: 'active',
-        integrationLevel: 'partial',
-        lastUpdate: new Date()
-      };
-      this.unifiedNetworks.set(network.id, network);
-    });
-
-    // Add international collaborations
-    collaborations.forEach(collaboration => {
-      const network: UnifiedResearchNetwork = {
-        id: `collab_${collaboration.id}`,
-        name: collaboration.name,
-        type: 'international',
-        classification: 'public',
-<<<<<<< HEAD
-        capabilities: collaboration.researchAreas,
-=======
-        capabilities: collaboration.objectives,
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
-        status: collaboration.status,
-        integrationLevel: 'partial',
-        lastUpdate: new Date()
-      };
-      this.unifiedNetworks.set(network.id, network);
-    });
+      // Add international collaborations
+      collaborations.forEach((collaboration: any) => {
+        // Map collaboration status to valid status
+        let status: 'active' | 'inactive' | 'classified' = 'active';
+        if (collaboration.status === 'inactive' || collaboration.status === 'classified') {
+          status = collaboration.status;
+        }
+        
+        // Use objectives if researchAreas doesn't exist
+        const capabilities = Array.isArray(collaboration.researchAreas) 
+          ? collaboration.researchAreas 
+          : Array.isArray(collaboration.objectives) 
+            ? collaboration.objectives 
+            : [];
+        
+        const network: UnifiedResearchNetwork = {
+          id: `collab_${collaboration.id}`,
+          name: collaboration.name || 'Unnamed Collaboration',
+          type: 'international',
+          classification: 'public',
+          capabilities: capabilities,
+          status: status,
+          integrationLevel: 'partial',
+          lastUpdate: new Date()
+        };
+        this.unifiedNetworks.set(network.id, network);
+      });
   }
 
   /**

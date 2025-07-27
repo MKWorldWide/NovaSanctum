@@ -2,12 +2,12 @@ import { ENVIRONMENT } from './environment';
 
 export const theme = {
   colors: ENVIRONMENT.COLORS,
-  
+
   // Sacred Typography
   typography: {
     fontFamily: {
       sans: ['Inter', 'system-ui', 'sans-serif'],
-      mono: ['JetBrains Mono', 'monospace']
+      mono: ['JetBrains Mono', 'monospace'],
     },
     fontSize: {
       xs: '0.75rem',
@@ -18,10 +18,10 @@ export const theme = {
       '2xl': '1.5rem',
       '3xl': '1.875rem',
       '4xl': '2.25rem',
-      '5xl': '3rem'
-    }
+      '5xl': '3rem',
+    },
   },
-  
+
   // Mystical Spacing
   spacing: {
     px: '1px',
@@ -43,9 +43,9 @@ export const theme = {
     40: '10rem',
     48: '12rem',
     56: '14rem',
-    64: '16rem'
+    64: '16rem',
   },
-  
+
   // Digital Alchemy Effects
   effects: {
     shadows: {
@@ -57,17 +57,17 @@ export const theme = {
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       none: 'none',
-      glow: `0 0 15px ${ENVIRONMENT.COLORS.NEON_EMERALD}`
+      glow: `0 0 15px ${ENVIRONMENT.COLORS.NEON_EMERALD}`,
     },
-    
+
     // Sacred Transitions
     transitions: {
       DEFAULT: '150ms cubic-bezier(0.4, 0, 0.2, 1)',
       fast: '100ms cubic-bezier(0.4, 0, 0.2, 1)',
       slow: '300ms cubic-bezier(0.4, 0, 0.2, 1)',
-      mystical: '500ms cubic-bezier(0.4, 0, 0.2, 1)'
-    }
-  }
+      mystical: '500ms cubic-bezier(0.4, 0, 0.2, 1)',
+    },
+  },
 } as const;
 
-export type Theme = typeof theme; 
+export type Theme = typeof theme;

@@ -1,53 +1,59 @@
-'use client'
+'use client';
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
-import { SacredAlert } from '@/components/SacredAlert'
-import { SacredToast } from '@/components/SacredToast'
+import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { SacredAlert } from '@/components/SacredAlert';
+import { SacredToast } from '@/components/SacredToast';
 
 interface SacredDataContextType {
-  showAlert: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void
-  showToast: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void
-  isLoading: boolean
-  setIsLoading: (loading: boolean) => void
-  error: string | null
-  setError: (error: string | null) => void
+  showAlert: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  showToast: (type: 'success' | 'error' | 'warning' | 'info', message: string) => void;
+  isLoading: boolean;
+  setIsLoading: (loading: boolean) => void;
+  error: string | null;
+  setError: (error: string | null) => void;
 }
 
-const SacredDataContext = createContext<SacredDataContextType | undefined>(undefined)
+const SacredDataContext = createContext<SacredDataContextType | undefined>(undefined);
 
 export const useSacredData = () => {
-  const context = useContext(SacredDataContext)
+  const context = useContext(SacredDataContext);
   if (!context) {
-    throw new Error('useSacredData must be used within a SacredDataProvider')
+    throw new Error('useSacredData must be used within a SacredDataProvider');
   }
-  return context
-}
+  return context;
+};
 
 interface SacredDataProviderProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const SacredDataProvider = ({ children }: SacredDataProviderProps) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [alert, setAlert] = useState<{
-    type: 'success' | 'error' | 'warning' | 'info'
-    message: string
-  } | null>(null)
+    type: 'success' | 'error' | 'warning' | 'info';
+    message: string;
+  } | null>(null);
   const [toast, setToast] = useState<{
-    type: 'success' | 'error' | 'warning' | 'info'
-    message: string
-  } | null>(null)
+    type: 'success' | 'error' | 'warning' | 'info';
+    message: string;
+  } | null>(null);
 
-  const showAlert = useCallback((type: 'success' | 'error' | 'warning' | 'info', message: string) => {
-    setAlert({ type, message })
-    setTimeout(() => setAlert(null), 5000)
-  }, [])
+  const showAlert = useCallback(
+    (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
+      setAlert({ type, message });
+      setTimeout(() => setAlert(null), 5000);
+    },
+    []
+  );
 
-  const showToast = useCallback((type: 'success' | 'error' | 'warning' | 'info', message: string) => {
-    setToast({ type, message })
-    setTimeout(() => setToast(null), 3000)
-  }, [])
+  const showToast = useCallback(
+    (type: 'success' | 'error' | 'warning' | 'info', message: string) => {
+      setToast({ type, message });
+      setTimeout(() => setToast(null), 3000);
+    },
+    []
+  );
 
   return (
     <SacredDataContext.Provider
@@ -57,17 +63,13 @@ export const SacredDataProvider = ({ children }: SacredDataProviderProps) => {
         isLoading,
         setIsLoading,
         error,
-        setError
+        setError,
       }}
     >
       {children}
       {alert && (
         <div className="fixed top-4 right-4 z-50">
-          <SacredAlert
-            type={alert.type}
-            message={alert.message}
-            onClose={() => setAlert(null)}
-          />
+          <SacredAlert type={alert.type} message={alert.message} onClose={() => setAlert(null)} />
         </div>
       )}
       {toast && (
@@ -81,5 +83,5 @@ export const SacredDataProvider = ({ children }: SacredDataProviderProps) => {
         </div>
       )}
     </SacredDataContext.Provider>
-  )
-} 
+  );
+};

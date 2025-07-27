@@ -1,15 +1,15 @@
-import { Fragment } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 interface SacredModalProps {
-  isOpen: boolean
-  onClose: () => void
-  title?: string
-  children: React.ReactNode
-  className?: string
-  showCloseButton?: boolean
+  isOpen: boolean;
+  onClose: () => void;
+  title?: string;
+  children: React.ReactNode;
+  className?: string;
+  showCloseButton?: boolean;
 }
 
 export const SacredModal = ({
@@ -18,7 +18,7 @@ export const SacredModal = ({
   title,
   children,
   className = '',
-  showCloseButton = true
+  showCloseButton = true,
 }: SacredModalProps) => {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -99,5 +99,5 @@ export const SacredModal = ({
         </div>
       </Dialog>
     </Transition>
-  )
-} 
+  );
+};

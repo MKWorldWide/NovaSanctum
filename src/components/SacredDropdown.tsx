@@ -1,19 +1,19 @@
-import { Fragment, ReactNode } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { motion } from 'framer-motion'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { Fragment, ReactNode } from 'react';
+import { Menu, Transition } from '@headlessui/react';
+import { motion } from 'framer-motion';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 interface SacredDropdownProps {
-  label: string
+  label: string;
   items: {
-    label: string
-    onClick: () => void
-    icon?: ReactNode
-    disabled?: boolean
-  }[]
-  className?: string
-  align?: 'left' | 'right'
-  trigger?: ReactNode
+    label: string;
+    onClick: () => void;
+    icon?: ReactNode;
+    disabled?: boolean;
+  }[];
+  className?: string;
+  align?: 'left' | 'right';
+  trigger?: ReactNode;
 }
 
 export const SacredDropdown = ({
@@ -21,7 +21,7 @@ export const SacredDropdown = ({
   items,
   className = '',
   align = 'right',
-  trigger
+  trigger,
 }: SacredDropdownProps) => {
   return (
     <Menu as="div" className={`relative inline-block text-left ${className}`}>
@@ -107,19 +107,19 @@ export const SacredDropdown = ({
         </>
       )}
     </Menu>
-  )
-}
+  );
+};
 
 interface SacredDropdownItemProps {
-  children: ReactNode
-  onClick?: () => void
-  className?: string
+  children: ReactNode;
+  onClick?: () => void;
+  className?: string;
 }
 
 export const SacredDropdownItem = ({
   children,
   onClick,
-  className = ''
+  className = '',
 }: SacredDropdownItemProps) => {
   return (
     <button
@@ -133,16 +133,14 @@ export const SacredDropdownItem = ({
     >
       {children}
     </button>
-  )
-}
+  );
+};
 
 interface SacredDropdownDividerProps {
-  className?: string
+  className?: string;
 }
 
-export const SacredDropdownDivider = ({
-  className = ''
-}: SacredDropdownDividerProps) => {
+export const SacredDropdownDivider = ({ className = '' }: SacredDropdownDividerProps) => {
   return (
     <div
       className={`
@@ -150,5 +148,5 @@ export const SacredDropdownDivider = ({
         ${className}
       `}
     />
-  )
-} 
+  );
+};

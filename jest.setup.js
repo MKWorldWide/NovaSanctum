@@ -1,175 +1,115 @@
-// Learn more: https://github.com/testing-library/jest-dom
-import '@testing-library/jest-dom';
-
-<<<<<<< HEAD
-// Mock next/router
-=======
-// Mock Framer Motion to prevent React warnings
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }) => {
-      // Filter out motion-specific props to prevent React warnings
-      const { whileHover, whileTap, animate, initial, exit, ...restProps } = props;
-      return <div {...restProps}>{children}</div>;
-    },
-    button: ({ children, ...props }) => {
-      const { whileHover, whileTap, animate, initial, exit, ...restProps } = props;
-      return <button {...restProps}>{children}</button>;
-    },
-    span: ({ children, ...props }) => {
-      const { whileHover, whileTap, animate, initial, exit, ...restProps } = props;
-      return <span {...restProps}>{children}</span>;
-    }
-  },
-  AnimatePresence: ({ children }) => children,
-  useAnimation: () => ({
-    start: jest.fn(),
-    stop: jest.fn(),
-    set: jest.fn()
-  }),
-  useMotionValue: (initial) => ({
-    get: () => initial,
-    set: jest.fn(),
-    on: jest.fn()
-  }),
-  useTransform: () => ({
-    get: jest.fn()
-  })
-}));
-
-// Mock Next.js router
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
-jest.mock('next/router', () => ({
-  useRouter() {
-    return {
-      route: '/',
-<<<<<<< HEAD
-      pathname: '',
-      query: {},
-      asPath: '',
-      push: jest.fn(),
-      replace: jest.fn(),
-    };
-  },
-}));
-
-// Mock next/image
+// Mock for Next.js Image component
 jest.mock('next/image', () => ({
   __esModule: true,
-  default: props => {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img alt="mocked" {...props} />;
-  },
-=======
-      pathname: '/',
-      query: {},
-      asPath: '/',
-      push: jest.fn(),
-      pop: jest.fn(),
-      reload: jest.fn(),
-      back: jest.fn(),
-      prefetch: jest.fn(),
-      beforePopState: jest.fn(),
-      events: {
-        on: jest.fn(),
-        off: jest.fn(),
-        emit: jest.fn()
-      },
-      isFallback: false
-    };
-  }
+  default: (props) => <img {...props} data-testid="next-image" />,
 }));
 
-// Mock Next.js navigation
-jest.mock('next/navigation', () => ({
-  useRouter() {
-    return {
-      push: jest.fn(),
-      replace: jest.fn(),
-      prefetch: jest.fn(),
-      back: jest.fn(),
-      forward: jest.fn(),
-      refresh: jest.fn()
-    };
-  },
-  usePathname() {
-    return '/';
-  },
-  useSearchParams() {
-    return new URLSearchParams();
-  }
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
-}));
-
-// Mock AWS Amplify
-jest.mock('aws-amplify', () => ({
-<<<<<<< HEAD
-  Auth: {
-    configure: jest.fn(),
-    signIn: jest.fn(),
-    signOut: jest.fn(),
-    currentAuthenticatedUser: jest.fn(),
-  },
-  API: {
-    configure: jest.fn(),
-    get: jest.fn(),
-    post: jest.fn(),
-    put: jest.fn(),
-    del: jest.fn(),
-  },
-}));
-=======
-  Amplify: {
-    configure: jest.fn()
-  },
-  Auth: {
-    signIn: jest.fn(),
-    signOut: jest.fn(),
-    currentAuthenticatedUser: jest.fn(),
-    currentUserInfo: jest.fn()
-  },
-  API: {
-    graphql: jest.fn(),
-    post: jest.fn(),
-    get: jest.fn()
-  }
-}));
-
-// Mock environment variables
-process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3000/api';
-process.env.NEXT_PUBLIC_AWS_REGION = 'us-east-1';
-process.env.NEXT_PUBLIC_AWS_USER_POOL_ID = 'test-pool-id';
-process.env.NEXT_PUBLIC_AWS_USER_POOL_CLIENT_ID = 'test-client-id';
-
-// Suppress console warnings in tests
-const originalError = console.error;
-const originalWarn = console.warn;
-
-beforeAll(() => {
-  console.error = (...args) => {
-    if (
-      typeof args[0] === 'string' &&
-      args[0].includes('Warning: React does not recognize the')
-    ) {
-      return;
-    }
-    originalError.call(console, ...args);
-  };
-  
-  console.warn = (...args) => {
-    if (
-      typeof args[0] === 'string' &&
-      (args[0].includes('Warning: React does not recognize the') ||
-       args[0].includes('punycode'))
-    ) {
-      return;
-    }
-    originalWarn.call(console, ...args);
+// Mock for Next.js Link component
+jest.mock('next/link', () => {
+  const React = require('react');
+  return {
+    __esModule: true,
+    default: ({ children, href, ...props }) => (
+      <a href={href} {...props} data-testid="next-link">
+        {children}
+      </a>
+    ),
   };
 });
 
-afterAll(() => {
-  console.error = originalError;
-  console.warn = originalWarn;
+// Mock for Next.js router
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    route: '/',
+    pathname: '/',
+    query: {},
+    asPath: '/',
+    push: jest.fn().mockResolvedValue(true),
+    replace: jest.fn().mockResolvedValue(true),
+    reload: jest.fn(),
+    back: jest.fn(),
+    prefetch: jest.fn().mockResolvedValue(undefined),
+    beforePopState: jest.fn(),
+    events: {
+      on: jest.fn(),
+      off: jest.fn(),
+      emit: jest.fn(),
+    },
+    isFallback: false,
+    isReady: true,
+    isPreview: false,
+  }),
+}));
+
+// Mock for CSS modules
+const mockCssModules = new Proxy(
+  {},
+  {
+    get: function (target, prop) {
+      return prop;
+    },
+  }
+);
+
+// Mock for CSS/SCSS/SASS modules
+const mockStyleModule = {
+  __esModule: true,
+  default: mockCssModules,
+  ...mockCssModules,
+};
+
+// Mock for file imports
+jest.mock('^.*\\.(css|scss|sass|less)$', () => mockStyleModule, {
+  virtual: true,
 });
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
+// Mock for image and font files
+jest.mock('^.*\\.(jpg|jpeg|png|gif|webp|svg|woff|woff2|ttf|eot)$', () => ({
+  __esModule: true,
+  default: 'test-file-stub',
+}));
+
+// Mock for Next.js head
+jest.mock('next/head', () => {
+  const React = require('react');
+  return {
+    __esModule: true,
+    default: ({ children }) => {
+      return React.createElement('head', null, children);
+    },
+  };
+});
+
+// Mock for Next.js document
+jest.mock('next/document', () => ({
+  __esModule: true,
+  Html: 'html',
+  Head: 'head',
+  Main: 'main',
+  NextScript: 'next-script',
+  Document: 'document',
+}));
+
+// Mock for Next.js dynamic imports
+jest.mock('next/dynamic', () => ({
+  __esModule: true,
+  default: (loader, options) => {
+    const Component = () => {
+      const [Component, setComponent] = React.useState(null);
+      
+      React.useEffect(() => {
+        const loadComponent = async () => {
+          const loaded = await loader();
+          setComponent(() => loaded.default || loaded);
+        };
+        
+        loadComponent();
+      }, []);
+      
+      return Component ? <Component /> : (options?.loading || null);
+    };
+    
+    Component.displayName = 'LoadableComponent';
+    return Component;
+  },
+}));

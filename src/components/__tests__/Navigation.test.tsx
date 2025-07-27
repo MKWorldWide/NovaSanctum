@@ -3,16 +3,23 @@ import { render, screen, fireEvent, act, waitFor } from '@testing-library/react'
 import Navigation from '../Navigation';
 
 // Mock framer-motion to prevent animation issues during testing
-jest.mock('framer-motion', () => ({
-  motion: {
-    div: ({ children, ...props }: Record<string, unknown>) => (
-      <div {...props}>{children as React.ReactNode}</div>
-    ),
-    button: ({ children, ...props }: Record<string, unknown>) => (
-      <button {...props}>{children as React.ReactNode}</button>
-    ),
-  },
-}));
+jest.mock('framer-motion', () => {
+  const originalModule = jest.requireActual('framer-motion');
+  return {
+    ...originalModule,
+    motion: {
+      ...originalModule.motion,
+      div: ({ children, ...props }: any) => {
+        const { whileHover, whileTap, ...rest } = props;
+        return <div {...rest}>{children}</div>;
+      },
+      button: ({ children, ...props }: any) => {
+        const { whileHover, whileTap, ...rest } = props;
+        return <button {...rest}>{children}</button>;
+      },
+    },
+  };
+});
 
 describe('Navigation', () => {
   beforeEach(() => {

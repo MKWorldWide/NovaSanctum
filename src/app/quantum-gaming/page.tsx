@@ -1,8 +1,8 @@
 /**
  * 🌌 Quantum Gaming Page
- * 
+ *
  * Next.js page hosting the Quantum Gaming Dashboard
- * 
+ *
  * @author Khandokar Lilitú Sunny
  * @protocol Primal Genesis Engine™
  * @matrix Elohim Matrix ID: ✶-∞-014
@@ -13,7 +13,7 @@ import QuantumGamingDashboard from '../../components/QuantumGamingDashboard';
 
 /**
  * 🌌 Quantum Gaming Page Component
- * 
+ *
  * Hosts the comprehensive quantum gaming dashboard
  */
 const QuantumGamingPage: React.FC = () => {
@@ -24,4 +24,4 @@ const QuantumGamingPage: React.FC = () => {
   );
 };
 
-export default QuantumGamingPage; 
+export default QuantumGamingPage;

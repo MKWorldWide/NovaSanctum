@@ -1,10 +1,10 @@
 /**
  * 🌍 International Research Database - SolAscension Integration
  * ===========================================================
- * 
+ *
  * Comprehensive database service integrating research data from international
  * facilities including Chinese, Japanese, Russian, and British research institutions.
- * 
+ *
  * Features:
  * - Research facility mapping and data aggregation
  * - Technology transfer and collaboration frameworks
@@ -172,10 +172,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'solar@cas.cn',
           phone: '+86-10-68597520',
-          address: '52 Sanlihe Rd, Beijing, China'
+          address: '52 Sanlihe Rd, Beijing, China',
         },
         partnerships: ['tsinghua', 'nrel_china'],
-        status: 'active'
+        status: 'active',
       },
       {
         id: 'tsinghua_energy',
@@ -191,10 +191,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'energy@tsinghua.edu.cn',
           phone: '+86-10-62793001',
-          address: '30 Shuangqing Rd, Beijing, China'
+          address: '30 Shuangqing Rd, Beijing, China',
         },
         partnerships: ['cas_solar', 'nrel_china'],
-        status: 'active'
+        status: 'active',
       },
       {
         id: 'nrel_china',
@@ -210,10 +210,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'info@nrel.cn',
           phone: '+86-551-65591234',
-          address: '350 Shushan Rd, Hefei, China'
+          address: '350 Shushan Rd, Hefei, China',
         },
         partnerships: ['cas_solar', 'tsinghua_energy'],
-        status: 'active'
+        status: 'active',
       },
 
       // Japanese Facilities
@@ -231,10 +231,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'solar@aist.go.jp',
           phone: '+81-29-861-2000',
-          address: '1-1-1 Umezono, Tsukuba, Japan'
+          address: '1-1-1 Umezono, Tsukuba, Japan',
         },
         partnerships: ['tokyo_tech', 'toyota_research'],
-        status: 'active'
+        status: 'active',
       },
       {
         id: 'tokyo_univ_materials',
@@ -250,10 +250,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'materials@u-tokyo.ac.jp',
           phone: '+81-3-3812-2111',
-          address: '7-3-1 Hongo, Tokyo, Japan'
+          address: '7-3-1 Hongo, Tokyo, Japan',
         },
         partnerships: ['aist_solar', 'tokyo_tech'],
-        status: 'active'
+        status: 'active',
       },
       {
         id: 'tokyo_tech_integration',
@@ -269,10 +269,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'integration@titech.ac.jp',
           phone: '+81-3-5734-2000',
-          address: '2-12-1 Ookayama, Tokyo, Japan'
+          address: '2-12-1 Ookayama, Tokyo, Japan',
         },
         partnerships: ['aist_solar', 'tokyo_univ_materials'],
-        status: 'active'
+        status: 'active',
       },
 
       // Russian Facilities
@@ -290,10 +290,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'quantum@ras.ru',
           phone: '+7-495-938-0300',
-          address: '14 Leninsky Prospekt, Moscow, Russia'
+          address: '14 Leninsky Prospekt, Moscow, Russia',
         },
         partnerships: ['mipt_physics', 'space_research'],
-        status: 'active'
+        status: 'active',
       },
       {
         id: 'mipt_physics',
@@ -309,10 +309,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'physics@mipt.ru',
           phone: '+7-495-408-4500',
-          address: '9 Institutsky Lane, Dolgoprudny, Russia'
+          address: '9 Institutsky Lane, Dolgoprudny, Russia',
         },
         partnerships: ['ras_quantum', 'space_research'],
-        status: 'active'
+        status: 'active',
       },
 
       // British Facilities
@@ -330,10 +330,10 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'perovskite@imperial.ac.uk',
           phone: '+44-20-7589-5111',
-          address: 'South Kensington Campus, London, UK'
+          address: 'South Kensington Campus, London, UK',
         },
         partnerships: ['oxford_materials', 'cambridge_energy'],
-        status: 'active'
+        status: 'active',
       },
       {
         id: 'oxford_materials',
@@ -349,11 +349,11 @@ export class InternationalResearchDatabase {
         contact: {
           email: 'materials@ox.ac.uk',
           phone: '+44-1865-270000',
-          address: 'University Offices, Oxford, UK'
+          address: 'University Offices, Oxford, UK',
         },
         partnerships: ['imperial_perovskite', 'cambridge_energy'],
-        status: 'active'
-      }
+        status: 'active',
+      },
     ];
 
     facilities.forEach(facility => {
@@ -375,12 +375,13 @@ export class InternationalResearchDatabase {
         journal: 'Nature Energy',
         publicationDate: new Date('2024-01-15'),
         doi: '10.1038/s41560-024-01456-3',
-        abstract: 'Breakthrough in tandem perovskite-silicon solar cell efficiency achieving 47.1% conversion efficiency...',
+        abstract:
+          'Breakthrough in tandem perovskite-silicon solar cell efficiency achieving 47.1% conversion efficiency...',
         keywords: ['perovskite', 'tandem', 'efficiency', 'silicon'],
         citations: 156,
         impactFactor: 67.439,
         category: 'solar',
-        crossDomain: false
+        crossDomain: false,
       },
       {
         id: 'pub_002',
@@ -391,12 +392,13 @@ export class InternationalResearchDatabase {
         journal: 'Advanced Energy Materials',
         publicationDate: new Date('2024-02-20'),
         doi: '10.1002/aenm.202400123',
-        abstract: 'Novel bifacial solar system design achieving 25% additional energy generation...',
+        abstract:
+          'Novel bifacial solar system design achieving 25% additional energy generation...',
         keywords: ['bifacial', 'energy_gain', 'tracking', 'optimization'],
         citations: 89,
         impactFactor: 29.698,
         category: 'solar',
-        crossDomain: false
+        crossDomain: false,
       },
       {
         id: 'pub_003',
@@ -407,12 +409,13 @@ export class InternationalResearchDatabase {
         journal: 'Nature Materials',
         publicationDate: new Date('2024-03-10'),
         doi: '10.1038/s41563-024-01823-1',
-        abstract: 'Development of solid-state battery technology achieving 500Wh/kg energy density...',
+        abstract:
+          'Development of solid-state battery technology achieving 500Wh/kg energy density...',
         keywords: ['solid_state', 'battery', 'energy_density', 'safety'],
         citations: 234,
         impactFactor: 47.728,
         category: 'battery',
-        crossDomain: false
+        crossDomain: false,
       },
       {
         id: 'pub_004',
@@ -428,7 +431,7 @@ export class InternationalResearchDatabase {
         citations: 178,
         impactFactor: 32.086,
         category: 'solar',
-        crossDomain: true
+        crossDomain: true,
       },
       {
         id: 'pub_005',
@@ -439,13 +442,14 @@ export class InternationalResearchDatabase {
         journal: 'Science',
         publicationDate: new Date('2024-02-15'),
         doi: '10.1126/science.abc1234',
-        abstract: 'Comprehensive study on perovskite stability for commercial solar applications...',
+        abstract:
+          'Comprehensive study on perovskite stability for commercial solar applications...',
         keywords: ['perovskite', 'stability', 'commercialization', 'lifetime'],
         citations: 312,
         impactFactor: 56.9,
         category: 'solar',
-        crossDomain: false
-      }
+        crossDomain: false,
+      },
     ];
 
     publications.forEach(pub => {
@@ -467,16 +471,17 @@ export class InternationalResearchDatabase {
         patentNumber: 'CN202410123456',
         filingDate: new Date('2024-01-10'),
         grantDate: new Date('2024-06-15'),
-        abstract: 'Novel manufacturing process for high-efficiency tandem perovskite-silicon solar cells...',
+        abstract:
+          'Novel manufacturing process for high-efficiency tandem perovskite-silicon solar cells...',
         claims: [
           'A method for manufacturing tandem perovskite-silicon solar cells',
           'The method of claim 1, wherein the perovskite layer has a thickness of 300-500nm',
-          'The method of claim 1, wherein the efficiency exceeds 45%'
+          'The method of claim 1, wherein the efficiency exceeds 45%',
         ],
         status: 'granted',
         category: 'solar',
         commercialValue: 50000000,
-        licensingStatus: 'available'
+        licensingStatus: 'available',
       },
       {
         id: 'pat_002',
@@ -486,16 +491,17 @@ export class InternationalResearchDatabase {
         country: 'china',
         patentNumber: 'CN202410234567',
         filingDate: new Date('2024-02-01'),
-        abstract: 'Advanced tracking system for bifacial solar panels optimizing energy generation...',
+        abstract:
+          'Advanced tracking system for bifacial solar panels optimizing energy generation...',
         claims: [
           'A tracking system for bifacial solar panels',
           'The system of claim 1, comprising dual-axis tracking',
-          'The system of claim 1, wherein energy gain exceeds 20%'
+          'The system of claim 1, wherein energy gain exceeds 20%',
         ],
         status: 'pending',
         category: 'solar',
         commercialValue: 25000000,
-        licensingStatus: 'available'
+        licensingStatus: 'available',
       },
       {
         id: 'pat_003',
@@ -509,13 +515,13 @@ export class InternationalResearchDatabase {
         claims: [
           'A solid-state battery with non-flammable electrolyte',
           'The battery of claim 1, wherein energy density exceeds 400Wh/kg',
-          'The battery of claim 1, wherein cycle life exceeds 10,000 cycles'
+          'The battery of claim 1, wherein cycle life exceeds 10,000 cycles',
         ],
         status: 'pending',
         category: 'battery',
         commercialValue: 75000000,
-        licensingStatus: 'licensed'
-      }
+        licensingStatus: 'licensed',
+      },
     ];
 
     patents.forEach(patent => {
@@ -534,7 +540,7 @@ export class InternationalResearchDatabase {
         description: 'Joint research initiative for advanced solar technology development',
         participants: [
           { facility: 'cas_solar', country: 'china', role: 'lead' },
-          { facility: 'nrel_usa', country: 'usa', role: 'partner' }
+          { facility: 'nrel_usa', country: 'usa', role: 'partner' },
         ],
         startDate: new Date('2024-01-01'),
         status: 'active',
@@ -542,15 +548,15 @@ export class InternationalResearchDatabase {
         objectives: [
           'Develop next-generation perovskite solar cells',
           'Establish manufacturing standards',
-          'Create technology transfer framework'
+          'Create technology transfer framework',
         ],
         outcomes: [
           '47.1% efficiency tandem cells developed',
           'Manufacturing process optimized',
-          'Quality standards established'
+          'Quality standards established',
         ],
         category: 'research',
-        crossDomain: true
+        crossDomain: true,
       },
       {
         id: 'collab_002',
@@ -558,7 +564,7 @@ export class InternationalResearchDatabase {
         description: 'Collaboration on precision manufacturing and quality standards',
         participants: [
           { facility: 'aist_solar', country: 'japan', role: 'lead' },
-          { facility: 'nist_usa', country: 'usa', role: 'partner' }
+          { facility: 'nist_usa', country: 'usa', role: 'partner' },
         ],
         startDate: new Date('2024-02-01'),
         status: 'active',
@@ -566,16 +572,16 @@ export class InternationalResearchDatabase {
         objectives: [
           'Establish precision manufacturing standards',
           'Develop quality assurance protocols',
-          'Create training programs'
+          'Create training programs',
         ],
         outcomes: [
           'ISO standards adopted',
           'Quality protocols implemented',
-          'Training programs established'
+          'Training programs established',
         ],
         category: 'development',
-        crossDomain: false
-      }
+        crossDomain: false,
+      },
     ];
 
     collaborations.forEach(collab => {
@@ -602,36 +608,36 @@ export class InternationalResearchDatabase {
         terms: [
           'Exclusive licensing for North American market',
           'Technology transfer and training included',
-          'Royalty payments of 5% on sales'
+          'Royalty payments of 5% on sales',
         ],
         milestones: [
           {
             description: 'Initial technology transfer',
             dueDate: new Date('2024-06-01'),
-            status: 'completed'
+            status: 'completed',
           },
           {
             description: 'Manufacturing facility setup',
             dueDate: new Date('2024-09-01'),
-            status: 'pending'
+            status: 'pending',
           },
           {
             description: 'Commercial production start',
             dueDate: new Date('2024-12-01'),
-            status: 'pending'
-          }
+            status: 'pending',
+          },
         ],
         benefits: [
           'Access to 47.1% efficiency technology',
           'Manufacturing know-how transfer',
-          'Quality control protocols'
+          'Quality control protocols',
         ],
         challenges: [
           'Regulatory compliance requirements',
           'Supply chain establishment',
-          'Workforce training needs'
-        ]
-      }
+          'Workforce training needs',
+        ],
+      },
     ];
 
     transfers.forEach(transfer => {
@@ -657,11 +663,11 @@ export class InternationalResearchDatabase {
           'Quality policy and objectives',
           'Process approach and risk-based thinking',
           'Continual improvement',
-          'Customer focus'
+          'Customer focus',
         ],
         complianceLevel: 'excellent',
         adoptionRate: 95,
-        facilities: ['aist_solar', 'tokyo_univ_materials', 'tokyo_tech_integration']
+        facilities: ['aist_solar', 'tokyo_univ_materials', 'tokyo_tech_integration'],
       },
       {
         id: 'iec_61215_2024',
@@ -676,12 +682,12 @@ export class InternationalResearchDatabase {
           'Design qualification and type approval',
           'Performance testing procedures',
           'Safety requirements',
-          'Environmental testing'
+          'Environmental testing',
         ],
         complianceLevel: 'advanced',
         adoptionRate: 88,
-        facilities: ['cas_solar', 'tsinghua_energy', 'imperial_perovskite']
-      }
+        facilities: ['cas_solar', 'tsinghua_energy', 'imperial_perovskite'],
+      },
     ];
 
     standards.forEach(standard => {
@@ -701,7 +707,9 @@ export class InternationalResearchDatabase {
   /**
    * Get facilities by country
    */
-  public getFacilitiesByCountry(country: 'china' | 'japan' | 'russia' | 'britain'): ResearchFacility[] {
+  public getFacilitiesByCountry(
+    country: 'china' | 'japan' | 'russia' | 'britain'
+  ): ResearchFacility[] {
     return Array.from(this.facilities.values()).filter(f => f.country === country);
   }
 
@@ -722,7 +730,9 @@ export class InternationalResearchDatabase {
   /**
    * Get publications by country
    */
-  public getPublicationsByCountry(country: 'china' | 'japan' | 'russia' | 'britain'): ResearchPublication[] {
+  public getPublicationsByCountry(
+    country: 'china' | 'japan' | 'russia' | 'britain'
+  ): ResearchPublication[] {
     return Array.from(this.publications.values()).filter(p => p.country === country);
   }
 
@@ -814,7 +824,7 @@ export class InternationalResearchDatabase {
    * Search facilities by specialty
    */
   public searchFacilitiesBySpecialty(specialty: string): ResearchFacility[] {
-    return Array.from(this.facilities.values()).filter(f => 
+    return Array.from(this.facilities.values()).filter(f =>
       f.specialties.some(s => s.toLowerCase().includes(specialty.toLowerCase()))
     );
   }
@@ -823,10 +833,11 @@ export class InternationalResearchDatabase {
    * Search publications by keyword
    */
   public searchPublicationsByKeyword(keyword: string): ResearchPublication[] {
-    return Array.from(this.publications.values()).filter(p => 
-      p.title.toLowerCase().includes(keyword.toLowerCase()) ||
-      p.abstract.toLowerCase().includes(keyword.toLowerCase()) ||
-      p.keywords.some(k => k.toLowerCase().includes(keyword.toLowerCase()))
+    return Array.from(this.publications.values()).filter(
+      p =>
+        p.title.toLowerCase().includes(keyword.toLowerCase()) ||
+        p.abstract.toLowerCase().includes(keyword.toLowerCase()) ||
+        p.keywords.some(k => k.toLowerCase().includes(keyword.toLowerCase()))
     );
   }
 
@@ -841,8 +852,8 @@ export class InternationalResearchDatabase {
           china: this.getFacilitiesByCountry('china').length,
           japan: this.getFacilitiesByCountry('japan').length,
           russia: this.getFacilitiesByCountry('russia').length,
-          britain: this.getFacilitiesByCountry('britain').length
-        }
+          britain: this.getFacilitiesByCountry('britain').length,
+        },
       },
       publications: {
         total: this.publications.size,
@@ -850,9 +861,9 @@ export class InternationalResearchDatabase {
           china: this.getPublicationsByCountry('china').length,
           japan: this.getPublicationsByCountry('japan').length,
           russia: this.getPublicationsByCountry('russia').length,
-          britain: this.getPublicationsByCountry('britain').length
+          britain: this.getPublicationsByCountry('britain').length,
         },
-        crossDomain: this.getCrossDomainPublications().length
+        crossDomain: this.getCrossDomainPublications().length,
       },
       patents: {
         total: this.patents.size,
@@ -861,26 +872,26 @@ export class InternationalResearchDatabase {
           china: this.getPatentsByCountry('china').length,
           japan: this.getPatentsByCountry('japan').length,
           russia: this.getPatentsByCountry('russia').length,
-          britain: this.getPatentsByCountry('britain').length
-        }
+          britain: this.getPatentsByCountry('britain').length,
+        },
       },
       collaborations: {
         total: this.collaborations.size,
         active: this.getActiveCollaborations().length,
-        crossDomain: this.getCrossDomainCollaborations().length
+        crossDomain: this.getCrossDomainCollaborations().length,
       },
       technologyTransfers: {
         total: this.technologyTransfers.size,
-        active: this.getActiveTechnologyTransfers().length
+        active: this.getActiveTechnologyTransfers().length,
       },
       qualityStandards: {
         total: this.qualityStandards.size,
         byCategory: {
           manufacturing: this.getQualityStandardsByCategory('manufacturing').length,
           performance: this.getQualityStandardsByCategory('performance').length,
-          safety: this.getQualityStandardsByCategory('safety').length
-        }
-      }
+          safety: this.getQualityStandardsByCategory('safety').length,
+        },
+      },
     };
 
     return stats;
@@ -888,4 +899,4 @@ export class InternationalResearchDatabase {
 }
 
 // Export singleton instance
-export const internationalResearchDatabase = new InternationalResearchDatabase(); 
+export const internationalResearchDatabase = new InternationalResearchDatabase();

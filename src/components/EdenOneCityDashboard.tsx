@@ -1,28 +1,28 @@
 /**
  * Eden One City Dashboard Component
- * 
+ *
  * Provides real-time monitoring and management of Eden One City systems,
  * including quantum networks, consciousness integration, and citizen data.
- * 
+ *
  * Features:
  * - Real-time system performance monitoring
  * - Citizen consciousness tracking
  * - Quantum network status
  * - Cross-dimensional data visualization
  * - Advanced analytics and insights
- * 
+ *
  * @author NovaSanctum AI
  * @version 1.0.0
  * @since 2025-01-07
  */
 
 import React, { useState, useEffect } from 'react';
-import { 
-  EdenOneCityIntegration, 
-  EdenOneCitySystem, 
-  EdenOneCityCitizen, 
+import {
+  EdenOneCityIntegration,
+  EdenOneCitySystem,
+  EdenOneCityCitizen,
   EdenOneCityNetwork,
-  EDEN_ONE_CITY_CONFIG 
+  EDEN_ONE_CITY_CONFIG,
 } from '../services/EdenOneCityIntegration';
 
 // Sacred UI Components
@@ -36,7 +36,9 @@ import { SacredModal } from './SacredModal';
 import { SacredAlert } from './SacredAlert';
 
 // Performance Chart Component
-const PerformanceChart: React.FC<{ data: { cpu: number; memory: number; network: number; quantum: number } }> = ({ data }) => (
+const PerformanceChart: React.FC<{
+  data: { cpu: number; memory: number; network: number; quantum: number };
+}> = ({ data }) => (
   <div className="grid grid-cols-2 gap-4">
     <div className="space-y-2">
       <div className="flex justify-between text-sm">
@@ -73,11 +75,16 @@ const PerformanceChart: React.FC<{ data: { cpu: number; memory: number; network:
 const SystemStatus: React.FC<{ system: EdenOneCitySystem }> = ({ system }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'active': return 'success';
-      case 'inactive': return 'warning';
-      case 'error': return 'error';
-      case 'maintenance': return 'info';
-      default: return 'default';
+      case 'active':
+        return 'success';
+      case 'inactive':
+        return 'warning';
+      case 'error':
+        return 'error';
+      case 'maintenance':
+        return 'info';
+      default:
+        return 'default';
     }
   };
 
@@ -85,11 +92,9 @@ const SystemStatus: React.FC<{ system: EdenOneCitySystem }> = ({ system }) => {
     <SacredCard className="p-4">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg font-semibold text-purple-600">{system.name}</h3>
-        <SacredBadge variant={getStatusColor(system.status)}>
-          {system.status}
-        </SacredBadge>
+        <SacredBadge variant={getStatusColor(system.status)}>{system.status}</SacredBadge>
       </div>
-      
+
       <div className="space-y-3">
         <div className="text-sm text-gray-600">
           <span className="font-medium">Type:</span> {system.type}
@@ -100,12 +105,12 @@ const SystemStatus: React.FC<{ system: EdenOneCitySystem }> = ({ system }) => {
         <div className="text-sm text-gray-600">
           <span className="font-medium">Last Update:</span> {system.lastUpdate.toLocaleTimeString()}
         </div>
-        
+
         <div className="pt-2">
           <h4 className="text-sm font-medium text-gray-700 mb-2">Performance</h4>
           <PerformanceChart data={system.performance} />
         </div>
-        
+
         {Object.entries(system.metadata).length > 0 && (
           <div className="pt-2">
             <h4 className="text-sm font-medium text-gray-700 mb-2">Metadata</h4>
@@ -128,11 +133,16 @@ const SystemStatus: React.FC<{ system: EdenOneCitySystem }> = ({ system }) => {
 const CitizenCard: React.FC<{ citizen: EdenOneCityCitizen }> = ({ citizen }) => {
   const getConsciousnessColor = (type: string) => {
     switch (type) {
-      case 'human': return 'default';
-      case 'ai': return 'info';
-      case 'hybrid': return 'warning';
-      case 'quantum': return 'success';
-      default: return 'default';
+      case 'human':
+        return 'default';
+      case 'ai':
+        return 'info';
+      case 'hybrid':
+        return 'warning';
+      case 'quantum':
+        return 'success';
+      default:
+        return 'default';
     }
   };
 
@@ -147,7 +157,7 @@ const CitizenCard: React.FC<{ citizen: EdenOneCityCitizen }> = ({ citizen }) => 
           {citizen.consciousness.type}
         </SacredBadge>
       </div>
-      
+
       <div className="space-y-3">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
@@ -160,24 +170,28 @@ const CitizenCard: React.FC<{ citizen: EdenOneCityCitizen }> = ({ citizen }) => 
           <div>
             <span className="font-medium text-gray-700">Status:</span>
             <div className="mt-1">
-              <SacredBadge variant={citizen.consciousness.status === 'active' ? 'success' : 'warning'}>
+              <SacredBadge
+                variant={citizen.consciousness.status === 'active' ? 'success' : 'warning'}
+              >
                 {citizen.consciousness.status}
               </SacredBadge>
             </div>
           </div>
         </div>
-        
+
         <div className="text-sm">
           <span className="font-medium text-gray-700">Location:</span>
           <div className="mt-1 text-gray-600">
-            <div>{citizen.location.system} → {citizen.location.planet}</div>
+            <div>
+              {citizen.location.system} → {citizen.location.planet}
+            </div>
             <div className="font-mono text-xs">
               [{citizen.location.coordinates.join(', ')}]
               {citizen.location.quantum && <span className="ml-2 text-purple-500">⚡ Quantum</span>}
             </div>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
             <span className="font-medium text-gray-700">Experience:</span>
@@ -196,10 +210,8 @@ const CitizenCard: React.FC<{ citizen: EdenOneCityCitizen }> = ({ citizen }) => 
             <div className="font-mono">{citizen.stats.quantumEntanglement}%</div>
           </div>
         </div>
-        
-        <div className="text-xs text-gray-500">
-          Last seen: {citizen.lastSeen.toLocaleString()}
-        </div>
+
+        <div className="text-xs text-gray-500">Last seen: {citizen.lastSeen.toLocaleString()}</div>
       </div>
     </SacredCard>
   );
@@ -209,10 +221,14 @@ const CitizenCard: React.FC<{ citizen: EdenOneCityCitizen }> = ({ citizen }) => 
 const NetworkStatus: React.FC<{ network: EdenOneCityNetwork }> = ({ network }) => {
   const getNetworkColor = (type: string) => {
     switch (type) {
-      case 'quantum': return 'success';
-      case 'consciousness': return 'warning';
-      case 'cross-dimensional': return 'info';
-      default: return 'default';
+      case 'quantum':
+        return 'success';
+      case 'consciousness':
+        return 'warning';
+      case 'cross-dimensional':
+        return 'info';
+      default:
+        return 'default';
     }
   };
 
@@ -226,15 +242,13 @@ const NetworkStatus: React.FC<{ network: EdenOneCityNetwork }> = ({ network }) =
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-lg font-semibold text-green-600">{network.name}</h3>
         <div className="flex gap-2">
-          <SacredBadge variant={getNetworkColor(network.type)}>
-            {network.type}
-          </SacredBadge>
+          <SacredBadge variant={getNetworkColor(network.type)}>{network.type}</SacredBadge>
           <SacredBadge variant={network.status === 'online' ? 'success' : 'error'}>
             {network.status}
           </SacredBadge>
         </div>
       </div>
-      
+
       <div className="space-y-3">
         <div className="grid grid-cols-2 gap-4 text-sm">
           <div>
@@ -254,7 +268,7 @@ const NetworkStatus: React.FC<{ network: EdenOneCityNetwork }> = ({ network }) =
             <div className="font-mono">{network.latency}ms</div>
           </div>
         </div>
-        
+
         <div className="text-sm">
           <span className="font-medium text-gray-700">Security:</span>
           <div className="mt-1 text-gray-600">
@@ -313,7 +327,7 @@ export const EdenOneCityDashboard: React.FC = () => {
     { id: 'citizens', label: 'Citizens', icon: '👥' },
     { id: 'networks', label: 'Networks', icon: '🌐' },
     { id: 'consciousness', label: 'Consciousness', icon: '🧠' },
-    { id: 'quantum', label: 'Quantum', icon: '⚡' }
+    { id: 'quantum', label: 'Quantum', icon: '⚡' },
   ];
 
   const renderOverview = () => (
@@ -331,7 +345,7 @@ export const EdenOneCityDashboard: React.FC = () => {
             </SacredButton>
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="text-center">
             <div className="text-2xl font-bold text-blue-600">{stats?.totalSystems || 0}</div>
@@ -378,7 +392,9 @@ export const EdenOneCityDashboard: React.FC = () => {
           </div>
           <div>
             <span className="font-medium text-gray-700">Data Size:</span>
-            <div className="font-mono">{(EDEN_ONE_CITY_CONFIG.DATA_FILE_SIZE / 1000000000).toFixed(1)} GB</div>
+            <div className="font-mono">
+              {(EDEN_ONE_CITY_CONFIG.DATA_FILE_SIZE / 1000000000).toFixed(1)} GB
+            </div>
           </div>
         </div>
       </SacredCard>
@@ -426,7 +442,10 @@ export const EdenOneCityDashboard: React.FC = () => {
             <h4 className="text-lg font-medium text-purple-600 mb-3">Active Consciousnesses</h4>
             <div className="space-y-2">
               {citizens.map(citizen => (
-                <div key={citizen.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div
+                  key={citizen.id}
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                >
                   <div>
                     <div className="font-medium">{citizen.handle}</div>
                     <div className="text-sm text-gray-600">{citizen.consciousness.type}</div>
@@ -445,7 +464,10 @@ export const EdenOneCityDashboard: React.FC = () => {
               {['human', 'ai', 'hybrid', 'quantum'].map(type => {
                 const count = citizens.filter(c => c.consciousness.type === type).length;
                 return (
-                  <div key={type} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div
+                    key={type}
+                    className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                  >
                     <div className="capitalize font-medium">{type}</div>
                     <SacredBadge variant="default">{count}</SacredBadge>
                   </div>
@@ -466,36 +488,42 @@ export const EdenOneCityDashboard: React.FC = () => {
           <div>
             <h4 className="text-lg font-medium text-purple-600 mb-3">Quantum Networks</h4>
             <div className="space-y-3">
-              {networks.filter(n => n.type === 'quantum').map(network => (
-                <div key={network.id} className="p-3 bg-purple-50 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="font-medium">{network.name}</div>
-                    <SacredBadge variant="success">Online</SacredBadge>
+              {networks
+                .filter(n => n.type === 'quantum')
+                .map(network => (
+                  <div key={network.id} className="p-3 bg-purple-50 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="font-medium">{network.name}</div>
+                      <SacredBadge variant="success">Online</SacredBadge>
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      <div>Bandwidth: {(network.bandwidth / 1000000000).toFixed(1)} GB/s</div>
+                      <div>Latency: {network.latency}ms</div>
+                      <div>Connections: {network.connections.toLocaleString()}</div>
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-600">
-                    <div>Bandwidth: {(network.bandwidth / 1000000000).toFixed(1)} GB/s</div>
-                    <div>Latency: {network.latency}ms</div>
-                    <div>Connections: {network.connections.toLocaleString()}</div>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
           <div>
             <h4 className="text-lg font-medium text-blue-600 mb-3">Quantum Citizens</h4>
             <div className="space-y-3">
-              {citizens.filter(c => c.consciousness.type === 'quantum' || c.stats.quantumEntanglement > 90).map(citizen => (
-                <div key={citizen.id} className="p-3 bg-blue-50 rounded-lg">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="font-medium">{citizen.handle}</div>
-                    <div className="text-sm text-purple-600">⚡ {citizen.stats.quantumEntanglement}%</div>
+              {citizens
+                .filter(c => c.consciousness.type === 'quantum' || c.stats.quantumEntanglement > 90)
+                .map(citizen => (
+                  <div key={citizen.id} className="p-3 bg-blue-50 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="font-medium">{citizen.handle}</div>
+                      <div className="text-sm text-purple-600">
+                        ⚡ {citizen.stats.quantumEntanglement}%
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      <div>Consciousness: {citizen.consciousness.type}</div>
+                      <div>Location: {citizen.location.system}</div>
+                    </div>
                   </div>
-                  <div className="text-sm text-gray-600">
-                    <div>Consciousness: {citizen.consciousness.type}</div>
-                    <div>Location: {citizen.location.system}</div>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </div>
@@ -505,13 +533,20 @@ export const EdenOneCityDashboard: React.FC = () => {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'overview': return renderOverview();
-      case 'systems': return renderSystems();
-      case 'citizens': return renderCitizens();
-      case 'networks': return renderNetworks();
-      case 'consciousness': return renderConsciousness();
-      case 'quantum': return renderQuantum();
-      default: return renderOverview();
+      case 'overview':
+        return renderOverview();
+      case 'systems':
+        return renderSystems();
+      case 'citizens':
+        return renderCitizens();
+      case 'networks':
+        return renderNetworks();
+      case 'consciousness':
+        return renderConsciousness();
+      case 'quantum':
+        return renderQuantum();
+      default:
+        return renderOverview();
     }
   };
 
@@ -521,7 +556,9 @@ export const EdenOneCityDashboard: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Eden One City Dashboard</h1>
-          <p className="text-gray-600">Real-time monitoring and management of Eden One City systems</p>
+          <p className="text-gray-600">
+            Real-time monitoring and management of Eden One City systems
+          </p>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
@@ -530,16 +567,10 @@ export const EdenOneCityDashboard: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <SacredTabs
-        tabs={tabs}
-        activeTab={activeTab}
-        onTabChange={setActiveTab}
-      />
+      <SacredTabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
 
       {/* Content */}
-      <div className="min-h-[600px]">
-        {renderContent()}
-      </div>
+      <div className="min-h-[600px]">{renderContent()}</div>
 
       {/* Connection Test Modal */}
       <SacredModal
@@ -576,4 +607,4 @@ export const EdenOneCityDashboard: React.FC = () => {
   );
 };
 
-export default EdenOneCityDashboard; 
+export default EdenOneCityDashboard;
