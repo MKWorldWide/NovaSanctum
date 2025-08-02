@@ -1,18 +1,48 @@
+/**
+ * @file App.tsx
+ * @description Main application component for the NovaSanctum platform.
+ * This component serves as the root of the React application, containing the main layout,
+ * routing, and global configuration.
+ * 
+ * @version 1.0.0
+ * @license MIT
+ */
+
 import { useEffect } from 'react';
+// Layout Components
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import SectionHeader from './components/SectionHeader';
+// Feature Components
 import InfoCard from './components/InfoCard';
 import CTAButton from './components/CTAButton';
-import { FaDna, FaBrain, FaMicrochip, FaFlask } from 'react-icons/fa';
 import ContactForm from './components/ContactForm';
+// Icons
+import { FaDna, FaBrain, FaMicrochip, FaFlask } from 'react-icons/fa';
 
-const App = () => {
+/**
+ * Main application component that renders the entire NovaSanctum platform.
+ * Manages global layout, routing, and provides context to child components.
+ * 
+ * @returns {JSX.Element} The root application component
+ */
+const App = (): JSX.Element => {
+  /**
+   * Initialize smooth scrolling behavior for the entire application
+   */
   useEffect(() => {
-    // Add smooth scrolling behavior
     document.documentElement.style.scrollBehavior = 'smooth';
-  }, []);
+    
+    // Cleanup function to remove smooth scrolling when component unmounts
+    return () => {
+      document.documentElement.style.scrollBehavior = '';
+    };
+  }, []); // Empty dependency array means this effect runs once on mount
 
+  /**
+   * Feature cards data for the about section
+   * @type {Array<{title: string, description: string, icon: JSX.Element}>}
+   */
   const features = [
     {
       title: 'Neural Integration',
@@ -38,19 +68,37 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-bio-dark text-bio-light">
+      {/* Global Navigation */}
       <NavBar />
 
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-radial from-neon-cyan/10 via-transparent to-transparent" />
+      {/**
+       * Hero Section
+       * First viewport section with a call-to-action
+       */}
+      <section 
+        className="relative h-screen flex items-center justify-center overflow-hidden"
+        aria-label="Welcome to NovaSanctum"
+      >
+        {/* Background gradient overlay */}
+        <div 
+          className="absolute inset-0 bg-gradient-radial from-neon-cyan/10 via-transparent to-transparent" 
+          aria-hidden="true"
+        />
+        
+        {/* Hero content */}
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-neon-cyan to-synth-purple bg-clip-text text-transparent">
-            BioSynth
+            NovaSanctum
           </h1>
           <p className="text-xl md:text-2xl text-bio-light/80 mb-8 max-w-3xl mx-auto">
             Where Biology Meets Digital Transcendence
           </p>
-          <CTAButton text="Explore Our Vision" href="#about" size="lg" />
+          <CTAButton 
+            text="Explore Our Vision" 
+            href="#about" 
+            size="lg"
+            ariaLabel="Learn more about NovaSanctum"
+          />
         </div>
       </section>
 

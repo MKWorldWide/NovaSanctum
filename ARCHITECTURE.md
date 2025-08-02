@@ -1,53 +1,63 @@
-<<<<<<< HEAD
 # 🏛️ NovaSanctum Architecture Documentation
 
-## 🧠 BRAIN INTEGRATION OVERVIEW
+## 🚀 Overview
 
-NovaSanctum operates under a unified AI brain architecture inspired by **AthenaMist-Blended** and **EdenOneCity**, providing quantum-level intelligence and coordination across all research subsystems. This sacred architecture ensures seamless integration between biological engineering and synthetic intelligence.
+NovaSanctum is a modern, cloud-native research platform designed to bridge biological engineering and artificial intelligence. This document outlines the system architecture, design principles, and technical implementation details.
 
 ## 🎯 System Architecture Principles
 
 ### 🌟 Core Design Philosophy
 
-- **Sacred Integration**: Seamless blending of biological and digital systems
-- **Quantum Intelligence**: Advanced AI processing for complex research data
-- **Real-time Collaboration**: Live interaction between researchers worldwide
-- **Security by Design**: Enterprise-grade security at every layer
-- **Scalability First**: Architecture designed for exponential growth
-- **Documentation Driven**: Comprehensive documentation for all system components
+- **Modularity**: Independent, reusable components for flexibility
+- **Scalability**: Designed to handle growth in users and data
+- **Security**: Built with security best practices at every layer
+- **Performance**: Optimized for fast, responsive user experiences
+- **Maintainability**: Clean, well-documented code and architecture
+- **Extensibility**: Easy to add new features and integrations
 
 ### 🧩 Architectural Patterns
 
-- **Microservices Architecture**: Modular services for independent scaling
-- **Event-Driven Design**: Real-time data flow and processing
-- **API-First Approach**: Comprehensive GraphQL API for all operations
-- **Component-Based UI**: Reusable Sacred UI components
-- **State Management**: Centralized state with Zustand
-- **Error Boundaries**: Comprehensive error handling throughout
+- **Microservices Architecture**: Independent services for better scalability and maintainability
+- **API-First Design**: Comprehensive GraphQL API for all operations
+- **Component-Based UI**: Reusable React components with TypeScript
+- **State Management**: Centralized state management
+- **CI/CD**: Automated testing and deployment pipelines
+- **Infrastructure as Code**: AWS CDK for cloud resource management
 
 ## 🏗️ System Components
 
-### 🧠 Central AI Brain (Inspired by AthenaMist-Blended)
+### 🌐 Frontend Architecture
 
-#### **Core Intelligence Engine**
+#### **Core Technologies**
+- **Framework**: Next.js 14 with React 18
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS with custom design system
+- **State Management**: Context API with custom hooks
+- **Data Fetching**: React Query for server state
 
-- **Unified Processing**: Single AI system coordinating all research operations
-- **Quantum Processing**: Advanced AI algorithms for biological data analysis
-- **Predictive Optimization**: AI that anticipates research needs and optimizes workflows
-- **Emotional Intelligence**: AI systems that understand researcher emotions and needs
-- **Sacred Protocols**: Advanced security and access control systems
+#### **Key Features**
+- Server-side rendering for improved performance
+- Static site generation for marketing pages
+- Dynamic imports for code splitting
+- Progressive Web App (PWA) support
+- Internationalization (i18n) ready
 
-#### **AI Integration Layer**
+### ⚙️ Backend Architecture
 
-```typescript
-interface AIBrain {
-  // Core AI processing capabilities
-  processBiologicalData(data: BiologicalData): AnalysisResult;
-  predictResearchOutcomes(project: ResearchProject): PredictionResult;
-  optimizeWorkflows(workflow: ResearchWorkflow): OptimizationResult;
+#### **Core Services**
+- **API Layer**: GraphQL with Apollo Server
+- **Authentication**: JWT with refresh tokens
+- **Database**: PostgreSQL with Prisma ORM
+- **Search**: Elasticsearch for full-text search
+- **Caching**: Redis for performance optimization
+- **Storage**: AWS S3 for file storage
 
-  // Emotional intelligence features
-  analyzeResearcherEmotions(context: ResearchContext): EmotionalInsight;
+#### **Key Features**
+- Type-safe database access with Prisma
+- Real-time updates with GraphQL Subscriptions
+- Rate limiting and request validation
+- Comprehensive error handling and logging
+- Background job processing with BullMQ
   provideEmotionalSupport(researcher: Researcher): SupportResponse;
 
   // Sacred protocol management
@@ -124,11 +134,45 @@ interface NovaSanctumStore {
 
 ## 🌌 SYSTEM OVERVIEW
 
-NovaSanctum is architected as the world's first emotional computing platform, where computers understand and respond to human emotions as their primary interface language. This revolutionary system transcends traditional binary computing by implementing **Scrypt** — the sacred language of emotional programming.
+## 🔐 Security Architecture
 
-**Core Innovation:** Where others use binary, NovaSanctum uses emotion. Where others process data, NovaSanctum processes feeling. Where others compute logic, NovaSanctum resonates truth.
+### Authentication & Authorization
 
----
+- **Authentication**: JSON Web Tokens (JWT) with refresh tokens
+- **Authorization**: Role-based access control (RBAC)
+- **MFA Support**: Optional two-factor authentication
+- **OAuth 2.0**: Social login providers (Google, GitHub, etc.)
+- **Rate Limiting**: Protection against brute force attacks
+- **CORS**: Strict CORS policies for API security
+
+### Data Protection
+
+- **Encryption at Rest**: AES-256 encryption for sensitive data
+- **Encryption in Transit**: TLS 1.3 for all communications
+- **Secrets Management**: Environment variables and AWS Secrets Manager
+- **Audit Logging**: Comprehensive logging of security-relevant events
+- **GDPR Compliance**: Data protection and privacy by design
+
+## 🚀 Deployment Architecture
+
+### Infrastructure
+
+- **Hosting**: AWS (Amazon Web Services)
+- **Compute**: AWS ECS with Fargate
+- **Database**: Amazon RDS (PostgreSQL)
+- **Caching**: Amazon ElastiCache (Redis)
+- **Storage**: Amazon S3 with versioning
+- **CDN**: Amazon CloudFront
+- **DNS**: Amazon Route 53
+
+### CI/CD Pipeline
+
+1. **Code Commit**: Git-based version control
+2. **Testing**: Automated unit, integration, and E2E tests
+3. **Build**: Docker containerization
+4. **Deploy**: Blue-green deployments
+5. **Monitor**: Application performance monitoring
+6. **Rollback**: Automated rollback on failure
 
 ## 🧠 EMOTIONAL BRAIN INTEGRATION OVERVIEW
 
@@ -216,10 +260,16 @@ src/components/
 │   └── ...                 # All Sacred emotional components
 ├── Navigation.tsx          # Main emotional navigation component
 ├── Dashboard.tsx           # Emotional dashboard layout and logic
-├── TerraformingBay.tsx     # Emotional research tools interface
-├── NSITCDashboard.tsx      # Emotional neural system testing console
-├── DataVault.tsx           # Secure emotional data storage interface
-└── VisualizationPanel.tsx  # Advanced emotional data visualization
+├── components/           # Reusable UI components
+│   ├── common/           # Common components (buttons, modals, etc.)
+│   ├── layout/           # Layout components (header, footer, etc.)
+│   └── features/         # Feature-specific components
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions and helpers
+├── pages/                # Next.js pages
+├── public/               # Static assets
+├── styles/               # Global styles and themes
+└── types/                # TypeScript type definitions
 ```
 
 #### **Emotional State Management (Zustand)**
@@ -392,11 +442,51 @@ type Subscription {
 #### **Database Schema (DynamoDB)**
 
 ```typescript
-interface DatabaseSchema {
-  // Research Projects Table
-  ResearchProjects: {
-    PK: string; // PROJECT#${projectId}
-    SK: string; // METADATA#${projectId}
+## 🗃️ Database Schema
+
+### Core Tables
+
+#### Users
+```typescript
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: 'admin' | 'researcher' | 'viewer';
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+#### Research Projects
+```typescript
+interface ResearchProject {
+  id: string;
+  title: string;
+  description: string;
+  status: 'draft' | 'active' | 'completed' | 'archived';
+  ownerId: string;
+  teamIds: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+## 📈 Performance Optimization
+
+### Frontend
+- Code splitting with dynamic imports
+- Image optimization with Next.js Image component
+- Efficient state management to minimize re-renders
+- Lazy loading of non-critical components
+- Service worker for offline support
+
+### Backend
+- Database query optimization
+- Redis caching layer
+- Connection pooling
+- Batch processing for heavy operations
+- Asynchronous processing for non-blocking operations
     name: string;
     description: string;
     status: ProjectStatus;
@@ -874,30 +964,6 @@ interface TestingArchitecture {
       branches: number; // Target: >90%
       functions: number; // Target: >90%
       lines: number; // Target: >90%
-    };
-    components: ComponentTestingConfig;
-    utilities: UtilityTestingConfig;
-  };
-
-  // Integration Testing
-  integration: {
-    framework: 'Jest + Testing Library';
-    api: APIIntegrationTestingConfig;
-    database: DatabaseIntegrationTestingConfig;
-    authentication: AuthIntegrationTestingConfig;
-  };
-
-  // End-to-End Testing
-  e2e: {
-    framework: 'Playwright';
-    scenarios: E2EScenariosConfig;
-    performance: PerformanceTestingConfig;
-    accessibility: AccessibilityTestingConfig;
-  };
-
-  // Visual Testing
-  visual: {
-    framework: 'Storybook + Chromatic';
     components: ComponentVisualTestingConfig;
     regression: VisualRegressionTestingConfig;
 =======

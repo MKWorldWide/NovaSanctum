@@ -1,33 +1,43 @@
-<<<<<<< HEAD
 # 🌟 NovaSanctum - Advanced Research Platform
 
 > Where Biology Meets Digital Transcendence - Bridging the Gap Between Biological Engineering and Synthetic Intelligence
 
-## 🧠 BRAIN INTEGRATION
+## 🚀 Overview
 
-**NovaSanctum** is now unified under advanced AI integration patterns inspired by **AthenaMist-Blended** and **EdenOneCity**, providing quantum-level intelligence and coordination across all research subsystems.
+NovaSanctum is an open-source research platform designed to accelerate discoveries at the intersection of biological engineering and artificial intelligence. Our platform provides researchers with powerful tools for collaboration, data analysis, and experimentation in a secure, scalable environment.
 
-## 📖 Overview
+## ✨ Key Features
 
-NovaSanctum is a cutting-edge research platform that serves as a digital temple for researchers, investors, and AI systems working at the frontier of wetware integration. This sacred platform combines advanced bioengineering, synthetic intelligence, and collaborative research tools to accelerate discovery and innovation.
+- **🔬 Advanced Research Tools**: Comprehensive suite for biological data analysis and visualization
+- **🤝 Real-time Collaboration**: Work simultaneously with researchers worldwide
+- **🧠 AI-Powered Insights**: Integrated machine learning for data analysis and pattern recognition
+- **🔒 Enterprise-Grade Security**: End-to-end encryption and role-based access control
+- **🌐 Cloud-Native Architecture**: Built on AWS for scalability and reliability
+- **📊 Interactive Dashboards**: Customizable interfaces for data visualization and monitoring
 
-### 🌟 Core Mission
+## 🎯 Core Mission
 
-- **Bridge Biology and AI**: Create seamless integration between biological engineering and synthetic intelligence
-- **Accelerate Research**: Provide powerful tools for advanced research and discovery
-- **Foster Collaboration**: Enable real-time collaboration between researchers worldwide
-- **Preserve Knowledge**: Create immutable and secure research data storage
-- **Advance Humanity**: Push the boundaries of what's possible in biological and AI research
+At NovaSanctum, we're driven by a commitment to:
 
-## 🏗️ Architecture
+- **Bridging Disciplines**: Create seamless integration between biological engineering and artificial intelligence
+- **Accelerating Discovery**: Provide researchers with powerful, intuitive tools for scientific exploration
+- **Enabling Collaboration**: Foster global scientific collaboration through real-time, secure data sharing
+- **Ensuring Reproducibility**: Maintain transparent, well-documented research processes
+- **Advancing Science**: Push the boundaries of what's possible in bioengineering and AI research
 
-### 🧠 Central AI Brain Integration
+## 🏗️ System Architecture
 
-- **Unified Intelligence**: Single AI system coordinating all research operations
-- **Quantum Processing**: Advanced AI processing for complex biological data analysis
-- **Predictive Optimization**: AI that anticipates research needs and optimizes workflows
-- **Emotional Intelligence**: AI systems that understand researcher emotions and needs
-- **Sacred Protocols**: Advanced security and access control systems
+NovaSanctum is built on a modern, scalable architecture designed for performance and reliability:
+
+### 🧩 Core Components
+
+- **Frontend**: Next.js 14 with TypeScript and React 18
+- **State Management**: Lightweight and efficient state management
+- **Styling**: Tailwind CSS for responsive, accessible UIs
+- **Backend**: AWS Amplify with serverless functions
+- **Database**: GraphQL with AWS AppSync for real-time data
+- **Authentication**: Secure, role-based access control
+- **Storage**: Scalable cloud storage with versioning
 
 ### 🚀 Frontend Stack
 
@@ -66,50 +76,106 @@ NovaSanctum is a cutting-edge research platform that serves as a digital temple 
 - **Data Relationships**: Sophisticated entity relationships for research data
 - **Caching**: Intelligent caching for performance optimization
 
-## 🚀 Quick Start
-
-### Prerequisites
-
-- **Node.js**: 18.x or later
-- **AWS CLI**: Configured with appropriate credentials
-- **Amplify CLI**: Installed globally for backend management
-- **Git**: For version control and collaboration
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/NovaSanctum.git
-cd NovaSanctum
-
-# Install dependencies
-npm install
-
-# Initialize Amplify (if not already done)
-amplify init
-
-# Start development server
-npm run dev
-```
+## 🚀 Getting Started
 
 ### Environment Variables
 
-Create a `.env.local` file with the following variables:
+NovaSanctum uses environment variables for configuration. The following variables are required:
 
-```env
-# AWS Configuration
-NEXT_PUBLIC_AWS_REGION=us-east-1
-NEXT_PUBLIC_AWS_USER_POOL_ID=us-east-1_PthzkHrfR
-NEXT_PUBLIC_AWS_USER_POOL_CLIENT_ID=7m9blehm7magr9pudiastl4pak
-NEXT_PUBLIC_GRAPHQL_ENDPOINT=your-graphql-endpoint
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `NEXT_PUBLIC_AWS_REGION` | AWS region where resources are deployed | Yes |
+| `NEXT_PUBLIC_USER_POOL_ID` | Amazon Cognito User Pool ID | Yes |
+| `NEXT_PUBLIC_USER_POOL_CLIENT_ID` | Amazon Cognito App Client ID | Yes |
+| `NEXT_PUBLIC_AWS_APPSYNC_API_URL` | AWS AppSync GraphQL endpoint URL | Yes |
 
-# AI Integration (Optional)
-NEXT_PUBLIC_AI_PROVIDER=mistral
-NEXT_PUBLIC_AI_API_KEY=your_ai_api_key
+Optional variables can be found in the [.env.example](.env.example) file.
 
-# Security
-NEXT_PUBLIC_ENCRYPTION_KEY=your_encryption_key
-NEXT_PUBLIC_JWT_SECRET=your_jwt_secret
+### Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- [Node.js](https://nodejs.org/) 18.x or later
+- [npm](https://www.npmjs.com/) 9.x or later (comes with Node.js)
+- [Git](https://git-scm.com/)
+- [AWS CLI](https://aws.amazon.com/cli/) (for deployment)
+- [Amplify CLI](https://docs.amplify.aws/cli/start/install/) (for local development)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/NovaSanctum.git
+   cd NovaSanctum
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env.local
+     ```
+   - Open `.env.local` in a text editor and update the values with your configuration:
+     ```env
+     # AWS Configuration (required)
+     NEXT_PUBLIC_AWS_REGION=your-aws-region
+     NEXT_PUBLIC_USER_POOL_ID=your-cognito-user-pool-id
+     NEXT_PUBLIC_USER_POOL_CLIENT_ID=your-cognito-client-id
+     NEXT_PUBLIC_AWS_APPSYNC_API_URL=your-appsync-graphql-endpoint
+     
+     # Optional: Uncomment and configure additional services as needed
+     # NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=your-ga-id
+     # NEXT_PUBLIC_FEATURE_FLAG_NEW_UI=true
+   
+   # Authentication (get these from your AWS Cognito setup)
+   NEXT_PUBLIC_COGNITO_USER_POOL_ID=your_user_pool_id
+   NEXT_PUBLIC_COGNITO_CLIENT_ID=your_client_id
+   
+   # Optional: Analytics and Monitoring
+   NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=your_ga_id
+   ```
+
+   > **Note**: Never commit your `.env.local` file to version control. It's already included in `.gitignore`.
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:3000`
+
+### First-Time Setup
+
+1. **Initialize AWS Amplify** (for backend services):
+   ```bash
+   amplify init
+   ```
+   Follow the interactive prompts to set up your AWS environment.
+
+2. **Deploy the backend** (optional for local development):
+   ```bash
+   amplify push
+   ```
+
+## 🧪 Running Tests
+
+NovaSanctum includes a comprehensive test suite:
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Generate test coverage report
+npm run test:coverage
+
+# Run integration tests
+npm run test:integration
 ```
 
 ## 🛠️ Development

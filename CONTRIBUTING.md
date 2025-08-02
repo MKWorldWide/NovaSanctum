@@ -1,29 +1,47 @@
 # 🤝 Contributing to NovaSanctum
 
-## 🌟 Welcome to NovaSanctum
+## 🌟 Welcome Contributors!
 
-Thank you for your interest in contributing to NovaSanctum! This sacred platform bridges the gap between biological engineering and synthetic intelligence, and your contributions help advance humanity's understanding of the intersection between biology and AI.
+Thank you for your interest in contributing to NovaSanctum! We're excited to have you on board. NovaSanctum is an open-source platform that bridges biological engineering and artificial intelligence, and we welcome contributions of all kinds.
 
-## 🧠 BRAIN INTEGRATION
+### First Time Contributing?
 
-All contributions to NovaSanctum are integrated with our unified AI brain architecture, ensuring that every enhancement serves the greater mission of accelerating research and discovery through advanced AI integration.
+If you're new to open source or the project, we recommend:
+1. Reading our [Code of Conduct](CODE_OF_CONDUCT.md)
+2. Checking out [good first issues](https://github.com/yourusername/NovaSanctum/contribute) to get started
+3. Joining our [community discussions](https://github.com/yourusername/NovaSanctum/discussions)
+
+We're here to help you make your first contribution!
 
 ## 📋 Development Standards
 
-### 🎯 Documentation First
+We maintain high standards to ensure code quality and maintainability. Please follow these guidelines when contributing:
 
-- **Quantum-Detailed Documentation**: All code must have comprehensive inline documentation that explains not just what the code does, but why it exists and how it fits into the larger system
-- **Real-Time Updates**: Documentation must be updated simultaneously with code changes
-- **Cross-References**: Link related documentation for continuity and context
-- **Context-Aware Explanations**: Explain the component's role in the broader architecture
+### 🎯 Code Quality
 
-### 🧪 Testing Requirements
+- **TypeScript**: We use TypeScript with strict mode enabled
+- **ESLint & Prettier**: Follow our code style and formatting rules
+- **Meaningful Commits**: Write clear, descriptive commit messages
+- **Small, Focused PRs**: Keep pull requests focused on a single feature or fix
+- **Performance**: Optimize for both runtime and bundle size
 
-- **Test Coverage**: Maintain >90% test coverage for all components
-- **Unit Tests**: Comprehensive unit tests for all functions and components
-- **Integration Tests**: Test component interactions and API integrations
-- **E2E Tests**: End-to-end testing for critical user workflows
-- **Accessibility Tests**: Ensure components meet accessibility standards
+### 🧪 Testing
+
+We require tests for all new features and bug fixes:
+
+- **Test Coverage**: Aim for >80% test coverage (we're working toward 90%)
+- **Unit Tests**: Test individual functions and components in isolation
+- **Integration Tests**: Verify component interactions
+- **E2E Tests**: For critical user flows
+- **Accessibility**: All components should be accessible (WCAG 2.1 AA)
+
+### 📚 Documentation
+
+Good documentation is crucial:
+- Document public APIs and components
+- Include usage examples
+- Update documentation when changing behavior
+- Keep JSDoc comments up-to-date
 
 ### 🔒 Security Standards
 
