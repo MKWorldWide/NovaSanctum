@@ -15,18 +15,24 @@ Please delete options that are not relevant.
 
 ## How Has This Been Tested?
 
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration.
+Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
 
 - [ ] Unit Tests
 - [ ] Integration Tests
 - [ ] E2E Tests
 - [ ] Manual Testing
+- [ ] Test A
+- [ ] Test B
 
 **Test Configuration**:
 - OS: [e.g. Windows 11, macOS 14, Ubuntu 22.04]
 - Node Version: [e.g. 18.16.0]
 - Package Manager: [e.g. npm 9.5.1]
 - Browser: [e.g. Chrome 115, Safari 16.5]
+* Node version:
+* NPM/Yarn version:
+* OS:
+* Browser:
 
 ## Checklist:
 
@@ -43,6 +49,10 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 
 If applicable, add screenshots or screen recordings to help explain your changes.
 
+# Screenshots (if applicable):
+
 ## Additional Context
 
 Add any other context about the pull request here.
+
+<!-- Add any other context about the PR here -->

@@ -2,25 +2,38 @@ name: NovaSanctum CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
+
+# Cancel in-progress runs when new commits are pushed
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20.x'
+  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   test:
+    name: Test
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
     
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '18.x'
+        node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
     
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --prefer-offline
     
     - name: Run linting
       run: npm run lint
@@ -28,31 +41,57 @@ jobs:
     - name: Run type checking
       run: npm run type-check
     
-    - name: Run tests
-      run: npm test
+    - name: Run tests with coverage
+      run: |
+        npm test -- --coverage
+        echo "coverage=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')" >> $GITHUB_OUTPUT
+      
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v4
+      if: success()
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage/lcov.info
+        fail_ci_if_error: false
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-results
+        path: |
+          coverage/
+          junit.xml
+        retention-days: 7
 
   build:
+    name: Build and Deploy
     needs: test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    environment: production
     
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v4
     
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '18.x'
+        node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
     
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --prefer-offline
     
     - name: Build
       run: npm run build
+      env:
+        NEXT_TELEMETRY_DISABLED: 1
     
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -60,6 +99,40 @@ jobs:
     
     - name: Deploy to AWS Amplify
       run: |
-        npm install -g @aws-amplify/cli
+        npm install -g @aws-amplify/cli@latest
         amplify configure
-        amplify push 
+        amplify push --yes
+      env:
+        CI: true
+        AMPLIFY_DIFF_DEPLOY: false
+        AMPLIFY_CLI_TELEMETRY_DISABLED: 1
+    
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: out
+        branch: gh-pages
+        clean: true
+      if: success()
+
+  # Security scanning
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Run npm audit
+      run: npm audit --production
+      continue-on-error: true
+    
+    - name: Run dependency-check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'NovaSanctum'
+        path: '.'
+        format: 'HTML'
+        fail_on_cvss_above: 7
+        skipDev: true
