@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.NOVASANCTUM_TOKEN }}
 
@@ -55,7 +55,7 @@ jobs:
     if: github.event.inputs.automation_type == 'dependency-update' || github.event.inputs.automation_type == 'all' || github.event_name == 'schedule'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.NOVASANCTUM_TOKEN }}
 
@@ -118,7 +118,7 @@ jobs:
     if: github.event.inputs.automation_type == 'code-quality' || github.event.inputs.automation_type == 'all' || github.event_name == 'push' || github.event_name == 'pull_request'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.NOVASANCTUM_TOKEN }}
 
@@ -182,7 +182,7 @@ jobs:
     if: github.event.inputs.automation_type == 'documentation' || github.event.inputs.automation_type == 'all' || github.event_name == 'schedule'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.NOVASANCTUM_TOKEN }}
 
@@ -217,7 +217,7 @@ jobs:
     if: github.event.inputs.automation_type == 'security-scan' || github.event.inputs.automation_type == 'all' || github.event_name == 'schedule'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.NOVASANCTUM_TOKEN }}
 
@@ -261,7 +261,7 @@ jobs:
     if: github.event_name == 'pull_request'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           token: ${{ secrets.NOVASANCTUM_TOKEN }}
 
