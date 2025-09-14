@@ -74,7 +74,7 @@
     "@types/react-dom": "^18",
     "@types/sinon": "^17.0.4",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
+    "@typescript-eslint/parser": "^8.43.0",
     "autoprefixer": "^10.0.1",
     "chai": "^5.2.1",
     "eslint": "^8",
