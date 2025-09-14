@@ -239,7 +239,7 @@ jobs:
           npm audit --json | jq -r '.vulnerabilities | keys[]' >> security-report.md || echo "No vulnerabilities found" >> security-report.md
 
       - name: Upload security report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: security-report
           path: security-report.md
