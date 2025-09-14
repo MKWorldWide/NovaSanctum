@@ -15,7 +15,7 @@ const CONFIG = {
   token: process.env.GITHUB_TOKEN || process.argv[2],
   owner: process.env.GITHUB_REPOSITORY_OWNER || process.argv[3],
   repo: process.env.GITHUB_REPOSITORY?.split('/')[1] || process.argv[4] || 'NovaSanctum',
-  automationToken: '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'
+  automationToken: process.env.NOVASANCTUM_TOKEN || '[REDACTED]'
 };
 
 // Initialize Octokit

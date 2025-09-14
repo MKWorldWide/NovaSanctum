@@ -263,8 +263,8 @@ export class NovaSanctumMasterController {
    * Initialize black research networks
    */
   private async initializeBlackResearchNetworks(): Promise<void> {
-    const blackResearchFacilities = blackResearch.getFacilities();
-    const blackProjects = blackResearch.getActiveBlackProjects();
+    const blackResearchFacilities = blackResearchNetworks.getBlackResearchFacilities();
+    const blackProjects = blackResearchNetworks.getActiveBlackProjects();
     const governmentalNetworksData = governmentalNetworks.getIntelligenceAgencies();
     const intelligenceNetworks = governmentalNetworks.getIntelligenceAgencies();
 
@@ -494,6 +494,15 @@ export class NovaSanctumMasterController {
         };
         this.unifiedNetworks.set(network.id, network);
       });
+    } catch (error) {
+      logger.error('❌ Failed to initialize International Networks in NovaSanctum Master Controller', {
+        component: 'MasterController',
+        operation: 'initializeInternationalNetworks',
+        error: (error as any)?.message,
+        timestamp: new Date().toISOString(),
+      });
+      throw error;
+    }
   }
 
   /**

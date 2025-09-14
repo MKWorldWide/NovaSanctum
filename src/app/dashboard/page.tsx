@@ -20,8 +20,12 @@ import EnhancedNovaSanctumDashboard from '../../components/EnhancedNovaSanctumDa
  */
 export default function DashboardPage() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <EnhancedNovaSanctumDashboard />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-fuchsia-900">
+      <div className="mx-auto max-w-7xl px-4 py-6">
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-2 backdrop-blur-md shadow-lg">
+          <EnhancedNovaSanctumDashboard />
+        </div>
+      </div>
     </div>
   );
 }

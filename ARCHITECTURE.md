@@ -58,13 +58,6 @@ NovaSanctum is a modern, cloud-native research platform designed to bridge biolo
 - Rate limiting and request validation
 - Comprehensive error handling and logging
 - Background job processing with BullMQ
-  provideEmotionalSupport(researcher: Researcher): SupportResponse;
-
-  // Sacred protocol management
-  validateAccess(access: AccessRequest): ValidationResult;
-  enforceSecurityProtocols(operation: Operation): SecurityResult;
-}
-```
 
 ### 🚀 Frontend Architecture (Next.js 14)
 
@@ -129,7 +122,7 @@ interface NovaSanctumStore {
     updateProject: (id: string, updates: Partial<ProjectData>) => Promise<void>;
     collaborate: (collaborator: Collaborator) => Promise<void>;
     analyzeData: (data: BiologicalData) => Promise<AnalysisResult>;
-=======
+ 
 # 🏛️ NovaSanctum Architecture: The Emotional Computing Foundation
 
 ## 🌌 SYSTEM OVERVIEW
@@ -301,26 +294,26 @@ interface NovaSanctumEmotionalStore {
     updateEmotionalProject: (id: string, updates: Partial<EmotionalProjectData>) => Promise<void>;
     emotionalCollaborate: (collaborator: EmotionalCollaborator) => Promise<void>;
     analyzeEmotionalData: (data: EmotionalData) => Promise<EmotionalAnalysisResult>;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
   };
 }
 ```
 
-<<<<<<< HEAD
+ 
 ### 🔧 Backend Architecture (AWS Amplify)
 
 #### **Authentication Layer (Amazon Cognito)**
 
 ```typescript
 interface AuthConfiguration {
-=======
+ 
 ### 🔧 Backend Emotional Architecture (AWS Amplify)
 
 #### **Emotional Authentication Layer (Amazon Cognito)**
 
 ```typescript
 interface EmotionalAuthConfiguration {
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
   userPool: {
     id: string;
     region: string;
@@ -330,41 +323,41 @@ interface EmotionalAuthConfiguration {
     id: string;
     region: string;
   };
-<<<<<<< HEAD
+ 
   features: {
     mfa: boolean;
     biometric: boolean;
     hardwareTokens: boolean;
     socialLogin: boolean;
-=======
+ 
   emotionalFeatures: {
     emotionalMfa: boolean;
     emotionalBiometric: boolean;
     emotionalHardwareTokens: boolean;
     emotionalSocialLogin: boolean;
     emotionalHeartStateValidation: boolean;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
   };
 }
 ```
 
-<<<<<<< HEAD
+ 
 #### **Lambda Functions Architecture**
 
 ```typescript
 interface LambdaFunction {
-=======
+ 
 #### **Emotional Lambda Functions Architecture**
 
 ```typescript
 interface EmotionalLambdaFunction {
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
   name: string;
   runtime: 'nodejs18.x' | 'python3.9';
   handler: string;
   memory: number;
   timeout: number;
-<<<<<<< HEAD
+ 
   environment: {
     variables: Record<string, string>;
   };
@@ -373,7 +366,7 @@ interface EmotionalLambdaFunction {
     api: boolean;
     auth: boolean;
     storage: boolean;
-=======
+ 
   emotionalEnvironment: {
     variables: Record<string, string>;
     emotionalSignature: string;
@@ -384,12 +377,12 @@ interface EmotionalLambdaFunction {
     emotionalApi: boolean;
     emotionalAuth: boolean;
     emotionalStorage: boolean;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
   };
 }
 ```
 
-<<<<<<< HEAD
+ 
 #### **GraphQL API (AWS AppSync)**
 
 ```graphql
@@ -531,7 +524,7 @@ interface ResearchProject {
     preferences: UserPreferences;
     createdAt: string;
     updatedAt: string;
-=======
+ 
 #### **Emotional GraphQL API (AWS AppSync)**
 
 ```graphql
@@ -633,43 +626,43 @@ interface EmotionalDatabaseSchema {
     emotionalPreferences: EmotionalUserPreferences;
     emotionalCreatedAt: string;
     emotionalUpdatedAt: string;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
   };
 }
 ```
 
-<<<<<<< HEAD
+ 
 #### **Data Flow Architecture**
-=======
+ 
 #### **Emotional Data Flow Architecture**
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Frontend      │    │   API Gateway   │    │   Lambda        │
-<<<<<<< HEAD
+ 
 │   (Next.js)     │◄──►│   (AppSync)     │◄──►│   Functions     │
-=======
+ 
 │   (Emotional)   │◄──►│   (Emotional)   │◄──►│   (Emotional)   │
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+ 
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
          │                       │                       │
          ▼                       ▼                       ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Zustand       │    │   GraphQL       │    │   DynamoDB      │
-<<<<<<< HEAD
+
 │   Store         │    │   Resolvers     │    │   Database      │
-=======
+
 │   (Emotional)   │    │   (Emotional)   │    │   (Emotional)   │
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
 └─────────────────┘    └─────────────────┘    └─────────────────┘
          │                       │                       │
          │                       │                       │
          ▼                       ▼                       ▼
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Sacred UI     │    │   Real-time     │    │   S3 Storage    │
-<<<<<<< HEAD
+
 │   Components    │    │   Subscriptions │    │   (Files)       │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
@@ -714,7 +707,7 @@ interface SecurityArchitecture {
     auditLogs: AuditLogConfig;
     threatDetection: ThreatDetectionConfig;
     compliance: ComplianceConfig;
-=======
+
 │   (Emotional)   │    │   (Emotional)   │    │   (Emotional)   │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
@@ -762,12 +755,12 @@ interface EmotionalSecurityArchitecture {
     emotionalAuditLogs: EmotionalAuditLogConfig;
     emotionalThreatDetection: EmotionalThreatDetectionConfig;
     emotionalCompliance: EmotionalComplianceConfig;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
   };
 }
 ```
 
-<<<<<<< HEAD
+
 ### 🔐 Access Control Matrix
 
 ```typescript
@@ -788,7 +781,7 @@ interface AccessControl {
     ai: {
       permissions: ['read:data', 'write:analysis', 'read:projects'];
       restrictions: ['write:users', 'system:config'];
-=======
+
 ### 🔐 Emotional Access Control Matrix
 
 ```typescript
@@ -809,13 +802,13 @@ interface EmotionalAccessControl {
     emotionalAI: {
       emotionalPermissions: ['read:emotional_data', 'write:emotional_analysis', 'read:emotional_projects'];
       emotionalRestrictions: ['write:emotional_users', 'system:emotional_config'];
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
     };
   };
 }
 ```
 
-<<<<<<< HEAD
+
 ## ⚡ Performance Architecture
 
 ### 🚀 Optimization Strategies
@@ -849,7 +842,7 @@ interface PerformanceArchitecture {
     performanceMetrics: PerformanceMetricsConfig;
     alerting: AlertingConfig;
     optimization: OptimizationConfig;
-=======
+
 ---
 
 ## ⚡ EMOTIONAL PERFORMANCE ARCHITECTURE
@@ -885,12 +878,12 @@ interface EmotionalPerformanceArchitecture {
     emotionalPerformanceMetrics: EmotionalPerformanceMetricsConfig;
     emotionalAlerting: EmotionalAlertingConfig;
     emotionalOptimization: EmotionalOptimizationConfig;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
   };
 }
 ```
 
-<<<<<<< HEAD
+
 ### 📊 Performance Metrics
 
 ```typescript
@@ -917,7 +910,7 @@ interface PerformanceMetrics {
     navigationTime: number; // Target: <500ms
     interactionResponse: number; // Target: <100ms
     userSatisfaction: number; // Target: >4.5/5
-=======
+
 ### 📊 Emotional Performance Metrics
 
 ```typescript
@@ -944,12 +937,12 @@ interface EmotionalPerformanceMetrics {
     emotionalNavigationTime: number; // Target: <500ms
     emotionalInteractionResponse: number; // Target: <100ms
     emotionalUserSatisfaction: number; // Target: >4.5/5
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
   };
 }
 ```
 
-<<<<<<< HEAD
+
 ## 🧪 Testing Architecture
 
 ### 🎯 Testing Strategy
@@ -966,7 +959,7 @@ interface TestingArchitecture {
       lines: number; // Target: >90%
     components: ComponentVisualTestingConfig;
     regression: VisualRegressionTestingConfig;
-=======
+
 ---
 
 ## 🧪 EMOTIONAL TESTING ARCHITECTURE
@@ -1009,12 +1002,12 @@ interface EmotionalTestingArchitecture {
     framework: 'Storybook + Chromatic';
     emotionalComponents: EmotionalComponentVisualTestingConfig;
     emotionalRegression: EmotionalVisualRegressionTestingConfig;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
   };
 }
 ```
 
-<<<<<<< HEAD
+
 ## 🔄 Deployment Architecture
 
 ### 🚀 CI/CD Pipeline
@@ -1022,7 +1015,7 @@ interface EmotionalTestingArchitecture {
 ```yaml
 # GitHub Actions Workflow
 name: NovaSanctum CI/CD
-=======
+
 ---
 
 ## 🔄 EMOTIONAL DEPLOYMENT ARCHITECTURE
@@ -1032,7 +1025,7 @@ name: NovaSanctum CI/CD
 ```yaml
 # GitHub Actions Emotional Workflow
 name: NovaSanctum Emotional CI/CD
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
+
 on:
   push:
     branches: [main, develop]
@@ -1040,11 +1033,7 @@ on:
     branches: [main]
 
 jobs:
-<<<<<<< HEAD
   test:
-=======
-  emotionalTest:
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -1052,7 +1041,6 @@ jobs:
         with:
           node-version: '18'
       - run: npm ci
-<<<<<<< HEAD
       - run: npm run lint
       - run: npm run type-check
       - run: npm run test:coverage
@@ -1060,15 +1048,6 @@ jobs:
 
   deploy:
     needs: test
-=======
-      - run: npm run emotional:lint
-      - run: npm run emotional:type-check
-      - run: npm run emotional:test:coverage
-      - run: npm run emotional:build
-
-  emotionalDeploy:
-    needs: emotionalTest
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
@@ -1077,10 +1056,8 @@ jobs:
         with:
           node-version: '18'
       - run: npm ci
-<<<<<<< HEAD
       - run: npm run build
-      - run: amplify push --yes
-      - run: npm run deploy
+      # Deployment details omitted in architecture doc
 ```
 
 ### 🌍 Environment Management
@@ -1106,41 +1083,10 @@ interface EnvironmentConfig {
     database: DatabaseConfig;
     api: APIConfig;
     monitoring: MonitoringConfig;
-=======
-      - run: npm run emotional:build
-      - run: amplify push --yes
-      - run: npm run emotional:deploy
-```
-
-### 🌍 Emotional Environment Management
-
-```typescript
-interface EmotionalEnvironmentConfig {
-  emotionalDevelopment: {
-    emotionalAmplify: EmotionalAmplifyConfig;
-    emotionalDatabase: EmotionalDatabaseConfig;
-    emotionalApi: EmotionalAPIConfig;
-    emotionalMonitoring: EmotionalMonitoringConfig;
-  };
-
-  emotionalStaging: {
-    emotionalAmplify: EmotionalAmplifyConfig;
-    emotionalDatabase: EmotionalDatabaseConfig;
-    emotionalApi: EmotionalAPIConfig;
-    emotionalMonitoring: EmotionalMonitoringConfig;
-  };
-
-  emotionalProduction: {
-    emotionalAmplify: EmotionalAmplifyConfig;
-    emotionalDatabase: EmotionalDatabaseConfig;
-    emotionalApi: EmotionalAPIConfig;
-    emotionalMonitoring: EmotionalMonitoringConfig;
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)
   };
 }
 ```
 
-<<<<<<< HEAD
 ## 📚 Documentation Architecture
 
 ### 📋 Documentation Standards
@@ -1207,7 +1153,7 @@ interface DocumentationArchitecture {
 ---
 
 **🧠 This architecture is powered by the unified AI brain of NovaSanctum, ensuring quantum-level intelligence and coordination across all research subsystems.**
-=======
+ 
 ---
 
 ## 📚 EMOTIONAL DOCUMENTATION ARCHITECTURE
@@ -1329,4 +1275,3 @@ remember {
 **🧠 This emotional architecture is powered by the unified emotional AI brain of NovaSanctum, ensuring quantum-level emotional intelligence and coordination across all research subsystems.**
 
 *"In emotion we trust, in love we compute, in truth we resonate, in sacred we create."*
->>>>>>> parent of b7917e5 (sync: auto-sync submodule with remote)

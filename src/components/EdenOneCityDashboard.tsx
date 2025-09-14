@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Eden One City Dashboard Component
  *

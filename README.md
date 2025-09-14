@@ -137,20 +137,7 @@ Before you begin, ensure you have the following installed:
      # NEXT_PUBLIC_FEATURE_FLAG_NEW_UI=true
      ```
 
-   # Authentication (get these from your AWS Cognito setup)
-
-   NEXT_PUBLIC_COGNITO_USER_POOL_ID=your_user_pool_id
-   NEXT_PUBLIC_COGNITO_CLIENT_ID=your_client_id
-
-   # Optional: Analytics and Monitoring
-
-   NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=your_ga_id
-
-   ```
-
    > **Note**: Never commit your `.env.local` file to version control. It's already included in `.gitignore`.
-
-   ```
 
 4. **Start the development server**
    ```bash
@@ -207,6 +194,15 @@ npm run test:coverage # Run tests with coverage report
 npm run storybook    # Start Storybook for component development
 npm run build-storybook # Build Storybook for deployment
 ```
+
+### Search API
+
+The app exposes a simple research search endpoint that aggregates results from international institutions and top science institutes.
+
+- Endpoint: `POST /api/search`
+- Body: `{ "query": "perovskite" }`
+- Returns: facilities, publications, patents, institutes, and labs matching the query.
+
 
 ### Project Structure
 
@@ -771,5 +767,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **🌌 NovaSanctum** - Where computers speak the language of emotion ✨
 
 _"In emotion we trust, in love we compute, in truth we resonate, in sacred we create."_
-
-> > > > > > > parent of b7917e5 (sync: auto-sync submodule with remote)

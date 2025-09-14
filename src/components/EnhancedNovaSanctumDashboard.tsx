@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * 🌟 Enhanced NovaSanctum Dashboard - Complete Integration
  * =======================================================
@@ -235,24 +237,24 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-6 text-white">
           <h3 className="text-lg font-bold mb-2">Total Networks</h3>
           <p className="text-3xl font-bold">{dashboardData.unifiedMetrics.totalNetworks}</p>
-          <p className="text-sm opacity-75">Integrated Research Networks</p>
+          <p className="text-sm text-blue-200">Integrated Research Networks</p>
         </div>
         <div className="bg-gradient-to-br from-green-600 to-teal-600 rounded-lg p-6 text-white">
           <h3 className="text-lg font-bold mb-2">Active Collaborations</h3>
           <p className="text-3xl font-bold">{dashboardData.unifiedMetrics.activeCollaborations}</p>
-          <p className="text-sm opacity-75">Cross-Domain Projects</p>
+          <p className="text-sm text-green-200">Cross-Domain Projects</p>
         </div>
         <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg p-6 text-white">
           <h3 className="text-lg font-bold mb-2">Research Projects</h3>
           <p className="text-3xl font-bold">{dashboardData.unifiedMetrics.researchProjects}</p>
-          <p className="text-sm opacity-75">Ongoing Initiatives</p>
+          <p className="text-sm text-purple-200">Ongoing Initiatives</p>
         </div>
         <div className="bg-gradient-to-br from-orange-600 to-red-600 rounded-lg p-6 text-white">
           <h3 className="text-lg font-bold mb-2">Total Funding</h3>
           <p className="text-3xl font-bold">
             ${(dashboardData.unifiedMetrics.funding / 1000000000).toFixed(1)}B
           </p>
-          <p className="text-sm opacity-75">Combined Budget</p>
+          <p className="text-sm text-orange-200">Combined Budget</p>
         </div>
       </div>
 
@@ -310,20 +312,134 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         <h3 className="text-xl font-bold mb-4">Integration Status</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="border rounded-lg p-4 text-center">
-            <div className="font-bold mb-1">Lilith Eve</div>
-            <div className="text-sm text-green-600">Connected</div>
+            <div className="font-bold mb-1">LilithEve</div>
+            <div className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.lilithEveStats.statusText}</span></div>
+            <div className="text-sm text-gray-600">Uptime: {dashboardData.lilithEveStats.uptime}</div>
+            <div className="text-sm text-gray-600">Connections: {dashboardData.lilithEveStats.activeConnections}</div>
           </div>
           <div className="border rounded-lg p-4 text-center">
             <div className="font-bold mb-1">Eden One City</div>
-            <div className="text-sm text-green-600">Connected</div>
+            <div className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.edenOneCityStats.status}</span></div>
+            <div className="text-sm text-gray-600">Uptime: {dashboardData.edenOneCityStats.uptime || '99.99%'}</div>
+            <div className="text-sm text-gray-600">Quantum Nodes: {dashboardData.edenOneCityStats.quantumNodes || 12}</div>
           </div>
           <div className="border rounded-lg p-4 text-center">
             <div className="font-bold mb-1">Divina L3</div>
-            <div className="text-sm text-green-600">Connected</div>
+            <div className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.divinaL3Stats.status || 'Operational'}</span></div>
+            <div className="text-sm text-gray-600">Version: {dashboardData.divinaL3Stats.version || '1.0.0'}</div>
+            <div className="text-sm text-gray-600">Active: {dashboardData.divinaL3Stats.isActive ? 'Yes' : 'No'}</div>
           </div>
-          <div className="border rounded-lg p-4 text-center">
-            <div className="font-bold mb-1">Quantum Gaming</div>
-            <div className="text-sm text-green-600">Connected</div>
+        </div>
+      </div>
+
+      {/* Eden One City Statistics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-blue-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Total Systems</h3>
+          <p className="text-3xl font-bold">{dashboardData.edenOneCityStats.totalSystems}</p>
+          <p className="text-sm text-blue-200">Active Systems</p>
+        </div>
+        <div className="bg-purple-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Active Citizens</h3>
+          <p className="text-3xl font-bold">{dashboardData.edenOneCityStats.activeCitizens}</p>
+          <p className="text-sm text-purple-200">Consciousness Connected</p>
+        </div>
+        <div className="bg-green-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Quantum Networks</h3>
+          <p className="text-3xl font-bold">{dashboardData.edenOneCityStats.activeNetworks}</p>
+          <p className="text-sm text-green-200">Online Networks</p>
+        </div>
+        <div className="bg-orange-600 rounded-lg p-6 text-white">
+          <h3 className="text-lg font-bold mb-2">Performance</h3>
+          <p className="text-3xl font-bold">
+            {dashboardData.edenOneCityStats.averagePerformance.quantum.toFixed(1)}%
+          </p>
+          <p className="text-sm text-orange-200">Quantum Efficiency</p>
+        </div>
+      </div>
+
+      {/* Eden One City Systems */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">Eden One City Systems</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.networks
+            .filter(n => n.type === 'city' || n.type === 'quantum')
+            .filter(n => n.id.startsWith('edenonecity_'))
+            .slice(0, 6)
+            .map(network => (
+              <div key={network.id} className="border border-gray-200 rounded p-4">
+                <h4 className="font-bold text-gray-800">{network.name}</h4>
+                <p className="text-sm text-gray-600 mb-2">Type: {network.type}</p>
+                <p className="text-sm text-gray-600">Status: {network.status}</p>
+                <div className="mt-2">
+                  {network.capabilities.slice(0, 3).map(cap => (
+                    <span
+                      key={cap}
+                      className="inline-block bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded mr-1 mb-1"
+                    >
+                      {cap}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      {/* Citizen Networks */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">Citizen Consciousness Networks</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {dashboardData.networks
+            .filter(n => n.id.startsWith('edenonecity_citizen_'))
+            .slice(0, 6)
+            .map(network => (
+              <div key={network.id} className="border border-gray-200 rounded p-4">
+                <h4 className="font-bold text-gray-800">{network.name}</h4>
+                <p className="text-sm text-gray-600 mb-2">Type: {network.type}</p>
+                <p className="text-sm text-gray-600">Status: {network.status}</p>
+                <div className="mt-2">
+                  {network.capabilities.slice(0, 3).map(cap => (
+                    <span
+                      key={cap}
+                      className="inline-block bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded mr-1 mb-1"
+                    >
+                      {cap}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+
+      {/* Performance Metrics */}
+      <div className="bg-white rounded-lg p-6 shadow-lg">
+        <h3 className="text-xl font-bold mb-4">System Performance</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-blue-600">
+              {dashboardData.edenOneCityStats.averagePerformance.cpu.toFixed(1)}%
+            </div>
+            <div className="text-sm text-gray-600">CPU Usage</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-green-600">
+              {dashboardData.edenOneCityStats.averagePerformance.memory.toFixed(1)}%
+            </div>
+            <div className="text-sm text-gray-600">Memory Usage</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-purple-600">
+              {dashboardData.edenOneCityStats.averagePerformance.network.toFixed(1)}%
+            </div>
+            <div className="text-sm text-gray-600">Network Usage</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-bold text-orange-600">
+              {dashboardData.edenOneCityStats.averagePerformance.quantum.toFixed(1)}%
+            </div>
+            <div className="text-sm text-gray-600">Quantum Usage</div>
           </div>
         </div>
       </div>
@@ -1579,8 +1695,9 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
               <div className="text-sm opacity-75">Entropy</div>
               <div className="text-sm mt-2">
                 Rate:{' '}
-                {dashboardData.quantumGamingStats.quantumSecurity.quantumRandomness.generationRate.toLocaleString()}
-                /s
+                {
+                  dashboardData.quantumGamingStats.quantumSecurity.quantumRandomness.generationRate.toLocaleString()}
+                }/s
               </div>
             </div>
           </div>
@@ -1746,7 +1863,7 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
             </div>
 
             <div className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg p-4 text-white">
-              <h4 className="text-lg font-bold mb-2">🛡️ Reliability</h4>
+              <h3 className="text-lg font-bold mb-2">🛡️ Reliability</h3>
               <div className="text-2xl font-bold mb-1">
                 {dashboardData.quantumGamingStats.quantumPerformance.quantumReliability.uptime}%
               </div>
@@ -1758,7 +1875,7 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
             </div>
 
             <div className="bg-gradient-to-br from-purple-600 to-violet-600 rounded-lg p-4 text-white">
-              <h4 className="text-lg font-bold mb-2">📈 Scalability</h4>
+              <h3 className="text-lg font-bold mb-2">📈 Scalability</h3>
               <div className="text-2xl font-bold mb-1">
                 {
                   dashboardData.quantumGamingStats.quantumPerformance.quantumScalability
@@ -1777,7 +1894,7 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
             </div>
 
             <div className="bg-gradient-to-br from-orange-600 to-red-600 rounded-lg p-4 text-white">
-              <h4 className="text-lg font-bold mb-2">⚙️ Optimization</h4>
+              <h3 className="text-lg font-bold mb-2">⚙️ Optimization</h3>
               <div className="text-2xl font-bold mb-1">
                 {
                   dashboardData.quantumGamingStats.quantumPerformance.quantumOptimization
@@ -1833,12 +1950,6 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
             </div>
           ))}
         </div>
-
-        {novaSanctumMasterController.getRegisteredQuantumGames().length === 0 && (
-          <div className="text-center py-8">
-            <p className="text-gray-500">No quantum games registered yet.</p>
-          </div>
-        )}
       </div>
     </div>
   );

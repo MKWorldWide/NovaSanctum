@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * 🌙 Lilith.Eve Dashboard Component - NovaSanctum
  * ===============================================

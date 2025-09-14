@@ -3,3 +3,9 @@
 
 # Run lint-staged
 npx lint-staged 
+
+# Basic secret scan on staged files
+bash scripts/secret-scan.sh || {
+  echo "Secret scan failed. Commit aborted.";
+  exit 1;
+}

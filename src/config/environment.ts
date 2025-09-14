@@ -14,14 +14,14 @@ export const ENVIRONMENT = {
 
   // Digital Alchemy
   API: {
-    GRAPHQL_ENDPOINT: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT || '',
+    GRAPHQL_ENDPOINT: process.env.NEXT_PUBLIC_AWS_APPSYNC_API_URL || '',
     REGION: process.env.NEXT_PUBLIC_AWS_REGION || 'us-east-1',
   },
 
   // Temple Security
   AUTH: {
-    USER_POOL_ID: process.env.NEXT_PUBLIC_AWS_USER_POOL_ID || '',
-    CLIENT_ID: process.env.NEXT_PUBLIC_AWS_USER_POOL_CLIENT_ID || '',
+    USER_POOL_ID: process.env.NEXT_PUBLIC_USER_POOL_ID || '',
+    CLIENT_ID: process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID || '',
     DOMAIN: process.env.NEXT_PUBLIC_DOMAIN || 'localhost:3000',
   },
 
@@ -42,9 +42,9 @@ export type FeatureKey = keyof typeof ENVIRONMENT.FEATURES;
 // Sacred validation
 export const validateEnvironment = () => {
   const required = [
-    'NEXT_PUBLIC_GRAPHQL_ENDPOINT',
-    'NEXT_PUBLIC_AWS_USER_POOL_ID',
-    'NEXT_PUBLIC_AWS_USER_POOL_CLIENT_ID',
+    'NEXT_PUBLIC_AWS_APPSYNC_API_URL',
+    'NEXT_PUBLIC_USER_POOL_ID',
+    'NEXT_PUBLIC_USER_POOL_CLIENT_ID',
   ];
 
   const missing = required.filter(key => !process.env[key]);

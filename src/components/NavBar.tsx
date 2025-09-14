@@ -70,6 +70,8 @@ const NavBar = (): JSX.Element => {
    * @type {NavItem[]}
    */
   const navItems: NavItem[] = [
+    { name: 'Search', href: '/search' },
+    { name: 'Neo Dashboard', href: '/dashboard/neo' },
     { name: 'About', href: '#about' },
     { name: 'Synthetic Systems', href: '#synthetic' },
     { name: 'Applications', href: '#applications' },

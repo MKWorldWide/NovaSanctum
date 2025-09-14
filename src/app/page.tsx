@@ -71,13 +71,13 @@ export default function Home() {
                 </p>
 
                 {/* Call-to-action buttons - Primary navigation */}
-                <div className="mt-10 flex items-center gap-x-6">
+                <div className="mt-10 flex items-center gap-x-4 flex-wrap">
                   <Link href="/dashboard" className="btn-primary">
                     Get started
                     <ArrowRightIcon className="ml-2 h-5 w-5" aria-hidden="true" />
                   </Link>
-                  <Link href="/about" className="text-sm font-semibold leading-6 text-gray-900">
-                    Learn more <span aria-hidden="true">→</span>
+                  <Link href="/search" className="text-sm font-semibold leading-6 text-indigo-700">
+                    Search research <span aria-hidden="true">→</span>
                   </Link>
                 </div>
               </div>

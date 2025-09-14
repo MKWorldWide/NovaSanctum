@@ -1,3 +1,5 @@
+"use client";
+ 
 /**
  * 🎮 Divina-L3 Dashboard
  *

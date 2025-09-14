@@ -37,9 +37,9 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          cache: 'npm'
+      with:
+        node-version: '20.x'
+        cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -61,9 +61,9 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          cache: 'npm'
+      with:
+        node-version: '20.x'
+        cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -124,9 +124,9 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
-          node-version: '18.x'
-          cache: 'npm'
+      with:
+        node-version: '20.x'
+        cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -198,18 +198,7 @@ jobs:
       - name: Build Storybook
         run: npm run build-storybook
 
-      - name: Update documentation
-        run: |
-          # Update README with latest build status
-          echo "## 🚀 Latest Build Status" >> README.md
-          echo "Last updated: $(date)" >> README.md
-          echo "Build: ${{ github.run_number }}" >> README.md
-
-      - name: Commit documentation updates
-        run: |
-          git add README.md
-          git commit -m "docs: update build status [automated]" || echo "No changes to commit"
-          git push origin HEAD:docs-update-$(date +%Y%m%d)
+      # Removed auto-modification of README to avoid churn
 
   security-scan:
     needs: setup-automation

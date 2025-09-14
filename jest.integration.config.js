@@ -39,7 +39,7 @@ const customJestConfig = {
       tsconfig: 'tsconfig.json',
     },
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.tsx'],
 };
 
 module.exports = createJestConfig(customJestConfig);

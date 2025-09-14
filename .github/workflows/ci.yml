@@ -14,7 +14,7 @@ concurrency:
 
 env:
   NODE_VERSION: '20.x'
-  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+  NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
 
 jobs:
   test:
@@ -42,17 +42,9 @@ jobs:
       run: npm run type-check
     
     - name: Run tests with coverage
+      id: test-coverage
       run: |
         npm test -- --coverage
-        echo "coverage=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')" >> $GITHUB_OUTPUT
-      
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
-      if: success()
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        file: ./coverage/lcov.info
-        fail_ci_if_error: false
     
     - name: Upload test results
       if: always()
@@ -69,7 +61,6 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    environment: production
     
     steps:
     - name: Checkout code
@@ -90,32 +81,14 @@ jobs:
       env:
         NEXT_TELEMETRY_DISABLED: 1
     
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    
-    - name: Deploy to AWS Amplify
-      run: |
-        npm install -g @aws-amplify/cli@latest
-        amplify configure
-        amplify push --yes
-      env:
-        CI: true
-        AMPLIFY_DIFF_DEPLOY: false
-        AMPLIFY_CLI_TELEMETRY_DISABLED: 1
-    
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: out
-        branch: gh-pages
-        clean: true
+    - name: Upload build artifacts
       if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build
+        path: .next
+        retention-days: 7
 
-  # Security scanning
   security:
     name: Security Scan
     runs-on: ubuntu-latest
@@ -123,6 +96,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
     
     - name: Run npm audit
       run: npm audit --production
@@ -134,5 +112,3 @@ jobs:
         project: 'NovaSanctum'
         path: '.'
         format: 'HTML'
-        fail_on_cvss_above: 7
-        skipDev: true

@@ -135,8 +135,8 @@ jest.mock('aws-amplify', () => ({
 // Mock environment variables
 process.env.NEXT_PUBLIC_API_URL = 'http://localhost:3000/api';
 process.env.NEXT_PUBLIC_AWS_REGION = 'us-east-1';
-process.env.NEXT_PUBLIC_AWS_USER_POOL_ID = 'test-pool-id';
-process.env.NEXT_PUBLIC_AWS_USER_POOL_CLIENT_ID = 'test-client-id';
+process.env.NEXT_PUBLIC_USER_POOL_ID = 'test-pool-id';
+process.env.NEXT_PUBLIC_USER_POOL_CLIENT_ID = 'test-client-id';
 
 // Mock requestAnimationFrame
 const requestAnimationFrame = (callback) => {
