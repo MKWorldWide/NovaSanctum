@@ -14,7 +14,7 @@ NovaSanctum is an open-source research platform designed to accelerate discoveri
 - **🤝 Real-time Collaboration**: Work simultaneously with researchers worldwide
 - **🧠 AI-Powered Insights**: Integrated machine learning for data analysis and pattern recognition
 - **🔒 Enterprise-Grade Security**: End-to-end encryption and role-based access control
-- **🌐 Cloud-Native Architecture**: Built on AWS for scalability and reliability
+- **🧭 Local-First Data Fabric**: Runs locally while federating data from partner resources and institutions
 - **📊 Interactive Dashboards**: Customizable interfaces for data visualization and monitoring
 
 ## 🎯 Core Mission
@@ -36,10 +36,10 @@ NovaSanctum is built on a modern, scalable architecture designed for performance
 - **Frontend**: Next.js 14 with TypeScript and React 18
 - **State Management**: Lightweight and efficient state management
 - **Styling**: Tailwind CSS for responsive, accessible UIs
-- **Backend**: AWS Amplify with serverless functions
-- **Database**: GraphQL with AWS AppSync for real-time data
-- **Authentication**: Secure, role-based access control
-- **Storage**: Scalable cloud storage with versioning
+- **Backend**: Local data fabric gateway exposing REST/GraphQL for institutional sources
+- **Database**: Pluggable data adapters (REST, GraphQL, CSV, S3-compatible buckets) hydrated locally
+- **Authentication**: Secure, role-based access control (provider configurable per deployment)
+- **Storage**: Local object storage (S3-compatible) with optional remote sync
 
 ### 🚀 Frontend Stack
 
@@ -52,46 +52,46 @@ NovaSanctum is built on a modern, scalable architecture designed for performance
 - **Icons**: Heroicons for consistent and beautiful iconography
 - **Data Visualization**: Advanced charting and visualization capabilities
 
-### 🔧 Backend Infrastructure (AWS Amplify)
+### 🔧 Local Data Fabric & Aggregation (Default)
 
-#### 🔐 Authentication (Amazon Cognito)
+Our canonical architecture now prioritizes running locally while federating data from partner resources and institutions.
 
-- **User Pool**: `novasanctum268cf202`
-- **Identity Pool**: `novasanctum268cf202_identitypool_268cf202__dev`
-- **Authentication Flow**: Email/Phone with MFA support
-- **Security**: Enterprise-grade password policies and verification mechanisms
-- **Multi-Factor Authentication**: Advanced security with biometric and hardware token support
+#### 🔌 Data Connectors
 
-#### ⚡ Lambda Functions
+- **Sources**: REST/GraphQL endpoints, institutional SFTP/CSV drops, and S3-compatible buckets
+- **Normalization**: Schema mapping layer to unify records across institutions
+- **Sync**: Scheduled background jobs to pull deltas and hydrate the local cache
 
-- **Main Function**: `novasanctum3c5a973d`
-  - **Runtime**: Node.js 18.x with Python support
-  - **Handler**: index.handler with advanced error handling
-  - **Memory**: 128MB with auto-scaling capabilities
-  - **Timeout**: 30 seconds with retry mechanisms
-  - **IAM Role**: `novasanctumLambdaRole80376d40-dev` with least privilege access
+#### 🌀 Gateway & Caching
 
-#### 🗄️ Database (GraphQL with AWS AppSync)
+- **API Gateway**: Local Node.js/Next.js API routes (or FastAPI service) exposing a unified data plane
+- **Caching**: Redis-compatible cache for hot queries; persisted cache directory for offline access
+- **Search**: Optional local search index (e.g., SQLite/pgvector or Elastic-compatible) for cross-institution queries
 
-- **Real-time Data**: Live updates and subscriptions for collaborative research
-- **Advanced Queries**: Complex biological data querying and analysis
-- **Data Relationships**: Sophisticated entity relationships for research data
-- **Caching**: Intelligent caching for performance optimization
+#### 🛡️ Security
+
+- **Authentication**: Configurable provider (Cognito/Keycloak/Auth0 or local JWT) to match institutional requirements
+- **Authorization**: Role-based access control enforced at the gateway
+- **Transport**: TLS termination handled by the local reverse proxy when running in production
+
+> Cloud deployment via AWS Amplify remains supported as an optional path, but the canonical workflow now prioritizes a local-fi
+rst, data-federation model.
 
 ## 🚀 Getting Started
 
 ### Environment Variables
 
-NovaSanctum uses environment variables for configuration. The following variables are required:
+NovaSanctum uses environment variables for configuration. The following variables are required for the local data fabric:
 
-| Variable                          | Description                             | Required |
-| --------------------------------- | --------------------------------------- | -------- |
-| `NEXT_PUBLIC_AWS_REGION`          | AWS region where resources are deployed | Yes      |
-| `NEXT_PUBLIC_USER_POOL_ID`        | Amazon Cognito User Pool ID             | Yes      |
-| `NEXT_PUBLIC_USER_POOL_CLIENT_ID` | Amazon Cognito App Client ID            | Yes      |
-| `NEXT_PUBLIC_AWS_APPSYNC_API_URL` | AWS AppSync GraphQL endpoint URL        | Yes      |
+| Variable                | Description                                                                      | Required |
+| ----------------------- | -------------------------------------------------------------------------------- | -------- |
+| `DATA_HUB_BASE_URL`     | Base URL for the local data gateway (e.g., `http://localhost:3000/api`)          | Yes      |
+| `DATA_SOURCE_MANIFEST`  | Path or URL to a JSON manifest of institutional sources to pull                  | Yes      |
+| `LOCAL_CACHE_DIR`       | Filesystem path for persisted cache/state                                        | Yes      |
+| `AUTH_PROVIDER`         | Authentication mode (`local`, `cognito`, `keycloak`, etc.)                       | Yes      |
 
-Optional variables can be found in the [.env.example](.env.example) file.
+Legacy AWS variables (`NEXT_PUBLIC_AWS_REGION`, `NEXT_PUBLIC_USER_POOL_ID`, `NEXT_PUBLIC_USER_POOL_CLIENT_ID`, `NEXT_PUBLIC
+_AWS_APPSYNC_API_URL`) remain supported when deploying to Amplify but are no longer required for local development.
 
 ### Prerequisites
 
@@ -100,8 +100,8 @@ Before you begin, ensure you have the following installed:
 - [Node.js](https://nodejs.org/) 18.x or later
 - [npm](https://www.npmjs.com/) 9.x or later (comes with Node.js)
 - [Git](https://git-scm.com/)
-- [AWS CLI](https://aws.amazon.com/cli/) (for deployment)
-- [Amplify CLI](https://docs.amplify.aws/cli/start/install/) (for local development)
+- [AWS CLI](https://aws.amazon.com/cli/) (optional for cloud deployments)
+- [Amplify CLI](https://docs.amplify.aws/cli/start/install/) (optional when targeting Amplify)
 
 ### Installation
 
@@ -126,11 +126,17 @@ Before you begin, ensure you have the following installed:
    - Open `.env.local` in a text editor and update the values with your configuration:
 
      ```env
-     # AWS Configuration (required)
-     NEXT_PUBLIC_AWS_REGION=your-aws-region
-     NEXT_PUBLIC_USER_POOL_ID=your-cognito-user-pool-id
-     NEXT_PUBLIC_USER_POOL_CLIENT_ID=your-cognito-client-id
-     NEXT_PUBLIC_AWS_APPSYNC_API_URL=your-appsync-graphql-endpoint
+     # Local data fabric (default)
+     DATA_HUB_BASE_URL=http://localhost:3000/api
+     DATA_SOURCE_MANIFEST=./config/data-sources.json
+     LOCAL_CACHE_DIR=./.cache
+     AUTH_PROVIDER=local
+
+     # Optional cloud overrides (only when deploying to Amplify)
+     # NEXT_PUBLIC_AWS_REGION=your-aws-region
+     # NEXT_PUBLIC_USER_POOL_ID=your-cognito-user-pool-id
+     # NEXT_PUBLIC_USER_POOL_CLIENT_ID=your-cognito-client-id
+     # NEXT_PUBLIC_AWS_APPSYNC_API_URL=your-appsync-graphql-endpoint
 
      # Optional: Uncomment and configure additional services as needed
      # NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=your-ga-id
