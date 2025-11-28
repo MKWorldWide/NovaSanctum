@@ -142,30 +142,30 @@ interface NovaSanctumStore {
 
 - **Encryption at Rest**: AES-256 encryption for sensitive data
 - **Encryption in Transit**: TLS 1.3 for all communications
-- **Secrets Management**: Environment variables and AWS Secrets Manager
+- **Secrets Management**: Environment variables with local secret vaulting (HashiCorp Vault/SOPS), optional cloud secret manage
+ment
 - **Audit Logging**: Comprehensive logging of security-relevant events
 - **GDPR Compliance**: Data protection and privacy by design
 
 ## 🚀 Deployment Architecture
 
-### Infrastructure
+### Infrastructure (Local-First)
 
-- **Hosting**: AWS (Amazon Web Services)
-- **Compute**: AWS ECS with Fargate
-- **Database**: Amazon RDS (PostgreSQL)
-- **Caching**: Amazon ElastiCache (Redis)
-- **Storage**: Amazon S3 with versioning
-- **CDN**: Amazon CloudFront
-- **DNS**: Amazon Route 53
+- **Hosting**: Local Next.js runtime (Node.js 18) with optional reverse proxy (nginx/traefik)
+- **Compute**: Docker containers orchestrated via docker-compose or lightweight Kubernetes (k3d/k3s)
+- **Data Connectors**: Pull from institutional REST/GraphQL endpoints, SFTP/CSV drops, and S3-compatible buckets
+- **Database/Cache**: Local Postgres or SQLite for persisted state; Redis-compatible cache for hot queries
+- **Storage**: Local object storage (MinIO) with optional upstream sync
+- **DNS/Certs**: Dev-friendly hosts (e.g., `localhost.nip.io`) with mkcert or step-ca for TLS
 
-### CI/CD Pipeline
+### CI/CD Pipeline (Local & Edge Deployments)
 
 1. **Code Commit**: Git-based version control
 2. **Testing**: Automated unit, integration, and E2E tests
-3. **Build**: Docker containerization
-4. **Deploy**: Blue-green deployments
-5. **Monitor**: Application performance monitoring
-6. **Rollback**: Automated rollback on failure
+3. **Build**: Containerized services with docker-compose profiles for data connectors
+4. **Deploy**: Local stack start via `npm run dev` or `docker compose up`; edge packaging via serverless adapters optional
+5. **Monitor**: Structured logging + local metrics exporters (Prometheus-compatible) when running connectors
+6. **Rollback**: Compose profiles and migrations versioned; revert by rolling back images/config manifests
 
 ## 🧠 EMOTIONAL BRAIN INTEGRATION OVERVIEW
 
