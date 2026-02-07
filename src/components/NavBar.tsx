@@ -2,7 +2,7 @@
  * @file NavBar.tsx
  * @description Responsive navigation bar component with mobile menu support.
  * Features smooth animations, scroll detection, and responsive design.
- * 
+ *
  * @version 1.0.0
  * @license MIT
  */
@@ -37,12 +37,12 @@ const mobileMenuVariants = {
 const NavBar = (): JSX.Element => {
   // State for scroll detection
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  
+
   // State for mobile menu toggle
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  
+
   // Intersection observer for scroll-based animations
-  const { ref, inView } = useInView({
+  const { ref } = useInView({
     threshold: 0,
     triggerOnce: true,
   });
@@ -54,13 +54,13 @@ const NavBar = (): JSX.Element => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    
+
     // Add scroll event listener
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
+
     // Initial check
     handleScroll();
-    
+
     // Cleanup function to remove event listener
     return () => window.removeEventListener('scroll', handleScroll);
   }, []); // Empty dependency array means this effect runs once on mount
@@ -70,13 +70,9 @@ const NavBar = (): JSX.Element => {
    * @type {NavItem[]}
    */
   const navItems: NavItem[] = [
-    { name: 'Search', href: '/search' },
-    { name: 'Neo Dashboard', href: '/dashboard/neo' },
-    { name: 'About', href: '#about' },
-    { name: 'Synthetic Systems', href: '#synthetic' },
-    { name: 'Applications', href: '#applications' },
-    { name: 'Partnership', href: '#partnership' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/' },
+    { name: 'Resource Search', href: '/search' },
+    { name: 'Program Status', href: '/dashboard' },
   ];
 
   return (
@@ -99,8 +95,8 @@ const NavBar = (): JSX.Element => {
             transition={{ delay: 0.2 }}
             className="flex-shrink-0"
           >
-            <a 
-              href="/" 
+            <a
+              href="/"
               className="text-neon-cyan font-mono text-2xl font-bold hover:opacity-80 transition-opacity"
               aria-label="NovaSanctum Home"
             >

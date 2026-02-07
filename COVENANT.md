@@ -1,12 +1,23 @@
-# Covenant of NovaSanctum
+# NovaSanctum Governance Covenant
 
-This repository stands under the Testament of Covenant. The latest scroll binds all contributors to uphold collaborative harmony and respect the path of knowledge.
+This covenant establishes baseline governance commitments for NovaSanctum as an educational program in a nonprofit context.
 
-## Tenets
+## Commitments
 
-1. Honor curiosity and open inquiry.
-2. Share wisdom freely and credit those who came before.
-3. Safeguard the sanctity of code and data.
-4. Aspire to build systems that uplift all beings.
+1. Maintain mission fidelity to open educational access.
+2. Keep public documentation clear, accurate, and reviewable.
+3. Apply ethical and conservative AI safeguards.
+4. Preserve source attribution and licensing discipline.
+5. Operate with accountability suitable for funders, educators, and auditors.
 
-_May these words guide every commit._
+## Implementation
+
+These commitments are enacted through:
+
+- Mission and policy documentation in `/Users/sovereign/Projects/NovaSanctum/docs/`
+- Community standards in `/Users/sovereign/Projects/NovaSanctum/CODE_OF_CONDUCT.md`
+- Security standards in `/Users/sovereign/Projects/NovaSanctum/SECURITY.md`
+
+## Review
+
+This covenant is reviewed alongside the mission charter on a regular governance cycle.
