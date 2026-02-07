@@ -31,8 +31,7 @@
     "src/components/SacredAlert.tsx",
     "src/components/SacredToast.tsx",
     "src/providers/SacredDataProvider.tsx",
-    "src/services/search/**/*.ts",
-    ".next/types/**/*.ts"
+    "src/services/search/**/*.ts"
   ],
   "exclude": [
     "node_modules",

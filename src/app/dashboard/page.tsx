@@ -15,7 +15,7 @@ export default function DashboardPage() {
       </p>
       <ul className="mt-6 list-disc space-y-2 pl-6 text-slate-700">
         <li>Mission and governance policy documents are now established.</li>
-        <li>Off-mission public routes are disabled.</li>
+        <li>Off-mission public routes have been retired from the active codebase.</li>
         <li>Legacy integration summaries are archived.</li>
         <li>Search and pathway infrastructure is being refit for open educational resources.</li>
       </ul>

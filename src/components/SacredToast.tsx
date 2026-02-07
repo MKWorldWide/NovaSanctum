@@ -17,7 +17,7 @@ export const SacredToast = ({
   title,
   message,
   type = 'info',
-  duration = 3000,
+  duration: _duration = 3000,
   className = '',
 }: SacredToastProps) => {
   const types = {
