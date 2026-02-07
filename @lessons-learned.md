@@ -13,15 +13,18 @@ Updated: 2026-02-07
 1. A narrow active surface enables reliable stabilization and faster iteration.
 2. Legacy modules should be decoupled from default checks to prevent false blockers.
 3. Small, verifiable passes (lint/type-check/build) reduce regression risk during major realignment.
+4. Explicit metadata fields (level/domain/curation status) help keep discovery tools institutionally honest.
 
 ## Documentation Lessons
 
 1. Policy documents are operational assets, not only compliance artifacts.
 2. Context files (`memories`, `lessons learned`, `scratchpad`) improve continuity across alignment phases.
 3. Every major refactor should update status and architecture documents in the same pass.
+4. Pathway templates reduce ambiguity between strategy language and implementation work.
 
 ## Process Lessons
 
 1. Pull latest before alignment work to avoid stale assumptions.
 2. Commit/push in bounded phases to preserve rollback points.
 3. Keep next actions prioritized by legitimacy, mission fidelity, and practical feasibility.
+4. Governance workflows are only credible when tied to concrete records and periodic execution.

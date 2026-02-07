@@ -4,21 +4,21 @@ Updated: 2026-02-07
 
 ## Active Phase
 
-Phase 3: Repository minimization and pathway implementation setup.
+Phase 5: Pathway population, governance execution evidence, and impact metrics wiring.
 
 ## Current Work Queue
 
-1. Build first two pathway templates using `docs/PROGRAM_ARCHITECTURE.md`.
-2. Define source review checklist for quality, access, and licensing.
-3. Add pathway outcome tracking schema (milestones, completion, transition).
-4. Draft board-facing governance workflow for content approval cycles.
+1. Populate pilot pathway templates with vetted resources that pass source review.
+2. Run first governance review cycle and record approval artifacts.
+3. Add dashboard-level metrics for pathway starts, progression, and completion.
+4. Introduce periodic link integrity checks for curated resources.
 
 ## Engineering Backlog (Mission-Aligned)
 
 1. Normalize search scoring for learning relevance.
-2. Add source metadata badges (license, level, last review date).
+2. Add reviewed-resource promotion path (`automated-discovery` to `reviewed`).
 3. Add lightweight analytics for pathway progression metrics.
-4. Remove or isolate unused legacy components from runtime bundles.
+4. Add curation maintenance jobs for link and metadata health.
 
 ## Validation Checklist
 

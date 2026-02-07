@@ -12,6 +12,7 @@ export type FederatedOptions = {
 };
 
 export type LearningResourceKind = 'article' | 'preprint' | 'medical' | 'reference';
+export type LearningResourceLevel = 'entry' | 'intermediate' | 'advanced';
 
 export type LearningResource = {
   id: string;
@@ -24,6 +25,10 @@ export type LearningResource = {
   year?: number;
   venue?: string;
   access: 'open';
+  domain?: string;
+  level?: LearningResourceLevel;
+  license?: string;
+  curationStatus: 'automated-discovery' | 'reviewed';
 };
 
 export type FederatedSearchResult = {
@@ -34,6 +39,32 @@ export type FederatedSearchResult = {
 
 export async function federatedSearch(query: string, options: FederatedOptions = {}) {
   const { includeWeb = true, trustedOnly = true, limitWeb = 10, limitScholarly = 12 } = options;
+  const inferDomain = (kind: LearningResourceKind): string => {
+    switch (kind) {
+      case 'article':
+        return 'General Scholarship';
+      case 'preprint':
+        return 'Science and Technology';
+      case 'medical':
+        return 'Health and Medical Science';
+      case 'reference':
+      default:
+        return 'General Education';
+    }
+  };
+
+  const inferLevel = (kind: LearningResourceKind): LearningResourceLevel => {
+    switch (kind) {
+      case 'reference':
+        return 'entry';
+      case 'article':
+      case 'medical':
+        return 'intermediate';
+      case 'preprint':
+      default:
+        return 'advanced';
+    }
+  };
 
   const dedupeBy = <T>(items: T[], key: (x: T) => string) => {
     const seen = new Set<string>();
@@ -75,6 +106,10 @@ export async function federatedSearch(query: string, options: FederatedOptions =
       year: item.year,
       venue: item.venue,
       access: 'open' as const,
+      domain: inferDomain('article'),
+      level: inferLevel('article'),
+      license: 'See source terms',
+      curationStatus: 'automated-discovery' as const,
     })),
     ...arxiv.map(item => ({
       id: `arxiv:${item.id || item.url || item.title}`,
@@ -86,6 +121,10 @@ export async function federatedSearch(query: string, options: FederatedOptions =
       authors: item.authors,
       year: item.published ? new Date(item.published).getFullYear() : undefined,
       access: 'open' as const,
+      domain: inferDomain('preprint'),
+      level: inferLevel('preprint'),
+      license: 'See source terms',
+      curationStatus: 'automated-discovery' as const,
     })),
     ...pubmed.map(item => ({
       id: `pubmed:${item.id || item.url || item.title}`,
@@ -97,6 +136,10 @@ export async function federatedSearch(query: string, options: FederatedOptions =
       year: item.year,
       venue: item.journal,
       access: 'open' as const,
+      domain: inferDomain('medical'),
+      level: inferLevel('medical'),
+      license: 'See source terms',
+      curationStatus: 'automated-discovery' as const,
     })),
     ...s2.map(item => ({
       id: `semantic-scholar:${item.url || item.title}`,
@@ -108,6 +151,10 @@ export async function federatedSearch(query: string, options: FederatedOptions =
       year: item.year,
       venue: item.venue,
       access: 'open' as const,
+      domain: inferDomain('article'),
+      level: inferLevel('article'),
+      license: 'See source terms',
+      curationStatus: 'automated-discovery' as const,
     })),
   ];
 
@@ -119,6 +166,10 @@ export async function federatedSearch(query: string, options: FederatedOptions =
     url: result.url,
     summary: result.snippet,
     access: 'open',
+    domain: inferDomain('reference'),
+    level: inferLevel('reference'),
+    license: 'See source terms',
+    curationStatus: 'automated-discovery',
   }));
 
   const resources = dedupeBy([...scholarlyResources, ...webResources], resource =>

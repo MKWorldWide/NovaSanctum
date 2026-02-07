@@ -58,8 +58,9 @@ Each curated resource should include:
 6. `level`
 7. `estimatedHours`
 8. `prerequisites`
-9. `lastReviewedAt`
-10. `attribution`
+9. `curationStatus`
+10. `lastReviewedAt` (for reviewed resources)
+11. `attribution`
 
 ## 5. AI Assistance Boundaries
 

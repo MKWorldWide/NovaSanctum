@@ -16,6 +16,10 @@ type SearchResult = {
     year?: number;
     venue?: string;
     access: 'open';
+    domain?: string;
+    level?: 'entry' | 'intermediate' | 'advanced';
+    license?: string;
+    curationStatus: 'automated-discovery' | 'reviewed';
   }[];
   sourceBreakdown: Record<string, number>;
   web?: { title: string; url: string; snippet?: string; source?: string }[];

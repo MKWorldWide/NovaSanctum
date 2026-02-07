@@ -71,7 +71,7 @@ export default function Home() {
       </section>
 
       <section className="mt-8 panel p-6 sm:p-8">
-        <h2 className="text-2xl">Phase 2 Launch Domains</h2>
+        <h2 className="text-2xl">Pilot Launch Domains</h2>
         <p className="mt-2 text-sm leading-6 text-slate-700">
           The first operational domain set is selected for grant legibility, practical workforce
           relevance, and high public-resource availability.

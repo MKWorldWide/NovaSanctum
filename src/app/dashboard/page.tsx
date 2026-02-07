@@ -10,6 +10,8 @@ const governance = [
   'AI assistance policy published',
   'Content curation policy published',
   'GameDin boundary policy documented',
+  'Board-facing content governance workflow drafted',
+  'Source review checklist formalized for curation auditability',
 ];
 
 const engineering = [
@@ -17,13 +19,15 @@ const engineering = [
   'Test and speculative documentation de-bloated',
   'Search API normalized for open resource discovery',
   'Active lint and type-check baseline stabilized',
+  'Navigator metadata model expanded for level/domain/curation status',
+  'Active codebase reduced to institutional runtime surface',
 ];
 
 const nextMilestones = [
-  'Pilot pathway templates for two launch domains',
-  'Source-quality review checklist automation',
+  'Pilot pathway templates operationalized in public roadmap UI',
+  'Source-quality checklist automation',
   'Outcome measurement dashboard for grant reporting',
-  'Institutional content governance workflow draft',
+  'Board review and publication cadence implementation',
 ];
 
 export default function DashboardPage() {
@@ -32,8 +36,9 @@ export default function DashboardPage() {
       <section className="panel p-8">
         <h1 className="text-3xl leading-tight sm:text-4xl">Program Status</h1>
         <p className="mt-4 max-w-3xl text-sm leading-6 text-slate-700 sm:text-base">
-          NovaSanctum is in Alignment Phase 2: institutional hardening and pathway build-out. The
-          objective is clear public credibility, mission fidelity, and grant-review readiness.
+          NovaSanctum is in Alignment Phase 4: institutional readiness and pathway pilot
+          operationalization. The objective is clear public credibility, mission fidelity, and
+          grant-review readiness.
         </p>
 
         <div className="mt-6 flex flex-wrap gap-3">

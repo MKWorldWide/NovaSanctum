@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 type ResourceKind = 'article' | 'preprint' | 'medical' | 'reference';
+type ResourceLevel = 'entry' | 'intermediate' | 'advanced';
 
 type LearningResource = {
   id: string;
@@ -15,6 +16,10 @@ type LearningResource = {
   year?: number;
   venue?: string;
   access: 'open';
+  domain?: string;
+  level?: ResourceLevel;
+  license?: string;
+  curationStatus: 'automated-discovery' | 'reviewed';
 };
 
 type SearchResponse = {
@@ -33,6 +38,12 @@ const kindLabels: Record<ResourceKind, string> = {
   reference: 'Reference',
 };
 
+const levelLabels: Record<ResourceLevel, string> = {
+  entry: 'Entry',
+  intermediate: 'Intermediate',
+  advanced: 'Advanced',
+};
+
 export default function ResourceNavigator() {
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -42,6 +53,7 @@ export default function ResourceNavigator() {
   const [includeWeb, setIncludeWeb] = useState(true);
   const [trustedOnly, setTrustedOnly] = useState(true);
   const [resourceKind, setResourceKind] = useState<'all' | ResourceKind>('all');
+  const [levelFilter, setLevelFilter] = useState<'all' | ResourceLevel>('all');
   const [sourceFilter, setSourceFilter] = useState('all');
 
   useEffect(() => {
@@ -97,10 +109,11 @@ export default function ResourceNavigator() {
     if (!result) return [];
     return result.resources.filter(resource => {
       const kindMatch = resourceKind === 'all' || resource.kind === resourceKind;
+      const levelMatch = levelFilter === 'all' || resource.level === levelFilter;
       const sourceMatch = sourceFilter === 'all' || resource.source === sourceFilter;
-      return kindMatch && sourceMatch;
+      return kindMatch && levelMatch && sourceMatch;
     });
-  }, [result, resourceKind, sourceFilter]);
+  }, [result, resourceKind, levelFilter, sourceFilter]);
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-10">
@@ -111,6 +124,10 @@ export default function ResourceNavigator() {
         <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-700">
           Search open-access literature and references to support NovaSanctum pathways. Results are
           aggregated from public scholarly indexes and optional web sources.
+        </p>
+        <p className="mt-2 max-w-3xl text-xs leading-5 text-slate-600">
+          Automated discovery results are advisory and require curation review before pathway
+          inclusion.
         </p>
 
         <div className="mt-6 space-y-3">
@@ -136,7 +153,7 @@ export default function ResourceNavigator() {
           </div>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 gap-3 text-sm text-slate-700 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-5 grid grid-cols-1 gap-3 text-sm text-slate-700 md:grid-cols-2 lg:grid-cols-5">
           <label className="inline-flex items-center gap-2">
             <input
               type="checkbox"
@@ -165,6 +182,19 @@ export default function ResourceNavigator() {
               <option value="preprint">Preprints</option>
               <option value="medical">Medical</option>
               <option value="reference">References</option>
+            </select>
+          </label>
+          <label className="inline-flex items-center gap-2">
+            <span>Level</span>
+            <select
+              value={levelFilter}
+              onChange={event => setLevelFilter(event.target.value as 'all' | ResourceLevel)}
+              className="rounded border border-slate-300 bg-white px-2 py-1"
+            >
+              <option value="all">All</option>
+              <option value="entry">Entry</option>
+              <option value="intermediate">Intermediate</option>
+              <option value="advanced">Advanced</option>
             </select>
           </label>
           <label className="inline-flex items-center gap-2">
@@ -216,6 +246,24 @@ export default function ResourceNavigator() {
                 <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                   {kindLabels[resource.kind]} • {resource.source}
                 </p>
+                <div className="mt-2 flex flex-wrap gap-2 text-xs text-slate-600">
+                  {resource.domain ? (
+                    <span className="rounded bg-slate-100 px-2 py-1">{resource.domain}</span>
+                  ) : null}
+                  {resource.level ? (
+                    <span className="rounded bg-slate-100 px-2 py-1">
+                      Level: {levelLabels[resource.level]}
+                    </span>
+                  ) : null}
+                  {resource.license ? (
+                    <span className="rounded bg-slate-100 px-2 py-1">
+                      License: {resource.license}
+                    </span>
+                  ) : null}
+                  <span className="rounded bg-amber-50 px-2 py-1 text-amber-800">
+                    Curation: {resource.curationStatus === 'reviewed' ? 'Reviewed' : 'Pending'}
+                  </span>
+                </div>
                 <h2 className="mt-1 text-base font-semibold text-slate-900">{resource.title}</h2>
                 {resource.summary ? (
                   <p className="mt-2 text-sm leading-6 text-slate-700">{resource.summary}</p>
