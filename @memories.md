@@ -19,7 +19,7 @@ Updated: 2026-02-07
 
 1. Stage 1 completed: public mission reset and removal of off-mission route surfaces.
 2. De-bloat pass completed: tests and speculative documentation removed from primary surface.
-3. Current phase: alignment hardening of active runtime and pathway architecture.
+3. Current phase: Phase 3 repository minimization and institutional baseline hardening.
 
 ## Current Runtime Surface
 

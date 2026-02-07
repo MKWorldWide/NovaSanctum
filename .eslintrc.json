@@ -1,14 +1,12 @@
 {
-  "extends": [
-    "next/core-web-vitals",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "plugin:storybook/recommended"
-  ],
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "prettier"],
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "off",
-    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }
+    ],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-var-requires": "off",
@@ -17,22 +15,9 @@
   },
   "overrides": [
     {
-      "files": ["src/types/**/*"],
-      "rules": {
-        "@typescript-eslint/no-namespace": "off",
-        "@typescript-eslint/no-explicit-any": "off"
-      }
-    },
-    {
       "files": ["src/services/**/*.ts", "src/components/**/*.tsx"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
-      }
-    },
-    {
-      "files": ["jest.config.js"],
-      "rules": {
-        "@typescript-eslint/no-var-requires": "off"
       }
     }
   ],

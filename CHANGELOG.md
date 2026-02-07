@@ -1,69 +1,25 @@
 # Changelog
 
-All notable changes to the NovaSanctum project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+All notable changes to NovaSanctum are documented here.
 
 ## [Unreleased]
 
-### Added
-- **Documentation**
-  - Comprehensive README with project overview, features, and setup instructions
-  - CONTRIBUTING.md with contribution guidelines and development workflow
-  - CODE_OF_CONDUCT.md to foster an inclusive community
-  - SECURITY.md with responsible disclosure policy
-  - PERFORMANCE_OPTIMIZATION.md with optimization guidelines
-  - ARCHITECTURE.md detailing system design and components
-  - Issue and Pull Request templates for better collaboration
-
-- **Security**
-  - Security headers for web application protection
-  - Environment variable validation
-  - Example environment file (.env.example) for secure configuration
-  - Dependency vulnerability scanning
-
-- **Performance**
-  - Optimized Babel and Webpack configurations
-  - Code splitting and tree-shaking
-  - Image optimization with modern formats
-  - Lazy loading for better initial load times
-  - Performance monitoring setup
-
-- **Developer Experience**
-  - TypeScript support with strict type checking
-  - ESLint and Prettier configuration for code quality
-  - Husky pre-commit hooks
-  - Comprehensive test setup with Jest and React Testing Library
-  - Storybook for component development
-
 ### Changed
-- **Infrastructure**
-  - Upgraded to Next.js 14 with App Router
-  - Modernized build system with SWC compiler
-  - Improved error handling and logging
-  - Enhanced security configurations
 
-- **Code Quality**
-  - Refactored components for better reusability
-  - Improved TypeScript types and interfaces
-  - Enhanced test coverage
-  - Better code organization and structure
-
-### Fixed
-- Security vulnerabilities in dependencies
-- Performance bottlenecks in critical rendering paths
-- Accessibility issues in UI components
-- Cross-browser compatibility issues
-
-## [0.1.0] - 2025-08-01
+1. Reoriented runtime to institutional surfaces only: `/`, `/dashboard`, `/search`, `/api/search`.
+2. Replaced legacy UI/provider naming in active path with neutral institutional components.
+3. Normalized search response model for open-resource discovery workflows.
+4. Recreated mission-aligned context files (`memories`, `lessons learned`, `scratchpad`).
+5. Removed legacy modules, infrastructure folders, and obsolete automation workflows.
+6. Reduced dependency graph to the active Next.js runtime and essential tooling.
 
 ### Added
-- Initial public release of NovaSanctum
-- Core platform functionality
-- Basic authentication and user management
-- Research project management tools
-- Initial set of analysis tools
 
-[Unreleased]: https://github.com/yourusername/NovaSanctum/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/yourusername/NovaSanctum/releases/tag/v0.1.0
+1. `docs/ALIGNMENT_PHASE2_2026-02-07.md`
+2. `docs/ALIGNMENT_PHASE3_2026-02-07.md`
+
+### Removed
+
+1. Legacy tests and test framework stack.
+2. Storybook stack and related scripts/configuration.
+3. Amplify and non-runtime auxiliary project trees.

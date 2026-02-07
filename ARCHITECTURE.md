@@ -44,7 +44,7 @@ NovaSanctum is an open learning pathways program. The technical architecture sup
 - Framework: Next.js 14, React 18, TypeScript
 - API surface: `/api/search`
 - UI surface: `/`, `/search`, `/dashboard`
-- Legacy routes have been disabled from public access and moved out of institutional narrative scope
+- Legacy routes and non-runtime module clusters have been removed from the active code path
 
 ## 4. Target Data Model Direction
 
@@ -85,10 +85,10 @@ Community or engagement systems (including GameDin-related capabilities) must re
 
 ## 7. Operational Priorities
 
-1. Replace legacy datasets with OER-focused sources.
-2. Stabilize lint and type-check baselines.
-3. Implement roadmap authoring and progression tracking.
-4. Add compliance-friendly reporting for grant and program review.
+1. Implement roadmap authoring and progression tracking.
+2. Add source quality checks and curation metadata badges.
+3. Add compliance-friendly reporting for grant and program review.
+4. Continue reducing residual non-institutional code footprints.
 
 ## 8. Related Policy Documents
 

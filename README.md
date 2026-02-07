@@ -27,10 +27,9 @@ NovaSanctum exists to:
 
 This repository currently contains:
 
-- A Next.js web application
-- Search and aggregation components that can be adapted for open learning resources
-- Existing infrastructure and service modules under active realignment
-- Legacy service modules under active reduction and decoupling from the institutional surface
+- A focused Next.js institutional web application
+- Open resource search aggregation services and provider adapters
+- Mission and governance documentation for grant-legible operations
 
 ## What Is Being Reoriented
 
@@ -39,9 +38,9 @@ As of February 7, 2026, NovaSanctum is in an active strategic reorientation towa
 Priority actions include:
 
 - Mission and governance documentation updates
-- Public surface language cleanup
-- Removal of off-mission legacy documentation from the primary repository surface
-- Decoupling of community/outreach systems from institutional educational surfaces
+- Public surface language and architecture hardening
+- Pathway model implementation and source quality controls
+- Outcome measurement design for institutional reporting
 
 See: `/Users/sovereign/Projects/NovaSanctum/docs/NOVASANCTUM_STRATEGIC_REORIENTATION_REPORT_2026-02-07.md`
 
@@ -82,7 +81,7 @@ The current API exposes:
 - `POST /api/search`
 - Request body: `{ "query": "your topic" }`
 
-This endpoint is being refit to prioritize open educational resource discovery and pathway construction use cases.
+This endpoint now returns a normalized open-resource result model for pathway-oriented discovery.
 
 ## Governance and Policies
 

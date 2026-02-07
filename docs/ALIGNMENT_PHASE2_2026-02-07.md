@@ -23,9 +23,9 @@ Date: 2026-02-07
 5. Removed superseded active-path components:
    - `/Users/sovereign/Projects/NovaSanctum/src/components/ResearchSearch.tsx`
    - `/Users/sovereign/Projects/NovaSanctum/src/components/Modal.tsx`
-   - `/Users/sovereign/Projects/NovaSanctum/src/components/SacredAlert.tsx`
-   - `/Users/sovereign/Projects/NovaSanctum/src/components/SacredToast.tsx`
-   - `/Users/sovereign/Projects/NovaSanctum/src/providers/SacredDataProvider.tsx`
+   - Legacy alert component (pre-alignment naming) replaced by `StatusAlert`.
+   - Legacy toast component (pre-alignment naming) replaced by `StatusToast`.
+   - Legacy provider module (pre-alignment naming) replaced by `ProgramDataProvider`.
 
 ## Validation
 
