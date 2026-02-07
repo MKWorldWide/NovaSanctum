@@ -1,0 +1,352 @@
+{
+  "id": "calculus-i-undergrad",
+  "subject": "Calculus I",
+  "level": "undergrad",
+  "outcomes": [
+    "Differentiate core functions",
+    "Solve optimization problems",
+    "Apply definite integrals"
+  ],
+  "prerequisites": ["Algebra", "Functions and graphs", "Trigonometry"],
+  "modules": [
+    {
+      "moduleId": "limits-continuity",
+      "title": "Module 1: Limits and Continuity",
+      "prerequisites": ["Algebra fluency", "Function notation", "Graph interpretation"],
+      "objectives": [
+        "Explain intuitive and formal notions of limits.",
+        "Evaluate one-sided and two-sided limits.",
+        "Determine continuity and classify discontinuities.",
+        "Differentiate core functions"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-1-limits-and-continuity-lesson-1",
+          "title": "Module 1: Limits and Continuity - Conceptual Grounding",
+          "objectives": [
+            "Explain intuitive and formal notions of limits.",
+            "Evaluate one-sided and two-sided limits."
+          ],
+          "recommendedResourceIds": [
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-37b333b113aa2225",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-37b333b113aa2225",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-1-limits-and-continuity-lesson-2",
+          "title": "Module 1: Limits and Continuity - Problem Solving and Application",
+          "objectives": [
+            "Evaluate one-sided and two-sided limits.",
+            "Determine continuity and classify discontinuities."
+          ],
+          "recommendedResourceIds": [
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-37b333b113aa2225",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-37b333b113aa2225",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": [
+        "Create a concept map comparing algebraic and graphical limit evaluation techniques."
+      ],
+      "citationResourceIds": [
+        "arxiv-org-237516a2c4545abf",
+        "ocw-mit-edu-37b333b113aa2225",
+        "ocw-mit-edu-bcc953b78cf1ca15"
+      ]
+    },
+    {
+      "moduleId": "derivatives",
+      "title": "Module 2: Derivatives and Differentiation Rules",
+      "prerequisites": ["Completion of prior module milestones"],
+      "objectives": [
+        "Compute derivatives using limit definitions.",
+        "Apply product, quotient, and chain rules correctly.",
+        "Interpret derivatives as rates of change in applied contexts.",
+        "Differentiate core functions"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-2-derivatives-and-differentiation-rules-lesson-1",
+          "title": "Module 2: Derivatives and Differentiation Rules - Conceptual Grounding",
+          "objectives": [
+            "Compute derivatives using limit definitions.",
+            "Apply product, quotient, and chain rules correctly."
+          ],
+          "recommendedResourceIds": [
+            "ocw-mit-edu-37b333b113aa2225",
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "ocw-mit-edu-37b333b113aa2225",
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-2-derivatives-and-differentiation-rules-lesson-2",
+          "title": "Module 2: Derivatives and Differentiation Rules - Problem Solving and Application",
+          "objectives": [
+            "Apply product, quotient, and chain rules correctly.",
+            "Interpret derivatives as rates of change in applied contexts."
+          ],
+          "recommendedResourceIds": [
+            "ocw-mit-edu-37b333b113aa2225",
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "ocw-mit-edu-37b333b113aa2225",
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": [
+        "Analyze a real-world changing quantity and justify a derivative-based model."
+      ],
+      "citationResourceIds": [
+        "ocw-mit-edu-37b333b113aa2225",
+        "arxiv-org-237516a2c4545abf",
+        "ocw-mit-edu-bcc953b78cf1ca15"
+      ]
+    },
+    {
+      "moduleId": "applications",
+      "title": "Module 3: Applications of Derivatives",
+      "prerequisites": ["Completion of prior module milestones"],
+      "objectives": [
+        "Solve optimization problems with clear assumptions.",
+        "Use derivatives to analyze monotonicity and concavity.",
+        "Apply related rates in geometric and physical settings.",
+        "Differentiate core functions"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-3-applications-of-derivatives-lesson-1",
+          "title": "Module 3: Applications of Derivatives - Conceptual Grounding",
+          "objectives": [
+            "Solve optimization problems with clear assumptions.",
+            "Use derivatives to analyze monotonicity and concavity."
+          ],
+          "recommendedResourceIds": [
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-37b333b113aa2225",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-37b333b113aa2225",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-3-applications-of-derivatives-lesson-2",
+          "title": "Module 3: Applications of Derivatives - Problem Solving and Application",
+          "objectives": [
+            "Use derivatives to analyze monotonicity and concavity.",
+            "Apply related rates in geometric and physical settings."
+          ],
+          "recommendedResourceIds": [
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-37b333b113aa2225",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-37b333b113aa2225",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": [
+        "Design and solve an optimization scenario with constraints and interpretation."
+      ],
+      "citationResourceIds": [
+        "arxiv-org-237516a2c4545abf",
+        "ocw-mit-edu-37b333b113aa2225",
+        "ocw-mit-edu-bcc953b78cf1ca15"
+      ]
+    },
+    {
+      "moduleId": "integrals",
+      "title": "Module 4: Integrals and Fundamental Theorem of Calculus",
+      "prerequisites": ["Completion of prior module milestones"],
+      "objectives": [
+        "Interpret definite integrals as accumulation.",
+        "Compute antiderivatives and definite integrals.",
+        "Use the Fundamental Theorem of Calculus to connect derivatives and integrals.",
+        "Differentiate core functions"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-4-integrals-and-fundamental-theorem-of-calculus-lesson-1",
+          "title": "Module 4: Integrals and Fundamental Theorem of Calculus - Conceptual Grounding",
+          "objectives": [
+            "Interpret definite integrals as accumulation.",
+            "Compute antiderivatives and definite integrals."
+          ],
+          "recommendedResourceIds": [
+            "ocw-mit-edu-37b333b113aa2225",
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "ocw-mit-edu-37b333b113aa2225",
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-4-integrals-and-fundamental-theorem-of-calculus-lesson-2",
+          "title": "Module 4: Integrals and Fundamental Theorem of Calculus - Problem Solving and Application",
+          "objectives": [
+            "Compute antiderivatives and definite integrals.",
+            "Use the Fundamental Theorem of Calculus to connect derivatives and integrals."
+          ],
+          "recommendedResourceIds": [
+            "ocw-mit-edu-37b333b113aa2225",
+            "arxiv-org-237516a2c4545abf",
+            "ocw-mit-edu-bcc953b78cf1ca15"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "ocw-mit-edu-37b333b113aa2225",
+                "arxiv-org-237516a2c4545abf",
+                "ocw-mit-edu-bcc953b78cf1ca15"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": [
+        "Model accumulation in a practical scenario and validate with a numerical check."
+      ],
+      "citationResourceIds": [
+        "ocw-mit-edu-37b333b113aa2225",
+        "arxiv-org-237516a2c4545abf",
+        "ocw-mit-edu-bcc953b78cf1ca15"
+      ]
+    }
+  ],
+  "resourceIds": [
+    "arxiv-org-237516a2c4545abf",
+    "ocw-mit-edu-37b333b113aa2225",
+    "ocw-mit-edu-bcc953b78cf1ca15"
+  ],
+  "generatedAt": "2026-02-07T23:47:55.845Z",
+  "mode": "manual"
+}

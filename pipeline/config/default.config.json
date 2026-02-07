@@ -1,0 +1,50 @@
+{
+  "allowedDomains": [
+    "ocw.mit.edu",
+    "openlearninglibrary.mit.edu",
+    "mit.edu",
+    "openstax.org",
+    "stanford.edu",
+    "online.stanford.edu",
+    "yale.edu",
+    "oyc.yale.edu",
+    "berkeley.edu",
+    "open.berkeley.edu",
+    "ox.ac.uk",
+    "cam.ac.uk",
+    "ncbi.nlm.nih.gov",
+    "pubmed.ncbi.nlm.nih.gov",
+    "arxiv.org",
+    "export.arxiv.org",
+    "doaj.org",
+    "nist.gov",
+    "nasa.gov",
+    "nih.gov",
+    "cdc.gov",
+    "noaa.gov",
+    "khanacademy.org",
+    "open.edu"
+  ],
+  "blockedDomains": [
+    "linkedin.com",
+    "udemy.com",
+    "coursera.org",
+    "edx.org",
+    "chegg.com",
+    "coursehero.com"
+  ],
+  "doNotIngestPatternsPath": "pipeline/config/do-not-ingest.txt",
+  "maxDownloadSizeMb": 25,
+  "userAgent": "NovaSanctumBot/0.1 (+https://github.com/MKWorldWide/NovaSanctum)",
+  "rateLimit": {
+    "requestsPerDomainPerMinute": 20
+  },
+  "storage": {
+    "databasePath": "pipeline/data/index/novasanctum_resources.sqlite",
+    "rawHtmlDir": "pipeline/data/raw/html",
+    "rawPdfDir": "pipeline/data/raw/pdf",
+    "extractedTextDir": "pipeline/data/raw/text",
+    "discoveryDir": "pipeline/data/discovery",
+    "blueprintDir": "pipeline/data/blueprints"
+  }
+}

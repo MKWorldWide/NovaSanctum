@@ -83,6 +83,26 @@ The current API exposes:
 
 This endpoint now returns a normalized open-resource result model for pathway-oriented discovery.
 
+## Knowledge Pipeline (CLI Prototype)
+
+NovaSanctum now includes a local-first knowledge aggregation and curriculum synthesis pipeline under:
+
+- `/Users/sovereign/Projects/NovaSanctum/pipeline`
+
+Run from repository root:
+
+```bash
+npm run pipeline:discover -- --subject "Calculus I" --level undergrad
+npm run pipeline:ingest -- --url "https://openstax.org/details/books/calculus-volume-1" --subject "Calculus I" --level undergrad
+npm run pipeline:build-blueprint -- --subject "Calculus I" --level undergrad --outcomes "Differentiate core functions,Solve optimization problems,Apply definite integrals"
+npm run pipeline:search -- --query "best problem sets for derivatives" --limit 5
+```
+
+Example output artifacts:
+
+- `/Users/sovereign/Projects/NovaSanctum/pipeline/examples/calculus-i/COURSE_BLUEPRINT.md`
+- `/Users/sovereign/Projects/NovaSanctum/pipeline/examples/calculus-i/course_blueprint.json`
+
 ## Governance and Policies
 
 Core policy documents:

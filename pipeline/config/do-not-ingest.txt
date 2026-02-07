@@ -1,0 +1,10 @@
+# URLs or path fragments to hard-block ingestion
+/login
+/signin
+/checkout
+/paywall
+/account/
+/subscription
+
+# explicitly restricted proprietary learning platforms
+linkedin.com/learning

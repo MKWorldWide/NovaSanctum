@@ -14,6 +14,7 @@ Updated: 2026-02-07
 8. `/Users/sovereign/Projects/NovaSanctum/docs/CONTENT_GOVERNANCE_WORKFLOW.md`
 9. `/Users/sovereign/Projects/NovaSanctum/docs/SOURCE_REVIEW_CHECKLIST.md`
 10. `/Users/sovereign/Projects/NovaSanctum/docs/WEBSITE_STRUCTURE_RECOMMENDATION.md`
+11. `/Users/sovereign/Projects/NovaSanctum/docs/NOVASANCTUM_DIRECTIVES.md`
 
 ## Operational Status and Planning
 
@@ -23,6 +24,9 @@ Updated: 2026-02-07
 4. `/Users/sovereign/Projects/NovaSanctum/docs/ALIGNMENT_PHASE3_2026-02-07.md`
 5. `/Users/sovereign/Projects/NovaSanctum/docs/ALIGNMENT_PHASE4_2026-02-07.md`
 6. `/Users/sovereign/Projects/NovaSanctum/docs/PERFORMANCE_OPTIMIZATION.md`
+7. `/Users/sovereign/Projects/NovaSanctum/docs/KNOWLEDGE_PIPELINE_REPO_STRUCTURE_PROPOSAL.md`
+8. `/Users/sovereign/Projects/NovaSanctum/docs/KNOWLEDGE_PIPELINE_DATA_MODEL.md`
+9. `/Users/sovereign/Projects/NovaSanctum/docs/KNOWLEDGE_PIPELINE_ROADMAP_V0_V2.md`
 
 ## Pathway Templates
 

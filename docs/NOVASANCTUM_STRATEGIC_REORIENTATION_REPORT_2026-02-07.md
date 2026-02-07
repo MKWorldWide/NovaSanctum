@@ -206,3 +206,35 @@ Recommended disposition:
 - Decouple: GameDin and all gaming/community integrations from NovaSanctum institutional core.
 - Archive: speculative, mystical, and classified-network narratives and associated dashboards.
 - Build forward: an open learning pathways institution with AI as assistive infrastructure.
+
+## 10. On-Track Verification (Update)
+
+Update date: 2026-02-07
+
+### 10.1 Status against core reorientation targets
+
+1. Mission reset: On track
+   - Institutional mission language is now present on active public surfaces.
+2. Surface de-bloat and separation: On track
+   - Off-mission legacy stacks/routes have been removed from active runtime and repository surface.
+3. Governance documentation: On track
+   - Mission, curation, AI policy, GameDin separation, and governance workflow documents are published.
+4. Program architecture and pathway templates: On track
+   - Initial pathway templates and source review checklist are in place.
+5. Knowledge aggregation and blueprint generation: On track (v0)
+   - Local pipeline now supports discovery, ingestion, indexing, and blueprint synthesis with compliance checks.
+
+### 10.2 Revised readiness snapshot (current)
+
+| Dimension                          | Status      | Current Notes                                                                                             |
+| ---------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------- |
+| Grant application readiness        | Medium      | Mission/policy architecture and phased evidence now documented.                                           |
+| Public presentation readiness      | Medium-High | Active UI and program docs are institution-facing and non-speculative.                                    |
+| Ethical review readiness           | Medium      | AI boundaries, source policies, and compliance pipeline controls are defined.                             |
+| Long-term sustainability readiness | Medium      | Runtime and pipeline are local-first and maintainable; governance cadence execution remains ongoing work. |
+
+### 10.3 Remaining gaps to stay on track
+
+1. Execute governance cycles and preserve decision records as auditable evidence.
+2. Expand vetted source coverage and raise `reviewed` curation volume.
+3. Add pathway progression metrics for reporting and grant outcomes.

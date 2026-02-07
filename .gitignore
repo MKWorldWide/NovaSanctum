@@ -19,6 +19,13 @@
 
 # debug
 npm-debug.log*
+
+# pipeline runtime artifacts
+pipeline/data/index/
+pipeline/data/discovery/
+pipeline/data/raw/
+pipeline/data/blueprints/
+pipeline/config/do-not-ingest.log
 yarn-debug.log*
 yarn-error.log*
 
