@@ -1,70 +1,88 @@
 import Link from 'next/link';
 
-const pillars = [
+const commitments = [
   {
     title: 'Open Resource Curation',
-    description:
-      'We organize free textbooks, documentation, open courses, and public learning materials into usable collections.',
+    detail:
+      'Resources are selected from free and public sources with attribution, source transparency, and recurring review.',
   },
   {
-    title: 'Structured Learning Pathways',
-    description:
-      'We turn scattered resources into sequenced roadmaps with prerequisites, milestones, and applied outcomes.',
+    title: 'Structured Pathways',
+    detail:
+      'Learners receive sequenced roadmaps with clear entry points, intermediate milestones, and practical outcomes.',
   },
   {
     title: 'Assistive AI Guidance',
-    description:
-      'AI supports navigation, pacing, and explanation while source materials remain the primary authority.',
+    detail:
+      'AI supports navigation and explanation while cited source material remains the primary authority.',
   },
+];
+
+const launchDomains = [
+  'Digital Foundations',
+  'Web and Software Fundamentals',
+  'Data Literacy',
+  'AI Literacy and Responsible Use',
+  'Career Readiness for Self-Directed Learners',
 ];
 
 export default function Home() {
   return (
-    <main className="bg-white">
-      <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-600">
+    <main className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
+      <section className="panel overflow-hidden p-8 sm:p-10">
+        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-600">
           MK Worldwide Program
         </p>
-        <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+        <h1 className="mt-4 text-4xl leading-tight sm:text-5xl">
           NovaSanctum: Open Learning Pathways
         </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-700">
-          NovaSanctum is an open online learning initiative that improves access to education by
-          curating free resources and organizing them into practical, guided pathways.
+        <p className="mt-5 max-w-3xl text-base leading-7 text-slate-700 sm:text-lg">
+          NovaSanctum expands access to education by curating free, public learning resources and
+          organizing them into practical progression routes for self-directed learners.
         </p>
-        <p className="mt-4 max-w-3xl text-base leading-7 text-slate-600">
-          NovaSanctum complements formal education. It does not replace accredited institutions,
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+          NovaSanctum complements formal education and does not replace accredited institutions,
           instructors, or credential systems.
         </p>
 
-        <div className="mt-10 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-wrap gap-3">
           <Link
             href="/search"
-            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+            className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
           >
-            Explore Resources
+            Explore Resource Navigator
           </Link>
           <Link
             href="/dashboard"
-            className="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
+            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50"
           >
-            Program Status
+            View Program Status
           </Link>
         </div>
       </section>
 
-      <section className="border-t border-slate-200 bg-slate-50">
-        <div className="mx-auto grid max-w-5xl gap-6 px-6 py-14 md:grid-cols-3">
-          {pillars.map(pillar => (
-            <article
-              key={pillar.title}
-              className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
-            >
-              <h2 className="text-lg font-semibold text-slate-900">{pillar.title}</h2>
-              <p className="mt-2 text-sm leading-6 text-slate-700">{pillar.description}</p>
-            </article>
+      <section className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {commitments.map(item => (
+          <article key={item.title} className="panel p-5">
+            <h2 className="text-lg font-semibold">{item.title}</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-700">{item.detail}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="mt-8 panel p-6 sm:p-8">
+        <h2 className="text-2xl">Phase 2 Launch Domains</h2>
+        <p className="mt-2 text-sm leading-6 text-slate-700">
+          The first operational domain set is selected for grant legibility, practical workforce
+          relevance, and high public-resource availability.
+        </p>
+        <ul className="mt-4 grid grid-cols-1 gap-2 text-sm text-slate-700 sm:grid-cols-2">
+          {launchDomains.map(domain => (
+            <li key={domain} className="rounded-md bg-slate-100 px-3 py-2">
+              {domain}
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
     </main>
   );

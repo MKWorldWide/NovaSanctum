@@ -1,11 +1,11 @@
-import ResearchSearch from '@/components/ResearchSearch';
+import ResourceNavigator from '@/components/ResourceNavigator';
 
 export const metadata = {
-  title: 'Search Learning Resources - NovaSanctum',
+  title: 'Learning Resource Navigator | NovaSanctum',
   description:
-    'Search publicly available educational resources to support self-directed learning pathways.',
+    'Search open-access learning resources and literature to support NovaSanctum pathways.',
 };
 
 export default function SearchPage() {
-  return <ResearchSearch />;
+  return <ResourceNavigator />;
 }

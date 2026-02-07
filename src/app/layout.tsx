@@ -1,14 +1,23 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Merriweather, Source_Sans_3 } from 'next/font/google';
 import './globals.css';
-import { SacredDataProvider } from '@/providers/SacredDataProvider';
+import { ProgramDataProvider } from '@/providers/ProgramDataProvider';
 
-const inter = Inter({ subsets: ['latin'] });
+const bodyFont = Source_Sans_3({
+  subsets: ['latin'],
+  variable: '--font-body',
+});
+
+const headingFont = Merriweather({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-heading',
+});
 
 export const metadata: Metadata = {
-  title: 'NovaSanctum - Open Learning Pathways',
+  title: 'NovaSanctum | Open Learning Pathways',
   description:
-    'NovaSanctum is an open online learning initiative that curates free educational resources into structured pathways with assistive AI guidance.',
+    'NovaSanctum curates open educational resources into structured learning pathways with assistive AI support.',
   keywords: [
     'open education',
     'learning pathways',
@@ -21,10 +30,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${inter.className} h-full bg-gray-50`}>
-        <SacredDataProvider>
+      <body className={`${bodyFont.variable} ${headingFont.variable} h-full`}>
+        <ProgramDataProvider>
           <div className="min-h-full">{children}</div>
-        </SacredDataProvider>
+        </ProgramDataProvider>
       </body>
     </html>
   );

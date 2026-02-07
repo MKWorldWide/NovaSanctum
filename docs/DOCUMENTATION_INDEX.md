@@ -16,7 +16,8 @@ Updated: 2026-02-07
 
 1. `/Users/sovereign/Projects/NovaSanctum/docs/NOVASANCTUM_STRATEGIC_REORIENTATION_REPORT_2026-02-07.md`
 2. `/Users/sovereign/Projects/NovaSanctum/docs/STABILIZATION_PASS_2026-02-07.md`
-3. `/Users/sovereign/Projects/NovaSanctum/docs/PERFORMANCE_OPTIMIZATION.md`
+3. `/Users/sovereign/Projects/NovaSanctum/docs/ALIGNMENT_PHASE2_2026-02-07.md`
+4. `/Users/sovereign/Projects/NovaSanctum/docs/PERFORMANCE_OPTIMIZATION.md`
 
 ## Governance and Security References
 
@@ -24,3 +25,9 @@ Updated: 2026-02-07
 2. `/Users/sovereign/Projects/NovaSanctum/CONTRIBUTING.md`
 3. `/Users/sovereign/Projects/NovaSanctum/SECURITY.md`
 4. `/Users/sovereign/Projects/NovaSanctum/LICENSE.md`
+
+## Working Context Files
+
+1. `/Users/sovereign/Projects/NovaSanctum/memories.md`
+2. `/Users/sovereign/Projects/NovaSanctum/lessons-learned.md`
+3. `/Users/sovereign/Projects/NovaSanctum/scratchpad.md`

@@ -1,5 +1,3 @@
-import { internationalResearchDatabase } from '@/services/InternationalResearchDatabase';
-import { topScienceInstitutes } from '@/services/TopScienceInstitutes';
 import { googleCseSearch, WebResult } from './providers/GoogleCseProvider';
 import { crossrefSearch } from './providers/CrossrefProvider';
 import { arxivSearch } from './providers/ArxivProvider';
@@ -10,41 +8,46 @@ export type FederatedOptions = {
   includeWeb?: boolean;
   trustedOnly?: boolean;
   limitWeb?: number;
+  limitScholarly?: number;
+};
+
+export type LearningResourceKind = 'article' | 'preprint' | 'medical' | 'reference';
+
+export type LearningResource = {
+  id: string;
+  title: string;
+  kind: LearningResourceKind;
+  source: string;
+  url?: string;
+  summary?: string;
+  authors?: string[];
+  year?: number;
+  venue?: string;
+  access: 'open';
+};
+
+export type FederatedSearchResult = {
+  resources: LearningResource[];
+  web: WebResult[];
+  sourceBreakdown: Record<string, number>;
 };
 
 export async function federatedSearch(query: string, options: FederatedOptions = {}) {
-  const { includeWeb = true, trustedOnly = true, limitWeb = 10 } = options;
+  const { includeWeb = true, trustedOnly = true, limitWeb = 10, limitScholarly = 12 } = options;
 
-  // Internal providers
-  const facilitiesByName = internationalResearchDatabase
-    .getFacilities()
-    .filter(f => f.name?.toLowerCase().includes(query.toLowerCase()));
-  const facilitiesBySpecialty = internationalResearchDatabase.searchFacilitiesBySpecialty(query);
-  const publications = internationalResearchDatabase.searchPublicationsByKeyword(query);
-  const patents = internationalResearchDatabase
-    .getPatents()
-    .filter(p => p.title.toLowerCase().includes(query.toLowerCase()) || p.abstract.toLowerCase().includes(query.toLowerCase()));
-
-  const institutesByName = topScienceInstitutes
-    .getTopInstitutes(200)
-    .filter(i => i.name.toLowerCase().includes(query.toLowerCase()));
-  const institutesBySpecialty = topScienceInstitutes.searchInstitutesBySpecialty(query);
-  const labsBySpecialty = topScienceInstitutes.searchLaboratoriesBySpecialty(query);
-
-  const dedupe = <T, K>(items: T[], key: (x: T) => K) => {
-    const seen = new Set<K>();
+  const dedupeBy = <T>(items: T[], key: (x: T) => string) => {
+    const seen = new Set<string>();
     const out: T[] = [];
-    for (const it of items) {
-      const k = key(it);
+    for (const item of items) {
+      const k = key(item);
       if (!seen.has(k)) {
         seen.add(k);
-        out.push(it);
+        out.push(item);
       }
     }
     return out;
   };
 
-  // Optional web results
   let web: WebResult[] = [];
   if (includeWeb) {
     try {
@@ -54,21 +57,82 @@ export async function federatedSearch(query: string, options: FederatedOptions =
     }
   }
 
-  // Scholarly providers
   const [crossref, arxiv, pubmed, s2] = await Promise.all([
-    crossrefSearch(query, 10).catch(() => []),
-    arxivSearch(query, 10).catch(() => []),
-    pubmedSearch(query, 10).catch(() => []),
-    semanticScholarSearch(query, 10).catch(() => []),
+    crossrefSearch(query, limitScholarly).catch(() => []),
+    arxivSearch(query, limitScholarly).catch(() => []),
+    pubmedSearch(query, limitScholarly).catch(() => []),
+    semanticScholarSearch(query, limitScholarly).catch(() => []),
   ]);
 
+  const scholarlyResources: LearningResource[] = [
+    ...crossref.map(item => ({
+      id: `crossref:${item.doi || item.url || item.title}`,
+      title: item.title,
+      kind: 'article' as const,
+      source: 'Crossref',
+      url: item.url,
+      authors: item.authors,
+      year: item.year,
+      venue: item.venue,
+      access: 'open' as const,
+    })),
+    ...arxiv.map(item => ({
+      id: `arxiv:${item.id || item.url || item.title}`,
+      title: item.title,
+      kind: 'preprint' as const,
+      source: 'arXiv',
+      url: item.url,
+      summary: item.summary,
+      authors: item.authors,
+      year: item.published ? new Date(item.published).getFullYear() : undefined,
+      access: 'open' as const,
+    })),
+    ...pubmed.map(item => ({
+      id: `pubmed:${item.id || item.url || item.title}`,
+      title: item.title,
+      kind: 'medical' as const,
+      source: 'PubMed',
+      url: item.url,
+      authors: item.authors,
+      year: item.year,
+      venue: item.journal,
+      access: 'open' as const,
+    })),
+    ...s2.map(item => ({
+      id: `semantic-scholar:${item.url || item.title}`,
+      title: item.title,
+      kind: 'article' as const,
+      source: 'Semantic Scholar',
+      url: item.url,
+      authors: (item.authors || []).map(a => a.name),
+      year: item.year,
+      venue: item.venue,
+      access: 'open' as const,
+    })),
+  ];
+
+  const webResources: LearningResource[] = web.map((result, idx) => ({
+    id: `web:${idx}:${result.url}`,
+    title: result.title,
+    kind: 'reference',
+    source: result.source || 'Web',
+    url: result.url,
+    summary: result.snippet,
+    access: 'open',
+  }));
+
+  const resources = dedupeBy([...scholarlyResources, ...webResources], resource =>
+    (resource.url || resource.title).toLowerCase()
+  );
+
+  const sourceBreakdown = resources.reduce<Record<string, number>>((acc, resource) => {
+    acc[resource.source] = (acc[resource.source] || 0) + 1;
+    return acc;
+  }, {});
+
   return {
-    facilities: dedupe([...facilitiesByName, ...facilitiesBySpecialty], (f: any) => f.id),
-    publications,
-    patents,
-    institutes: dedupe([...institutesByName, ...institutesBySpecialty], (i: any) => i.id),
-    laboratories: labsBySpecialty,
+    resources,
     web,
-    scholarly: { crossref, arxiv, pubmed, semanticScholar: s2 },
-  };
+    sourceBreakdown,
+  } as FederatedSearchResult;
 }

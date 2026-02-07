@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "dev:server": "NODE_ENV=development node server.js",
-    "lint": "eslint src/app src/providers src/services/search src/components/Modal.tsx src/components/ResearchSearch.tsx src/components/SacredAlert.tsx src/components/SacredToast.tsx",
+    "lint": "eslint src/app src/providers src/services/search src/components/ResourceNavigator.tsx src/components/StatusAlert.tsx src/components/StatusToast.tsx",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix src",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json,yml,yaml,css,scss}\"",
     "type-check": "tsc --noEmit -p tsconfig.json",
