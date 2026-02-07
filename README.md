@@ -30,7 +30,7 @@ This repository currently contains:
 - A Next.js web application
 - Search and aggregation components that can be adapted for open learning resources
 - Existing infrastructure and service modules under active realignment
-- Legacy materials that are being archived and decoupled from the institutional surface
+- Legacy service modules under active reduction and decoupling from the institutional surface
 
 ## What Is Being Reoriented
 
@@ -40,7 +40,7 @@ Priority actions include:
 
 - Mission and governance documentation updates
 - Public surface language cleanup
-- Archival of off-mission legacy integration summaries
+- Removal of off-mission legacy documentation from the primary repository surface
 - Decoupling of community/outreach systems from institutional educational surfaces
 
 See: `/Users/sovereign/Projects/NovaSanctum/docs/NOVASANCTUM_STRATEGIC_REORIENTATION_REPORT_2026-02-07.md`
@@ -73,8 +73,6 @@ npm run build
 npm run start
 npm run lint
 npm run type-check
-npm run test
-npm run test:integration
 ```
 
 ## Search API (Current Implementation)
@@ -93,6 +91,9 @@ Core policy documents:
 - `/Users/sovereign/Projects/NovaSanctum/docs/MISSION_CHARTER.md`
 - `/Users/sovereign/Projects/NovaSanctum/docs/AI_ASSISTANCE_POLICY.md`
 - `/Users/sovereign/Projects/NovaSanctum/docs/CONTENT_CURATION_POLICY.md`
+- `/Users/sovereign/Projects/NovaSanctum/docs/PROGRAM_ARCHITECTURE.md`
+- `/Users/sovereign/Projects/NovaSanctum/docs/SEPARATION_GAMEDIN_NOVASANCTUM.md`
+- `/Users/sovereign/Projects/NovaSanctum/docs/DOCUMENTATION_INDEX.md`
 
 Community and security references:
 

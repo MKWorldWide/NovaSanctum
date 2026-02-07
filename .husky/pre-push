@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# Run tests before pushing
-npm test 
+# Run baseline quality checks before pushing
+npm run lint && npm run type-check

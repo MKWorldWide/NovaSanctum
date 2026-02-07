@@ -86,7 +86,7 @@ Community or engagement systems (including GameDin-related capabilities) must re
 ## 7. Operational Priorities
 
 1. Replace legacy datasets with OER-focused sources.
-2. Stabilize lint, type-check, and test baselines.
+2. Stabilize lint and type-check baselines.
 3. Implement roadmap authoring and progression tracking.
 4. Add compliance-friendly reporting for grant and program review.
 
@@ -95,3 +95,5 @@ Community or engagement systems (including GameDin-related capabilities) must re
 - `/Users/sovereign/Projects/NovaSanctum/docs/MISSION_CHARTER.md`
 - `/Users/sovereign/Projects/NovaSanctum/docs/AI_ASSISTANCE_POLICY.md`
 - `/Users/sovereign/Projects/NovaSanctum/docs/CONTENT_CURATION_POLICY.md`
+- `/Users/sovereign/Projects/NovaSanctum/docs/PROGRAM_ARCHITECTURE.md`
+- `/Users/sovereign/Projects/NovaSanctum/docs/SEPARATION_GAMEDIN_NOVASANCTUM.md`

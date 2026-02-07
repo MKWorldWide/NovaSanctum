@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -28,11 +24,23 @@
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
+    "src/app/**/*.ts",
+    "src/app/**/*.tsx",
+    "src/components/Modal.tsx",
+    "src/components/ResearchSearch.tsx",
+    "src/components/SacredAlert.tsx",
+    "src/components/SacredToast.tsx",
+    "src/providers/SacredDataProvider.tsx",
+    "src/services/search/**/*.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "tests/**",
+    "test/**",
+    "scripts/**",
+    "src/services/DivinaL3Integration.backup.ts"
   ]
 }

@@ -39,7 +39,7 @@ Immediate direction: preserve technical primitives that support resource discove
 | Asset cluster                                                                                                                                                                                                                                                                                                                                                                                                              | Why deprecate/archive                                                                                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | Integration summary documents: `/Users/sovereign/Projects/NovaSanctum/COMPLETE_INTEGRATION_SUMMARY.md`, `/Users/sovereign/Projects/NovaSanctum/DIVINA_L3_INTEGRATION_SUMMARY.md`, `/Users/sovereign/Projects/NovaSanctum/EDEN_ONE_CITY_INTEGRATION_SUMMARY.md`, `/Users/sovereign/Projects/NovaSanctum/GENESIS_PROTOCOL_INTEGRATION_SUMMARY.md`, `/Users/sovereign/Projects/NovaSanctum/LILITH_EVE_INTEGRATION_SUMMARY.md` | Contain unverifiable, speculative, or intelligence/conspiracy framing incompatible with nonprofit educational positioning |
-| Emotional/sacred doctrine docs: `/Users/sovereign/Projects/NovaSanctum/EMOTIONAL_LANGUAGE_SYSTEM.md` and large `@` notes files                                                                                                                                                                                                                                                                                             | Founder-centric and metaphysical framing; unsuitable for funder and auditor review as institutional core docs             |
+| Metaphysical doctrine docs and ad hoc notes files                                                                                                                                                                                                                                                                                                                                                                          | Founder-centric and non-institutional framing; unsuitable for funder and auditor review as institutional core docs        |
 | Master speculative control surfaces: `/Users/sovereign/Projects/NovaSanctum/src/services/BlackResearchNetworks.ts`, `/Users/sovereign/Projects/NovaSanctum/src/services/GovernmentalNetworks.ts`, `/Users/sovereign/Projects/NovaSanctum/src/services/NovaSanctumMasterController.ts`, `/Users/sovereign/Projects/NovaSanctum/src/components/EnhancedNovaSanctumDashboard.tsx`                                             | Programmatically encode non-educational and high-risk claims; drives noncompliant public narrative                        |
 | Themed pages: `/Users/sovereign/Projects/NovaSanctum/src/app/divina-l3/page.tsx`, `/Users/sovereign/Projects/NovaSanctum/src/app/lilith-eve/page.tsx`, `/Users/sovereign/Projects/NovaSanctum/src/app/eden-one-city/page.tsx`, `/Users/sovereign/Projects/NovaSanctum/src/app/quantum-gaming/page.tsx`                                                                                                                     | Off-mission for learning institution role                                                                                 |
 
@@ -64,7 +64,7 @@ Immediate direction: preserve technical primitives that support resource discove
 ### 3.2 Concrete evidence examples
 
 - Public branding and framing drift in `/Users/sovereign/Projects/NovaSanctum/README.md:1`, `/Users/sovereign/Projects/NovaSanctum/README.md:378`, `/Users/sovereign/Projects/NovaSanctum/README.md:393`.
-- Classified and conspiracy framing in `/Users/sovereign/Projects/NovaSanctum/COMPLETE_INTEGRATION_SUMMARY.md:15`, `/Users/sovereign/Projects/NovaSanctum/COMPLETE_INTEGRATION_SUMMARY.md:57`, `/Users/sovereign/Projects/NovaSanctum/COMPLETE_INTEGRATION_SUMMARY.md:85`.
+- Classified and conspiracy framing was present in now-removed legacy integration summaries (captured during the 2026-02-07 audit baseline).
 - Core service coupling to black/governmental systems in `/Users/sovereign/Projects/NovaSanctum/src/services/NovaSanctumMasterController.ts:8`, `/Users/sovereign/Projects/NovaSanctum/src/services/NovaSanctumMasterController.ts:99`.
 - Direct black research dataset in `/Users/sovereign/Projects/NovaSanctum/src/services/BlackResearchNetworks.ts:2`, `/Users/sovereign/Projects/NovaSanctum/src/services/BlackResearchNetworks.ts:209`, `/Users/sovereign/Projects/NovaSanctum/src/services/BlackResearchNetworks.ts:249`.
 - Dashboard tabs reinforcing non-educational scope in `/Users/sovereign/Projects/NovaSanctum/src/components/EnhancedNovaSanctumDashboard.tsx:142`, `/Users/sovereign/Projects/NovaSanctum/src/components/EnhancedNovaSanctumDashboard.tsx:149`, `/Users/sovereign/Projects/NovaSanctum/src/components/EnhancedNovaSanctumDashboard.tsx:192`.
@@ -126,22 +126,19 @@ Disallowed framing:
 
 ### 5.2 Major documentation and governance gaps
 
-1. No authoritative mission charter for educational scope and constraints.
-2. No content curation policy (source selection, quality, recency, licensing).
-3. No AI use policy specific to learner guidance boundaries.
-4. No program theory of change or measurable outcomes framework.
-5. No clear separation protocol between NovaSanctum and GameDin public identities.
-6. No board/oversight workflow documented for educational content governance.
+1. Program theory of change and measurable outcomes framework are not yet finalized.
+2. Board/oversight workflow for educational content governance remains undocumented.
+3. Legacy technical modules still coexist in the codebase and need runtime isolation or removal.
 
 ### 5.3 Operational/code readiness signal
 
 As of 2026-02-07 (post-sync stabilization pass), the Stage 1 institutional surface is now operationally stable:
 
 - `npm run lint` completes with warnings and no blocking errors.
-- `npm run type-check` (scoped to Stage 1 surface via `tsconfig.stable.json`) passes.
-- `npm test -- --watch=false` (scoped to app-level Stage 1 tests) passes.
+- `npm run type-check` passes on the active institutional code surface.
+- Automated test suites have been removed as part of repository de-bloat.
 
-Full legacy-wide strict type checks still fail under `npm run type-check:full`, primarily in deprecated or archived-adjacent modules. This is now an explicit backlog item rather than a blocker for Stage 1 institutional presentation.
+Legacy modules remain in the repository and require further reduction or isolation, but they are no longer part of the primary institutional delivery surface.
 
 ## 6. Website Structure Recommendations (institutional-facing)
 
@@ -172,15 +169,11 @@ GameDin handling:
 3. Add `/Users/sovereign/Projects/NovaSanctum/docs/CONTENT_CURATION_POLICY.md`.
 4. Add `/Users/sovereign/Projects/NovaSanctum/docs/AI_ASSISTANCE_POLICY.md`.
 5. Add `/Users/sovereign/Projects/NovaSanctum/docs/PROGRAM_ARCHITECTURE.md`.
-6. Add `/Users/sovereign/Projects/NovaSanctum/docs/SEPARATION_GAMEdin_NOVASANCTUM.md`.
+6. Add `/Users/sovereign/Projects/NovaSanctum/docs/SEPARATION_GAMEDIN_NOVASANCTUM.md`.
 
 ### 7.2 Archive plan
 
-Move non-mission documentation into a clearly labeled archive namespace:
-
-- `/Users/sovereign/Projects/NovaSanctum/docs/archive/legacy-speculative/`
-
-Include an archive note stating these materials are historical and not representative of current institutional program direction.
+Remove non-mission documentation from the primary repository surface and preserve only mission-aligned institutional documents.
 
 ## 8. Prioritized Next Actions
 

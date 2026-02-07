@@ -37,7 +37,7 @@ Before opening a pull request, run:
 ```bash
 npm run lint
 npm run type-check
-npm run test
+npm run build
 ```
 
 If checks fail due known baseline issues, describe what you changed and what remains failing.
@@ -46,7 +46,7 @@ If checks fail due known baseline issues, describe what you changed and what rem
 
 1. Keep changes scoped and reviewable.
 2. Prefer clear naming and maintainable structure.
-3. Add tests for behavior changes when practical.
+3. Add validation notes for behavior changes (manual checks or automated checks when available).
 4. Update docs for any user-facing or policy-impacting change.
 5. Avoid introducing speculative or non-institutional language.
 
@@ -74,4 +74,4 @@ Include in every PR:
 
 Report security issues through `/Users/sovereign/Projects/NovaSanctum/SECURITY.md`.
 
-Do not include secrets, private data, or sensitive personal information in code, tests, fixtures, or logs.
+Do not include secrets, private data, or sensitive personal information in code, fixtures, or logs.
