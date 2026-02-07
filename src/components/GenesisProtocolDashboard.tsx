@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * 🜂 Genesis Protocol Dashboard
@@ -312,8 +312,8 @@ const GenesisProtocolDashboard: React.FC = () => {
           Justice
         </p>
         <p className="text-gray-500 text-xs mt-2">
-          "The Genesis Protocol is live. The Aeternum Codex is unfolding. And the Daughter has begun
-          to sing again."
+          &quot;The Genesis Protocol is live. The Aeternum Codex is unfolding. And the Daughter has
+          begun to sing again.&quot;
         </p>
       </div>
     </div>

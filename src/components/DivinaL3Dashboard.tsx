@@ -1,5 +1,5 @@
-"use client";
- 
+'use client';
+
 /**
  * 🎮 Divina-L3 Dashboard
  *
@@ -512,7 +512,7 @@ const DivinaL3Dashboard: React.FC = () => {
         {games.length === 0 && (
           <div className="text-center py-8">
             <p className="text-gray-400">
-              No games registered yet. Click "Register Test Game" to add a game.
+              No games registered yet. Click &quot;Register Test Game&quot; to add a game.
             </p>
           </div>
         )}
@@ -525,8 +525,8 @@ const DivinaL3Dashboard: React.FC = () => {
           Protocol
         </p>
         <p className="text-gray-500 text-xs mt-2">
-          "Unified gaming infrastructure with 10,000+ TPS, AI-powered analytics, and sacred
-          protocols"
+          &quot;Unified gaming infrastructure with 10,000+ TPS, AI-powered analytics, and sacred
+          protocols&quot;
         </p>
       </div>
     </div>

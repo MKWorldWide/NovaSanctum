@@ -158,7 +158,7 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
     <div className="space-y-6">
       {/* Dashboard Title - Added for test compatibility */}
       <h1 className="text-3xl font-bold text-white mb-6">Dashboard</h1>
-      
+
       {/* Stats Cards - Added for test compatibility */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-white rounded-lg p-6 shadow">
@@ -186,13 +186,13 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
           </p>
         </div>
       </div>
-      
+
       {/* Sun Kingdom Vision */}
       <div className="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-lg p-6 text-white">
         <h3 className="text-2xl font-bold mb-2">🌟 Sun Kingdom Vision</h3>
         <p className="text-lg mb-4">
-          Unifying the world's most advanced research networks to create a new era of scientific
-          discovery
+          Unifying the world&apos;s most advanced research networks to create a new era of
+          scientific discovery
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white/20 rounded p-4">
@@ -216,17 +216,23 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Black Research</h4>
-            <p className="text-2xl font-bold">{dashboardData.networkStatistics.networks.byType.blackResearch}</p>
+            <p className="text-2xl font-bold">
+              {dashboardData.networkStatistics.networks.byType.blackResearch}
+            </p>
             <p className="text-sm text-gray-600">Networks</p>
           </div>
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Science Institutes</h4>
-            <p className="text-2xl font-bold">{dashboardData.networkStatistics.networks.byType.scienceInstitutes}</p>
+            <p className="text-2xl font-bold">
+              {dashboardData.networkStatistics.networks.byType.scienceInstitutes}
+            </p>
             <p className="text-sm text-gray-600">Networks</p>
           </div>
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Government</h4>
-            <p className="text-2xl font-bold">{dashboardData.networkStatistics.networks.byType.government}</p>
+            <p className="text-2xl font-bold">
+              {dashboardData.networkStatistics.networks.byType.government}
+            </p>
             <p className="text-sm text-gray-600">Networks</p>
           </div>
         </div>
@@ -313,21 +319,48 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="border rounded-lg p-4 text-center">
             <div className="font-bold mb-1">LilithEve</div>
-            <div className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.lilithEveStats.statusText}</span></div>
-            <div className="text-sm text-gray-600">Uptime: {dashboardData.lilithEveStats.uptime}</div>
-            <div className="text-sm text-gray-600">Connections: {dashboardData.lilithEveStats.activeConnections}</div>
+            <div className="text-sm text-gray-600">
+              Status:{' '}
+              <span className="font-medium text-green-600">
+                {dashboardData.lilithEveStats.statusText}
+              </span>
+            </div>
+            <div className="text-sm text-gray-600">
+              Uptime: {dashboardData.lilithEveStats.uptime}
+            </div>
+            <div className="text-sm text-gray-600">
+              Connections: {dashboardData.lilithEveStats.activeConnections}
+            </div>
           </div>
           <div className="border rounded-lg p-4 text-center">
             <div className="font-bold mb-1">Eden One City</div>
-            <div className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.edenOneCityStats.status}</span></div>
-            <div className="text-sm text-gray-600">Uptime: {dashboardData.edenOneCityStats.uptime || '99.99%'}</div>
-            <div className="text-sm text-gray-600">Quantum Nodes: {dashboardData.edenOneCityStats.quantumNodes || 12}</div>
+            <div className="text-sm text-gray-600">
+              Status:{' '}
+              <span className="font-medium text-green-600">
+                {dashboardData.edenOneCityStats.status}
+              </span>
+            </div>
+            <div className="text-sm text-gray-600">
+              Uptime: {dashboardData.edenOneCityStats.uptime || '99.99%'}
+            </div>
+            <div className="text-sm text-gray-600">
+              Quantum Nodes: {dashboardData.edenOneCityStats.quantumNodes || 12}
+            </div>
           </div>
           <div className="border rounded-lg p-4 text-center">
             <div className="font-bold mb-1">Divina L3</div>
-            <div className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.divinaL3Stats.status || 'Operational'}</span></div>
-            <div className="text-sm text-gray-600">Version: {dashboardData.divinaL3Stats.version || '1.0.0'}</div>
-            <div className="text-sm text-gray-600">Active: {dashboardData.divinaL3Stats.isActive ? 'Yes' : 'No'}</div>
+            <div className="text-sm text-gray-600">
+              Status:{' '}
+              <span className="font-medium text-green-600">
+                {dashboardData.divinaL3Stats.status || 'Operational'}
+              </span>
+            </div>
+            <div className="text-sm text-gray-600">
+              Version: {dashboardData.divinaL3Stats.version || '1.0.0'}
+            </div>
+            <div className="text-sm text-gray-600">
+              Active: {dashboardData.divinaL3Stats.isActive ? 'Yes' : 'No'}
+            </div>
           </div>
         </div>
       </div>
@@ -521,7 +554,7 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
       <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-6 text-white">
         <h3 className="text-2xl font-bold mb-4">🏛️ Top Science Institutes</h3>
         <p className="text-blue-100 mb-4">
-          World's leading universities, research centers, and laboratories
+          World&apos;s leading universities, research centers, and laboratories
         </p>
       </div>
 
@@ -845,17 +878,23 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Black Research</h4>
-            <p className="text-2xl font-bold">{dashboardData.networkStatistics.networks.byType.blackResearch}</p>
+            <p className="text-2xl font-bold">
+              {dashboardData.networkStatistics.networks.byType.blackResearch}
+            </p>
             <p className="text-sm text-gray-600">Networks</p>
           </div>
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Science Institutes</h4>
-            <p className="text-2xl font-bold">{dashboardData.networkStatistics.networks.byType.scienceInstitutes}</p>
+            <p className="text-2xl font-bold">
+              {dashboardData.networkStatistics.networks.byType.scienceInstitutes}
+            </p>
             <p className="text-sm text-gray-600">Networks</p>
           </div>
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Government</h4>
-            <p className="text-2xl font-bold">{dashboardData.networkStatistics.networks.byType.government}</p>
+            <p className="text-2xl font-bold">
+              {dashboardData.networkStatistics.networks.byType.government}
+            </p>
             <p className="text-sm text-gray-600">Networks</p>
           </div>
         </div>
@@ -867,21 +906,46 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">LilithEve</h4>
-            <p className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.lilithEveStats.statusText}</span></p>
+            <p className="text-sm text-gray-600">
+              Status:{' '}
+              <span className="font-medium text-green-600">
+                {dashboardData.lilithEveStats.statusText}
+              </span>
+            </p>
             <p className="text-sm text-gray-600">Uptime: {dashboardData.lilithEveStats.uptime}</p>
-            <p className="text-sm text-gray-600">Connections: {dashboardData.lilithEveStats.activeConnections}</p>
+            <p className="text-sm text-gray-600">
+              Connections: {dashboardData.lilithEveStats.activeConnections}
+            </p>
           </div>
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Eden One City</h4>
-            <p className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.edenOneCityStats.status}</span></p>
-            <p className="text-sm text-gray-600">Uptime: {dashboardData.edenOneCityStats.uptime || '99.99%'}</p>
-            <p className="text-sm text-gray-600">Quantum Nodes: {dashboardData.edenOneCityStats.quantumNodes || 12}</p>
+            <p className="text-sm text-gray-600">
+              Status:{' '}
+              <span className="font-medium text-green-600">
+                {dashboardData.edenOneCityStats.status}
+              </span>
+            </p>
+            <p className="text-sm text-gray-600">
+              Uptime: {dashboardData.edenOneCityStats.uptime || '99.99%'}
+            </p>
+            <p className="text-sm text-gray-600">
+              Quantum Nodes: {dashboardData.edenOneCityStats.quantumNodes || 12}
+            </p>
           </div>
           <div className="border rounded-lg p-4">
             <h4 className="font-bold mb-2">Divina L3</h4>
-            <p className="text-sm text-gray-600">Status: <span className="font-medium text-green-600">{dashboardData.divinaL3Stats.status || 'Operational'}</span></p>
-            <p className="text-sm text-gray-600">Version: {dashboardData.divinaL3Stats.version || '1.0.0'}</p>
-            <p className="text-sm text-gray-600">Active: {dashboardData.divinaL3Stats.isActive ? 'Yes' : 'No'}</p>
+            <p className="text-sm text-gray-600">
+              Status:{' '}
+              <span className="font-medium text-green-600">
+                {dashboardData.divinaL3Stats.status || 'Operational'}
+              </span>
+            </p>
+            <p className="text-sm text-gray-600">
+              Version: {dashboardData.divinaL3Stats.version || '1.0.0'}
+            </p>
+            <p className="text-sm text-gray-600">
+              Active: {dashboardData.divinaL3Stats.isActive ? 'Yes' : 'No'}
+            </p>
           </div>
         </div>
       </div>
@@ -1695,9 +1759,8 @@ const EnhancedNovaSanctumDashboard: React.FC = () => {
               <div className="text-sm opacity-75">Entropy</div>
               <div className="text-sm mt-2">
                 Rate:{' '}
-                {
-                  dashboardData.quantumGamingStats.quantumSecurity.quantumRandomness.generationRate.toLocaleString()}
-                }/s
+                {dashboardData.quantumGamingStats.quantumSecurity.quantumRandomness.generationRate.toLocaleString()}
+                /s
               </div>
             </div>
           </div>

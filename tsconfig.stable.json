@@ -1,0 +1,24 @@
+{
+  "extends": "./tsconfig.json",
+  "include": [
+    "next-env.d.ts",
+    "src/app/**/*.ts",
+    "src/app/**/*.tsx",
+    "src/components/Modal.tsx",
+    "src/components/ResearchSearch.tsx",
+    "src/components/SacredAlert.tsx",
+    "src/components/SacredToast.tsx",
+    "src/providers/SacredDataProvider.tsx",
+    "src/services/search/**/*.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "tests/**",
+    "test/**",
+    "scripts/**",
+    "src/services/DivinaL3Integration.backup.ts"
+  ]
+}

@@ -67,8 +67,8 @@ export const CodexPanel = ({ isOpen, onClose }: CodexPanelProps) => {
                         <p>
                           To bridge the gap between biological engineering and synthetic
                           intelligence, creating a harmonious symphony of organic and digital
-                          evolution. We are the architects of tomorrow's consciousness, the weavers
-                          of biological and digital threads.
+                          evolution. We are the architects of tomorrow&apos;s consciousness, the
+                          weavers of biological and digital threads.
                         </p>
                       </div>
                       <div className="space-y-4">

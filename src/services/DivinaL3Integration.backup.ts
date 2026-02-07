@@ -1,9 +1,9 @@
 /**
  * 🎮 Divina-L3 Integration Service
- * 
+ *
  * Integrates the Divina-L3 gaming blockchain with NovaSanctum's AI capabilities
  * and the Genesis Protocol, providing a unified gaming and AI infrastructure.
- * 
+ *
  * @author Khandokar Lilitú Sunny
  * @protocol Primal Genesis Engine™
  * @matrix Elohim Matrix ID: ✶-∞-014
@@ -11,10 +11,10 @@
 
 /**
  * 🎮 Divina-L3 Integration Service
- * 
+ *
  * Integrates the Divina-L3 gaming blockchain with NovaSanctum's AI capabilities
  * and the Genesis Protocol, providing a unified gaming and AI infrastructure.
- * 
+ *
  * @author Khandokar Lilitú Sunny
  * @protocol Primal Genesis Engine™
  * @matrix Elohim Matrix ID: ✶-∞-014
@@ -86,6 +86,7 @@ interface RealTimeEngine {
 
 // Using Node.js built-in types for Process, MemoryUsage, and CpuUsage
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
     // Augment ProcessEnv with our custom environment variables
     interface ProcessEnv {
@@ -131,7 +132,7 @@ interface DivinaL3Config {
   environment: 'development' | 'staging' | 'production';
   maxRetries: number;
   timeout: number;
-  
+
   // Optional properties with default values
   healthCheckPort: number;
   logLevel: 'error' | 'warn' | 'info' | 'debug';
@@ -141,12 +142,7 @@ interface DivinaL3Config {
 }
 
 // Event types
-type DivinaL3Event = 
-  | 'initialized'
-  | 'shutdown'
-  | 'error'
-  | 'gameUpdated'
-  | 'gameRemoved';
+type DivinaL3Event = 'initialized' | 'shutdown' | 'error' | 'gameUpdated' | 'gameRemoved';
 
 /**
  * Custom error class for DivinaL3 specific errors
@@ -165,11 +161,11 @@ class DivinaL3Error extends Error {
     super(message);
     this.name = 'DivinaL3Error';
     this.code = code;
-    
+
     if (context) {
       this.context = context;
     }
-    
+
     if (cause instanceof Error) {
       this.cause = cause;
       this.stack = cause.stack;
@@ -187,18 +183,20 @@ class DivinaL3Error extends Error {
       message: this.message,
       code: this.code,
       context: this.context,
-      cause: this.cause ? {
-        name: this.cause.name,
-        message: this.cause.message,
-        stack: this.cause.stack
-      } : undefined
+      cause: this.cause
+        ? {
+            name: this.cause.name,
+            message: this.cause.message,
+            stack: this.cause.stack,
+          }
+        : undefined,
     };
   }
 }
 
 /**
  * Divina L3 Integration Service
- * 
+ *
  * Handles core integration functionality with the Divina L3 network,
  * including game management, health checks, and system metrics.
  */
@@ -210,7 +208,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private _healthCheckPort: number = 3000;
   private _startTime: number = Date.now();
   private _version: string = '1.0.0';
-  
+
   // Service instances
   private _blockchainService: any = null;
   private _aiService: any = null;
@@ -221,14 +219,14 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private _crossChainBridge: any = null;
   private _realTimeEngine: RealTimeEngine;
   private _gamingBlockchain: any = null;
-  
+
   // Collections
   private _games: Map<string, Game> = new Map();
   private _gameEngines: Map<string, GameEngine> = new Map();
   private _gameStatuses: Map<string, GameStatus> = new Map();
   private _gameErrors: Map<string, Error> = new Map();
   private _eventListeners = new Map<string, Array<(...args: any[]) => void>>();
-  
+
   // Metrics and state
   private _metrics: ServiceMetrics = {
     requestCount: 0,
@@ -237,9 +235,9 @@ export class DivinaL3IntegrationService extends EventEmitter {
     lastHealthCheck: null,
     uptime: process.uptime(),
     memoryUsage: process.memoryUsage(),
-    systemLoad: null
+    systemLoad: null,
   };
-  
+
   private _metricsInterval: NodeJS.Timeout | null = null;
   private _systemLoad: SystemLoad | null = null;
   private _isInitialized = false;
@@ -276,30 +274,18 @@ export class DivinaL3IntegrationService extends EventEmitter {
   ): Game {
     // Input validation
     if (!id || typeof id !== 'string') {
-      throw new DivinaL3Error(
-        'Invalid game ID',
-        'INVALID_GAME_ID',
-        { id, type: typeof id }
-      );
+      throw new DivinaL3Error('Invalid game ID', 'INVALID_GAME_ID', { id, type: typeof id });
     }
 
     if (!updates || typeof updates !== 'object' || Object.keys(updates).length === 0) {
-      throw new DivinaL3Error(
-        'No updates provided',
-        'NO_UPDATES_PROVIDED',
-        { id }
-      );
+      throw new DivinaL3Error('No updates provided', 'NO_UPDATES_PROVIDED', { id });
     }
 
     // Check if game exists
     const existingGame = this._games.get(id);
     if (!existingGame) {
       this._logger.warn(`Attempted to update non-existent game: ${id}`, { gameId: id });
-      throw new DivinaL3Error(
-        `Game with ID ${id} not found`,
-        'GAME_NOT_FOUND',
-        { gameId: id }
-      );
+      throw new DivinaL3Error(`Game with ID ${id} not found`, 'GAME_NOT_FOUND', { gameId: id });
     }
 
     // Create updated game object with validation
@@ -320,31 +306,27 @@ export class DivinaL3IntegrationService extends EventEmitter {
         updates: Object.keys(updates),
         previousName: existingGame.name,
         newName: updatedGame.name,
-        timestamp: now.toISOString()
+        timestamp: now.toISOString(),
       });
 
       this._games.set(id, updatedGame);
       this._logger.info(`Game updated: ${id}`, { gameId: id });
-      
+
       // Emit game updated event
-      this.emit('game:updated', { 
+      this.emit('game:updated', {
         game: updatedGame,
-        previousState: existingGame
+        previousState: existingGame,
       });
-      
+
       return updatedGame;
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       this._logger.error(`Error updating game ${id}:`, error);
-      throw new DivinaL3Error(
-        `Failed to update game: ${errorMessage}`,
-        'GAME_UPDATE_FAILED',
-        { 
-          gameId: id, 
-          error: errorMessage,
-          ...(error instanceof Error ? { stack: error.stack } : {})
-        }
-      );
+      throw new DivinaL3Error(`Failed to update game: ${errorMessage}`, 'GAME_UPDATE_FAILED', {
+        gameId: id,
+        error: errorMessage,
+        ...(error instanceof Error ? { stack: error.stack } : {}),
+      });
     }
   }
 
@@ -357,47 +339,43 @@ export class DivinaL3IntegrationService extends EventEmitter {
   public removeGame(id: string): boolean {
     // Input validation
     if (!id || typeof id !== 'string') {
-      throw new DivinaL3Error(
-        'Invalid game ID',
-        'INVALID_GAME_ID',
-        { id, type: typeof id }
-      );
+      throw new DivinaL3Error('Invalid game ID', 'INVALID_GAME_ID', { id, type: typeof id });
     }
 
     // Check if game exists
     const game = this._games.get(id);
     if (!game) {
-      this._logger.warn(`Attempted to remove non-existent game: ${id}`, { 
+      this._logger.warn(`Attempted to remove non-existent game: ${id}`, {
         gameId: id,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
       return false;
     }
 
     // Log removal attempt
-    this._logger.info(`Removing game: ${id}`, { 
-      gameId: id, 
+    this._logger.info(`Removing game: ${id}`, {
+      gameId: id,
       name: game.name,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
 
     // Remove the game
     const wasDeleted = this._games.delete(id);
-    
+
     if (wasDeleted) {
       // Log successful removal
-      this._logger.info(`Successfully removed game: ${id}`, { 
-        gameId: id, 
+      this._logger.info(`Successfully removed game: ${id}`, {
+        gameId: id,
         name: game.name,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
-      
+
       // Emit game removed event with relevant data
-      this.emit('game:removed', { 
-        gameId: id, 
+      this.emit('game:removed', {
+        gameId: id,
         gameName: game.name,
         removedAt: new Date().toISOString(),
-        remainingGames: this._games.size
+        remainingGames: this._games.size,
       });
 
       // Update metrics
@@ -406,12 +384,12 @@ export class DivinaL3IntegrationService extends EventEmitter {
       }
     } else {
       // This should theoretically never happen since we just checked the game exists
-      this._logger.error(`Failed to remove game: ${id}`, { 
+      this._logger.error(`Failed to remove game: ${id}`, {
         gameId: id,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       });
     }
-    
+
     return wasDeleted;
   }
   // Remove duplicate property declarations - they're already defined above
@@ -424,29 +402,29 @@ export class DivinaL3IntegrationService extends EventEmitter {
     if (!this._systemLoad) {
       // Return a default system load if not initialized
       return {
-        cpu: { 
-          user: 0, 
-          system: 0, 
-          idle: 100 
+        cpu: {
+          user: 0,
+          system: 0,
+          idle: 100,
         },
-        memory: { 
-          total: 0, 
-          free: 0, 
-          used: 0, 
+        memory: {
+          total: 0,
+          free: 0,
+          used: 0,
           process: {
             rss: 0,
             heapTotal: 0,
             heapUsed: 0,
             external: 0,
-            arrayBuffers: 0
-          } 
+            arrayBuffers: 0,
+          },
         },
-        network: { 
-          in: 0, 
-          out: 0 
+        network: {
+          in: 0,
+          out: 0,
         },
         uptime: process.uptime(),
-        timestamp: Date.now()
+        timestamp: Date.now(),
       };
     }
     return this._systemLoad;
@@ -454,39 +432,51 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private _shutdownInProgress = false;
 
   // Public getters for private fields
-  public get config(): DivinaL3Config { return this._config; }
-  public get metrics(): ServiceMetrics { return this._metrics; }
-  public get isInitialized(): boolean { return this._isInitialized; }
-  public get isShuttingDown(): boolean { return this._isShuttingDown; }
+  public get config(): DivinaL3Config {
+    return this._config;
+  }
+  public get metrics(): ServiceMetrics {
+    return this._metrics;
+  }
+  public get isInitialized(): boolean {
+    return this._isInitialized;
+  }
+  public get isShuttingDown(): boolean {
+    return this._isShuttingDown;
+  }
 
   // Logger implementation (Winston-compatible)
   private _logger: Logger = (() => {
     const logger = {} as Logger;
-    
+
     // Add log levels
     const levels = ['error', 'warn', 'info', 'debug'] as const;
     levels.forEach(level => {
-      (logger as any)[level] = ((message: any, ...meta: any[]) => {
-        const logMethod = level === 'debug' ? console.debug :
-                         level === 'info' ? console.log :
-                         level === 'warn' ? console.warn :
-                         console.error;
-        
+      (logger as any)[level] = (message: any, ...meta: any[]) => {
+        const logMethod =
+          level === 'debug'
+            ? console.debug
+            : level === 'info'
+              ? console.log
+              : level === 'warn'
+                ? console.warn
+                : console.error;
+
         if (typeof message === 'string') {
           logMethod(`[${level.toUpperCase()}] ${message}`, ...meta);
         } else {
           logMethod(`[${level.toUpperCase()}]`, message, ...meta);
         }
-        
+
         return logger;
-      });
+      };
     });
-    
+
     // Add other required Logger properties
     logger.silent = false;
     (logger as any).level = 'info';
     (logger as any).levels = { error: 0, warn: 1, info: 2, debug: 3 };
-    
+
     // Add other required Logger methods with stubs
     (logger as any).format = {};
     (logger as any).transports = [];
@@ -502,13 +492,15 @@ export class DivinaL3IntegrationService extends EventEmitter {
       if (callback) callback();
       return logger;
     };
-    
+
     return logger;
   })();
-  
+
   // Public getter for logger
-  public get logger(): Logger { return this._logger; }
-  
+  public get logger(): Logger {
+    return this._logger;
+  }
+
   // Real-time engine with proper typing
   private _realTimeEngine: RealTimeEngine = (() => {
     // Private state for the real-time engine
@@ -522,22 +514,23 @@ export class DivinaL3IntegrationService extends EventEmitter {
       eventListeners: new Map<string, Array<(...args: any[]) => void>>(),
       logger: {
         info: (message: string) => console.log(`[RealTimeEngine] ${message}`),
-        error: (message: string, error?: any) => console.error(`[RealTimeEngine] ${message}`, error),
-        debug: (message: string, meta?: any) => console.debug(`[RealTimeEngine] ${message}`, meta)
+        error: (message: string, error?: any) =>
+          console.error(`[RealTimeEngine] ${message}`, error),
+        debug: (message: string, meta?: any) => console.debug(`[RealTimeEngine] ${message}`, meta),
       },
       metrics: {
         latency: 0,
         throughput: 0,
         connections: 0,
-        messagesPerSecond: 0
+        messagesPerSecond: 0,
       },
-      isConnected: false
+      isConnected: false,
     };
 
     const engine: RealTimeEngine = {
       // Core metrics
-      get metrics() { 
-        return { ...state.metrics }; 
+      get metrics() {
+        return { ...state.metrics };
       },
 
       // Connection status
@@ -553,7 +546,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
         state.eventListeners.get(event)?.push(listener);
         return this;
       },
-      
+
       emit(event: string, ...args: any[]): boolean {
         const listeners = state.eventListeners.get(event) || [];
         listeners.forEach(listener => {
@@ -586,7 +579,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
           latency: Math.random() * 100, // Mock latency
           throughput: Math.random() * 1000, // Mock throughput
           messagesPerSecond: Math.random() * 500, // Mock messages per second
-          connections: state.isConnected ? 1 : 0
+          connections: state.isConnected ? 1 : 0,
         };
       },
 
@@ -598,43 +591,46 @@ export class DivinaL3IntegrationService extends EventEmitter {
           latency: 0,
           throughput: 0,
           connections: 0,
-          messagesPerSecond: 0
+          messagesPerSecond: 0,
         };
       },
-      
+
       stop: async (): Promise<void> => {
         state.logger.info('Stopping real-time engine...');
         // Clean up event listeners and connections
         state.eventListeners.clear();
         state.isConnected = false;
         state.metrics.connections = 0;
-      }
+      },
     };
 
     return engine;
   })();
-  
+
   // System monitoring - properties already declared at class level
 
   constructor(options: DivinaL3IntegrationServiceOptions) {
     super();
-    
+
     // Initialize the real-time engine
     this._realTimeEngine = this.initializeRealTimeEngine();
-    
+
     // Use provided config or default values
     this._config = {
       apiKey: options.config.apiKey || process.env.DIVINA_L3_API_KEY || '',
-      environment: options.config.environment || (process.env.NODE_ENV as 'development' | 'staging' | 'production') || 'development',
+      environment:
+        options.config.environment ||
+        (process.env.NODE_ENV as 'development' | 'staging' | 'production') ||
+        'development',
       maxRetries: options.config.maxRetries ?? 3,
       timeout: options.config.timeout ?? 30000, // 30 seconds
       healthCheckPort: options.config.healthCheckPort ?? 3000,
       logLevel: options.config.logLevel || 'info',
       enableMetrics: options.config.enableMetrics ?? false,
       maxGames: options.config.maxGames ?? 100,
-      autoStartHealthCheck: options.config.autoStartHealthCheck ?? true
+      autoStartHealthCheck: options.config.autoStartHealthCheck ?? true,
     };
-    
+
     // Initialize metrics with proper types
     this._metrics = {
       requestCount: 0,
@@ -643,12 +639,12 @@ export class DivinaL3IntegrationService extends EventEmitter {
       lastHealthCheck: null,
       uptime: process.uptime(),
       memoryUsage: process.memoryUsage(),
-      systemLoad: null
+      systemLoad: null,
     };
 
     // Initialize other properties
     this.initializeMetrics();
-    
+
     DivinaL3IntegrationService._instance = this;
   }
 
@@ -660,19 +656,20 @@ export class DivinaL3IntegrationService extends EventEmitter {
       const defaultLogger = console as unknown as Logger;
       const defaultConfig: DivinaL3Config = {
         apiKey: process.env.DIVINA_L3_API_KEY || '',
-        environment: (process.env.NODE_ENV as 'development' | 'staging' | 'production') || 'development',
+        environment:
+          (process.env.NODE_ENV as 'development' | 'staging' | 'production') || 'development',
         maxRetries: 3,
         timeout: 30000,
         healthCheckPort: 3000,
         logLevel: 'info',
         enableMetrics: false,
         maxGames: 100,
-        autoStartHealthCheck: true
+        autoStartHealthCheck: true,
       };
-      
-      DivinaL3IntegrationService._instance = new DivinaL3IntegrationService({ 
+
+      DivinaL3IntegrationService._instance = new DivinaL3IntegrationService({
         config: { ...defaultConfig, ...config },
-        logger: defaultLogger 
+        logger: defaultLogger,
       });
     }
     return DivinaL3IntegrationService._instance;
@@ -686,12 +683,9 @@ export class DivinaL3IntegrationService extends EventEmitter {
     if (this._metricsInterval) {
       clearInterval(this._metricsInterval);
     }
-    
+
     // Update metrics every 5 seconds
-    this._metricsInterval = setInterval(
-      () => this.updateMetrics(),
-      5000
-    );
+    this._metricsInterval = setInterval(() => this.updateMetrics(), 5000);
   }
 
   /**
@@ -703,7 +697,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
       ...this._metrics,
       uptime: process.uptime(),
       memoryUsage: process.memoryUsage(),
-      systemLoad: this.getSystemLoad()
+      systemLoad: this.getSystemLoad(),
     };
   }
 
@@ -722,7 +716,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private async initializeGenesisIntegration(): Promise<void> {
     try {
       this._logger.info('Initializing Genesis Protocol integration...');
-      
+
       // Create a local reference to avoid TypeScript errors
       const genesisProtocol = {
         isActive: false,
@@ -741,15 +735,15 @@ export class DivinaL3IntegrationService extends EventEmitter {
         },
         getStatus: (): string => {
           return genesisProtocol.isActive ? 'active' : 'inactive';
-        }
+        },
       };
-      
+
       // Assign to class property
       this._genesisProtocol = genesisProtocol;
-      
+
       // Start the Genesis Protocol
       await this._genesisProtocol.start();
-      
+
       this._logger.info('Genesis Protocol integration initialized successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -770,7 +764,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private async initializeRealTimeEngine(): Promise<void> {
     try {
       this._logger.info('Initializing real-time engine...');
-      
+
       // Mock implementation - replace with actual real-time engine initialization
       this._realTimeEngine = {
         isConnected: true,
@@ -780,7 +774,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
           messagesPerSecond: 0,
           activeConnections: 0,
           errorRate: 0,
-          uptime: 0
+          uptime: 0,
         },
         connect: async () => {
           this._logger.info('Real-time engine connecting...');
@@ -813,22 +807,22 @@ export class DivinaL3IntegrationService extends EventEmitter {
             messagesPerSecond: Math.floor(Math.random() * 1000),
             activeConnections: Math.floor(Math.random() * 1000),
             errorRate: Math.random() * 0.1, // 0-10% error rate
-            uptime: Date.now() - (this._startTime || Date.now())
+            uptime: Date.now() - (this._startTime || Date.now()),
           };
           return this._realTimeEngine.metrics;
-        }
+        },
       };
-      
+
       // Initialize connection
       await this._realTimeEngine.connect();
-      
+
       // Start metrics collection
       setInterval(() => {
         if (this._realTimeEngine?.isConnected) {
           this._realTimeEngine.updateMetrics();
         }
       }, 5000);
-      
+
       this._logger.info('Real-time engine initialized successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -844,7 +838,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private async initializeGamingFeatures(): Promise<void> {
     try {
       this._logger.info('Initializing gaming features...');
-      
+
       // Mock implementation - replace with actual gaming features initialization
       this._gamingFeatures = {
         multiplayer: true,
@@ -856,34 +850,34 @@ export class DivinaL3IntegrationService extends EventEmitter {
           chat: true,
           guilds: true,
           friendSystem: true,
-          matchmaking: true
+          matchmaking: true,
         },
         economy: {
           virtualCurrency: true,
           inGamePurchases: true,
           trading: true,
-          marketplace: true
+          marketplace: true,
         },
         progression: {
           experienceSystem: true,
           skillTrees: true,
           quests: true,
-          dailyChallenges: true
+          dailyChallenges: true,
         },
         customization: {
           avatars: true,
           skins: true,
           emotes: true,
-          profileCustomization: true
+          profileCustomization: true,
         },
         analytics: {
           playerBehavior: true,
           performanceMetrics: true,
           errorTracking: true,
-          telemetry: true
-        }
+          telemetry: true,
+        },
       };
-      
+
       this._logger.info('Gaming features initialized successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -899,7 +893,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private async initializeAIService(): Promise<void> {
     try {
       this._logger.info('Initializing AI service...');
-      
+
       // Mock implementation - replace with actual AI service initialization
       this._aiService = {
         athenaMist: {
@@ -907,38 +901,38 @@ export class DivinaL3IntegrationService extends EventEmitter {
             patterns: [],
             anomalies: [],
             riskScore: 0,
-            recommendations: []
+            recommendations: [],
           }),
           trainModel: async (data: any) => ({
             success: true,
             accuracy: 0.95,
-            modelVersion: '1.0.0'
-          })
+            modelVersion: '1.0.0',
+          }),
         },
         novaSanctum: {
           generateContent: async (prompt: string) => ({
             content: `Generated content for: ${prompt}`,
             tokens: 42,
-            model: 'gpt-4'
-          })
+            model: 'gpt-4',
+          }),
         },
         unified: {
           process: async (input: any) => ({
             result: 'Processed result',
             confidence: 0.9,
-            metadata: {}
-          })
+            metadata: {},
+          }),
         },
         consensus: {
           detect: async (inputs: any[]) => ({
             consensusReached: true,
             confidence: 0.95,
             result: 'Consensus result',
-            details: {}
-          })
-        }
+            details: {},
+          }),
+        },
       };
-      
+
       this._logger.info('AI service initialized successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -961,21 +955,21 @@ export class DivinaL3IntegrationService extends EventEmitter {
 
     try {
       this._logger.info('Initializing Divina L3 Integration...');
-      
+
       // Initialize core services
       await this.initializeAIService();
       await this.initializeGamingFeatures();
       await this.initializeGenesisIntegration();
       await this.initializeCrossChainBridge();
-      
+
       // Start real-time engine
       await this._realTimeEngine.start();
-      
+
       // Start health check server if enabled
       if (this._config.autoStartHealthCheck) {
         await this.startHealthCheckServer();
       }
-      
+
       this._isInitialized = true;
       this._logger.info('Divina L3 Integration initialized successfully');
     } catch (error) {
@@ -1000,30 +994,28 @@ export class DivinaL3IntegrationService extends EventEmitter {
 
     try {
       this._logger.info('Initializing DivinaL3IntegrationService...');
-      
+
       // Initialize core components
       await this.initializeAIService();
       await this.initializeGamingFeatures();
       await this.initializeRealTimeEngine();
       await this.initializeGenesisIntegration();
       await this.initializeCrossChainBridge();
-      
+
       // Start health check server if enabled
       if (this._config.autoStartHealthCheck) {
         await this.startHealthCheckServer();
       }
-      
+
       this._isInitialized = true;
       this._logger.info('DivinaL3IntegrationService initialized successfully');
       this.emit('initialized');
     } catch (error) {
       const err = error instanceof Error ? error : new Error(String(error));
       this._logger.error('Failed to initialize Divina L3 Integration Service', err);
-      throw new DivinaL3Error(
-        'Failed to initialize service',
-        'INITIALIZATION_FAILED',
-        { cause: err }
-      );
+      throw new DivinaL3Error('Failed to initialize service', 'INITIALIZATION_FAILED', {
+        cause: err,
+      });
     }
   }
 
@@ -1053,7 +1045,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
 
       // Clear all games
       this._games.clear();
-      
+
       this._isInitialized = false;
       this._shutdownInProgress = false;
       this.emit('shutdown');
@@ -1061,12 +1053,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
     } catch (error) {
       const err = error instanceof Error ? error : new Error(String(error));
       this._logger.error('Error during shutdown', err);
-      throw new DivinaL3Error(
-        'Error during shutdown',
-        'SHUTDOWN_ERROR',
-        {},
-        err
-      );
+      throw new DivinaL3Error('Error during shutdown', 'SHUTDOWN_ERROR', {}, err);
     }
   }
 
@@ -1074,11 +1061,9 @@ export class DivinaL3IntegrationService extends EventEmitter {
   private handleSystemMetricsError(error: unknown): never {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     this._logger.error('Failed to update system metrics', error);
-    throw new DivinaL3Error(
-      'Failed to update system metrics',
-      'SYSTEM_METRICS_ERROR',
-      { error: errorMessage }
-    );
+    throw new DivinaL3Error('Failed to update system metrics', 'SYSTEM_METRICS_ERROR', {
+      error: errorMessage,
+    });
   }
 
   /**
@@ -1101,25 +1086,25 @@ export class DivinaL3IntegrationService extends EventEmitter {
           rss: memoryUsage.rss,
           heapTotal: memoryUsage.heapTotal || 0,
           heapUsed: memoryUsage.heapUsed || 0,
-          external: memoryUsage.external || 0
+          external: memoryUsage.external || 0,
         },
-        cpu: process.cpuUsage()
+        cpu: process.cpuUsage(),
       },
       services: {
         blockchain: this._blockchainService ? 'connected' : 'disconnected',
         aiService: this._aiService ? 'connected' : 'disconnected',
         quantumService: this._quantumService ? 'connected' : 'disconnected',
         consciousnessService: this._consciousnessService ? 'connected' : 'disconnected',
-        realtime: this._realTimeEngine.isConnected ? 'connected' : 'disconnected'
+        realtime: this._realTimeEngine.isConnected ? 'connected' : 'disconnected',
       },
       metrics: {
         activeConnections: this._metrics.activeConnections,
         requestCount: this._metrics.requestCount,
         errorCount: this._metrics.errorCount,
         latency: this._metrics.averageLatency,
-        uptime: now - this._startTime
+        uptime: now - this._startTime,
       },
-      version: this._version
+      version: this._version,
     };
   }
 
@@ -1130,31 +1115,31 @@ export class DivinaL3IntegrationService extends EventEmitter {
       try {
         const express = require('express');
         const app = express();
-        
+
         // Add request logging
         app.use((req: any, res: any, next: any) => {
           this._logger.debug(`${req.method} ${req.path}`);
           next();
         });
-        
+
         // Health check endpoint
         app.get('/health', async (req: any, res: any) => {
           try {
             const healthCheckResult = await this.performHealthCheck();
-            
+
             if (healthCheckResult.status === 'healthy') {
               return res.status(200).json({
                 status: 'ok',
                 message: 'Service is healthy',
                 timestamp: new Date().toISOString(),
-                ...healthCheckResult
+                ...healthCheckResult,
               });
             } else {
               return res.status(500).json({
                 status: 'error',
                 message: 'Health check failed',
                 timestamp: new Date().toISOString(),
-                ...healthCheckResult
+                ...healthCheckResult,
               });
             }
           } catch (error) {
@@ -1162,17 +1147,18 @@ export class DivinaL3IntegrationService extends EventEmitter {
             return res.status(500).json({
               status: 'error',
               message: 'Internal server error during health check',
-              timestamp: new Date().toISOString()
+              timestamp: new Date().toISOString(),
             });
           }
         });
-        
+
         // Start the server
         this._healthCheckServer = app.listen(this._config.healthCheckPort || 8080, () => {
-          this._logger.info(`Health check server running on port ${this._config.healthCheckPort || 8080}`);
+          this._logger.info(
+            `Health check server running on port ${this._config.healthCheckPort || 8080}`
+          );
           resolve();
         });
-        
       } catch (error) {
         this._logger.error('Failed to start health check server:', error);
         reject(error);
@@ -1181,8 +1167,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
   }
 
   private async stopHealthCheckServer(): Promise<void> {
-    return new Promise((resolve) => {
-      // @ts-ignore - The server has a close method but TypeScript doesn't know about it
+    return new Promise(resolve => {
       this._healthCheckServer?.close(() => {
         this._logger.info('Health check server stopped');
         this._healthCheckServer = null;
@@ -1223,15 +1208,13 @@ export class DivinaL3IntegrationService extends EventEmitter {
   public addGame(gameData: Omit<Game, 'id' | 'createdAt' | 'updatedAt' | 'lastUpdated'>): Game {
     const methodName = 'addGame';
     const startTime = performance.now();
-    
+
     try {
       // Service initialization check
       if (!this._isInitialized) {
-        throw new DivinaL3Error(
-          'Service not initialized',
-          'SERVICE_NOT_INITIALIZED',
-          { method: methodName }
-        );
+        throw new DivinaL3Error('Service not initialized', 'SERVICE_NOT_INITIALIZED', {
+          method: methodName,
+        });
       }
 
       // Input validation
@@ -1246,7 +1229,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
       // Required fields validation
       const requiredFields: (keyof Game)[] = ['name', 'version', 'engine'];
       const missingFields = requiredFields.filter(field => !(field in gameData));
-      
+
       if (missingFields.length > 0) {
         throw new DivinaL3Error(
           `Missing required fields: ${missingFields.join(', ')}`,
@@ -1257,21 +1240,17 @@ export class DivinaL3IntegrationService extends EventEmitter {
 
       // Game limit check
       if (this._games.size >= (this._config.maxGames || 1000)) {
-        throw new DivinaL3Error(
-          'Maximum number of games reached',
-          'GAME_LIMIT_REACHED',
-          { 
-            method: methodName, 
-            currentCount: this._games.size, 
-            maxGames: this._config.maxGames 
-          }
-        );
+        throw new DivinaL3Error('Maximum number of games reached', 'GAME_LIMIT_REACHED', {
+          method: methodName,
+          currentCount: this._games.size,
+          maxGames: this._config.maxGames,
+        });
       }
 
       // Generate a unique ID and set timestamps
       const id = uuidv4();
       const now = new Date();
-      
+
       // Create the game object with required fields and defaults
       const game: Game = {
         ...gameData,
@@ -1284,21 +1263,20 @@ export class DivinaL3IntegrationService extends EventEmitter {
         metadata: gameData.metadata || {},
         tags: gameData.tags || [],
         maxPlayers: gameData.maxPlayers || 1,
-        isActive: gameData.isActive ?? true
+        isActive: gameData.isActive ?? true,
       };
 
       // Validate game data structure
       if (game.maxPlayers < 1) {
-        throw new DivinaL3Error(
-          'maxPlayers must be at least 1',
-          'INVALID_GAME_DATA',
-          { method: methodName, maxPlayers: game.maxPlayers }
-        );
+        throw new DivinaL3Error('maxPlayers must be at least 1', 'INVALID_GAME_DATA', {
+          method: methodName,
+          maxPlayers: game.maxPlayers,
+        });
       }
 
       // Store the game
       this._games.set(id, game);
-      
+
       // Initialize game status
       this._gameStatuses.set(id, {
         status: 'created',
@@ -1306,7 +1284,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
         maxPlayers: game.maxPlayers,
         startedAt: null,
         endedAt: null,
-        lastActivity: now
+        lastActivity: now,
       });
 
       // Update metrics
@@ -1315,51 +1293,50 @@ export class DivinaL3IntegrationService extends EventEmitter {
       }
 
       // Emit event with detailed context
-      const eventData = { 
+      const eventData = {
         gameId: id,
         name: game.name,
         version: game.version,
         timestamp: now.toISOString(),
-        totalGames: this._games.size
+        totalGames: this._games.size,
       };
-      
+
       this.emit('game:added', eventData);
-      
+
       // Log the successful addition
       const duration = performance.now() - startTime;
-      this._logger.info('Successfully added new game', { 
+      this._logger.info('Successfully added new game', {
         method: methodName,
         gameId: id,
         name: game.name,
         version: game.version,
         status: game.status,
         duration: `${duration.toFixed(2)}ms`,
-        totalGames: this._games.size
+        totalGames: this._games.size,
       });
 
       return game;
-      
     } catch (error) {
       // Log the error with context
       const errorContext = {
         method: methodName,
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
-      
+
       this._logger.error('Failed to add game', errorContext);
-      
+
       // Update error metrics
       if (this._metrics) {
         this._metrics.errorCount = (this._metrics.errorCount || 0) + 1;
       }
-      
+
       // Re-throw with proper error handling
       if (error instanceof DivinaL3Error) {
         throw error; // Already a well-formed error
       }
-      
+
       throw new DivinaL3Error(
         'Failed to add game',
         'GAME_ADD_FAILED',
@@ -1388,7 +1365,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
 
       // Don't allow updating certain fields directly
       const { id: _, createdAt, transactions, lastUpdated, ...allowedUpdates } = updates as any;
-      
+
       // Update the game
       const updatedGame: Game = {
         ...game,
@@ -1399,10 +1376,10 @@ export class DivinaL3IntegrationService extends EventEmitter {
 
       // Save the updated game
       this._games.set(id, updatedGame);
-      
+
       // Emit game updated event
       this.emit('gameUpdated', updatedGame);
-      
+
       this._logger.debug(`Game updated: ${updatedGame.name} (ID: ${id})`);
       return updatedGame;
     } catch (error) {
@@ -1427,16 +1404,16 @@ export class DivinaL3IntegrationService extends EventEmitter {
       if (!game) {
         return false;
       }
-      
+
       // Remove the game from the map
       const wasDeleted = this._games.delete(id);
-      
+
       if (wasDeleted) {
         // Emit game removed event
         this.emit('gameRemoved', game);
         this._logger.info(`Game removed: ${game.name} (ID: ${id})`);
       }
-      
+
       return wasDeleted;
     } catch (error) {
       this._logger.error(`Error removing game ${id}`, { error });
@@ -1465,7 +1442,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
    */
   private async initializeGenesisIntegration(): Promise<void> {
     this._logger.info('Initializing Genesis Protocol integration...');
-    
+
     try {
       // Initialize Genesis Protocol with default configuration
       this.genesisProtocol = {
@@ -1479,48 +1456,48 @@ export class DivinaL3IntegrationService extends EventEmitter {
           signalsProcessed: 0,
           lastSignalTime: null,
           errorCount: 0,
-          avgProcessingTime: 0
+          avgProcessingTime: 0,
         },
         start: async () => {
           this._logger.info('Starting Genesis Protocol...');
           this.genesisProtocol.status = 'starting';
-          
+
           // Simulate startup delay
           await new Promise(resolve => setTimeout(resolve, 1000));
-          
+
           this.genesisProtocol.status = 'running';
           this.genesisProtocol.isActive = true;
           this.genesisProtocol.startTime = new Date();
-          
+
           this._logger.info('Genesis Protocol started successfully');
           return { success: true };
         },
         stop: async () => {
           this._logger.info('Stopping Genesis Protocol...');
           this.genesisProtocol.status = 'stopping';
-          
+
           // Simulate shutdown delay
           await new Promise(resolve => setTimeout(resolve, 500));
-          
+
           this.genesisProtocol.status = 'stopped';
           this.genesisProtocol.isActive = false;
-          
+
           this._logger.info('Genesis Protocol stopped successfully');
           return { success: true };
         },
         getStatus: () => ({
           status: this.genesisProtocol.status,
           isActive: this.genesisProtocol.isActive,
-          uptime: this.genesisProtocol.isActive 
-            ? Date.now() - this.genesisProtocol.startTime.getTime() 
+          uptime: this.genesisProtocol.isActive
+            ? Date.now() - this.genesisProtocol.startTime.getTime()
             : 0,
-          ...this.genesisProtocol.metrics
-        })
+          ...this.genesisProtocol.metrics,
+        }),
       };
-      
+
       // Start the Genesis Protocol
       await this.genesisProtocol.start();
-      
+
       // Initialize the genesis signal
       this.genesisSignal = {
         id: 'genesis-signal-1',
@@ -1537,14 +1514,18 @@ export class DivinaL3IntegrationService extends EventEmitter {
         metadata: {
           message: 'In the beginning, there was the Word...',
           version: '1.0.0',
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       };
-      
+
       this._logger.info('Genesis Protocol integration initialized successfully');
     } catch (error) {
       this._logger.error('Error initializing Genesis Protocol integration:', error);
-      throw new DivinaL3Error('GENESIS_PROTOCOL_INIT_ERROR', 'Error initializing Genesis Protocol integration', { error });
+      throw new DivinaL3Error(
+        'GENESIS_PROTOCOL_INIT_ERROR',
+        'Error initializing Genesis Protocol integration',
+        { error }
+      );
     }
   }
 
@@ -1553,7 +1534,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
    */
   private async initializeRealTimeEngine(): Promise<void> {
     this._logger.info('Initializing real-time engine...');
-    
+
     try {
       // In a real implementation, this would be an actual RealTimeEngine instance
       // For now, we're using a mock implementation that satisfies the interface
@@ -1569,7 +1550,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
         getStatus: () => ({
           status: 'running',
           lastUpdated: new Date(),
-          metrics: {}
+          metrics: {},
         }),
         on: (event: string, listener: (...args: any[]) => void) => {
           // Mock event handling
@@ -1578,23 +1559,23 @@ export class DivinaL3IntegrationService extends EventEmitter {
         emit: (event: string, ...args: any[]) => {
           this._logger.debug(`Event emitted: ${event}`, { args });
           return true;
-        }
+        },
       };
-      
+
       this._realTimeEngine = mockEngine;
-      
+
       // Start the engine
       await this.realTimeEngine.start();
-      
+
       // Set up event listeners
       this.realTimeEngine.on('connect', (clientId: string) => {
         this._logger.info(`Client connected: ${clientId}`);
       });
-      
+
       this.realTimeEngine.on('disconnect', (clientId: string) => {
         this._logger.info(`Client disconnected: ${clientId}`);
       });
-      
+
       this._logger.info('Real-time engine initialized successfully');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -1612,7 +1593,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
    */
   private initializeGamingFeatures(): void {
     this._logger.info('Initializing gaming features...');
-    
+
     try {
       // Initialize gaming features with default configuration
       this.gamingFeatures = {
@@ -1621,33 +1602,33 @@ export class DivinaL3IntegrationService extends EventEmitter {
         multiplayer: {
           isEnabled: true,
           maxPlayers: 100,
-          activeSessions: 0
+          activeSessions: 0,
         },
         virtualEconomy: {
           currency: 'DIVI',
           exchangeRate: 1.0,
-          isActive: true
+          isActive: true,
         },
         nftMarketplace: {
           isEnabled: true,
           fee: 0.025,
-          featuredItems: []
+          featuredItems: [],
         },
         socialFeatures: {
           chat: true,
           friends: true,
-          guilds: true
+          guilds: true,
         },
         events: {
           active: [],
           upcoming: [],
-          completed: []
+          completed: [],
         },
         analytics: {
           dailyActiveUsers: 0,
           monthlyActiveUsers: 0,
-          totalTransactions: 0
-        }
+          totalTransactions: 0,
+        },
       };
 
       // Initialize the game engines
@@ -1661,7 +1642,9 @@ export class DivinaL3IntegrationService extends EventEmitter {
       this._logger.info('Gaming features initialized');
     } catch (error) {
       this.logger.error('Error initializing gaming features:', error);
-      throw new DivinaL3Error('GAMING_FEATURES_INIT_ERROR', 'Error initializing gaming features', { error });
+      throw new DivinaL3Error('GAMING_FEATURES_INIT_ERROR', 'Error initializing gaming features', {
+        error,
+      });
     }
   }
 
@@ -1670,7 +1653,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
    */
   private initializeCrossChainBridge(): void {
     this.logger.info('Initializing cross-chain bridge...');
-    
+
     try {
       // Initialize cross-chain bridge with default configuration
       this.crossChainBridge = {
@@ -1684,52 +1667,56 @@ export class DivinaL3IntegrationService extends EventEmitter {
           transactionsProcessed: 0,
           lastTransactionTime: null,
           errorCount: 0,
-          avgProcessingTime: 0
+          avgProcessingTime: 0,
         },
         start: async () => {
           this.logger.info('Starting cross-chain bridge...');
           this.crossChainBridge.status = 'starting';
-          
+
           // Simulate startup delay
           await new Promise(resolve => setTimeout(resolve, 1000));
-          
+
           this.crossChainBridge.status = 'running';
           this.crossChainBridge.isActive = true;
           this.crossChainBridge.startTime = new Date();
-          
+
           this.logger.info('Cross-chain bridge started successfully');
           return { success: true };
         },
         stop: async () => {
           this.logger.info('Stopping cross-chain bridge...');
           this.crossChainBridge.status = 'stopping';
-          
+
           // Simulate shutdown delay
           await new Promise(resolve => setTimeout(resolve, 500));
-          
+
           this.crossChainBridge.status = 'stopped';
           this.crossChainBridge.isActive = false;
-          
+
           this.logger.info('Cross-chain bridge stopped successfully');
           return { success: true };
         },
         getStatus: () => ({
           status: this.crossChainBridge.status,
           isActive: this.crossChainBridge.isActive,
-          uptime: this.crossChainBridge.isActive 
-            ? Date.now() - this.crossChainBridge.startTime.getTime() 
+          uptime: this.crossChainBridge.isActive
+            ? Date.now() - this.crossChainBridge.startTime.getTime()
             : 0,
-          ...this.crossChainBridge.metrics
-        })
+          ...this.crossChainBridge.metrics,
+        }),
       };
-      
+
       // Start the cross-chain bridge
       await this.crossChainBridge.start();
-      
+
       this.logger.info('Cross-chain bridge integration initialized successfully');
     } catch (error) {
       this.logger.error('Error initializing cross-chain bridge integration:', error);
-      throw new DivinaL3Error('CROSS_CHAIN_BRIDGE_INIT_ERROR', 'Error initializing cross-chain bridge integration', { error });
+      throw new DivinaL3Error(
+        'CROSS_CHAIN_BRIDGE_INIT_ERROR',
+        'Error initializing cross-chain bridge integration',
+        { error }
+      );
     }
   }
 
@@ -1778,7 +1765,7 @@ export class DivinaL3IntegrationService extends EventEmitter {
 
 /**
  * 🎮 Game Interface
- * 
+ *
  * Represents a game in the Divina L3 ecosystem with all its properties
  */
 interface Game {
@@ -1812,7 +1799,7 @@ interface Game {
 
 /**
  * 🌌 Quantum Signal Interface
- * 
+ *
  * Represents a quantum signal with its properties and measurements
  */
 interface QuantumSignal {
@@ -1868,7 +1855,7 @@ interface HealthCheckResponse {
 
 /**
  * 🎮 Gaming Blockchain Interface
- * 
+ *
  * Represents the L3 gaming blockchain with advanced features
  */
 export interface GamingBlockchain {
@@ -1885,7 +1872,7 @@ export interface GamingBlockchain {
 
 /**
  * 🤖 AI Service Interface
- * 
+ *
  * Unified AI service combining AthenaMist and NovaSanctum
  */
 export interface AIService {
@@ -1897,7 +1884,7 @@ export interface AIService {
 
 /**
  * 🧠 AthenaMist AI Interface
- * 
+ *
  * Behavioral pattern recognition and fraud detection
  */
 export interface AthenaMistAI {
@@ -1923,7 +1910,7 @@ export interface AthenaMistAI {
 
 /**
  * 🧬 NovaSanctum AI Interface
- * 
+ *
  * Advanced analytics and game optimization
  */
 // Service metrics interface
@@ -1952,27 +1939,26 @@ export interface NovaSanctumAI {
   unlockAchievement(playerId: string, achievementId: string, xp: number): any;
   advancePrestige(playerId: string, newLevel: number): any;
 }
-}
 
 /**
  * 🎮 Divina-L3 Integration Instance
- * 
+ *
  * Global instance of the Divina-L3 Integration Service with enhanced initialization
  */
 export const divinaL3Integration = (() => {
   const instance = new DivinaL3IntegrationService();
-  
+
   // Add global error handling
   process.on('unhandledRejection', (reason, promise) => {
     logger.error('[DivinaL3] Unhandled Rejection at:', { promise, reason });
   });
-  
-  process.on('uncaughtException', (error) => {
+
+  process.on('uncaughtException', error => {
     logger.error('[DivinaL3] Uncaught Exception:', error);
     // Perform any necessary cleanup
     process.exit(1); // Exit with error to restart the process if using PM2/forever
   });
-  
+
   // Initialize on next tick to allow for event listeners to be registered
   process.nextTick(async () => {
     try {
@@ -1983,45 +1969,47 @@ export const divinaL3Integration = (() => {
       process.exit(1);
     }
   });
-  
+
   return instance;
 })();
 
 // Add health check endpoint if running in a web server context
 if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'test') {
-  import('express').then(express => {
-    const app = express();
-    const port = process.env.HEALTH_CHECK_PORT || 3001;
-    
-    app.get('/health', (req, res) => {
-      try {
-        const status = divinaL3Integration.getDivinaL3Status();
-        res.json({
-          status: 'ok',
-          timestamp: new Date().toISOString(),
-          version: status.version,
-          uptime: status.uptime
-        });
-      } catch (error) {
-        res.status(500).json({
-          status: 'error',
-          error: 'Failed to get system status',
-          timestamp: new Date().toISOString()
-        });
-      }
+  import('express')
+    .then(express => {
+      const app = express();
+      const port = process.env.HEALTH_CHECK_PORT || 3001;
+
+      app.get('/health', (req, res) => {
+        try {
+          const status = divinaL3Integration.getDivinaL3Status();
+          res.json({
+            status: 'ok',
+            timestamp: new Date().toISOString(),
+            version: status.version,
+            uptime: status.uptime,
+          });
+        } catch (error) {
+          res.status(500).json({
+            status: 'error',
+            error: 'Failed to get system status',
+            timestamp: new Date().toISOString(),
+          });
+        }
+      });
+
+      app.listen(port, () => {
+        logger.info(`[DivinaL3] Health check server running on port ${port}`);
+      });
+    })
+    .catch(error => {
+      logger.warn('[DivinaL3] Could not start health check server:', error);
     });
-    
-    app.listen(port, () => {
-      logger.info(`[DivinaL3] Health check server running on port ${port}`);
-    });
-  }).catch(error => {
-    logger.warn('[DivinaL3] Could not start health check server:', error);
-  });
 }
 
 /**
  * 🎮 Divina-L3 Integration Export
- * 
+ *
  * Export the Divina-L3 Integration for use throughout NovaSanctum
  */
-export default DivinaL3IntegrationService; 
+export default DivinaL3IntegrationService;

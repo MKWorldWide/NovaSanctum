@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * 🌌 Quantum Gaming Dashboard
@@ -818,7 +818,7 @@ const QuantumGamingDashboard: React.FC = () => {
 
           {quantumGames.length === 0 ? (
             <p className="text-purple-200">
-              No quantum games registered yet. Click "Register New Game" to get started.
+              No quantum games registered yet. Click &quot;Register New Game&quot; to get started.
             </p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
