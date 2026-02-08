@@ -223,6 +223,10 @@ Update date: 2026-02-07
    - Initial pathway templates and source review checklist are in place.
 5. Knowledge aggregation and blueprint generation: On track (v0)
    - Local pipeline now supports discovery, ingestion, indexing, and blueprint synthesis with compliance checks.
+6. Curation governance enforcement: On track (Phase 5)
+   - Reviewed-resource workflow and blueprint quality gates are now implemented.
+7. Local institutional testing surface: On track (Phase 5)
+   - A web-based local pipeline lab is available for discovery, review, and blueprint build testing.
 
 ### 10.2 Revised readiness snapshot (current)
 

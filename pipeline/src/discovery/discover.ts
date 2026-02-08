@@ -11,11 +11,13 @@ import { arxivAdapter } from './adapters/arxivAdapter';
 import { pubmedAdapter } from './adapters/pubmedAdapter';
 import { universityCatalogAdapter } from './adapters/universityCatalogAdapter';
 import { ncbiBookshelfAdapter } from './adapters/ncbiBookshelfAdapter';
+import { governmentFinanceAdapter } from './adapters/governmentFinanceAdapter';
 
 const DEFAULT_ADAPTERS: DiscoveryAdapter[] = [
   openStaxAdapter,
   mitOcwAdapter,
   universityCatalogAdapter,
+  governmentFinanceAdapter,
   arxivAdapter,
   pubmedAdapter,
   ncbiBookshelfAdapter,
@@ -39,8 +41,10 @@ export async function discoverResources(
   });
 
   const sorted = scored.sort((a, b) => b.score - a.score);
+  const minScore = config.discovery?.minScore ?? 6;
+  const filtered = sorted.filter(item => item.score >= minScore);
   const limit = request.maxResults || 20;
-  const limited = sorted.slice(0, limit);
+  const limited = filtered.slice(0, limit);
 
   const outputPath = path.resolve(
     config.storage.discoveryDir,
@@ -56,9 +60,18 @@ function selectAdapters(request: DiscoveryRequest): DiscoveryAdapter[] {
   const isBiomedical = /(bio|medical|health|medicine|anatomy|physiology|genetics|clinical)/.test(
     subject
   );
+  const isFinance =
+    /(money|credit|finance|budget|debt|bank|investing|saving|personal finance)/.test(subject);
 
   if (isBiomedical) {
     return DEFAULT_ADAPTERS;
+  }
+
+  if (isFinance) {
+    return DEFAULT_ADAPTERS.filter(
+      adapter =>
+        adapter.name !== 'pubmed' && adapter.name !== 'ncbi-bookshelf' && adapter.name !== 'arxiv'
+    );
   }
 
   return DEFAULT_ADAPTERS.filter(

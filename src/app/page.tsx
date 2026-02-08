@@ -58,6 +58,12 @@ export default function Home() {
           >
             View Program Status
           </Link>
+          <Link
+            href="/lab"
+            className="rounded-lg border border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-900 hover:bg-emerald-100"
+          >
+            Open Pipeline Lab
+          </Link>
         </div>
       </section>
 

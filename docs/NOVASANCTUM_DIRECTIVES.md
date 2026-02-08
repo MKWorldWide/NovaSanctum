@@ -31,6 +31,10 @@ Scope: Institutional and engineering directives for current delivery phases.
 2. Require module-level citation coverage and source maps.
 3. Produce practical module outcomes, project specs, and mastery-check specs.
 4. Keep generated content summary-based; do not copy long source passages.
+5. Enforce quality gates before blueprint publication:
+   - at least 3 citations per module
+   - at least 3 reviewed citations per module
+   - required practice/mastery/project/source-map specs
 
 ## 5. Delivery and Governance Directives
 

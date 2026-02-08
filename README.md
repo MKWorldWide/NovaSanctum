@@ -103,6 +103,12 @@ Example output artifacts:
 - `/Users/sovereign/Projects/NovaSanctum/pipeline/examples/calculus-i/COURSE_BLUEPRINT.md`
 - `/Users/sovereign/Projects/NovaSanctum/pipeline/examples/calculus-i/course_blueprint.json`
 
+Local web testing interface:
+
+- Run `npm run dev`
+- Open `/lab` (http://localhost:3001/lab)
+- Default scenario is preloaded for `Money Management & Credit Wisdom`
+
 ## Governance and Policies
 
 Core policy documents:

@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import { loadConfig } from './src/shared/config';
-import { openDatabase } from './src/db/sqlite';
+import { listResources, openDatabase, updateResourceReview } from './src/db/sqlite';
 import { discoverResources } from './src/discovery/discover';
 import { ingestUrl } from './src/ingest/pipeline';
 import { buildCourseBlueprint } from './src/blueprint/generator';
 import { queryIndex } from './src/indexing/search';
 import { discoverAndOptionallyIngest } from './src/pipeline';
-import { Level } from './src/shared/types';
+import { CurationStatus, Level } from './src/shared/types';
 
 const program = new Command();
 
@@ -111,6 +111,66 @@ program
 
       console.log(`Blueprint JSON: ${result.jsonPath}`);
       console.log(`Blueprint Markdown: ${result.markdownPath}`);
+      db.close();
+    } catch (error) {
+      db.close();
+      throw error;
+    }
+  });
+
+program
+  .command('list-resources')
+  .option('--subject <subject>', 'Filter by subject text')
+  .option('--level <level>', 'Filter by level')
+  .option('--status <status>', 'Filter by curation status')
+  .option('--limit <limit>', 'Limit results', '50')
+  .action(options => {
+    const config = loadConfig();
+    const db = openDatabase(config.storage.databasePath);
+
+    try {
+      const results = listResources(db, {
+        subject: options.subject,
+        level: options.level,
+        curationStatus: options.status as CurationStatus | undefined,
+        limit: Number(options.limit),
+      });
+      console.log(JSON.stringify(results, null, 2));
+      db.close();
+    } catch (error) {
+      db.close();
+      throw error;
+    }
+  });
+
+program
+  .command('review-resource')
+  .requiredOption('--id <id>', 'Resource id')
+  .requiredOption('--reviewer <reviewer>', 'Reviewer name')
+  .requiredOption('--status <status>', 'reviewed|rejected')
+  .option('--notes <notes>', 'Review notes')
+  .action(options => {
+    const config = loadConfig();
+    const db = openDatabase(config.storage.databasePath);
+
+    try {
+      const status = options.status as CurationStatus;
+      if (status !== 'reviewed' && status !== 'rejected') {
+        throw new Error('Status must be reviewed or rejected.');
+      }
+
+      const result = updateResourceReview(db, {
+        id: options.id,
+        reviewer: options.reviewer,
+        status,
+        notes: options.notes,
+      });
+
+      if (!result) {
+        throw new Error(`Resource not found: ${options.id}`);
+      }
+
+      console.log(JSON.stringify(result, null, 2));
       db.close();
     } catch (error) {
       db.close();

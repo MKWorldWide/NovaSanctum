@@ -123,6 +123,7 @@ export async function ingestUrl(
     references: [citationSnippet],
     retrieved_at: retrievedAt,
     checksum,
+    curation_status: 'automated-discovery',
     provenance: {
       sourceUrl: url,
       retrievalDate: retrievedAt,

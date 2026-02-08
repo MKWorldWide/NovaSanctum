@@ -30,7 +30,8 @@ export function buildCourseBlueprint(
     );
   }
 
-  const modules = createModules(input.subject, input.outcomes, resources);
+  const reviewedResources = resources.filter(resource => resource.curation_status === 'reviewed');
+  const modules = createModules(input.subject, input.outcomes, reviewedResources, resources);
   const blueprint: CourseBlueprint = {
     id: `${slugify(input.subject)}-${input.level}`,
     subject: input.subject,
@@ -38,10 +39,12 @@ export function buildCourseBlueprint(
     outcomes: input.outcomes,
     prerequisites: inferPrerequisiteHints(input.subject, input.level),
     modules,
-    resourceIds: unique(modules.flatMap(module => module.citationResourceIds)),
+    resourceIds: unique(modules.flatMap(item => item.citationResourceIds)),
     generatedAt: new Date().toISOString(),
     mode: 'manual',
   };
+
+  validateBlueprintQuality(blueprint, resources);
 
   const targetDir = path.resolve(input.outputDir, slugify(input.subject));
   fs.mkdirSync(targetDir, { recursive: true });
@@ -55,17 +58,35 @@ export function buildCourseBlueprint(
   return { blueprint, markdownPath, jsonPath };
 }
 
-function createModules(subject: string, outcomes: string[], resources: Resource[]): ModuleSpec[] {
+function createModules(
+  subject: string,
+  outcomes: string[],
+  reviewedResources: Resource[],
+  allResources: Resource[]
+): ModuleSpec[] {
   const subjectLower = subject.toLowerCase();
 
   if (subjectLower.includes('calculus')) {
-    return calculusModules(resources, outcomes);
+    return calculusModules(reviewedResources, allResources, outcomes);
   }
 
-  return genericModules(subject, resources, outcomes);
+  if (
+    subjectLower.includes('money management') ||
+    subjectLower.includes('credit wisdom') ||
+    subjectLower.includes('personal finance') ||
+    subjectLower.includes('financial literacy')
+  ) {
+    return moneyManagementModules(reviewedResources, allResources, outcomes);
+  }
+
+  return genericModules(subject, reviewedResources, allResources, outcomes);
 }
 
-function calculusModules(resources: Resource[], outcomes: string[]): ModuleSpec[] {
+function calculusModules(
+  reviewedResources: Resource[],
+  allResources: Resource[],
+  outcomes: string[]
+): ModuleSpec[] {
   const moduleDefs = [
     {
       key: 'limits-continuity',
@@ -121,26 +142,74 @@ function calculusModules(resources: Resource[], outcomes: string[]): ModuleSpec[
     },
   ];
 
-  return moduleDefs.map((def, index) => {
-    const matched = matchResources(resources, def.matchTerms);
-    const citations = chooseCitations(matched, resources, 3);
-
-    return {
-      moduleId: def.key,
-      title: def.title,
-      prerequisites:
-        index === 0
-          ? ['Algebra fluency', 'Function notation', 'Graph interpretation']
-          : ['Completion of prior module milestones'],
-      objectives: [...def.objectives, ...outcomes.slice(0, 1)],
-      lessons: buildLessons(def.title, def.objectives, citations),
-      projectSpecs: def.projectSpecs,
-      citationResourceIds: citations.map(r => r.id),
-    };
-  });
+  return buildFromModuleDefs(moduleDefs, reviewedResources, allResources, outcomes);
 }
 
-function genericModules(subject: string, resources: Resource[], outcomes: string[]): ModuleSpec[] {
+function moneyManagementModules(
+  reviewedResources: Resource[],
+  allResources: Resource[],
+  outcomes: string[]
+): ModuleSpec[] {
+  const moduleDefs = [
+    {
+      key: 'budgeting-cashflow',
+      title: 'Module 1: Budgeting and Cash-Flow Discipline',
+      matchTerms: ['budget', 'cash', 'spending', 'saving', 'financial plan'],
+      objectives: [
+        'Build and maintain a realistic monthly budget.',
+        'Track income, fixed costs, and variable spending patterns.',
+        'Apply emergency-fund rules to reduce short-term financial risk.',
+      ],
+      projectSpecs: [
+        'Create a 30-day cash-flow plan with spending categories and adjustment triggers.',
+      ],
+    },
+    {
+      key: 'credit-score-reports',
+      title: 'Module 2: Credit Reports, Scores, and Healthy Utilization',
+      matchTerms: ['credit report', 'credit score', 'utilization', 'fico', 'credit history'],
+      objectives: [
+        'Interpret key components of consumer credit reports.',
+        'Explain credit score drivers and responsible utilization behavior.',
+        'Identify and dispute common reporting errors using compliant processes.',
+      ],
+      projectSpecs: [
+        'Draft a personal credit improvement plan with utilization and payment targets.',
+      ],
+    },
+    {
+      key: 'debt-strategies',
+      title: 'Module 3: Debt Strategy and Repayment Systems',
+      matchTerms: ['debt', 'interest', 'repayment', 'loan', 'apr'],
+      objectives: [
+        'Compare debt snowball and avalanche repayment strategies.',
+        'Calculate repayment impacts of APR, minimum payments, and term length.',
+        'Apply decision criteria for debt consolidation and refinancing.',
+      ],
+      projectSpecs: ['Build a debt payoff model and justify strategy selection with assumptions.'],
+    },
+    {
+      key: 'consumer-protection',
+      title: 'Module 4: Consumer Protection and Long-Term Financial Habits',
+      matchTerms: ['consumer protection', 'fraud', 'identity theft', 'rights', 'financial goals'],
+      objectives: [
+        'Identify major consumer financial rights and complaint pathways.',
+        'Apply fraud prevention and identity protection practices.',
+        'Design a 12-month habit plan for saving, credit maintenance, and risk control.',
+      ],
+      projectSpecs: ['Produce a one-year financial resilience plan with measurable milestones.'],
+    },
+  ];
+
+  return buildFromModuleDefs(moduleDefs, reviewedResources, allResources, outcomes);
+}
+
+function genericModules(
+  subject: string,
+  reviewedResources: Resource[],
+  allResources: Resource[],
+  outcomes: string[]
+): ModuleSpec[] {
   const defs = [
     {
       key: 'foundations',
@@ -165,8 +234,15 @@ function genericModules(subject: string, resources: Resource[], outcomes: string
   ];
 
   return defs.map((def, idx) => {
-    const matched = matchResources(resources, def.terms);
-    const citations = chooseCitations(matched, resources, 3);
+    const matchedReviewed = matchResources(reviewedResources, def.terms);
+    const matchedAll = matchResources(allResources, def.terms);
+    const citations = chooseCitations(
+      matchedReviewed,
+      reviewedResources,
+      matchedAll,
+      allResources,
+      3
+    );
 
     return {
       moduleId: def.key,
@@ -179,6 +255,44 @@ function genericModules(subject: string, resources: Resource[], outcomes: string
       ],
       lessons: buildLessons(def.title, outcomes, citations),
       projectSpecs: [`Complete a standards-aligned mini project for ${def.title}.`],
+      citationResourceIds: citations.map(r => r.id),
+    };
+  });
+}
+
+function buildFromModuleDefs(
+  moduleDefs: Array<{
+    key: string;
+    title: string;
+    matchTerms: string[];
+    objectives: string[];
+    projectSpecs: string[];
+  }>,
+  reviewedResources: Resource[],
+  allResources: Resource[],
+  outcomes: string[]
+): ModuleSpec[] {
+  return moduleDefs.map((def, index) => {
+    const matchedReviewed = matchResources(reviewedResources, def.matchTerms);
+    const matchedAll = matchResources(allResources, def.matchTerms);
+    const citations = chooseCitations(
+      matchedReviewed,
+      reviewedResources,
+      matchedAll,
+      allResources,
+      3
+    );
+
+    return {
+      moduleId: def.key,
+      title: def.title,
+      prerequisites:
+        index === 0
+          ? ['Baseline prerequisites for entry-level participation']
+          : ['Completion of prior module milestones'],
+      objectives: [...def.objectives, ...outcomes.slice(0, 1)],
+      lessons: buildLessons(def.title, def.objectives, citations),
+      projectSpecs: def.projectSpecs,
       citationResourceIds: citations.map(r => r.id),
     };
   });
@@ -237,8 +351,14 @@ function matchResources(resources: Resource[], terms: string[]): Resource[] {
   });
 }
 
-function chooseCitations(primary: Resource[], fallback: Resource[], count: number): Resource[] {
-  const pool = uniqueById([...primary, ...fallback]);
+function chooseCitations(
+  matchedReviewed: Resource[],
+  reviewedFallback: Resource[],
+  allMatched: Resource[],
+  allFallback: Resource[],
+  count: number
+): Resource[] {
+  const pool = uniqueById([...matchedReviewed, ...reviewedFallback, ...allMatched, ...allFallback]);
   return pool.slice(0, count);
 }
 
@@ -253,6 +373,57 @@ function uniqueById(resources: Resource[]): Resource[] {
     out.push(resource);
   }
   return out;
+}
+
+function validateBlueprintQuality(blueprint: CourseBlueprint, allResources: Resource[]): void {
+  const resourceById = new Map(allResources.map(resource => [resource.id, resource]));
+  const errors: string[] = [];
+
+  for (const moduleSpec of blueprint.modules) {
+    if (moduleSpec.objectives.length === 0) {
+      errors.push(`${moduleSpec.moduleId}: missing module objectives`);
+    }
+
+    if (moduleSpec.projectSpecs.length === 0) {
+      errors.push(`${moduleSpec.moduleId}: missing project specs`);
+    }
+
+    for (const lesson of moduleSpec.lessons) {
+      if (lesson.practiceSpecs.length === 0) {
+        errors.push(`${moduleSpec.moduleId}/${lesson.lessonId}: missing practice specs`);
+      }
+      if (lesson.masteryCheckSpecs.length === 0) {
+        errors.push(`${moduleSpec.moduleId}/${lesson.lessonId}: missing mastery check specs`);
+      }
+      if (lesson.sourceMap.length === 0) {
+        errors.push(`${moduleSpec.moduleId}/${lesson.lessonId}: missing source map`);
+      }
+    }
+
+    const citedResources = moduleSpec.citationResourceIds
+      .map(id => resourceById.get(id))
+      .filter((resource): resource is Resource => Boolean(resource));
+
+    if (citedResources.length < 3) {
+      errors.push(
+        `${moduleSpec.moduleId}: requires at least 3 citations (found ${citedResources.length})`
+      );
+      continue;
+    }
+
+    const reviewedCount = citedResources.filter(
+      resource => resource.curation_status === 'reviewed'
+    ).length;
+    if (reviewedCount < 3) {
+      errors.push(
+        `${moduleSpec.moduleId}: requires at least 3 reviewed citations (found ${reviewedCount})`
+      );
+    }
+  }
+
+  if (errors.length > 0) {
+    throw new Error(`Blueprint quality gate failed:\n- ${errors.join('\n- ')}`);
+  }
 }
 
 function renderBlueprintMarkdown(blueprint: CourseBlueprint, resources: Resource[]): string {
@@ -305,7 +476,7 @@ function renderBlueprintMarkdown(blueprint: CourseBlueprint, resources: Resource
         continue;
       }
       lines.push(
-        `- [${resource.title}](${resource.url}) - ${resource.institution}; license: ${resource.license}; access: ${resource.access}`
+        `- [${resource.title}](${resource.url}) - ${resource.institution}; license: ${resource.license}; access: ${resource.access}; curation: ${resource.curation_status}`
       );
     }
     lines.push('');

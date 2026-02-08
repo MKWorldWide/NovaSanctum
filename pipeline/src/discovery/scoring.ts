@@ -19,6 +19,12 @@ const INSTITUTION_SCORES: Record<string, number> = {
   NIH: 8,
   CDC: 8,
   NOAA: 8,
+  CFPB: 9,
+  FDIC: 9,
+  'MyMoney.gov': 8,
+  'Federal Reserve': 8,
+  'Khan Academy': 7,
+  'Investor.gov': 8,
 };
 
 const TYPE_SCORES: Record<DiscoveredResource['resourceType'], number> = {
@@ -60,6 +66,7 @@ export function scoreDiscoveryResult(
     .filter(term => term.length > 2);
   const matches = subjectTerms.filter(term => titleText.includes(term)).length;
   const subjectMatchScore = Math.min(matches * 2, 10);
+  const domainBoost = computeDomainPriorityBoost(resource.url);
 
   const levelHintScore = estimateLevelMatchScore(resource.title, request.level);
   const qualitySignals: QualitySignal[] = [
@@ -68,6 +75,7 @@ export function scoreDiscoveryResult(
     { label: 'license_openness', value: licenseScore },
     { label: 'subject_keyword_overlap', value: subjectMatchScore },
     { label: 'level_fit', value: levelHintScore },
+    { label: 'domain_priority_boost', value: domainBoost },
   ];
 
   const score =
@@ -75,7 +83,8 @@ export function scoreDiscoveryResult(
     typeScore * 0.25 +
     licenseScore * 0.2 +
     subjectMatchScore * 0.15 +
-    levelHintScore * 0.1;
+    levelHintScore * 0.1 +
+    domainBoost;
 
   const rationale =
     `Matched ${matches} subject terms; scored strongly for ${resource.institution} ` +
@@ -86,6 +95,24 @@ export function scoreDiscoveryResult(
     qualitySignals,
     relevanceRationale: rationale,
   };
+}
+
+function computeDomainPriorityBoost(url: string): number {
+  const host = new URL(url).hostname.toLowerCase();
+  if (
+    host.includes('ocw.mit.edu') ||
+    host.includes('openstax.org') ||
+    host.includes('consumerfinance.gov') ||
+    host.includes('fdic.gov') ||
+    host.includes('federalreserve') ||
+    host.includes('mymoney.gov')
+  ) {
+    return 0.6;
+  }
+  if (host.includes('arxiv.org') || host.includes('ncbi.nlm.nih.gov') || host.includes('pubmed')) {
+    return 0.35;
+  }
+  return 0;
 }
 
 function estimateLevelMatchScore(title: string, level: DiscoveryRequest['level']): number {

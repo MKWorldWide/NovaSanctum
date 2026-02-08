@@ -23,7 +23,12 @@
     "cdc.gov",
     "noaa.gov",
     "khanacademy.org",
-    "open.edu"
+    "open.edu",
+    "consumerfinance.gov",
+    "fdic.gov",
+    "federalreserve.gov",
+    "mymoney.gov",
+    "investor.gov"
   ],
   "blockedDomains": [
     "linkedin.com",
@@ -38,6 +43,9 @@
   "userAgent": "NovaSanctumBot/0.1 (+https://github.com/MKWorldWide/NovaSanctum)",
   "rateLimit": {
     "requestsPerDomainPerMinute": 20
+  },
+  "discovery": {
+    "minScore": 6.2
   },
   "storage": {
     "databasePath": "pipeline/data/index/novasanctum_resources.sqlite",

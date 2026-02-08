@@ -13,6 +13,8 @@ Local-first knowledge aggregation and curriculum synthesis pipeline for NovaSanc
 ```bash
 npm run pipeline:discover -- --subject "Calculus I" --level undergrad
 npm run pipeline:ingest -- --url "https://openstax.org/details/books/calculus-volume-1" --subject "Calculus I" --level undergrad
+npm run pipeline:list -- --subject "Calculus I" --level undergrad --status automated-discovery
+npm run pipeline:review -- --id "<resource-id>" --reviewer "Program Lead" --status reviewed --notes "validated source quality"
 npm run pipeline:build-blueprint -- --subject "Calculus I" --level undergrad --outcomes "Differentiate core functions,Solve optimization problems,Apply definite integrals"
 npm run pipeline:search -- --query "eigenvalues textbook chapter" --limit 5
 ```
@@ -42,3 +44,11 @@ npm run pipeline:search -- --query "eigenvalues textbook chapter" --limit 5
 - `paid`: platform-managed API usage with caching/guardrails.
 
 See `/Users/sovereign/Projects/NovaSanctum/pipeline/src/generation/interface.ts`.
+
+## Quality Gates
+
+Blueprint generation enforces:
+
+1. Minimum 3 citations per module.
+2. Minimum 3 `reviewed` citations per module.
+3. Presence of module objectives, project specs, lesson practice specs, mastery specs, and source maps.

@@ -22,7 +22,7 @@ export function sanitizeFilename(name: string): string {
 }
 
 export function unique<T>(items: T[]): T[] {
-  return [...new Set(items)];
+  return Array.from(new Set(items));
 }
 
 export function normalizeWhitespace(value: string): string {

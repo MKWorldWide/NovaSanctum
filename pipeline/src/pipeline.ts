@@ -10,11 +10,13 @@ export async function discoverAndOptionallyIngest(
   ingestTop = 0
 ): Promise<{ discovered: DiscoveredResource[]; ingestedCount: number; skippedCount: number }> {
   const discovered = await discoverResources(request, config);
+  const minScore = config.discovery?.minScore ?? 6;
+  const ingestable = discovered.filter(resource => resource.score >= minScore);
 
   let ingestedCount = 0;
   let skippedCount = 0;
 
-  for (const resource of discovered.slice(0, Math.max(ingestTop, 0))) {
+  for (const resource of ingestable.slice(0, Math.max(ingestTop, 0))) {
     const result = await ingestUrl(db, config, resource.url, {
       subject: request.subject,
       level: request.level,

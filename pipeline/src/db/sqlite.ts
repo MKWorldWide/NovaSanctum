@@ -1,5 +1,5 @@
 import Database from 'better-sqlite3';
-import { Resource } from '../shared/types';
+import { CurationStatus, Resource } from '../shared/types';
 
 export function openDatabase(dbPath: string): Database.Database {
   const db = new Database(dbPath);
@@ -26,6 +26,10 @@ function initializeSchema(db: Database.Database): void {
       references_json TEXT NOT NULL,
       retrieved_at TEXT NOT NULL,
       checksum TEXT NOT NULL UNIQUE,
+      curation_status TEXT NOT NULL DEFAULT 'automated-discovery',
+      reviewed_by TEXT,
+      reviewed_at TEXT,
+      review_notes TEXT,
       provenance_json TEXT NOT NULL,
       extracted_text TEXT NOT NULL,
       created_at TEXT NOT NULL
@@ -45,6 +49,32 @@ function initializeSchema(db: Database.Database): void {
     CREATE INDEX IF NOT EXISTS idx_resources_type ON resources(type);
     CREATE INDEX IF NOT EXISTS idx_resources_checksum ON resources(checksum);
   `);
+
+  ensureColumn(db, 'resources', 'curation_status', "TEXT NOT NULL DEFAULT 'automated-discovery'");
+  ensureColumn(db, 'resources', 'reviewed_by', 'TEXT');
+  ensureColumn(db, 'resources', 'reviewed_at', 'TEXT');
+  ensureColumn(db, 'resources', 'review_notes', 'TEXT');
+
+  db.prepare(
+    "UPDATE resources SET curation_status = 'automated-discovery' WHERE curation_status IS NULL"
+  ).run();
+  db.exec(
+    'CREATE INDEX IF NOT EXISTS idx_resources_curation_status ON resources(curation_status);'
+  );
+}
+
+function ensureColumn(
+  db: Database.Database,
+  tableName: string,
+  columnName: string,
+  definition: string
+): void {
+  const columns = db.prepare(`PRAGMA table_info(${tableName})`).all() as Array<{ name: string }>;
+
+  const exists = columns.some(column => column.name === columnName);
+  if (!exists) {
+    db.prepare(`ALTER TABLE ${tableName} ADD COLUMN ${columnName} ${definition}`).run();
+  }
 }
 
 export function upsertResource(
@@ -56,11 +86,13 @@ export function upsertResource(
     INSERT INTO resources (
       id, title, creators_json, institution, url, type, license, access,
       topic_tags_json, level, extracted_text_path, pdf_path, references_json,
-      retrieved_at, checksum, provenance_json, extracted_text, created_at
+      retrieved_at, checksum, curation_status, reviewed_by, reviewed_at, review_notes,
+      provenance_json, extracted_text, created_at
     ) VALUES (
       @id, @title, @creators_json, @institution, @url, @type, @license, @access,
       @topic_tags_json, @level, @extracted_text_path, @pdf_path, @references_json,
-      @retrieved_at, @checksum, @provenance_json, @extracted_text, @created_at
+      @retrieved_at, @checksum, @curation_status, @reviewed_by, @reviewed_at, @review_notes,
+      @provenance_json, @extracted_text, @created_at
     )
     ON CONFLICT(checksum) DO UPDATE SET
       title=excluded.title,
@@ -76,6 +108,7 @@ export function upsertResource(
       pdf_path=excluded.pdf_path,
       references_json=excluded.references_json,
       retrieved_at=excluded.retrieved_at,
+      curation_status=excluded.curation_status,
       provenance_json=excluded.provenance_json,
       extracted_text=excluded.extracted_text
   `);
@@ -96,6 +129,10 @@ export function upsertResource(
     references_json: JSON.stringify(resource.references),
     retrieved_at: resource.retrieved_at,
     checksum: resource.checksum,
+    curation_status: resource.curation_status,
+    reviewed_by: resource.reviewed_by || null,
+    reviewed_at: resource.reviewed_at || null,
+    review_notes: resource.review_notes || null,
     provenance_json: JSON.stringify(resource.provenance),
     extracted_text: extractedText,
     created_at: new Date().toISOString(),
@@ -116,6 +153,37 @@ export function upsertResource(
     resource.topic_tags.join(', '),
     extractedText
   );
+}
+
+export function updateResourceReview(
+  db: Database.Database,
+  params: {
+    id: string;
+    status: CurationStatus;
+    reviewer: string;
+    notes?: string;
+  }
+): Resource | null {
+  const now = new Date().toISOString();
+  db.prepare(
+    `
+    UPDATE resources
+    SET curation_status = ?,
+        reviewed_by = ?,
+        reviewed_at = ?,
+        review_notes = ?
+    WHERE id = ?
+  `
+  ).run(params.status, params.reviewer, now, params.notes || null, params.id);
+
+  return getResourceById(db, params.id);
+}
+
+export function getResourceById(db: Database.Database, id: string): Resource | null {
+  const row = db.prepare('SELECT * FROM resources WHERE id = ? LIMIT 1').get(id) as
+    | Record<string, unknown>
+    | undefined;
+  return row ? rowToResource(row) : null;
 }
 
 export function findByChecksum(db: Database.Database, checksum: string): Resource | null {
@@ -149,32 +217,58 @@ export function searchResources(db: Database.Database, query: string, limit = 10
 export function listResourcesBySubject(
   db: Database.Database,
   subject: string,
-  level?: string
+  level?: string,
+  curationStatus?: CurationStatus
 ): Resource[] {
-  const like = `%${subject.toLowerCase()}%`;
+  return listResources(db, {
+    subject,
+    level,
+    curationStatus,
+  });
+}
 
-  const rows = level
-    ? (db
-        .prepare(
-          `
-          SELECT *
-          FROM resources
-          WHERE (lower(title) LIKE ? OR lower(topic_tags_json) LIKE ?)
-            AND level = ?
-          ORDER BY retrieved_at DESC
-        `
-        )
-        .all(like, like, level) as Record<string, unknown>[])
-    : (db
-        .prepare(
-          `
-          SELECT *
-          FROM resources
-          WHERE lower(title) LIKE ? OR lower(topic_tags_json) LIKE ?
-          ORDER BY retrieved_at DESC
-        `
-        )
-        .all(like, like) as Record<string, unknown>[]);
+export function listResources(
+  db: Database.Database,
+  filters: {
+    subject?: string;
+    level?: string;
+    curationStatus?: CurationStatus;
+    limit?: number;
+  } = {}
+): Resource[] {
+  const clauses: string[] = [];
+  const values: Array<string | number> = [];
+
+  if (filters.subject) {
+    clauses.push('(lower(title) LIKE ? OR lower(topic_tags_json) LIKE ?)');
+    const like = `%${filters.subject.toLowerCase()}%`;
+    values.push(like, like);
+  }
+
+  if (filters.level) {
+    clauses.push('level = ?');
+    values.push(filters.level);
+  }
+
+  if (filters.curationStatus) {
+    clauses.push('curation_status = ?');
+    values.push(filters.curationStatus);
+  }
+
+  const where = clauses.length ? `WHERE ${clauses.join(' AND ')}` : '';
+  const limit = filters.limit ?? 100;
+
+  const rows = db
+    .prepare(
+      `
+      SELECT *
+      FROM resources
+      ${where}
+      ORDER BY retrieved_at DESC
+      LIMIT ?
+    `
+    )
+    .all(...values, limit) as Record<string, unknown>[];
 
   return rows.map(rowToResource);
 }
@@ -196,6 +290,10 @@ function rowToResource(row: Record<string, unknown>): Resource {
     references: JSON.parse(String(row.references_json)),
     retrieved_at: String(row.retrieved_at),
     checksum: String(row.checksum),
+    curation_status: (row.curation_status as CurationStatus) || 'automated-discovery',
+    reviewed_by: row.reviewed_by ? String(row.reviewed_by) : undefined,
+    reviewed_at: row.reviewed_at ? String(row.reviewed_at) : undefined,
+    review_notes: row.review_notes ? String(row.review_notes) : undefined,
     provenance: JSON.parse(String(row.provenance_json)),
   };
 }

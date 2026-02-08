@@ -16,6 +16,8 @@
     "pipeline:ingest": "tsx pipeline/cli.ts ingest",
     "pipeline:build-blueprint": "tsx pipeline/cli.ts build-blueprint",
     "pipeline:search": "tsx pipeline/cli.ts search-index",
+    "pipeline:list": "tsx pipeline/cli.ts list-resources",
+    "pipeline:review": "tsx pipeline/cli.ts review-resource",
     "pipeline:type-check": "tsc --noEmit -p pipeline/tsconfig.json"
   },
   "dependencies": {

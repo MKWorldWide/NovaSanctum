@@ -1,0 +1,351 @@
+{
+  "id": "money-management-credit-wisdom-high-school",
+  "subject": "Money Management & Credit Wisdom",
+  "level": "high-school",
+  "outcomes": [
+    "Build monthly budgets",
+    "Improve credit utilization",
+    "Plan debt repayment",
+    "Use consumer-protection pathways"
+  ],
+  "prerequisites": ["Foundational literacy in the subject area"],
+  "modules": [
+    {
+      "moduleId": "budgeting-cashflow",
+      "title": "Module 1: Budgeting and Cash-Flow Discipline",
+      "prerequisites": ["Baseline prerequisites for entry-level participation"],
+      "objectives": [
+        "Build and maintain a realistic monthly budget.",
+        "Track income, fixed costs, and variable spending patterns.",
+        "Apply emergency-fund rules to reduce short-term financial risk.",
+        "Build monthly budgets"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-1-budgeting-and-cash-flow-discipline-lesson-1",
+          "title": "Module 1: Budgeting and Cash-Flow Discipline - Conceptual Grounding",
+          "objectives": [
+            "Build and maintain a realistic monthly budget.",
+            "Track income, fixed costs, and variable spending patterns."
+          ],
+          "recommendedResourceIds": [
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-1-budgeting-and-cash-flow-discipline-lesson-2",
+          "title": "Module 1: Budgeting and Cash-Flow Discipline - Problem Solving and Application",
+          "objectives": [
+            "Track income, fixed costs, and variable spending patterns.",
+            "Apply emergency-fund rules to reduce short-term financial risk."
+          ],
+          "recommendedResourceIds": [
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": [
+        "Create a 30-day cash-flow plan with spending categories and adjustment triggers."
+      ],
+      "citationResourceIds": [
+        "www-mymoney-gov-a5aac5d150311318",
+        "www-consumerfinance-gov-bef243f8af3d6d91",
+        "www-fdic-gov-a279ecda123cd7e2"
+      ]
+    },
+    {
+      "moduleId": "credit-score-reports",
+      "title": "Module 2: Credit Reports, Scores, and Healthy Utilization",
+      "prerequisites": ["Completion of prior module milestones"],
+      "objectives": [
+        "Interpret key components of consumer credit reports.",
+        "Explain credit score drivers and responsible utilization behavior.",
+        "Identify and dispute common reporting errors using compliant processes.",
+        "Build monthly budgets"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-2-credit-reports-scores-and-healthy-utilization-lesson-1",
+          "title": "Module 2: Credit Reports, Scores, and Healthy Utilization - Conceptual Grounding",
+          "objectives": [
+            "Interpret key components of consumer credit reports.",
+            "Explain credit score drivers and responsible utilization behavior."
+          ],
+          "recommendedResourceIds": [
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-2-credit-reports-scores-and-healthy-utilization-lesson-2",
+          "title": "Module 2: Credit Reports, Scores, and Healthy Utilization - Problem Solving and Application",
+          "objectives": [
+            "Explain credit score drivers and responsible utilization behavior.",
+            "Identify and dispute common reporting errors using compliant processes."
+          ],
+          "recommendedResourceIds": [
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": [
+        "Draft a personal credit improvement plan with utilization and payment targets."
+      ],
+      "citationResourceIds": [
+        "www-consumerfinance-gov-bef243f8af3d6d91",
+        "www-mymoney-gov-a5aac5d150311318",
+        "www-fdic-gov-a279ecda123cd7e2"
+      ]
+    },
+    {
+      "moduleId": "debt-strategies",
+      "title": "Module 3: Debt Strategy and Repayment Systems",
+      "prerequisites": ["Completion of prior module milestones"],
+      "objectives": [
+        "Compare debt snowball and avalanche repayment strategies.",
+        "Calculate repayment impacts of APR, minimum payments, and term length.",
+        "Apply decision criteria for debt consolidation and refinancing.",
+        "Build monthly budgets"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-3-debt-strategy-and-repayment-systems-lesson-1",
+          "title": "Module 3: Debt Strategy and Repayment Systems - Conceptual Grounding",
+          "objectives": [
+            "Compare debt snowball and avalanche repayment strategies.",
+            "Calculate repayment impacts of APR, minimum payments, and term length."
+          ],
+          "recommendedResourceIds": [
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-3-debt-strategy-and-repayment-systems-lesson-2",
+          "title": "Module 3: Debt Strategy and Repayment Systems - Problem Solving and Application",
+          "objectives": [
+            "Calculate repayment impacts of APR, minimum payments, and term length.",
+            "Apply decision criteria for debt consolidation and refinancing."
+          ],
+          "recommendedResourceIds": [
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": [
+        "Build a debt payoff model and justify strategy selection with assumptions."
+      ],
+      "citationResourceIds": [
+        "www-mymoney-gov-a5aac5d150311318",
+        "www-consumerfinance-gov-bef243f8af3d6d91",
+        "www-fdic-gov-a279ecda123cd7e2"
+      ]
+    },
+    {
+      "moduleId": "consumer-protection",
+      "title": "Module 4: Consumer Protection and Long-Term Financial Habits",
+      "prerequisites": ["Completion of prior module milestones"],
+      "objectives": [
+        "Identify major consumer financial rights and complaint pathways.",
+        "Apply fraud prevention and identity protection practices.",
+        "Design a 12-month habit plan for saving, credit maintenance, and risk control.",
+        "Build monthly budgets"
+      ],
+      "lessons": [
+        {
+          "lessonId": "module-4-consumer-protection-and-long-term-financial-habits-lesson-1",
+          "title": "Module 4: Consumer Protection and Long-Term Financial Habits - Conceptual Grounding",
+          "objectives": [
+            "Identify major consumer financial rights and complaint pathways.",
+            "Apply fraud prevention and identity protection practices."
+          ],
+          "recommendedResourceIds": [
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Short-form concept checks mapped to learning objectives.",
+            "Worked example deconstruction exercise."
+          ],
+          "masteryCheckSpecs": [
+            "2 conceptual prompts requiring explanation of reasoning.",
+            "1 procedural prompt requiring step-by-step method."
+          ],
+          "sourceMap": [
+            {
+              "section": "Concept explanation",
+              "resourceIds": [
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        },
+        {
+          "lessonId": "module-4-consumer-protection-and-long-term-financial-habits-lesson-2",
+          "title": "Module 4: Consumer Protection and Long-Term Financial Habits - Problem Solving and Application",
+          "objectives": [
+            "Apply fraud prevention and identity protection practices.",
+            "Design a 12-month habit plan for saving, credit maintenance, and risk control."
+          ],
+          "recommendedResourceIds": [
+            "www-mymoney-gov-a5aac5d150311318",
+            "www-consumerfinance-gov-bef243f8af3d6d91",
+            "www-fdic-gov-a279ecda123cd7e2"
+          ],
+          "practiceSpecs": [
+            "Guided problem set with increasing difficulty.",
+            "Reflection checkpoint connecting methods to outcomes."
+          ],
+          "masteryCheckSpecs": [
+            "1 applied scenario requiring method selection and justification.",
+            "Rubric-based self-assessment against module objectives."
+          ],
+          "sourceMap": [
+            {
+              "section": "Applied walkthrough",
+              "resourceIds": [
+                "www-mymoney-gov-a5aac5d150311318",
+                "www-consumerfinance-gov-bef243f8af3d6d91",
+                "www-fdic-gov-a279ecda123cd7e2"
+              ]
+            }
+          ]
+        }
+      ],
+      "projectSpecs": ["Produce a one-year financial resilience plan with measurable milestones."],
+      "citationResourceIds": [
+        "www-mymoney-gov-a5aac5d150311318",
+        "www-consumerfinance-gov-bef243f8af3d6d91",
+        "www-fdic-gov-a279ecda123cd7e2"
+      ]
+    }
+  ],
+  "resourceIds": [
+    "www-mymoney-gov-a5aac5d150311318",
+    "www-consumerfinance-gov-bef243f8af3d6d91",
+    "www-fdic-gov-a279ecda123cd7e2"
+  ],
+  "generatedAt": "2026-02-08T00:10:40.737Z",
+  "mode": "manual"
+}

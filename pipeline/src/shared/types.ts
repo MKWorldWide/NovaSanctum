@@ -22,6 +22,7 @@ export type LicenseType =
   | 'Proprietary';
 
 export type Level = 'middle-school' | 'high-school' | 'undergrad' | 'grad';
+export type CurationStatus = 'automated-discovery' | 'reviewed' | 'rejected';
 
 export interface DiscoveryRequest {
   subject: string;
@@ -73,6 +74,10 @@ export interface Resource {
   references: string[];
   retrieved_at: string;
   checksum: string;
+  curation_status: CurationStatus;
+  reviewed_by?: string;
+  reviewed_at?: string;
+  review_notes?: string;
   provenance: ProvenanceRecord;
 }
 
@@ -118,6 +123,9 @@ export interface PipelineConfig {
   userAgent: string;
   rateLimit: {
     requestsPerDomainPerMinute: number;
+  };
+  discovery: {
+    minScore: number;
   };
   storage: {
     databasePath: string;
