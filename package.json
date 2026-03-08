@@ -10,7 +10,7 @@
     "lint": "eslint src/app src/providers src/services/search src/components/ResourceNavigator.tsx src/components/StatusAlert.tsx src/components/StatusToast.tsx",
     "lint:fix": "eslint --ext .js,.jsx,.ts,.tsx --fix src",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,json,yml,yaml,css,scss}\"",
-    "type-check": "tsc --noEmit -p tsconfig.json",
+    "type-check": "tsc --noEmit --incremental false -p tsconfig.json",
     "prepare": "husky install",
     "pipeline:discover": "tsx pipeline/cli.ts discover",
     "pipeline:ingest": "tsx pipeline/cli.ts ingest",
@@ -18,7 +18,7 @@
     "pipeline:search": "tsx pipeline/cli.ts search-index",
     "pipeline:list": "tsx pipeline/cli.ts list-resources",
     "pipeline:review": "tsx pipeline/cli.ts review-resource",
-    "pipeline:type-check": "tsc --noEmit -p pipeline/tsconfig.json"
+    "pipeline:type-check": "tsc --noEmit --incremental false -p pipeline/tsconfig.json"
   },
   "dependencies": {
     "@mozilla/readability": "^0.6.0",

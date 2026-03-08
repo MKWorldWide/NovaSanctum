@@ -114,6 +114,7 @@ Adaptive learner demo (no login):
 - Open `/learn` (http://localhost:3001/learn)
 - Create a local learner profile with preferences
 - Generate adaptive plans and lesson chunks
+- Optionally use BYO model key for generated lessons (session-only default, encrypted device storage optional)
 - Submit mastery checks and use local privacy controls (`export`, `reset`, `delete`)
 
 New API surfaces (local-first adaptive flow):

@@ -1,6 +1,12 @@
 'use client';
 
 import { FormEvent, useEffect, useMemo, useState } from 'react';
+import {
+  clearSavedByoKey,
+  hasSavedByoKey,
+  loadEncryptedByoKey,
+  saveEncryptedByoKey,
+} from '@/services/learning/keyVault';
 
 type LearnerProfile = {
   profileId: string;
@@ -84,6 +90,9 @@ export default function LearnPage() {
     estimatedWeeks: number;
   } | null>(null);
   const [byoApiKey, setByoApiKey] = useState('');
+  const [rememberKey, setRememberKey] = useState(false);
+  const [keyPassphrase, setKeyPassphrase] = useState('');
+  const [hasSavedKey, setHasSavedKey] = useState(false);
   const [activeLesson, setActiveLesson] = useState<GeneratedLesson | null>(null);
   const [activeChunkId, setActiveChunkId] = useState<string | null>(null);
   const [quizAnswers, setQuizAnswers] = useState<Record<number, string>>({});
@@ -114,6 +123,10 @@ export default function LearnPage() {
         .filter(Boolean),
     [planGoalsText]
   );
+
+  useEffect(() => {
+    setHasSavedKey(hasSavedByoKey());
+  }, []);
 
   useEffect(() => {
     const profileId = window.localStorage.getItem(PROFILE_KEY);
@@ -251,10 +264,24 @@ export default function LearnPage() {
           ? `Lesson generated with manual fallback: ${payload.fallbackReason || 'model validation block'}`
           : `Lesson generated in ${payload.modeUsed} mode.`
       );
+      if (rememberKey && byoApiKey.trim() && keyPassphrase.trim()) {
+        await saveEncryptedByoKey(byoApiKey.trim(), keyPassphrase.trim());
+        setHasSavedKey(true);
+      }
     } catch (error: unknown) {
       setMessage(error instanceof Error ? error.message : 'Lesson generation failed.');
     } finally {
       setBusy(false);
+    }
+  }
+
+  async function unlockSavedKey() {
+    try {
+      const key = await loadEncryptedByoKey(keyPassphrase.trim());
+      setByoApiKey(key);
+      setMessage('Saved API key unlocked for this session.');
+    } catch (error: unknown) {
+      setMessage(error instanceof Error ? error.message : 'Could not unlock saved key.');
     }
   }
 
@@ -535,6 +562,44 @@ export default function LearnPage() {
                 placeholder="sk-..."
               />
             </label>
+            <label className="inline-flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={rememberKey}
+                onChange={event => setRememberKey(event.target.checked)}
+              />
+              Encrypt and remember key on this device
+            </label>
+            <label className="block text-sm">
+              Key passphrase (required to save/unlock)
+              <input
+                className="mt-1 w-full rounded border border-slate-300 px-3 py-2"
+                type="password"
+                value={keyPassphrase}
+                onChange={event => setKeyPassphrase(event.target.value)}
+              />
+            </label>
+            <div className="flex flex-wrap gap-2 text-xs">
+              <button
+                type="button"
+                onClick={() => void unlockSavedKey()}
+                disabled={!hasSavedKey || !keyPassphrase.trim()}
+                className="rounded border border-slate-300 bg-white px-2 py-1 disabled:opacity-50"
+              >
+                Unlock saved key
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  clearSavedByoKey();
+                  setHasSavedKey(false);
+                  setMessage('Saved key removed from this device.');
+                }}
+                className="rounded border border-red-300 bg-red-50 px-2 py-1 text-red-900"
+              >
+                Clear saved key
+              </button>
+            </div>
           </form>
 
           <div className="mt-5 flex flex-wrap gap-2 text-sm">

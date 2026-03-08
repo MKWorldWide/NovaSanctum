@@ -33,6 +33,9 @@ jobs:
       - name: Type check
         run: npm run type-check
 
+      - name: Pipeline type check
+        run: npm run pipeline:type-check
+
       - name: Build
         run: npm run build
         env:
