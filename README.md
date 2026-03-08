@@ -109,6 +109,24 @@ Local web testing interface:
 - Open `/lab` (http://localhost:3001/lab)
 - Default scenario is preloaded for `Money Management & Credit Wisdom`
 
+Adaptive learner demo (no login):
+
+- Open `/learn` (http://localhost:3001/learn)
+- Create a local learner profile with preferences
+- Generate adaptive plans and lesson chunks
+- Submit mastery checks and use local privacy controls (`export`, `reset`, `delete`)
+
+New API surfaces (local-first adaptive flow):
+
+- `POST /api/learner/init`
+- `GET /api/learner/profile?profileId=...`
+- `POST /api/learning-plan/generate`
+- `POST /api/lesson/generate`
+- `POST /api/lesson/submit`
+- `POST /api/privacy/export`
+- `POST /api/privacy/reset`
+- `POST /api/privacy/delete`
+
 ## Governance and Policies
 
 Core policy documents:

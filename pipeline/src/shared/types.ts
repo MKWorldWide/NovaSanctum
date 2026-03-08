@@ -89,6 +89,10 @@ export interface LessonSpec {
   practiceSpecs: string[];
   masteryCheckSpecs: string[];
   sourceMap: Array<{ section: string; resourceIds: string[] }>;
+  estimatedMinutes?: number;
+  difficulty?: 'supportive' | 'balanced' | 'challenging';
+  chunkMode?: 'micro' | 'standard' | 'deep';
+  adaptationReason?: string;
 }
 
 export interface ModuleSpec {
@@ -111,6 +115,11 @@ export interface CourseBlueprint {
   resourceIds: string[];
   generatedAt: string;
   mode: 'manual';
+  adaptivePlan?: {
+    chunkMode: 'micro' | 'standard' | 'deep';
+    targetMinutes: number;
+    difficultyLevel: 'supportive' | 'balanced' | 'challenging';
+  };
 }
 
 export type GenerationMode = 'manual' | 'byo-key' | 'paid';
